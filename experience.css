@@ -3,3 +3,6 @@
 @media(max-width:700px){main{padding:20px 16px}.experience-layout{display:block}.experience-copy{display:none}.phone{border:0;border-radius:0;box-shadow:none;min-height:0;padding:0;background:transparent}.phone-status,.phone-brand{display:none}.phone-content{padding:0}.phone h2{font-size:28px}.phone-nav{flex-wrap:nowrap}.phone-nav button{min-height:48px;font-size:12px}.mobile-switch{display:flex;gap:8px;margin-bottom:20px}.mobile-switch button{flex:1;font-size:12px;padding:10px}.show-source .experience-copy{display:block}.show-source .phone{display:none}.experience-steps{flex-wrap:wrap}.experience-steps button{font-size:12px}.sheet{padding:12px}.sheet table{font-size:11px}.sheet td{padding:10px 7px}.site-header{padding:18px 16px;gap:12px}.site-header .brand-mark,.demo-label{display:none}.site-header nav{flex-wrap:wrap;gap:18px}.site-header nav a{font-size:12px}h1{font-size:34px}.intro{font-size:20px}.phone .help .mascot{flex-shrink:0}}
 
 .session-controls{display:flex;gap:12px;margin:0 0 20px}.session-controls button{font-size:12px}.data-copy{max-width:180px}
+
+/* Evita el zoom por foco en formularios de Safari iOS. */
+@media(max-width:700px){.phone input,.phone select{font-size:16px}}
