@@ -30,6 +30,9 @@ jobs:
           mkdir -p _site/assets
           cp index.html styles.css app.js domain.js _site/
           cp assets/mascota-poses.png _site/assets/
+          mkdir -p _site/muestra-mapeo _site/mapeo-v1
+          cp preview/muestra-mapeo/index.html preview/muestra-mapeo/excel-continuo.png _site/muestra-mapeo/
+          cp preview/mapeo/Henris-mapeo-vista-previa.html _site/mapeo-v1/index.html
           touch _site/.nojekyll
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
@@ -40,3 +43,13 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Install verification tools
+        run: |
+          npm ci --no-audit --no-fund
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "HENRIS_BROWSER_EXECUTABLE=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Verify published preview and preserved versions
+        run: node preview/muestra-mapeo/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
