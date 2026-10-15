@@ -10,7 +10,7 @@ async function addDemo(page) {
   await page.getByLabel('Precio unitario ($)', { exact: true }).nth(1).fill('35000');
   await page.getByRole('button', { name: 'Crear pedido →', exact: true }).click();
 }
-test.beforeEach(async ({ page }) => { await page.goto('/'); });
+test.beforeEach(async ({ page }) => { await page.goto('/legacy.html'); });
 
 test('recorrido completo, pausa real, repetición, mapeo y controles', async ({ page }) => {
   const errors = []; page.on('pageerror', e => errors.push(e.message));
@@ -96,21 +96,21 @@ test('390 px / escritorio, teclado, sin desbordamiento ni errores de consola', a
   await page.keyboard.press('Tab'); await expect(page.getByRole('link', { name: 'Ir al contenido', exact: true })).toBeFocused();
   await page.keyboard.press('Enter'); await expect(page.locator('main')).toBeFocused();
   for (const route of ['inicio', 'transformacion', 'mapeo', 'simulador', 'resultado']) {
-    await page.goto('/#' + route);
+    await page.goto('/legacy.html#' + route);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), route).toBe(true);
     await expect(page.locator('h1')).toBeVisible();
   }
-  await page.goto('/#simulador'); await addDemo(page);
+  await page.goto('/legacy.html#simulador'); await addDemo(page);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.screenshot({ path: `test-results/${testInfo.project.name}-simulator.png`, fullPage: true });
-  await page.goto('/'); await page.screenshot({ path: `test-results/${testInfo.project.name}-home.png`, fullPage: true });
+  await page.goto('/legacy.html'); await page.screenshot({ path: `test-results/${testInfo.project.name}-home.png`, fullPage: true });
   expect(errors).toEqual([]);
 });
 
 test('movimiento reducido, almacenamiento corrupto y texto seguro', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/#transformacion'); await expect(page.getByLabel('Sin movimiento', { exact: true })).toBeChecked(); await expect(page.locator('#sequence-status')).toContainText('4/4');
-  await page.evaluate(() => localStorage.setItem('henris-gallery-v1', '{broken')); await page.goto('/#simulador'); await page.reload();
+  await page.goto('/legacy.html#transformacion'); await expect(page.getByLabel('Sin movimiento', { exact: true })).toBeChecked(); await expect(page.locator('#sequence-status')).toContainText('4/4');
+  await page.evaluate(() => localStorage.setItem('henris-gallery-v1', '{broken')); await page.goto('/legacy.html#simulador'); await page.reload();
   await expect(page.getByText(/No pudimos recuperar/)).toBeVisible();
   await page.getByLabel('Cliente ficticio').fill('<img src=x onerror=alert(1)>');
   await page.getByLabel('Nombre de la obra').fill('<script>window.bad=true</script>');
@@ -124,9 +124,9 @@ test('movimiento reducido, almacenamiento corrupto y texto seguro', async ({ pag
 test('Canvas: canales, estados independientes y mascota disponible', async ({ page }) => {
   const asset = await page.request.get('/assets/mascota-poses.png'); expect(asset.status()).toBe(200); expect(asset.headers()['content-type']).toBe('image/png');
   await expect(page.getByRole('img', { name: 'Mascota de Henris Gallery · presentación con micrófono', exact: true })).toBeVisible();
-  await page.goto('/#mapeo');
+  await page.goto('/legacy.html#mapeo');
   for (const source of ['Teléfono', 'DNI / CUIL', 'Código / #Art', 'Medidas', 'Borde blanco / Passe-partout', 'Seña', 'Fecha del pago']) await expect(page.getByRole('button', { name: source + ' ↗', exact: true })).toBeVisible();
-  await page.goto('/#transformacion');
+  await page.goto('/legacy.html#transformacion');
   const ids = await page.locator('[data-side=destination]').evaluateAll(nodes => nodes.map(n => n.dataset.field));
   expect(ids.length).toBe(19);
   for (const id of ids) {
@@ -134,18 +134,18 @@ test('Canvas: canales, estados independientes y mascota disponible', async ({ pa
     await expect(page.locator(`[data-field="${id}"][data-side=destination]`)).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('[data-side=destination].selected')).toHaveCount(1);
   }
-  await page.goto('/#simulador'); await page.getByLabel('Canal de origen', { exact: true }).selectOption('Instagram / WhatsApp'); await addDemo(page);
+  await page.goto('/legacy.html#simulador'); await page.getByLabel('Canal de origen', { exact: true }).selectOption('Instagram / WhatsApp'); await addDemo(page);
   await page.getByLabel('Estado operativo', { exact: true }).selectOption('En producción');
   await expect(page.locator('.order-card .status')).toHaveText('Pendiente');
   await page.getByRole('button', { name: 'Completar con el saldo', exact: true }).click(); await page.getByRole('button', { name: 'Registrar pago', exact: true }).click();
   await expect(page.locator('.order-card .status')).toHaveText('Pagado'); await expect(page.getByLabel('Estado operativo', { exact: true })).toHaveValue('En producción');
   await expect(page.locator('.order-card')).toContainText('Instagram / WhatsApp');
   await page.reload(); await expect(page.getByLabel('Estado operativo', { exact: true })).toHaveValue('En producción');
-  await page.goto('/#resultado'); await expect(page.getByRole('img', { name: 'Mascota de Henris Gallery · celebración', exact: true })).toBeVisible();
+  await page.goto('/legacy.html#resultado'); await expect(page.getByRole('img', { name: 'Mascota de Henris Gallery · celebración', exact: true })).toBeVisible();
 });
 
 test('formulario y pago utilizables con teclado', async ({ page }) => {
-  await page.goto('/#simulador');
+  await page.goto('/legacy.html#simulador');
   await page.getByLabel('Cliente ficticio').focus(); await page.keyboard.type('Cliente teclado');
   await page.keyboard.press('Tab'); await expect(page.getByLabel('Canal de origen', { exact: true })).toBeFocused();
   await page.getByLabel('Nombre de la obra').focus(); await page.keyboard.type('Obra teclado');

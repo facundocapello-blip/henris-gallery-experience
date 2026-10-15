@@ -1,3 +1,7 @@
+# Henris Gallery · Recorrido aprobado
+
+La entrada principal ahora implementa las maquetas `1.png`–`4.png` y el Canvas `5.pdf` de la raíz. Pedido → Obras → Pagos → Resumen, ejemplo USD y pagos con vista previa, confirmación y deshacer. Ver [implementación, comandos y límites](docs/IMPLEMENTACION-APROBADA.md). La versión previa se conserva en `legacy.html`; su documentación histórica sigue debajo.
+
 # Henris Gallery Experience v1.0
 
 Web interactiva en español para aprender el circuito de **pedidos → obras/ítems y pagos → saldo**. Reconstrucción desde cero: el checkout inicial solo tenía `README.md` y `CODEX_TASK.md`, sin código de un simulador previo.

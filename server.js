@@ -1,7 +1,7 @@
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-const allowed = new Set(['index.html', 'app.js', 'domain.js', 'styles.css', 'assets/mascota-poses.png']);
+const allowed = new Set(['index.html', 'legacy.html', 'experience.js', 'experience-domain.js', 'experience.css', 'app.js', 'domain.js', 'styles.css', 'assets/mascota-poses.png']);
 const types = { html: 'text/html; charset=utf-8', js: 'text/javascript; charset=utf-8', css: 'text/css; charset=utf-8', png: 'image/png' };
 http.createServer(async (req, res) => {
   const name = new URL(req.url, 'http://localhost').pathname.slice(1) || 'index.html';
