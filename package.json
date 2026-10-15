@@ -1,0 +1,12 @@
+{
+  "name": "henris-gallery-experience",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/domain.test.js",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": { "@playwright/test": "1.61.1" }
+}
