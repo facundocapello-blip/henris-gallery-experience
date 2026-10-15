@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2ea">
+  <title>Henris Gallery · El mapa de tus datos · Vista previa</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23243e33'/%3E%3Ctext x='9' y='29' fill='%23fff' font-size='29' font-family='serif'%3EH%3C/text%3E%3C/svg%3E">
+  <style>__CSS__</style>
+</head>
+<body>
+  <a class="skip" href="#experience">Saltar al mapeo</a>
+  <header class="masthead">
+    <a class="brand" href="#top" aria-label="Henris Gallery, inicio de la vista previa"><span class="monogram">H<span>·</span></span><span>HENRIS GALLERY<small>EL ARTE DE ORGANIZAR</small></span></a>
+    <div class="edition"><span class="dot"></span> ESTUDIO DE MAPEO <span class="edition-line">/</span> <b>VISTA PREVIA 01</b></div>
+    <a class="back-link" href="https://facundocapello-blip.github.io/henris-gallery-experience/" target="_blank" rel="noopener">Demo actual ↗</a>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-main"><div class="eyebrow"><span class="fine-line"></span> UNA MIRADA MÁS CLARA</div><h1>De la planilla,<br>a <em>cada lugar.</em></h1><p>No cambiamos tu información.<br>Hacemos visible el camino que la conecta.</p></div>
+      <div class="hero-aside"><span class="hero-number">01—02</span><p>Un origen real.<br>Un destino comprensible.</p><div class="source-seal"><span>FUENTE RECIBIDA</span><b>pedidos.xlsx</b><small>Hoja1 · 40 cabeceras originales</small></div></div>
+    </section>
+
+    <section id="experience" class="experience" aria-label="Mapeo entre Excel y la app">
+      <div class="section-heading"><div><div class="eyebrow">01 / EL ORIGEN</div><h2>Tu Excel, visto por partes.</h2></div><button id="open-all" class="quiet-button">Ver las 40 columnas <span>↗</span></button></div>
+      <p class="section-intro">Elegí un grupo. Seleccioná una cabecera para seguir su destino o ver qué falta definir.</p>
+      <nav class="groups" aria-label="Grupos de columnas del Excel" id="groups"></nav>
+
+      <div class="flow-canvas" id="flow-canvas">
+        <section class="source-panel" aria-labelledby="source-heading">
+          <div class="source-toolbar"><div><span class="file-symbol" aria-hidden="true">X</span><span id="source-heading">pedidos.xlsx <span class="source-location" id="source-location"></span></span></div><span class="authentic"><span aria-hidden="true">✓</span> CABECERAS AUTÉNTICAS</span></div>
+          <div class="sheet-stage"><div class="sheet-image-wrap" id="sheet-image-wrap"><img id="sheet-image" alt="" draggable="false"><div class="source-hotspots" id="source-hotspots"></div></div></div>
+          <div class="source-foot"><span><span class="tiny-square"></span> Grupo original · Colores y textos del archivo</span><span id="group-position"></span></div>
+        </section>
+
+        <div class="mobile-trace" aria-live="polite"><span id="trace-origin"></span><span aria-hidden="true">→</span><strong id="trace-destination"></strong></div>
+
+        <svg id="connections" aria-hidden="true"><defs><marker id="arrowhead" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto"><path d="M 1 1 L 10 6 L 1 11" fill="none" stroke="context-stroke" stroke-width="1.5"/></marker></defs><path id="connection-base"/><path id="connection-flow" marker-end="url(#arrowhead)"/></svg>
+        <div id="traveler" class="traveler" hidden></div>
+
+        <div class="flow-body">
+          <section class="interpretation" aria-labelledby="mapping-title">
+            <div class="eyebrow">02 / LA TRANSFORMACIÓN</div>
+            <div class="field-position"><span id="field-counter"></span><span id="mapping-status" class="mapping-status"></span></div>
+            <h2 id="mapping-title"></h2>
+            <div class="route-line"><span class="route-ref" id="origin-ref"></span><span class="route-arrow" aria-hidden="true">→</span><span id="destination-name"></span></div>
+            <div class="rule-block"><span class="rule-kicker" id="rule-kind"></span><p id="rule-text"></p><div id="related-fields" class="related-fields"></div></div>
+            <div class="pending-tray" id="pending-tray" hidden><span class="pending-symbol" aria-hidden="true">?</span><div><strong>Esta conexión queda pendiente.</strong><p>No se asigna a un campo de la app hasta acordar su significado y su regla.</p></div></div>
+            <div class="narrator" id="narrator"><div id="mascot" class="mascot pose-presentation" role="img" aria-label="Mascota de Henris Gallery: presentación con micrófono"></div><div class="speech"><span>TU GUÍA EN ESTE RECORRIDO</span><p id="narrator-text">Empecemos por una obra. Tocá una cabecera y te muestro dónde encuentra su lugar.</p></div></div>
+            <div class="honesty-note"><span aria-hidden="true">↳</span><p>El origen muestra solo cabeceras auténticas. La pantalla usa datos ficticios. Esta vista no importa ni modifica operaciones.</p></div>
+          </section>
+
+          <section class="phone-zone" aria-label="Vista de la app dentro de un teléfono">
+            <div class="phone-annotation"><span class="fine-line"></span><span>UN MISMO PEDIDO.<br>TODA SU INFORMACIÓN.</span></div>
+            <div class="phone" id="phone">
+              <span class="physical-button one"></span><span class="physical-button two"></span><span class="physical-button three"></span>
+              <div class="phone-screen"><div class="phone-status"><b>9:41</b><div class="island"><i></i></div><span class="phone-icons" aria-hidden="true"><svg viewBox="0 0 40 15"><path d="M1 12V9m4 3V6m4 6V3m4 9V0" stroke="currentColor" stroke-width="2"/><path d="M18 5q5-7 10 0m-8 3q3-4 6 0m-4 3h2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="31" y="2" width="8" height="10" rx="2" fill="currentColor"/></svg></span></div>
+                <div class="app-masthead"><span>H<span>·</span></span><div>HENRIS GALLERY<small>MI GALERÍA</small></div><span class="app-menu" aria-hidden="true">☰</span></div>
+                <div class="phone-breadcrumb">Pedidos <span>/</span> HG-DEMO</div>
+                <div class="phone-title"><span class="phone-eyebrow">DETALLE DEL PEDIDO</span><h3>Clara Vidal</h3><div class="phone-summary"><span class="financial-pill">Pago parcial</span><span>Nuevo · demo</span></div></div>
+                <nav class="phone-tabs" aria-label="Secciones de la pantalla de ejemplo"><button data-view="client">Cliente</button><button data-view="works">Obras</button><button data-view="payments">Pagos</button><button data-view="finance">Saldo</button></nav>
+                <div id="phone-content" class="phone-content"></div>
+                <div class="phone-home"><span></span></div>
+              </div>
+            </div>
+            <p class="phone-caption">PANTALLA DE MUESTRA · DATOS FICTICIOS</p>
+          </section>
+        </div>
+      </div>
+
+      <section class="player" aria-label="Controles del recorrido de campos"><div class="player-top"><div class="player-copy"><span class="eyebrow">SEGUÍ EL RECORRIDO</span><p id="playback-status" role="status">Elegí un campo o iniciá la animación.</p></div><div class="player-buttons"><button id="previous" class="icon-button" aria-label="Campo anterior">←</button><button id="play" class="primary"><span aria-hidden="true">▶</span> <span id="play-label">Reproducir</span></button><button id="next" class="icon-button" aria-label="Campo siguiente">→</button><button id="restart" class="quiet-button">Reiniciar ↺</button></div></div><div class="timeline" id="timeline" role="progressbar" aria-label="Campo actual" aria-valuemin="1" aria-valuemax="40" aria-valuenow="4"><span id="timeline-progress"></span></div><div class="player-bottom"><label class="static-option"><input id="static-mode" type="checkbox"> Vista sin movimiento</label><label class="speed-option">Ritmo <select id="speed"><option value="3200">Tranquilo</option><option value="2600" selected>Normal</option><option value="1200">Rápido</option></select></label><span id="motion-note">Pausa y avance manual en cualquier momento.</span></div></section>
+    </section>
+
+    <section class="big-picture"><div><div class="eyebrow">LA IDEA QUE NO CAMBIA</div><h2>El pedido conecta.<br>La información <em>se encuentra.</em></h2></div><div class="entity-branches" aria-label="El pedido tiene dos ramas: obras y pagos"><div class="root-entity">Pedido</div><div class="branch-children"><div><span>Obras / ítems</span><small>Qué se vendió.</small></div><div><span>Pagos</span><small>Qué se cobró.</small></div></div><p>Los pagos pertenecen al pedido, no a una obra individual.</p></div></section>
+
+    <section id="details" class="details-section"><details><summary>Ver las 40 correspondencias y sus pendientes <span>＋</span></summary><div id="all-rules" class="all-rules"></div></details><p class="reference-note">Fuente conceptual: Operational Canvas, 9 páginas revisadas. Las cabeceras provienen del Excel recibido. Los nombres técnicos y las reglas de la demo se distinguen de las equivalencias pendientes.</p></section>
+  </main>
+  <footer><div class="footer-brand">HENRIS GALLERY <span>/ Claridad para enfocarse en el arte.</span></div><div>Vista previa aislada · Base v1.0.0 / d171036 · Sin cambios en producción</div></footer>
+  <dialog id="source-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><div><span class="eyebrow">ARCHIVO AUTÉNTICO · SOLO CABECERAS</span><h2 id="dialog-title">Las 40 columnas de pedidos.xlsx</h2></div><button id="close-dialog" aria-label="Cerrar cabeceras completas">✕</button></div><p>Es la fila 1 original, renderizada desde el archivo. Las capturas por grupo conservan sus colores, textos y posiciones. Podés desplazarte para leerla completa.</p><div class="full-source-scroll" tabindex="0" aria-label="Cabeceras completas, desplazables"><img id="full-source-image" alt="Cabeceras auténticas de las columnas A a AN de Hoja1"></div><p class="dialog-foot">No se incluyen nombres, documentos, contactos ni operaciones reales. El Excel original permanece intacto.</p></dialog>
+  <script>__SOURCE__</script>
+  <script>__DOMAIN__</script>
+  <script>__RULES__</script>
+  <script>__JS__</script>
+</body>
+</html>

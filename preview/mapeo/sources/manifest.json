@@ -1,0 +1,690 @@
+{
+  "file": "pedidos.xlsx",
+  "sha256": "29af598898fdf46fde0b22ab2daa62f8bb45f792bde713327b246bc869d48b5a",
+  "sheet": "Hoja1",
+  "row": 1,
+  "renderer": "LibreOffice Calc → PDF → PNG (PyMuPDF)",
+  "scope": "Cabeceras originales únicamente; sin filas de clientes ni operaciones.",
+  "groups": [
+    {
+      "id": "completo",
+      "title": "Todas las cabeceras",
+      "range": "A1:AN1",
+      "image": "sources/completo.png",
+      "width": 7227,
+      "height": 210,
+      "cells": [
+        {
+          "column": "A",
+          "cell": "A1",
+          "label": "i",
+          "x": 0.013428246646243017,
+          "width": 0.024606412233041143
+        },
+        {
+          "column": "B",
+          "cell": "B1",
+          "label": "MES PEDIDO",
+          "x": 0.0380230348992217,
+          "width": 0.024606410649392636
+        },
+        {
+          "column": "C",
+          "cell": "C1",
+          "label": "CARPETA",
+          "x": 0.06261782156855188,
+          "width": 0.024606413816689654
+        },
+        {
+          "column": "D",
+          "cell": "D1",
+          "label": "#ARt",
+          "x": 0.08721261140517907,
+          "width": 0.024606407482095614
+        },
+        {
+          "column": "E",
+          "cell": "E1",
+          "label": "DESCRIPCION",
+          "x": 0.11180740124180626,
+          "width": 0.024606413816689654
+        },
+        {
+          "column": "F",
+          "cell": "F1",
+          "label": "MEDIDAS",
+          "x": 0.13640260282704603,
+          "width": 0.024606413816689654
+        },
+        {
+          "column": "G",
+          "cell": "G1",
+          "label": "Borde para agregar",
+          "x": 0.16099738632907917,
+          "width": 0.024606413816689654
+        },
+        {
+          "column": "H",
+          "cell": "H1",
+          "label": "PASSE-PARTOUT",
+          "x": 0.1855921825003004,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "I",
+          "cell": "I1",
+          "label": "CUADRO",
+          "x": 0.21018697867152164,
+          "width": 0.025677479646074385
+        },
+        {
+          "column": "J",
+          "cell": "J1",
+          "label": "ENTREGAS COMENTARIOS",
+          "x": 0.235852422588921,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "K",
+          "cell": "K1",
+          "label": "ENTREGADO AL LOCAL?",
+          "x": 0.26044762417416073,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "L",
+          "cell": "L1",
+          "label": "FECHA ENTREGA DE LUIS",
+          "x": 0.28504239500700584,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "M",
+          "cell": "M1",
+          "label": "SE PAGO",
+          "x": 0.3096371911782271,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "N",
+          "cell": "N1",
+          "label": "PAGO",
+          "x": 0.3342319873494483,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "O",
+          "cell": "O1",
+          "label": "PRECIO CUADRO",
+          "x": 0.35882678352066955,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "P",
+          "cell": "P1",
+          "label": "Monedad",
+          "x": 0.3834215543535146,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "Q",
+          "cell": "Q1",
+          "label": "SEÑA",
+          "x": 0.40801635052473584,
+          "width": 0.024606426485877735
+        },
+        {
+          "column": "R",
+          "cell": "R1",
+          "label": "QUIEN LA RECIBIO?",
+          "x": 0.4326111213575809,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "S",
+          "cell": "S1",
+          "label": "SENA PAGADA?",
+          "x": 0.45720591752880213,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "T",
+          "cell": "T1",
+          "label": "FECHA PAGO SENA",
+          "x": 0.48180071370002336,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "U",
+          "cell": "U1",
+          "label": "SEGUNDA PARTE PAGO",
+          "x": 0.5063955098712446,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "V",
+          "cell": "V1",
+          "label": "QUIEN LA RECIBIO?",
+          "x": 0.5309907114564844,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "W",
+          "cell": "W1",
+          "label": "PAGADO FINAL",
+          "x": 0.5555855076277056,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "X",
+          "cell": "X1",
+          "label": "FECHA PAGO FINAL",
+          "x": 0.5801803037989268,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "Y",
+          "cell": "Y1",
+          "label": "PAGO PENDIENTE",
+          "x": 0.6047750492933958,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "Z",
+          "cell": "Z1",
+          "label": "FECHA TENTATIVA DE ENTREGA",
+          "x": 0.6293698454646169,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AA",
+          "cell": "AA1",
+          "label": "FECHA ENTREGA",
+          "x": 0.6539646416358382,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AB",
+          "cell": "AB1",
+          "label": "CONTABILIDAD SENA",
+          "x": 0.6785594378070594,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AC",
+          "cell": "AC1",
+          "label": "CONTABILIDAD OTRA PARTELPAGO",
+          "x": 0.7031542339782807,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AD",
+          "cell": "AD1",
+          "label": "COBRO SENA (NETO)",
+          "x": 0.7277490301495019,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AE",
+          "cell": "AE1",
+          "label": "COBRO FINAL PAGO (NETO)",
+          "x": 0.7523438263207232,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AF",
+          "cell": "AF1",
+          "label": "cotización dolar",
+          "x": 0.7769390279059629,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AG",
+          "cell": "AG1",
+          "label": "datos cleinte DNI o CUIL",
+          "x": 0.8015337734004319,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AH",
+          "cell": "AH1",
+          "label": "CLIENTE",
+          "x": 0.826128569571653,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AI",
+          "cell": "AI1",
+          "label": "CONTACTO",
+          "x": 0.8507234164196266,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AJ",
+          "cell": "AJ1",
+          "label": "MAIL",
+          "x": 0.8753181619140955,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AK",
+          "cell": "AK1",
+          "label": "Facturado SENA",
+          "x": 0.8999129074085644,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AL",
+          "cell": "AL1",
+          "label": "Facturado TOTAL",
+          "x": 0.924507754256538,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AM",
+          "cell": "AM1",
+          "label": "VENTA",
+          "x": 0.9491024997510069,
+          "width": 0.024606401147501573
+        },
+        {
+          "column": "AN",
+          "cell": "AN1",
+          "label": "NUMERO DE PEDIDO WEB",
+          "x": 0.9736973465989804,
+          "width": 0.024606401147501573
+        }
+      ]
+    },
+    {
+      "id": "pedido",
+      "title": "Pedido",
+      "range": "A1:C1",
+      "image": "sources/pedido.png",
+      "width": 643,
+      "height": 210,
+      "cells": [
+        {
+          "column": "A",
+          "cell": "A1",
+          "label": "i",
+          "x": 0.15101404835232848,
+          "width": 0.2767236873607359
+        },
+        {
+          "column": "B",
+          "cell": "B1",
+          "label": "MES PEDIDO",
+          "x": 0.42760701244490856,
+          "width": 0.2767236695510263
+        },
+        {
+          "column": "C",
+          "cell": "C1",
+          "label": "CARPETA",
+          "x": 0.7041999587277791,
+          "width": 0.2767237051704454
+        }
+      ]
+    },
+    {
+      "id": "obras",
+      "title": "Obras",
+      "range": "D1:H1",
+      "image": "sources/obras.png",
+      "width": 999,
+      "height": 210,
+      "cells": [
+        {
+          "column": "D",
+          "cell": "D1",
+          "label": "#ARt",
+          "x": 0.09722856880731441,
+          "width": 0.17816519966668526
+        },
+        {
+          "column": "E",
+          "cell": "E1",
+          "label": "DESCRIPCION",
+          "x": 0.27530960387864395,
+          "width": 0.17816518820011915
+        },
+        {
+          "column": "F",
+          "cell": "F1",
+          "label": "MEDIDAS",
+          "x": 0.4533906274834074,
+          "width": 0.1781652111332514
+        },
+        {
+          "column": "G",
+          "cell": "G1",
+          "label": "Borde para agregar",
+          "x": 0.6314716740213031,
+          "width": 0.1781651652669869
+        },
+        {
+          "column": "H",
+          "cell": "H1",
+          "label": "PASSE-PARTOUT",
+          "x": 0.8095527205591987,
+          "width": 0.1781652111332514
+        }
+      ]
+    },
+    {
+      "id": "produccion",
+      "title": "Producción",
+      "range": "I1:L1",
+      "image": "sources/produccion.png",
+      "width": 829,
+      "height": 210,
+      "cells": [
+        {
+          "column": "I",
+          "cell": "I1",
+          "label": "CUADRO",
+          "x": 0.11718885992205837,
+          "width": 0.22408846079656294
+        },
+        {
+          "column": "J",
+          "cell": "J1",
+          "label": "ENTREGAS COMENTARIOS",
+          "x": 0.3411758777672694,
+          "width": 0.21474115621663067
+        },
+        {
+          "column": "K",
+          "cell": "K1",
+          "label": "ENTREGADO AL LOCAL?",
+          "x": 0.5558155910325482,
+          "width": 0.21474118385776184
+        },
+        {
+          "column": "L",
+          "cell": "L1",
+          "label": "FECHA ENTREGA DE LUIS",
+          "x": 0.7704553319389581,
+          "width": 0.21474118385776184
+        }
+      ]
+    },
+    {
+      "id": "cobro",
+      "title": "Importe y moneda",
+      "range": "M1:P1",
+      "image": "sources/cobro.png",
+      "width": 821,
+      "height": 210,
+      "cells": [
+        {
+          "column": "M",
+          "cell": "M1",
+          "label": "SE PAGO",
+          "x": 0.1182946004876729,
+          "width": 0.21676736965186597
+        },
+        {
+          "column": "N",
+          "cell": "N1",
+          "label": "PAGO",
+          "x": 0.3349595700188239,
+          "width": 0.21676735570089584
+        },
+        {
+          "column": "O",
+          "cell": "O1",
+          "label": "PRECIO CUADRO",
+          "x": 0.5516245255990048,
+          "width": 0.2167673836028361
+        },
+        {
+          "column": "P",
+          "cell": "P1",
+          "label": "Monedad",
+          "x": 0.7682895090811259,
+          "width": 0.21676732779895558
+        }
+      ]
+    },
+    {
+      "id": "sena",
+      "title": "Seña",
+      "range": "Q1:T1",
+      "image": "sources/sena.png",
+      "width": 821,
+      "height": 210,
+      "cells": [
+        {
+          "column": "Q",
+          "cell": "Q1",
+          "label": "SEÑA",
+          "x": 0.11829458728507888,
+          "width": 0.21676734545894788
+        },
+        {
+          "column": "R",
+          "cell": "R1",
+          "label": "QUIEN LA RECIBIO?",
+          "x": 0.33495953263474043,
+          "width": 0.2167673315079793
+        },
+        {
+          "column": "S",
+          "cell": "S1",
+          "label": "SENA PAGADA?",
+          "x": 0.5516244640334335,
+          "width": 0.21676735940991643
+        },
+        {
+          "column": "T",
+          "cell": "T1",
+          "label": "FECHA PAGO SENA",
+          "x": 0.7682894233340636,
+          "width": 0.21676730360604218
+        }
+      ]
+    },
+    {
+      "id": "final",
+      "title": "Pago final",
+      "range": "U1:Y1",
+      "image": "sources/final.png",
+      "width": 999,
+      "height": 210,
+      "cells": [
+        {
+          "column": "U",
+          "cell": "U1",
+          "label": "SEGUNDA PARTE PAGO",
+          "x": 0.09722886313594814,
+          "width": 0.17816573900528132
+        },
+        {
+          "column": "V",
+          "cell": "V1",
+          "label": "QUIEN LA RECIBIO?",
+          "x": 0.27531043729109217,
+          "width": 0.17816572753868049
+        },
+        {
+          "column": "W",
+          "cell": "W1",
+          "label": "PAGADO FINAL",
+          "x": 0.4533919999796353,
+          "width": 0.17816575047188216
+        },
+        {
+          "column": "X",
+          "cell": "X1",
+          "label": "FECHA PAGO FINAL",
+          "x": 0.6314735856013801,
+          "width": 0.17816570460547881
+        },
+        {
+          "column": "Y",
+          "cell": "Y1",
+          "label": "PAGO PENDIENTE",
+          "x": 0.809555171223125,
+          "width": 0.17816575047188216
+        }
+      ]
+    },
+    {
+      "id": "entrega",
+      "title": "Entrega",
+      "range": "Z1:AA1",
+      "image": "sources/entrega.png",
+      "width": 465,
+      "height": 210,
+      "cells": [
+        {
+          "column": "Z",
+          "cell": "Z1",
+          "label": "FECHA TENTATIVA DE ENTREGA",
+          "x": 0.20875391663940293,
+          "width": 0.38252834218890436
+        },
+        {
+          "column": "AA",
+          "cell": "AA1",
+          "label": "FECHA ENTREGA",
+          "x": 0.5911015538242287,
+          "width": 0.38252831756969397
+        }
+      ]
+    },
+    {
+      "id": "contabilidad",
+      "title": "Contabilidad",
+      "range": "AB1:AF1",
+      "image": "sources/contabilidad.png",
+      "width": 999,
+      "height": 210,
+      "cells": [
+        {
+          "column": "AB",
+          "cell": "AB1",
+          "label": "CONTABILIDAD SENA",
+          "x": 0.09722886313594814,
+          "width": 0.17816573900528132
+        },
+        {
+          "column": "AC",
+          "cell": "AC1",
+          "label": "CONTABILIDAD OTRA PARTELPAGO",
+          "x": 0.27531043729109217,
+          "width": 0.17816572753868049
+        },
+        {
+          "column": "AD",
+          "cell": "AD1",
+          "label": "COBRO SENA (NETO)",
+          "x": 0.4533919999796353,
+          "width": 0.17816575047188216
+        },
+        {
+          "column": "AE",
+          "cell": "AE1",
+          "label": "COBRO FINAL PAGO (NETO)",
+          "x": 0.6314735856013801,
+          "width": 0.17816570460547881
+        },
+        {
+          "column": "AF",
+          "cell": "AF1",
+          "label": "cotización dolar",
+          "x": 0.809555171223125,
+          "width": 0.17816575047188216
+        }
+      ]
+    },
+    {
+      "id": "cliente",
+      "title": "Cliente",
+      "range": "AG1:AJ1",
+      "image": "sources/cliente.png",
+      "width": 821,
+      "height": 210,
+      "cells": [
+        {
+          "column": "AG",
+          "cell": "AG1",
+          "label": "datos cleinte DNI o CUIL",
+          "x": 0.11829458728507888,
+          "width": 0.21676734545894788
+        },
+        {
+          "column": "AH",
+          "cell": "AH1",
+          "label": "CLIENTE",
+          "x": 0.33495953263474043,
+          "width": 0.2167673315079793
+        },
+        {
+          "column": "AI",
+          "cell": "AI1",
+          "label": "CONTACTO",
+          "x": 0.5516244640334335,
+          "width": 0.21676735940991643
+        },
+        {
+          "column": "AJ",
+          "cell": "AJ1",
+          "label": "MAIL",
+          "x": 0.7682894233340636,
+          "width": 0.21676730360604218
+        }
+      ]
+    },
+    {
+      "id": "facturacion",
+      "title": "Facturación",
+      "range": "AK1:AL1",
+      "image": "sources/facturacion.png",
+      "width": 465,
+      "height": 210,
+      "cells": [
+        {
+          "column": "AK",
+          "cell": "AK1",
+          "label": "Facturado SENA",
+          "x": 0.20875391663940293,
+          "width": 0.38252834218890436
+        },
+        {
+          "column": "AL",
+          "cell": "AL1",
+          "label": "Facturado TOTAL",
+          "x": 0.5911015538242287,
+          "width": 0.38252831756969397
+        }
+      ]
+    },
+    {
+      "id": "canal",
+      "title": "Canal y web",
+      "range": "AM1:AN1",
+      "image": "sources/canal.png",
+      "width": 465,
+      "height": 210,
+      "cells": [
+        {
+          "column": "AM",
+          "cell": "AM1",
+          "label": "VENTA",
+          "x": 0.20875391663940293,
+          "width": 0.38252834218890436
+        },
+        {
+          "column": "AN",
+          "cell": "AN1",
+          "label": "NUMERO DE PEDIDO WEB",
+          "x": 0.5911015538242287,
+          "width": 0.38252831756969397
+        }
+      ]
+    }
+  ]
+}
