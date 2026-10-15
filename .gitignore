@@ -3,3 +3,5 @@ test-results/
 playwright-report/
 .cache/
 _site/
+
+work/
