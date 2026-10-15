@@ -31,6 +31,8 @@ jobs:
           cp index.html styles.css app.js domain.js _site/
           cp assets/mascota-poses.png _site/assets/
           mkdir -p _site/muestra-mapeo _site/mapeo-v1
+          mkdir -p _site/muestra-mapeo-v3
+          cp preview/muestra-mapeo-v3/index.html _site/muestra-mapeo-v3/
           cp preview/muestra-mapeo/index.html preview/muestra-mapeo/excel-continuo.png _site/muestra-mapeo/
           cp preview/mapeo/Henris-mapeo-vista-previa.html _site/mapeo-v1/index.html
           touch _site/.nojekyll
@@ -53,3 +55,6 @@ jobs:
           fi
       - name: Verify published preview and preserved versions
         run: node preview/muestra-mapeo/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+
+      - name: Verify V3 published hybrid experience
+        run: node preview/muestra-mapeo-v3/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'

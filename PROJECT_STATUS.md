@@ -16,3 +16,8 @@ Actualizado: 2026-10-15. Registro inicial, no auditoría funcional completa.
 ## Pendiente
 - Verificar el estado de la URL pública y la revisión exacta desplegada.
 - Inspeccionar implementación de la propuesta híbrida y validar móvil antes de nuevos cambios.
+
+## Iteración V3 · Mapeo híbrido (2026-10-15)
+- Propuesta implementada en `preview/muestra-mapeo-v3/index.html`, destino público previsto `/muestra-mapeo-v3/`.
+- No toca producción, STAGING, Google Sheets, ni demo principal; las rutas anteriores permanecen disponibles.
+- Incorporado chequeo de navegador automatizado post-deploy. Los resultados reales dependen del run de Actions; Safari iPhone físico pendiente.
