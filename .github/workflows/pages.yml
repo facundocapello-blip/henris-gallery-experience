@@ -36,6 +36,18 @@ jobs:
           cp preview/muestra-mapeo/index.html preview/muestra-mapeo/excel-continuo.png _site/muestra-mapeo/
           cp preview/mapeo/Henris-mapeo-vista-previa.html _site/mapeo-v1/index.html
           touch _site/.nojekyll
+      # Only this additional path is built from the reviewed PR; root/legacy previews remain from main.
+      - name: Checkout isolated QA PR1 snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: cedd0061e5fda8b3a1d3e40dee3797a5b7959c13
+          path: _qa_pr1_source
+          persist-credentials: false
+      - name: Include QA PR1 in separate path
+        run: |
+          mkdir -p _site/qa-pr1/assets
+          cp _qa_pr1_source/index.html _qa_pr1_source/legacy.html _qa_pr1_source/styles.css _qa_pr1_source/app.js _qa_pr1_source/domain.js _qa_pr1_source/experience.js _qa_pr1_source/experience-domain.js _qa_pr1_source/experience.css _site/qa-pr1/
+          cp _qa_pr1_source/assets/mascota-poses.png _site/qa-pr1/assets/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
