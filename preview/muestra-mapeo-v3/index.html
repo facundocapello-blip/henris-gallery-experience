@@ -35,7 +35,7 @@ var fields=[
 var pending=[
  ["A","i","Confirmar qué identifica y cómo agrupa obras."],["B","MES PEDIDO","No inferir una fecha completa a partir del mes."],["C","CARPETA","Falta definir el destino de este dato."],["I","CUADRO","Validar equivalencias de estados de producción."],["J","ENTREGAS COMENTARIOS","Las notas requieren clasificación."],["K","ENTREGADO AL LOCAL?","Definir un hito de logística."],["L","FECHA ENTREGA DE LUIS","No equivale a entrega al cliente."],["N","PAGO","Confirmar significado y destino."],["O","PRECIO CUADRO","Validar alcance antes de calcular importes."],["P","Monedad","Definir monedas y conversiones."],["R","QUIEN LA RECIBIO?","Receptor de la seña sin campo confirmado."],["S","SENA PAGADA?","Conciliar con importe y fecha."],["V","QUIEN LA RECIBIO?","Receptor del segundo pago; no fusionar con R."],["Z","FECHA TENTATIVA DE ENTREGA","Separar de la entrega efectiva."],["AA","FECHA ENTREGA","Hito de entrega sin destino implementado."],["AB","CONTABILIDAD SENA","El control contable no es un cobro."],["AC","CONTABILIDAD OTRA PARTELPAGO","No duplicar el segundo pago."],["AD","COBRO SENA (NETO)","Definir relación entre bruto y neto."],["AE","COBRO FINAL PAGO (NETO)","No duplicar cobros al sumar netos."],["AF","cotización dolar","Pendiente política de conversión."],["AI","CONTACTO","Confirmar si representa teléfono."],["AJ","MAIL","Destino de email todavía no acordado."],["AK","Facturado SENA","La facturación no equivale al cobro."],["AL","Facturado TOTAL","No usar factura para inferir saldo."],["AM","VENTA","Validar catálogo de canales de venta."],["AN","NUMERO DE PEDIDO WEB","Confirmar relación con ID único del pedido."]
 ];
-var $=function(s){return document.querySelector(s)}, $=function(s){return Array.from(document.querySelectorAll(s))};
+var $=function(s){return document.querySelector(s)}, queryAll=function(s){return Array.from(document.querySelectorAll(s))};
 var area=$("#flow-area"),wire=$("#wire"),path=$("#wire-active"),base=$("#wire-base"),token=$("#token"),spark=$("#spark");
 var loaded=new Set(),active=0,motion=null,running=false,frame=0;
 var preference=window.matchMedia("(prefers-reduced-motion: reduce)"),staticMode=preference.matches;
@@ -53,7 +53,7 @@ function render(){
  setText("#play-label",running?"Pausar":motion?"Continuar":loaded.size===3?"Reproducir de nuevo":"Reproducir recorrido");
 }
 function setNarration(text,pose){setText("#narration",text);$("#mascot").className="mascot "+(pose||"presentation");}
-function stop(){cancelAnimationFrame(frame);frame=0;running=false;motion=null;token.hidden=true;spark.hidden=true;path.style.opacity="0";$(".target-field").forEach(function(e){e.classList.remove("arrived")});}
+function stop(){cancelAnimationFrame(frame);frame=0;running=false;motion=null;token.hidden=true;spark.hidden=true;path.style.opacity="0";queryAll(".target-field").forEach(function(e){e.classList.remove("arrived")});}
 function getGeometry(){
  var r=area.getBoundingClientRect(),a=$('[data-source="'+active+'"]').getBoundingClientRect(),b=$('[data-target="'+active+'"]').getBoundingClientRect();
  var mobile=window.matchMedia("(max-width:680px)").matches,w=area.clientWidth,h=area.clientHeight;
@@ -139,7 +139,7 @@ fields.forEach(function(f,i){
 pending.forEach(function(p){
  var btn=document.createElement("button");btn.type="button";btn.className="pending-item";btn.textContent=p[0]+" · "+p[1];btn.setAttribute("aria-pressed","false");
  btn.addEventListener("click",function(){
-  $(".pending-item").forEach(function(b){b.setAttribute("aria-pressed",String(b===btn))});
+  queryAll(".pending-item").forEach(function(b){b.setAttribute("aria-pressed",String(b===btn))});
   setText("#pending-detail",p[0]+" · "+p[1]+": "+p[2]+" Sin destino implementado en esta muestra.");
  });$("#pending-list").append(btn);
 });
