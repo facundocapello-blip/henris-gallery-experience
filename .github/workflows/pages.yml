@@ -51,7 +51,7 @@ jobs:
       - name: Checkout Henris management panel snapshot
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: b527252a602ba847dcf05b22d5702bcd17814f40
+          ref: 004a1e7336949bc44be83ccda2f44cca90b6bce8
           path: _panel_src
           persist-credentials: false
       - name: Include Henris management panel in isolated path
