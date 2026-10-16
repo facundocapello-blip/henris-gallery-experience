@@ -23,3 +23,5 @@ main{padding:23px 20px 35px;min-height:400px}
 @media(min-width:650px){.shell{margin:26px auto;min-height:850px;border-radius:22px;overflow:hidden}.bottom-nav{position:sticky;bottom:0}.hero{padding:30px 30px 25px}.hero h1{font-size:36px}main{padding:28px 30px 44px}}
 @media(max-width:400px){main{padding-left:16px;padding-right:16px}.hero{padding-left:19px;padding-right:19px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+@media(max-width:649px){.bottom-nav{position:fixed;left:50%;transform:translateX(-50%);max-width:490px;bottom:0}}
