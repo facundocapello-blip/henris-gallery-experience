@@ -232,3 +232,22 @@ main{padding:26px 22px 35px}
 .story-secondary{background:transparent;border:0;color:#255841;display:block;font-size:12px;font-weight:700;margin:13px auto 0;padding:10px;min-height:42px}
 .story-disclaimer{font-size:10px;color:#899187;line-height:1.5;text-align:center;margin:16px 0 6px}
 @media(max-width:400px){.story-slide{padding:17px 12px 15px}.story-slide h2{font-size:25px}.story-case-grid strong{font-size:15px}}
+
+
+/* Tutorial operativo: utiliza las pantallas existentes y no modifica la persistencia. */
+.tutorial-entry{display:flex;align-items:center;gap:11px;width:100%;border:1px solid #d5e2d3;border-radius:11px;background:#f2f7f0;color:#1a4b37;padding:10px 12px;min-height:58px;margin:-11px 0 24px;text-align:left}
+.tutorial-entry .tutorial-entry-icon{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#deecdc;color:#21583f;font-size:10px;flex-shrink:0}
+.tutorial-entry>span:nth-child(2){flex:1;min-width:0}
+.tutorial-entry strong{display:block;font-size:12px;line-height:1.35}
+.tutorial-entry small{display:block;font-size:10px;color:#6f8577;margin-top:3px;line-height:1.4}
+.tutorial-entry>span:last-child{font-size:19px;color:#1c563b}
+.tutorial-entry:focus-visible,.tutorial-close:focus-visible{outline:3px solid #bd9852;outline-offset:3px}
+.tutorial-callout{background:linear-gradient(125deg,#eaf4e9,#f4f8ef);border:1px solid #b7d5bb;border-radius:14px;padding:15px 13px 15px;margin:13px 0 21px;color:#244634;box-shadow:0 5px 15px #153b2b0d}
+.tutorial-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.tutorial-top>span{font-size:10px;font-weight:760;letter-spacing:.05em;color:#366d4f}
+.tutorial-close{border:1px solid #c8dccb;border-radius:7px;background:#fff9;color:#547461;padding:7px 8px;font-size:10px;min-height:34px}
+.tutorial-callout h3{font:500 21px/1.2 Georgia,'Times New Roman',serif;color:#173d2d;margin:9px 0 8px;letter-spacing:-.03em}
+.tutorial-callout p{font-size:12px;line-height:1.65;color:#5f7868;margin:0}
+.tutorial-focus{outline:2px solid #73a481;outline-offset:3px;box-shadow:0 0 0 5px #a6d4a331}
+.tutorial-done{margin-top:14px}
+@media(max-width:400px){.tutorial-callout{padding:13px 10px}.tutorial-callout h3{font-size:19px}.tutorial-entry{padding:10px 9px;gap:9px}}
