@@ -35,7 +35,7 @@ try{
   await page.screenshot({path:'test-results/henris-presentacion-'+route.replaceAll('/','')+'-cierre-'+width+'.png',fullPage:true});
   await page.getByRole('button',{name:/Probar simulador/}).click();
   assert.equal(await page.locator('.balance-number').count(),1);
-  assert.ok(!page.url().includes('presentacion'),'Closing the tour should return to the normal URL');
+  assert.ok(!new URL(page.url()).searchParams.has('presentacion'),'Closing the tour should clear its query parameter');
   const now=await page.evaluate(()=>localStorage.getItem('henris-panel-gestion-v1'));
   assert.equal(now,original,'Presentation must not touch order storage');
   await page.locator('button[data-action="detail"]').first().click();
