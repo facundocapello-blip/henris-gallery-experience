@@ -26,7 +26,7 @@ try{
   assert.ok((await page.locator('.story-map').innerText()).includes('Pedido.id'));
   await page.getByRole('button',{name:/Explorar el mapeo completo/}).click();
   assert.ok((await page.locator('.map-explanation').innerText()).includes('registro ilustrativo'));
-  await page.locator('button[data-action="home"]').click();
+  await page.locator('main button.back[data-action="home"]').click();
   await page.goto(root+route+'?presentacion',{waitUntil:'networkidle'});
   assert.ok((await page.locator('.story-slide h2').innerText()).includes('Del dato disperso'));
   await page.locator('button[data-action="presentation-step"][data-id="3"]').click();
