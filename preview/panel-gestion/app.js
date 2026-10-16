@@ -144,7 +144,7 @@ function tutorialDecorate(){
  if(!tutorialActive)return;
  const [label,heading,help]=tutorialCopy[tutorialStage];
  let target=null,placement='beforebegin';
- if(tutorialStage===0){target=main.querySelector('button[data-action="new"]');placement='afterend';}
+ if(tutorialStage===0){main.querySelector('button.tutorial-entry')?.remove();target=main.querySelector('button[data-action="new"]');placement='afterend';}
  if(tutorialStage===1){target=main.querySelector('#order-form');}
  if(tutorialStage===2){target=main.querySelector('#item-form');}
  if(tutorialStage===3){target=main.querySelector('button[data-action="add-payment"]');}
