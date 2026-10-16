@@ -81,7 +81,7 @@ jobs:
       - name: Checkout commercial presentation candidate
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 2296946c05bf15b0e0f602d9b161c61624213e42
+          ref: ab60c041720f59060c92af53e2b7fd87101dc144
           path: _presentation_src
           persist-credentials: false
       - name: Stage presentation without changing approved V2
