@@ -91,6 +91,19 @@ jobs:
           mkdir -p _site/panel-gestion-presentacion
           cp _presentation_src/preview/panel-gestion/index.html _presentation_src/preview/panel-gestion/styles.css _presentation_src/preview/panel-gestion/app.js _site/panel-gestion-presentacion/
           cp _qa_pr1_source/domain.js _qa_pr1_source/experience-domain.js _site/panel-gestion-presentacion/
+      - name: Checkout hands-on tutorial preview
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 39bfb1ff867fb881f94c2390c12792a816befe3a
+          path: _tutorial_src
+          persist-credentials: false
+      - name: Stage hands-on tutorial separately from approved V2
+        run: |
+          node --check _tutorial_src/preview/panel-gestion/app.js
+          node --check _tutorial_src/preview/panel-gestion/verify-tutorial.mjs
+          mkdir -p _site/panel-gestion-guia
+          cp _tutorial_src/preview/panel-gestion/index.html _tutorial_src/preview/panel-gestion/styles.css _tutorial_src/preview/panel-gestion/app.js _site/panel-gestion-guia/
+          cp _qa_pr1_source/domain.js _qa_pr1_source/experience-domain.js _site/panel-gestion-guia/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -151,5 +164,16 @@ jobs:
         with:
           name: henris-commercial-presentation-screenshots
           path: test-results/henris-presentacion-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify published interactive how-to tutorial in staging
+        run: node _tutorial_src/preview/panel-gestion/verify-tutorial.mjs '${{ steps.deployment.outputs.page_url }}' panel-gestion-guia/
+      - name: Save tutorial browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-howto-tutorial-captures
+          path: test-results/henris-tutorial-*.png
           if-no-files-found: ignore
           retention-days: 7
