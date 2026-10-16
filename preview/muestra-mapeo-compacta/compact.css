@@ -1,0 +1,83 @@
+/* Henris Gallery · mejora incremental del mapeo. La web explica; el celular solo muestra la app. */
+.sample-hero{padding:28px 0;gap:32px}
+.sample-hero h1{font-size:clamp(48px,5.3vw,72px);margin:13px 0 0}
+.hero-text{padding-left:22px}
+.hero-text p{font-size:22px;margin-bottom:12px}
+.sample-mapping{padding-top:23px}
+.source-intro{margin:9px 0 18px;max-width:760px}
+.flow-canvas{display:grid;grid-template-columns:minmax(260px,1.05fr) minmax(205px,.72fr) minmax(285px,.87fr);align-items:center;gap:26px;isolation:isolate}
+.source-panel{grid-column:1;grid-row:1;z-index:4;border-radius:15px;border-color:#dfe6da;box-shadow:0 12px 35px #152d2010;align-self:center}
+.source-toolbar{padding:14px;gap:8px;flex-wrap:wrap}
+.source-toolbar>div{min-width:0;font-size:11px;font-weight:700}
+.source-location{font-size:9px;display:block;margin:3px 0 0;font-weight:400}
+.authentic{font-size:8px;letter-spacing:.03em;white-space:normal;text-align:right;max-width:125px}
+.file-symbol{border-radius:7px}
+.sheet-stage{overflow:visible;padding:13px;background:#fff}
+.compact-sheet{max-width:none!important;width:100%!important}
+.compact-table{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid #e1e6dc;border-radius:10px;font-family:inherit}
+.compact-table th,.compact-table td{width:33.333%;text-align:left;border-right:1px solid #edf0e9;vertical-align:middle}
+.compact-table th:last-child,.compact-table td:last-child{border-right:0}
+.compact-table th{background:#eaf1e8;color:#496251;font-size:10px;font-weight:750;padding:12px 10px;line-height:1.4}
+.compact-table tbody tr+tr td{border-top:1px solid #e9eee7}
+.compact-table td{font-size:12px;line-height:1.3;padding:0;min-width:0;overflow:hidden}
+.compact-context td{padding:13px 10px;color:#8a978b;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#fafbf9}
+.compact-selected td{background:#f7faf5}
+.compact-table .source-hit{position:static;display:block;width:100%;height:auto;min-height:53px;border:0;background:transparent;text-align:left;padding:12px 9px;font-family:inherit;font-size:13px;font-weight:750;color:#234d37;white-space:normal;overflow-wrap:anywhere;border-radius:0;cursor:pointer;outline-offset:-2px}
+.compact-table .source-hit:hover{background:#e8f1e8}
+.compact-table .source-hit[aria-pressed=true]{background:#e0efde;box-shadow:inset 0 -3px 0 #729574;outline:1px solid #acc9ae;outline-offset:-1px;color:#164730}
+.compact-table .source-hit.loaded:not([aria-pressed=true]){color:#235840}
+.source-foot{padding:11px 14px;line-height:1.4;font-size:9px;background:#fbfcf9}
+.flow-body.sample-body{display:contents}
+.flow-body.sample-body .interpretation{grid-column:2;grid-row:1;z-index:3;padding:8px 0;align-self:center}
+.flow-body.sample-body .phone-zone{grid-column:3;grid-row:1;z-index:3;padding:0;align-self:center}
+.sample-body .phone{height:610px;max-width:100%}
+.sample-body .interpretation h2{font-size:clamp(25px,2.4vw,34px);margin:11px 0 13px}
+.sample-body .choose-intro{font-size:11px;line-height:1.6}
+.sample-body .field-choices{gap:6px;margin:17px 0}
+.sample-body .field-choices button{min-width:0;padding:8px 9px;font-size:10px;flex:1 1 85px;border-radius:8px}
+.sample-body .sample-rule{padding-top:13px}
+.sample-body .sample-rule h3{font-size:12px;margin:8px 0}
+.sample-body .sample-rule p{font-size:10px;line-height:1.6}
+.sample-body .narrator{margin:15px 0 11px;gap:9px}
+.sample-body .speech{padding:10px}
+.sample-body .speech p{font-size:10px;line-height:1.5}
+.sample-body .source-assurance{font-size:9px}
+.sample-body .phone-annotation{top:-20px;right:calc(50% + 27px)}
+#connections{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
+.mobile-trace{display:none}
+@media(max-width:1100px) and (min-width:761px){
+ .flow-canvas{grid-template-columns:minmax(230px,1fr) minmax(160px,.7fr) minmax(260px,.9fr);gap:12px}
+ .source-toolbar{padding:10px}
+ .authentic{max-width:90px;font-size:7px}
+ .compact-table th{padding:9px 7px}
+ .compact-table .source-hit{padding:10px 7px;font-size:11px}
+ .sample-body .phone{width:282px;height:600px}
+ .sample-body .phone-annotation{display:none}
+ .sample-body .narrator{display:none}
+}
+@media(max-width:760px){
+ .sample-hero{padding:24px 0;gap:13px}
+ .sample-hero h1{font-size:51px}
+ .hero-text{padding:0;border:0}
+ .hero-text p{font-size:19px;margin-bottom:10px}
+ .source-intro{margin:9px 0 14px;font-size:11px}
+ .flow-canvas{display:flex;flex-direction:column;align-items:stretch;gap:13px}
+ .source-panel{width:100%;align-self:stretch}
+ .source-toolbar{padding:12px}
+ .sheet-stage{padding:11px}
+ .compact-table th{padding:10px 7px;font-size:10px}
+ .compact-table .source-hit{min-height:49px;font-size:12px;padding:9px 8px}
+ .compact-context td{font-size:10px;padding:10px 8px}
+ .flow-body.sample-body{display:flex;flex-direction:column;gap:12px;padding:0}
+ .flow-body.sample-body .phone-zone{order:1;padding:16px 0 0;align-self:center}
+ .flow-body.sample-body .interpretation{order:2;align-self:stretch}
+ .sample-body .phone{width:300px;height:610px}
+ .sample-body .phone-annotation{display:none}
+ .mobile-trace{display:flex;position:relative;top:auto;z-index:6;padding:12px 14px;border-radius:9px;justify-content:center;box-shadow:none}
+ .mobile-trace>span:nth-child(2){font-size:22px}
+ #connections{display:none}
+ #transfer-card{display:none!important}
+ .sample-body .interpretation h2{font-size:30px}
+ .sample-body .narrator{display:flex}
+}
+@media(prefers-reduced-motion:reduce){#curve-active{transition:none}.compact-table .source-hit{transition:none}}
