@@ -97,8 +97,10 @@
     svg.style.visibility = 'visible'; svg.setAttribute('viewBox', `0 0 ${canvas.width} ${canvas.height}`);
     const sx = source.right - canvas.left, sy = source.top + source.height / 2 - canvas.top;
     const ex = target.left + 5 - canvas.left, ey = target.top + target.height / 2 - canvas.top;
-    const bend = Math.min(130, Math.max(30, (ex - sx) * .38));
-    const path = `M ${sx} ${sy} C ${sx+bend} ${sy}, ${ex-bend} ${ey}, ${ex} ${ey}`;
+    // One routed connection at a time: it passes through the gap beside the phone,
+    // not diagonally across the field choices, rules or mascot.
+    const lane = Math.max(sx + 20, Math.min(ex - 23, $('#phone').getBoundingClientRect().left - canvas.left - 18));
+    const path = `M ${sx} ${sy} H ${lane-14} Q ${lane} ${sy}, ${lane} ${sy+14} V ${ey-14} Q ${lane} ${ey}, ${lane+14} ${ey} H ${ex}`;
     $('#curve-base').setAttribute('d', path); $('#curve-active').setAttribute('d', path);
     return true;
   }
