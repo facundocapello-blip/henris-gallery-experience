@@ -116,6 +116,17 @@ jobs:
           mkdir -p _site/muestra-mapeo-compacta
           cp _compact_mapping_src/preview/muestra-mapeo-compacta/index.html _compact_mapping_src/preview/muestra-mapeo-compacta/compact.css _site/muestra-mapeo-compacta/
           cp preview/muestra-mapeo/excel-continuo.png _site/muestra-mapeo-compacta/
+      - name: Checkout V3 and V1 hybrid mockup
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: a337694343a161f96247d47709259bc7c5458b60
+          path: _hybrid_mockup_src
+          persist-credentials: false
+      - name: Stage isolated hybrid mockup without altering previous versions
+        run: |
+          node --check _hybrid_mockup_src/preview/mapeo-hibrido-v3-v1/verify-live.mjs
+          mkdir -p _site/mapeo-hibrido-v3-v1
+          cp _hybrid_mockup_src/preview/mapeo-hibrido-v3-v1/index.html _site/mapeo-hibrido-v3-v1/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -200,5 +211,16 @@ jobs:
         with:
           name: henris-compact-mapping-screenshots
           path: test-results/henris-compact-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify V3 plus V1 static mapping mockup at public URL
+        run: node _hybrid_mockup_src/preview/mapeo-hibrido-v3-v1/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Capture V3 plus V1 mockup at mobile tablet and desktop sizes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-v3-v1-hybrid-static-screenshots
+          path: test-results/henris-hybrid-static-*.png
           if-no-files-found: ignore
           retention-days: 7
