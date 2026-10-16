@@ -129,3 +129,47 @@ main{padding:26px 22px 35px}
  .shell main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:27px;scrollbar-width:thin}
  .bottom-nav{position:static;bottom:auto;flex-shrink:0;height:75px;min-height:75px;border-radius:0 0 32px 32px;padding-bottom:5px}
 }
+
+
+/* Guía de mapeo: extensión visual incremental de la V2 aprobada. */
+.map-entry{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;background:#fff;border:1px solid #cbdccd;border-radius:10px;color:#164d38;font-size:12px;font-weight:700;min-height:46px;padding:11px 13px;margin-top:15px;text-align:left}
+.map-entry span,.map-open-order span{font-size:17px}
+.map-entry:focus-visible,.map-step:focus-visible,.map-open-order:focus-visible{outline:3px solid #bc9856;outline-offset:2px}
+.map-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:21px 0 19px}
+.map-step{display:flex;align-items:center;justify-content:center;gap:5px;background:#f5f7f1;color:#697770;min-height:45px;border:1px solid #dfe6dc;border-radius:9px;font-size:10px;font-weight:650;padding:6px 4px;min-width:0}
+.map-step span{display:grid;place-items:center;flex-shrink:0;border:1px solid currentColor;width:17px;height:17px;border-radius:50%;font-size:9px}
+.map-step.selected{background:#194838;border-color:#194838;color:#fff}
+.map-explanation{border:1px solid #dfe5dd;border-radius:15px;background:#fff;padding:19px 15px 16px;box-shadow:0 5px 23px rgba(25,48,34,.047)}
+.map-counter{font-size:10px;letter-spacing:.15em;color:#917532;font-weight:750}
+.map-explanation h3{font:500 23px/1.17 Georgia,'Times New Roman',serif;letter-spacing:-.035em;margin:9px 0 9px;color:#17372b}
+.map-explanation>p{font-size:12px;line-height:1.65;color:#6d7770;margin:0 0 19px}
+.map-columns{display:grid;grid-template-columns:1fr 1fr;gap:27px;margin-bottom:8px}
+.map-columns span{font-size:9px;color:#79837c;letter-spacing:.03em;line-height:1.4;word-break:break-word}
+.map-columns span:last-child{color:#235c41}
+.map-pairs{display:grid;gap:9px}
+.map-pair{display:grid;grid-template-columns:minmax(0,1fr) 16px minmax(0,1fr);gap:5px;align-items:center}
+.map-cell{border:1px solid #e3e8e1;background:#f7f8f5;border-radius:9px;padding:11px 9px;min-width:0;min-height:61px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.map-cell small{font-size:9px;color:#747c77;line-height:1.35;overflow-wrap:anywhere}
+.map-cell strong{color:#24372c;font-size:11px;line-height:1.45;overflow-wrap:anywhere;font-weight:700}
+.map-dest{background:#edf4ed;border-color:#d6e5d4}
+.map-dest small{color:#557660}
+.map-arrow{color:#53806b;font-weight:700;font-size:16px;text-align:center}
+.map-insight{display:flex;align-items:flex-start;gap:10px;margin-top:15px;padding:13px 12px;border-radius:10px;background:#f1f5ea;color:#46604e;font-size:11px;line-height:1.55}
+.map-insight-icon{width:19px;height:19px;border-radius:50%;background:#dcece0;color:#1e6845;display:grid;place-items:center;flex-shrink:0;font-size:11px}
+.map-controls{display:flex;gap:10px;margin-top:15px}
+.map-controls .inline-action{flex:1}
+.map-controls .primary{flex:1}
+.map-outcome{display:flex;align-items:center;justify-content:space-between;gap:9px;border-top:1px solid #e4e8e0;padding:21px 1px 13px;margin-top:19px}
+.map-outcome strong{font-size:12px;color:#24362d;display:block}
+.map-outcome span{font-size:10px;color:#788178;display:block;margin-top:5px;line-height:1.35}
+.map-outcome-amount{font-size:16px;font-weight:760;color:#8c671f;white-space:nowrap}
+.map-outcome-amount small{display:block;color:#7e867d;text-align:right;font-size:9px;margin-top:3px;font-weight:400}
+.map-open-order{display:flex;align-items:center;justify-content:space-between;width:100%;background:#fff;color:#194a36;border:1px solid #cbdccd;border-radius:10px;font-size:12px;font-weight:700;text-align:left;padding:11px 14px;min-height:46px}
+@media(max-width:400px){
+ .map-progress{gap:4px}
+ .map-step{font-size:9px;gap:3px}
+ .map-explanation{padding:17px 11px 15px}
+ .map-cell{padding:9px 7px}
+ .map-cell strong{font-size:10px}
+ .map-explanation h3{font-size:21px}
+}
