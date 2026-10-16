@@ -29,7 +29,7 @@ try {
   if(width===390)assert.ok(rects.source.bottom<rects.phone.y,'Mobile order must be Excel then phone');
   await page.screenshot({path:'test-results/henris-compact-'+width+'-inicio.png',fullPage:true});
   await page.locator('.source-hit[data-index="1"]').click();
-  await page.getByText('Silent lake',{exact:true}).last().waitFor({timeout:7500});
+  await page.waitForFunction(() => document.querySelector('.phone-field[data-index="1"] .phone-field-value')?.textContent === 'Silent lake',null,{timeout:7500});
   const field2=await page.locator('.phone-field[data-index="1"] .phone-field-value').innerText();
   assert.equal(field2,'Silent lake');
   await page.locator('#restart').click();
