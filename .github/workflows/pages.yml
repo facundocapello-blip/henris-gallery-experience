@@ -59,6 +59,18 @@ jobs:
           mkdir -p _site/panel-gestion
           cp _panel_src/preview/panel-gestion/index.html _panel_src/preview/panel-gestion/styles.css _panel_src/preview/panel-gestion/app.js _site/panel-gestion/
           cp _qa_pr1_source/domain.js _qa_pr1_source/experience-domain.js _site/panel-gestion/
+      - name: Checkout premium Henris panel V2
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: cbf3d407953effefbe611a6011ce899a5d6d305e
+          path: _panel_v2_src
+          persist-credentials: false
+      - name: Verify and stage premium simulator in separate URL
+        run: |
+          node --check _panel_v2_src/preview/panel-gestion/app.js
+          mkdir -p _site/panel-gestion-v2
+          cp _panel_v2_src/preview/panel-gestion/index.html _panel_v2_src/preview/panel-gestion/styles.css _panel_v2_src/preview/panel-gestion/app.js _site/panel-gestion-v2/
+          cp _qa_pr1_source/domain.js _qa_pr1_source/experience-domain.js _site/panel-gestion-v2/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -84,3 +96,14 @@ jobs:
 
       - name: Verify published Henris management panel
         run: node _panel_src/preview/panel-gestion/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+
+      - name: Verify published premium simulator
+        run: node _panel_v2_src/preview/panel-gestion/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save actual premium browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-premium-browser-captures
+          path: test-results/panel-premium-*.png
+          if-no-files-found: ignore
+          retention-days: 7
