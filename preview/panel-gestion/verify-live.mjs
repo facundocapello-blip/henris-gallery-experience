@@ -45,7 +45,7 @@ try{
   await page.locator('#payment-form button[type="submit"]').click();
   assert.ok((await page.locator('.money-row.balance').innerText()).includes('$800'),'Multi-step sale wrong');
   await page.reload({waitUntil:'networkidle'});
-  await page.locator('button[data-action="orders"]').click();
+  await page.locator('.bottom-nav button[data-action="orders"]').click();
   assert.ok((await page.locator('main').innerText()).includes('Cliente QA'),'Persistence failed');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),'Horizontal overflow');
   assert.deepEqual(errors,[], 'Browser JS errors');
