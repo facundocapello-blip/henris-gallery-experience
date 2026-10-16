@@ -62,7 +62,7 @@ jobs:
       - name: Checkout premium Henris panel V2
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: a7e45384fbb954f8b98515124bf516972171cf0d
+          ref: 1f2de7c9f93bf17176f0c349c9b397e6376e2521
           path: _panel_v2_src
           persist-credentials: false
       - name: Verify and stage premium simulator in separate URL
@@ -169,6 +169,8 @@ jobs:
 
       - name: Verify published interactive how-to tutorial in staging
         run: node _tutorial_src/preview/panel-gestion/verify-tutorial.mjs '${{ steps.deployment.outputs.page_url }}' panel-gestion-guia/
+      - name: Verify interactive usage tutorial on approved V2 URL
+        run: node _panel_v2_src/preview/panel-gestion/verify-tutorial.mjs '${{ steps.deployment.outputs.page_url }}' panel-gestion-v2/
       - name: Save tutorial browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
