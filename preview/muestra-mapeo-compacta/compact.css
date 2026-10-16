@@ -6,7 +6,7 @@
 .sample-mapping{padding-top:23px}
 .source-intro{margin:9px 0 18px;max-width:760px}
 .flow-canvas{display:grid;grid-template-columns:minmax(260px,1.05fr) minmax(205px,.72fr) minmax(285px,.87fr);align-items:center;gap:26px;isolation:isolate}
-.source-panel{grid-column:1;grid-row:1;z-index:4;border-radius:15px;border-color:#dfe6da;box-shadow:0 12px 35px #152d2010;align-self:center}
+.source-panel{grid-column:1;grid-row:1;z-index:4;border-radius:15px;border-color:#dfe6da;box-shadow:0 12px 35px #152d2010;align-self:start;margin-top:72px}
 .source-toolbar{padding:14px;gap:8px;flex-wrap:wrap}
 .source-toolbar>div{min-width:0;font-size:11px;font-weight:700}
 .source-location{font-size:9px;display:block;margin:3px 0 0;font-weight:400}
@@ -62,7 +62,7 @@
  .hero-text p{font-size:19px;margin-bottom:10px}
  .source-intro{margin:9px 0 14px;font-size:11px}
  .flow-canvas{display:flex;flex-direction:column;align-items:stretch;gap:13px}
- .source-panel{width:100%;align-self:stretch}
+ .source-panel{width:100%;align-self:stretch;margin-top:0}
  .source-toolbar{padding:12px}
  .sheet-stage{padding:11px}
  .compact-table th{padding:10px 7px;font-size:10px}
