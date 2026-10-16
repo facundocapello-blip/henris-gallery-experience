@@ -18,6 +18,13 @@ try{
   assert.equal((await page.locator('.bottom-nav button.active').innerText()).trim(),'Panel');
   assert.ok((await page.locator('.circuit').innerText()).includes('Circuito integrado'),'Missing relationship diagram');
   assert.equal((await page.locator('.order-card .detail-link').first().innerText()).trim(),'2 obras · Ver detalle ›');
+  if(width===1440){
+    assert.ok(await page.evaluate(()=>{
+      const shell=document.querySelector('.shell').getBoundingClientRect();
+      const tabs=document.querySelector('.bottom-nav').getBoundingClientRect();
+      return shell.height>=830&&shell.height<=900&&shell.bottom-tabs.bottom>=0&&shell.bottom-tabs.bottom<16;
+    }),'Desktop phone frame must be compact, with tabs at bottom');
+  }
   if(width===390){
     assert.ok(await page.evaluate(()=>{const nav=document.querySelector('.bottom-nav').getBoundingClientRect();return nav.bottom <= window.innerHeight+1 && nav.top >= 0;}),'Mobile bottom navigation not visible');
   }
