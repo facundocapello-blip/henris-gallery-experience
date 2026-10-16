@@ -37,7 +37,7 @@ try {
   await page.locator('#play').click();
   await page.getByText('Recorrido completo · 3 de 3 campos cargados.').waitFor({timeout:18000});
   for(const value of ['HG024','Silent lake','100x150'])assert.equal(await page.locator('.phone-field-value').filter({hasText:value}).count(),1,value);
-  if(width===1440){const p=await page.locator('#curve-active').getAttribute('d');assert.ok(p?.startsWith('M '),'SVG connection path missing');}
+  if(width===1440){const p=await page.locator('#curve-active').getAttribute('d');assert.ok(p?.startsWith('M ')&&p.includes(' V ')&&p.includes(' H '),'SVG connection should travel via the clear lane beside the phone');}
   await page.screenshot({path:'test-results/henris-compact-'+width+'-completo.png',fullPage:true});
   await page.locator('#open-source').click();
   assert.equal(await page.locator('#source-dialog').evaluate(x=>x.open),true,'Full screenshot must remain accessible');
