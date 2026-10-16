@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
 import {chromium} from '@playwright/test';
 const root=process.argv[2]||'https://facundocapello-blip.github.io/henris-gallery-experience/';
+await mkdir('test-results',{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:process.env.HENRIS_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox']});
 try{
  for(const width of [390,1440]){
@@ -16,6 +18,7 @@ try{
   assert.equal(await page.locator('.map-step').count(),4);
   assert.equal(await page.locator('.map-step.selected').count(),1);
   assert.ok((await page.locator('.map-explanation').innerText()).includes('registro ilustrativo'));
+  await page.screenshot({path:'test-results/henris-mapeo-origen-'+width+'.png',fullPage:true});
   await page.getByRole('button',{name:/Siguiente/}).click();
   assert.ok((await page.locator('.map-explanation').innerText()).includes('Pedido.id'));
   await page.getByRole('button',{name:/Siguiente/}).click();
@@ -24,6 +27,7 @@ try{
   await page.getByRole('button',{name:/Siguiente/}).click();
   assert.ok((await page.locator('.map-explanation').innerText()).includes('Pago.pedidoId'));
   assert.ok((await page.locator('.map-insight').innerText()).includes('$660.000'),'Balance explanation not correct');
+  await page.screenshot({path:'test-results/henris-mapeo-pagos-'+width+'.png',fullPage:true});
   assert.equal(await page.locator('button[data-action="guide-next"]').isDisabled(),true);
   await page.getByRole('button',{name:/Anterior/}).click();
   assert.ok((await page.locator('.map-explanation').innerText()).includes('Obra.pedidoId'));
