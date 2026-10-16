@@ -62,7 +62,7 @@ jobs:
       - name: Checkout premium Henris panel V2
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: a6ad5aabbd63784aa935c3378d13051c73825336
+          ref: 9b3b2666fb1ea706a4877785cb12c53e06222713
           path: _panel_v2_src
           persist-credentials: false
       - name: Verify and stage premium simulator in separate URL
