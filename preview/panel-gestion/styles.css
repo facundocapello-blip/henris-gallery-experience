@@ -121,3 +121,11 @@ main{padding:26px 22px 35px}
  main{padding:27px 22px 35px}
  .hero h1{font-size:37px}
 }
+
+/* Fixed height desktop phone: scroll app content inside the frame rather than leave a long blank mockup. */
+@media(min-width:650px){
+ .shell{height:860px;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
+ .hero{flex-shrink:0}
+ .shell main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:27px;scrollbar-width:thin}
+ .bottom-nav{position:static;bottom:auto;flex-shrink:0;height:75px;min-height:75px;border-radius:0 0 32px 32px;padding-bottom:5px}
+}
