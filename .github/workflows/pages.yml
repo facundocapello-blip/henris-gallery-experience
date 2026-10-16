@@ -71,6 +71,19 @@ jobs:
           mkdir -p _site/panel-gestion-v2
           cp _panel_v2_src/preview/panel-gestion/index.html _panel_v2_src/preview/panel-gestion/styles.css _panel_v2_src/preview/panel-gestion/app.js _site/panel-gestion-v2/
           cp _qa_pr1_source/domain.js _qa_pr1_source/experience-domain.js _site/panel-gestion-v2/
+      - name: Checkout mapping guide preview
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: b8961d2ad304a143c3176f5c694f0f553894d0ed
+          path: _mapping_src
+          persist-credentials: false
+      - name: Stage read-only mapping guide
+        run: |
+          node --check _mapping_src/preview/panel-gestion/app.js
+          node --check _mapping_src/preview/panel-gestion/verify-mapping.mjs
+          mkdir -p _site/panel-gestion-mapeo
+          cp _mapping_src/preview/panel-gestion/index.html _mapping_src/preview/panel-gestion/styles.css _mapping_src/preview/panel-gestion/app.js _site/panel-gestion-mapeo/
+          cp _qa_pr1_source/domain.js _qa_pr1_source/experience-domain.js _site/panel-gestion-mapeo/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -107,3 +120,6 @@ jobs:
           path: test-results/panel-premium-*.png
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: Verify published mapping guide desktop and mobile
+        run: node _mapping_src/preview/panel-gestion/verify-mapping.mjs '${{ steps.deployment.outputs.page_url }}'
