@@ -94,7 +94,7 @@ jobs:
       - name: Checkout hands-on tutorial preview
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 39bfb1ff867fb881f94c2390c12792a816befe3a
+          ref: 0ad3fc795ef98b1651debe9f22f85360b25ce658
           path: _tutorial_src
           persist-credentials: false
       - name: Stage hands-on tutorial separately from approved V2
