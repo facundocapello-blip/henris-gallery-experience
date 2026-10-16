@@ -62,7 +62,7 @@ jobs:
       - name: Checkout premium Henris panel V2
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ec2ece0f6589682eef3b9989b0da4f85fc8095c7
+          ref: a7e45384fbb954f8b98515124bf516972171cf0d
           path: _panel_v2_src
           persist-credentials: false
       - name: Verify and stage premium simulator in separate URL
@@ -143,6 +143,8 @@ jobs:
 
       - name: Verify commercial presentation in published staging
         run: node _presentation_src/preview/panel-gestion/verify-presentation.mjs '${{ steps.deployment.outputs.page_url }}' panel-gestion-presentacion/
+      - name: Verify commercial presentation on approved V2 URL
+        run: node _panel_v2_src/preview/panel-gestion/verify-presentation.mjs '${{ steps.deployment.outputs.page_url }}' panel-gestion-v2/
       - name: Save real browser presentation screenshots
         if: always()
         uses: actions/upload-artifact@v4
