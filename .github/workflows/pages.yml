@@ -107,7 +107,7 @@ jobs:
       - name: Checkout compact mapping candidate
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 51c5d8c04c4751ee57cbffc0b289a78a38170f6c
+          ref: ee333cdfe459e67859bee9afa3b3df5d1269e7d3
           path: _compact_mapping_src
           persist-credentials: false
       - name: Stage compact mapping separately from prior previews
