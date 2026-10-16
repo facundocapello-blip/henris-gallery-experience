@@ -1,6 +1,8 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
 const root=process.argv[2]||'https://facundocapello-blip.github.io/henris-gallery-experience/';
+await mkdir('test-results',{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:process.env.HENRIS_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox']});
 try{
  const stable=await fetch(root);
@@ -10,8 +12,16 @@ try{
  for(const width of [390,1440]){
   const page=await browser.newPage({viewport:{width,height:844},hasTouch:width===390,isMobile:width===390});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto(root+'panel-gestion/',{waitUntil:'networkidle',timeout:30000});
+  await page.goto(root+'panel-gestion-v2/',{waitUntil:'networkidle',timeout:30000});
   await page.locator('.balance-number').waitFor();
+  assert.equal(await page.locator('.bottom-nav button').count(),4,'Expected four real tabs');
+  assert.equal((await page.locator('.bottom-nav button.active').innerText()).trim(),'Panel');
+  assert.ok((await page.locator('.circuit').innerText()).includes('Circuito integrado'),'Missing relationship diagram');
+  assert.equal((await page.locator('.order-card .detail-link').first().innerText()).trim(),'2 obras · Ver detalle ›');
+  if(width===390){
+    assert.ok(await page.evaluate(()=>{const nav=document.querySelector('.bottom-nav').getBoundingClientRect();return nav.bottom <= window.innerHeight+1 && nav.top >= 0;}),'Mobile bottom navigation not visible');
+  }
+  await page.screenshot({path:'test-results/panel-premium-'+width+'.png',fullPage:true});
   assert.equal((await page.locator('.balance-number').innerText()).trim(),'$710.500');
   assert.equal(await page.locator('.order-card').count(),3);
   await page.locator('button[data-action="detail"]').first().click();
