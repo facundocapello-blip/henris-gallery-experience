@@ -81,3 +81,6 @@
  .sample-body .narrator{display:flex}
 }
 @media(prefers-reduced-motion:reduce){#curve-active{transition:none}.compact-table .source-hit{transition:none}}
+
+/* Keep keyboard skip-link accessible without showing it after pointer-driven replay. */
+.skip:focus:not(:focus-visible){top:-200px}
