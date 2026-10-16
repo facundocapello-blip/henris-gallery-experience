@@ -1,0 +1,56 @@
+import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
+import {chromium} from '@playwright/test';
+const root=process.argv[2]||'https://facundocapello-blip.github.io/henris-gallery-experience/';
+const route=process.argv[3]||'panel-gestion-guia/';
+await mkdir('test-results',{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:process.env.HENRIS_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox']});
+try{
+ for(const width of [390,1440]){
+  const page=await browser.newPage({viewport:{width,height:844},isMobile:width===390,hasTouch:width===390});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(root+route,{waitUntil:'networkidle',timeout:30000});
+  await page.locator('.balance-number').waitFor();
+  assert.equal((await page.locator('.balance-number').innerText()).trim(),'$710.500','Existing dashboard changed');
+  assert.equal(await page.locator('.bottom-nav button').count(),4,'Navigation changed');
+  const initial=await page.evaluate(()=>localStorage.getItem('henris-panel-gestion-v1'));
+  await page.locator('button.tutorial-entry').click();
+  assert.ok(new URL(page.url()).searchParams.has('tutorial'),'Guide must have a shareable direct URL');
+  assert.equal(await page.locator('[data-tutorial-stage="0"]').count(),1);
+  assert.equal((await page.locator('.balance-number').innerText()).trim(),'$0','Practice must begin with isolated state');
+  await page.screenshot({path:'test-results/henris-tutorial-'+route.replaceAll('/','')+'-inicio-'+width+'.png',fullPage:true});
+  await page.locator('main button[data-action="new"]').click();
+  assert.equal(await page.locator('[data-tutorial-stage="1"]').count(),1);
+  assert.equal(await page.locator('#order-form input[name="customer"]').inputValue(),'Cliente de práctica');
+  await page.locator('#order-form button[type="submit"]').click();
+  assert.equal(await page.locator('[data-tutorial-stage="2"]').count(),1);
+  assert.equal(await page.locator('#item-form input[name="title"]').inputValue(),'Fotografía de práctica');
+  assert.equal(await page.locator('#item-form input[name="price"]').inputValue(),'10000');
+  await page.locator('#item-form button[type="submit"]').click();
+  assert.equal(await page.locator('[data-tutorial-stage="3"]').count(),1);
+  assert.ok((await page.locator('.money-row.total').innerText()).includes('$10.000'));
+  await page.locator('.block-title button[data-action="add-payment"]').click();
+  assert.equal(await page.locator('[data-tutorial-stage="4"]').count(),1);
+  assert.equal(await page.locator('#payment-form input[name="amount"]').inputValue(),'3000');
+  assert.ok((await page.locator('#payment-preview').innerText()).includes('$7.000'),'Payment preview must be real');
+  assert.equal(await page.evaluate(()=>localStorage.getItem('henris-panel-gestion-v1')),initial,'Tutorial must not write payment to storage');
+  await page.locator('#payment-form button[type="submit"]').click();
+  assert.equal(await page.locator('[data-tutorial-stage="5"]').count(),1);
+  assert.ok((await page.locator('.money-row.paid').innerText()).includes('$3.000'));
+  assert.ok((await page.locator('.money-row.balance').innerText()).includes('$7.000'));
+  await page.screenshot({path:'test-results/henris-tutorial-'+route.replaceAll('/','')+'-saldo-'+width+'.png',fullPage:true});
+  await page.locator('button.tutorial-done').click();
+  assert.equal((await page.locator('.balance-number').innerText()).trim(),'$710.500','Original data not restored on finish');
+  assert.equal(await page.evaluate(()=>localStorage.getItem('henris-panel-gestion-v1')),initial,'Tutorial must not persist data');
+  assert.equal(new URL(page.url()).searchParams.has('tutorial'),false,'Guide deep link must be cleared');
+  await page.goto(root+route+'?tutorial',{waitUntil:'networkidle'});
+  assert.equal(await page.locator('[data-tutorial-stage="0"]').count(),1,'Direct link should start guide');
+  await page.locator('button.tutorial-close').click();
+  assert.equal((await page.locator('.balance-number').innerText()).trim(),'$710.500','Exiting guide should restore data');
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),'Horizontal overflow');
+  if(width===390)assert.ok(await page.evaluate(()=>{const nav=document.querySelector('.bottom-nav').getBoundingClientRect();return nav.bottom<=innerHeight+1&&nav.top>=0;}),'Mobile navigation not visible');
+  assert.deepEqual(errors,[],'Browser console errors');
+  await page.close();
+ }
+ console.log('PASS: guided real-order tutorial, isolated state, actual validation, simulated payment, balance, direct link, exit, no regression, 390px + desktop');
+}finally{await browser.close();}
