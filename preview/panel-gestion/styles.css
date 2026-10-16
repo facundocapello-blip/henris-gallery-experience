@@ -173,3 +173,62 @@ main{padding:26px 22px 35px}
  .map-cell strong{font-size:10px}
  .map-explanation h3{font-size:21px}
 }
+
+/* Presentación comercial dentro de la V2, sin alterar el estilo de las vistas aprobadas. */
+.story-entry{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;background:#164a36;color:#fff;border:1px solid #164a36;border-radius:10px;margin-top:14px;min-height:58px;text-align:left}
+.story-entry>b,.story-entry span>b{font-size:12px;font-weight:750;display:block;line-height:1.3}
+.story-entry small{display:block;margin-top:4px;font-size:10px;color:#ccddd1;line-height:1.4}
+.story-entry>span:last-child{font-size:18px}
+.story-kicker{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:5px 0 6px;color:#788479;font-size:9px;letter-spacing:.1em;font-weight:750}
+.story-kicker span:last-child{color:#977331;white-space:nowrap}
+.story-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:0 0 17px}
+.story-progress button{height:36px;position:relative;background:transparent;border:0;padding:0 0 12px}
+.story-progress button:after{content:'';display:block;position:absolute;height:4px;bottom:11px;left:0;right:0;border-radius:4px;background:#dfe6de}
+.story-progress button.done:after{background:#67907d}
+.story-progress button.current:after{background:#164a36}
+.story-progress button:focus-visible{outline:2px solid #b7934f;outline-offset:1px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.story-slide{border:1px solid #dfe6dc;border-radius:17px;background:#fff;padding:20px 17px 17px;box-shadow:0 5px 23px rgba(25,48,34,.05)}
+.story-step{color:#977536;font-size:10px;letter-spacing:.09em;font-weight:750}
+.story-slide h2{margin:12px 0 10px;font:500 28px/1.11 Georgia,'Times New Roman',serif;letter-spacing:-.04em;color:#153c2e}
+.story-lead{font-size:12px;color:#617168;line-height:1.65;margin:0 0 18px}
+.story-note{font-size:10px;line-height:1.6;color:#7a867c;margin:15px 0 0;padding-top:13px;border-top:1px solid #eef1eb}
+.story-sources{display:grid;gap:7px}
+.story-source{display:grid;grid-template-columns:25px minmax(0,1fr);column-gap:9px;row-gap:3px;background:#f7f9f5;border:1px solid #e1e9de;border-radius:10px;padding:12px 10px;align-items:center}
+.story-source span{width:24px;height:24px;border-radius:50%;background:#e4efe4;color:#376950;display:grid;place-items:center;grid-row:span 2;font-size:10px;font-weight:750}
+.story-source b{font-size:12px;color:#193b2d}
+.story-source small{font-size:10px;color:#77867b}
+.story-connector{text-align:center;color:#739b7e;font-size:20px;line-height:1;margin:8px 0}
+.story-result{background:#eaf3e8;border:1px solid #cfdfcc;border-radius:12px;padding:15px 13px}
+.story-result span{display:block;font-size:9px;letter-spacing:.1em;color:#537960;font-weight:700}
+.story-result strong{font:500 20px/1.2 Georgia,serif;letter-spacing:-.02em;color:#194532;display:block;margin:7px 0}
+.story-result small{color:#62766a;font-size:11px;line-height:1.4}
+.story-case{background:#f6f8f3;border:1px solid #dfe9da;border-radius:12px;overflow:hidden}
+.story-case-header{padding:14px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between;background:#eaf2e8}
+.story-case-header small{display:block;font-size:9px;letter-spacing:.1em;color:#667d70}
+.story-case-header strong{display:block;font-size:12px;color:#193d2d;line-height:1.35;margin-top:4px}
+.story-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:13px 11px}
+.story-case-grid>div{background:white;border:1px solid #e2e8df;border-radius:10px;padding:12px 8px}
+.story-case-grid span,.story-balance span{font-size:9px;color:#727e76;display:block;letter-spacing:.02em}
+.story-case-grid strong{font-size:17px;color:#173b2b;display:block;margin:6px 0 5px;overflow-wrap:anywhere}
+.story-case-grid small{font-size:10px;color:#6d7b72;line-height:1.3}
+.story-balance{border-top:1px solid #dce4d8;padding:13px 16px;background:#f1f5e9}
+.story-balance strong{display:block;font-size:26px;color:#88631d;margin-top:5px;letter-spacing:-.05em}
+.story-map{border:1px solid #dce6dc;border-radius:12px;overflow:hidden}
+.story-map-title{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:#eaf2e8;padding:12px 10px;font-size:9px;letter-spacing:.05em;font-weight:750;color:#527362}
+.story-map-row{display:grid;grid-template-columns:minmax(0,1fr) 14px minmax(0,1fr);align-items:center;gap:4px;border-top:1px solid #e7eee5;padding:15px 10px;font-size:11px;color:#64756a}
+.story-map-row:nth-child(even){background:#fafbf8}
+.story-map-row>span:nth-child(2){text-align:center;color:#63836e;font-size:14px}
+.story-map-row strong{font-size:11px;color:#1f5137;overflow-wrap:anywhere}
+.story-inline-link{margin-top:13px;background:#f0f5ee;border:1px solid #d0e0ce;width:100%;border-radius:9px;padding:12px 10px;color:#1c5038;text-align:left;font-size:12px;font-weight:750;min-height:45px;display:flex;align-items:center;justify-content:space-between}
+.story-benefits{display:grid;gap:10px}
+.story-benefits>div{display:flex;gap:12px;align-items:flex-start;padding:14px 12px;border-radius:11px;border:1px solid #e1e8df;background:#f9faf7}
+.story-benefits>div>span{color:#57866c;border:1px solid #d8e6d8;border-radius:8px;padding:8px 6px;font-size:11px;font-weight:750}
+.story-benefits p{margin:0}
+.story-benefits strong{color:#1c3f30;font-size:12px;display:block;line-height:1.3;margin-bottom:5px}
+.story-benefits small{font-size:11px;color:#6b7b70;display:block;line-height:1.5}
+.story-controls{display:grid;grid-template-columns:1fr 1.3fr;gap:10px;margin-top:16px}
+.story-controls button{min-height:48px}
+.story-secondary{background:transparent;border:0;color:#255841;display:block;font-size:12px;font-weight:700;margin:13px auto 0;padding:10px;min-height:42px}
+.story-disclaimer{font-size:10px;color:#899187;line-height:1.5;text-align:center;margin:16px 0 6px}
+@media(max-width:400px){.story-slide{padding:17px 12px 15px}.story-slide h2{font-size:25px}.story-case-grid strong{font-size:15px}}
