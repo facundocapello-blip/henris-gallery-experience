@@ -130,7 +130,7 @@ jobs:
       - name: Checkout Pedido Obras Pagos mapping candidate
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 5ef8304748a6a36eb842ec0c3270aebe91eec906
+          ref: 5c99ce785a51e5e2f65fff090144a0aaa6117c8a
           path: _pedidos_mapping_src
           persist-credentials: false
       - name: Stage order relationship mapping separately
