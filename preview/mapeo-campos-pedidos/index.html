@@ -1,0 +1,436 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#224a35"><meta name="description" content="Mapa documentado entre los campos actuales de Pedidos, Ítems, Pagos y Clientes y las columnas originales del Excel histórico de Matías."><title>Henris Gallery · Mapeo de pedidos campo por campo</title><style>
+:root{--green:#224a35;--green2:#376b49;--ink:#243f2c;--paper:#f6f7f3;--line:#dce5da;--muted:#687c6f;--gold:#b49361;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-synthesis:none;color:var(--ink);background:var(--paper)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #65a276;outline-offset:3px}[hidden]{display:none!important}
+.bar{background:var(--green);color:#f5f6ef}.bar-inner{max-width:1240px;margin:auto;padding:12px 25px;display:flex;align-items:center;gap:12px;min-height:69px}.mark{font:34px/1 Georgia,serif;letter-spacing:-4px;color:#e5c98e}.brand strong{display:block;font:600 13px/1.1 Georgia,serif;letter-spacing:.09em}.brand small{display:block;margin-top:5px;color:#c1d5c3;font-size:9px;letter-spacing:.11em}.bar-meta{margin-left:auto;font-size:10px;color:#c5d8c8;letter-spacing:.05em}
+.container{max-width:1240px;margin:auto;padding:21px 25px 35px}.intro{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:17px}.intro h1{font:400 clamp(26px,3.1vw,39px)/1.08 Georgia,serif;letter-spacing:-.035em;margin:0}.intro p{max-width:600px;margin:8px 0 0;color:#6e8474;font-size:12px;line-height:1.55}.source-note{text-align:right;line-height:1.45;font-size:10px;color:#758a79;max-width:250px}
+.overview{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 17px}.overview span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:11px;color:#587261}.overview strong{color:#2c5f3e;font-size:13px}
+.catalog{background:#fff;border:1px solid #d9e4d8;border-radius:15px;overflow:hidden;box-shadow:0 9px 28px #17361f0c}
+.control-top{padding:17px 18px 12px;border-bottom:1px solid #e5ebe3;display:flex;justify-content:space-between;gap:15px;align-items:center}.control-top strong{font-size:11px;color:#57745e;letter-spacing:.09em}.control-top .control-help{font-size:11px;color:#829287}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding:10px 15px 13px;border-bottom:1px solid #e7ece5;scrollbar-width:thin;scrollbar-color:#bed1bf transparent}.tab{flex:none;display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid transparent;border-radius:9px;font-size:12px;padding:10px 12px;color:#637868;white-space:nowrap}.tab span{font-size:10px;color:#9baaa0}.tab:hover{background:#f1f7f0}.tab.active{background:#e9f3e8;border-color:#cce0ca;color:#24573a;font-weight:750}.tab.active span{color:#427650}
+.filters{padding:11px 17px;background:#fcfdfb;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e6ece4}.search-label{position:relative;flex:1;max-width:430px}.search-label span{position:absolute;top:50%;left:12px;transform:translateY(-50%);color:#779080;font-size:15px}.search{width:100%;border:1px solid #dbe5da;background:#fff;padding:10px 12px 10px 34px;border-radius:9px;font-size:12px;color:#244934}.status-select{min-width:188px;max-width:210px;background:white;border:1px solid #dbe5da;color:#4d7159;border-radius:9px;font-size:12px;padding:10px}
+.results-bar{padding:12px 19px;display:flex;align-items:center;justify-content:space-between;gap:16px}.results-bar p{margin:0;font-size:12px;color:#647c6a}.results-bar strong{color:#264d37}.results-bar span{font-size:10px;color:#88998c}
+.cards{padding:0 17px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.field-card{min-width:0;border:1px solid #e0e8de;border-radius:11px;padding:15px;background:#fff;box-shadow:0 3px 9px #22442c08;display:flex;flex-direction:column;gap:0}.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.tag-table{font-size:9px;color:#78907d;letter-spacing:.07em;text-transform:uppercase;font-weight:750}.status{font-size:9px;padding:4px 7px;border-radius:7px;font-weight:650}.status.directo{background:#e6f2e5;color:#3b7149}.status.transformado{background:#eaf0fa;color:#526c91}.status.calculado{background:#f5f0e3;color:#94723d}.status.nuevo{background:#edf0f2;color:#6d7981}.status.revisar{background:#fcf0e6;color:#a36534}
+.field-name{font-size:14px;font-weight:750;color:#1f4932;margin:14px 0 13px;overflow-wrap:anywhere;line-height:1.3}.origin-panel{border:1px solid #e3eae1;border-radius:9px;background:#f9fcf8;padding:10px 11px;min-height:72px}.origin-heading{font-size:9px;letter-spacing:.09em;font-weight:750;color:#829285;display:block;margin-bottom:6px}.origin-line{display:flex;gap:8px;align-items:flex-start;margin:6px 0}.letter{flex:none;display:grid;place-items:center;border:1px solid #cbdbcb;border-radius:5px;background:#e8f1e7;color:#3f7150;font-size:10px;font-weight:800;min-width:28px;height:22px}.origin-name{font-size:12px;line-height:1.4;overflow-wrap:anywhere;color:#31523c;font-weight:650}.origin-blank{color:#8a968e;font-size:11px;line-height:1.5}.muted-dash{margin-right:5px;color:#a6b1a9}.rule{color:#697b6d;margin:10px 0 0;font-size:11px;line-height:1.55}.empty{padding:38px 15px;text-align:center;color:#738674;font-size:13px}.disclaimer{padding:15px 17px 17px;border-top:1px solid #e9eee7;background:#fbfdfa;color:#718372;font-size:11px;line-height:1.65}.disclaimer strong{color:#436349}
+footer{margin-top:18px;font-size:10px;color:#87978a;display:flex;justify-content:space-between;gap:15px;line-height:1.6}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.bar-inner{padding:11px 15px;min-height:58px}.bar-meta{font-size:9px;max-width:115px;text-align:right}.container{padding:15px 11px 30px}.intro{display:block;margin-bottom:11px}.intro h1{font-size:28px}.intro p{font-size:12px}.source-note{max-width:none;text-align:left;margin-top:8px}.overview{margin:11px 0 12px}.overview span{font-size:10px}.control-top{padding:13px 11px}.control-top .control-help{display:none}.tabs{padding:8px;gap:3px}.tab{padding:9px 9px;font-size:11px;gap:5px}.filters{flex-direction:column;align-items:stretch;padding:10px;gap:8px}.search-label{max-width:none}.status-select{width:100%;max-width:none}.results-bar{padding:10px 11px}.results-bar p{font-size:11px}.results-bar span{font-size:9px}.cards{padding:0 10px 12px;grid-template-columns:1fr;gap:9px}.field-card{padding:12px}.field-name{font-size:13px;margin:10px 0}.origin-panel{padding:9px 10px;min-height:0}.origin-name{font-size:12px}.rule{font-size:11px;margin-top:9px}.disclaimer{padding:12px;font-size:10px}footer{display:block;margin-top:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body data-preview="mapeo-campos-pedidos" data-total="66">
+<header class="bar"><div class="bar-inner"><div class="mark" aria-hidden="true">H·</div><div class="brand"><strong>HENRIS GALLERY</strong><small>MAPEO DE PEDIDOS</small></div><div class="bar-meta">DOCUMENTACIÓN · NO MODIFICA LA APP</div></div></header>
+<main class="container">
+<section class="intro"><div><h1>Mapeo de pedidos</h1><p>Cada campo del modelo actual, con su columna de origen del Excel de Matías y la regla para interpretarlo.</p></div><div class="source-note">Base actual · Google Sheets<br>Origen histórico · pedidos.xlsx</div></section>
+<div class="overview"><span><strong>66</strong> campos actuales</span><span><strong>40</strong> columnas históricas</span><span><strong>4</strong> tablas vinculadas</span><span>Sin importaciones ni cambios operativos</span></div>
+<section class="catalog" aria-label="Correspondencias de campos">
+<div class="control-top"><strong>CAMPO ACTUAL → ORIGEN EXCEL</strong><span class="control-help">Seleccioná una tabla o buscá un campo</span></div>
+<nav class="tabs" aria-label="Tabla de destino"><button type="button" class="tab active" aria-pressed="true" data-tab="Pedidos">Pedidos <span>19</span></button><button type="button" class="tab " aria-pressed="false" data-tab="Pedido_Items">Obras / ítems <span>26</span></button><button type="button" class="tab " aria-pressed="false" data-tab="Pagos">Pagos <span>14</span></button><button type="button" class="tab " aria-pressed="false" data-tab="Clientes">Clientes <span>7</span></button><button type="button" class="tab " aria-pressed="false" data-tab="todos">Todos los campos <span>66</span></button></nav>
+<div class="filters"><label class="search-label"><span aria-hidden="true">⌕</span><input class="search" id="search" type="search" placeholder="Buscar campo, columna o criterio…" aria-label="Buscar campo o columna de origen"></label>
+<select class="status-select" id="status" aria-label="Filtrar por tipo de correspondencia"><option value="todos">Todas las correspondencias</option><option value="directo">Origen directo</option><option value="transformado">Adaptar / separar</option><option value="calculado">Calculado</option><option value="nuevo">Campo interno / nuevo</option><option value="revisar">Requiere validación</option></select></div>
+<div class="results-bar" aria-live="polite"><p>Mostrando <strong id="visibleCount">19</strong> campos</p><span id="scopeLabel">Pedidos</span></div>
+<div class="cards" id="cards"><article class="field-card" data-table="Pedidos" data-status="nuevo" data-search="pedidos pedidos pedido_id campo interno / nuevo identificador tecnico propio del sistema; nunca sustituye el numero historico." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Pedido_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Identificador técnico propio del sistema; nunca sustituye el número histórico.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="directo" data-search="pedidos pedidos numero_pedido_origen a i origen directo conservar «i» como referencia historica; no usar como clave tecnica." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Numero_Pedido_Origen</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">A</span><span class="origin-name">i</span></div></div>
+ <p class="rule">Conservar «i» como referencia histórica; no usar como clave técnica.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="revisar" data-search="pedidos pedidos fecha_pedido b mes pedido c carpeta requiere validacion el mes y la carpeta no garantizan una fecha completa; nuevas cargas usan fecha del pedido." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Fecha_Pedido</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">B</span><span class="origin-name">MES PEDIDO</span></div><div class="origin-line"><span class="letter">C</span><span class="origin-name">CARPETA</span></div></div>
+ <p class="rule">El mes y la carpeta no garantizan una fecha completa; nuevas cargas usan fecha del pedido.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="transformado" data-search="pedidos pedidos periodo b mes pedido adaptar / separar conservar el mes historico; en nuevos pedidos se deriva de fecha_pedido." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Periodo</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">B</span><span class="origin-name">MES PEDIDO</span></div></div>
+ <p class="rule">Conservar el mes histórico; en nuevos pedidos se deriva de Fecha_Pedido.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="directo" data-search="pedidos pedidos carpeta_produccion c carpeta origen directo conservar texto o fecha tal como venga de «carpeta»." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Carpeta_Produccion</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">C</span><span class="origin-name">CARPETA</span></div></div>
+ <p class="rule">Conservar texto o fecha tal como venga de «CARPETA».</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="nuevo" data-search="pedidos pedidos cliente_id ah cliente campo interno / nuevo referencia tecnica a clientes. usar cliente para vincular, sin deduplicar solo por nombre." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Cliente_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">AH</span><span class="origin-name">CLIENTE</span></div></div>
+ <p class="rule">Referencia técnica a Clientes. Usar CLIENTE para vincular, sin deduplicar solo por nombre.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="transformado" data-search="pedidos pedidos canal_origen am venta adaptar / separar normalizar valores: ig→instagram, wap→whatsapp, web→web, local→local." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Canal_Origen</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">AM</span><span class="origin-name">VENTA</span></div></div>
+ <p class="rule">Normalizar valores: IG→Instagram, WAP→WhatsApp, WEB→Web, LOCAL→Local.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="nuevo" data-search="pedidos pedidos campana_id campo interno / nuevo referencia opcional de campanas: no tiene una columna de origen en el excel historico." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Campaña_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Referencia opcional de campañas: no tiene una columna de origen en el Excel histórico.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="directo" data-search="pedidos pedidos numero_pedido_web an numero de pedido web origen directo referencia externa opcional; no reemplaza pedido_id." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Numero_Pedido_Web</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AN</span><span class="origin-name">NUMERO DE PEDIDO WEB</span></div></div>
+ <p class="rule">Referencia externa opcional; no reemplaza Pedido_ID.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="directo" data-search="pedidos pedidos moneda_venta p monedad origen directo conservar pesos / usd; el encabezado historico dice «monedad»." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Moneda_Venta</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">P</span><span class="origin-name">Monedad</span></div></div>
+ <p class="rule">Conservar PESOS / USD; el encabezado histórico dice «Monedad».</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="calculado" data-search="pedidos pedidos total_pedido o precio cuadro calculado suma de los precios de cada item; «precio cuadro» es importe por obra, no total de pedido." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status calculado">Calculado</span></div>
+ <h3 class="field-name">Total_Pedido</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">O</span><span class="origin-name">PRECIO CUADRO</span></div></div>
+ <p class="rule">Suma de los precios de cada ítem; «PRECIO CUADRO» es importe por obra, no total de pedido.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="calculado" data-search="pedidos pedidos total_pagado q sena u segunda parte pago calculado suma de pagos efectivamente confirmados del pedido: sena y pagos posteriores." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status calculado">Calculado</span></div>
+ <h3 class="field-name">Total_Pagado</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">Q</span><span class="origin-name">SEÑA</span></div><div class="origin-line"><span class="letter">U</span><span class="origin-name">SEGUNDA PARTE PAGO</span></div></div>
+ <p class="rule">Suma de pagos efectivamente confirmados del pedido: seña y pagos posteriores.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="calculado" data-search="pedidos pedidos saldo_pendiente y pago pendiente calculado total_pedido − total_pagado; «pago pendiente» sirve para contrastar, no para copiar." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status calculado">Calculado</span></div>
+ <h3 class="field-name">Saldo_Pendiente</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">Y</span><span class="origin-name">PAGO PENDIENTE</span></div></div>
+ <p class="rule">Total_Pedido − Total_Pagado; «PAGO PENDIENTE» sirve para contrastar, no para copiar.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="calculado" data-search="pedidos pedidos estado_cobro s sena pagada? w pagado final calculado derivar de pagos y saldo; las marcas historicas solo sirven como referencia." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status calculado">Calculado</span></div>
+ <h3 class="field-name">Estado_Cobro</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">S</span><span class="origin-name">SENA PAGADA?</span></div><div class="origin-line"><span class="letter">W</span><span class="origin-name">PAGADO FINAL</span></div></div>
+ <p class="rule">Derivar de pagos y saldo; las marcas históricas solo sirven como referencia.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="directo" data-search="pedidos pedidos fecha_entrega_prevista z fecha tentativa de entrega origen directo fecha tentativa o comprometida; no confundir con entrega real." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Fecha_Entrega_Prevista</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">Z</span><span class="origin-name">FECHA TENTATIVA DE ENTREGA</span></div></div>
+ <p class="rule">Fecha tentativa o comprometida; no confundir con entrega real.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="directo" data-search="pedidos pedidos fecha_entrega_real aa fecha entrega origen directo fecha real de entrega al cliente." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Fecha_Entrega_Real</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AA</span><span class="origin-name">FECHA ENTREGA</span></div></div>
+ <p class="rule">Fecha real de entrega al cliente.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="nuevo" data-search="pedidos pedidos estado_pedido campo interno / nuevo estado operativo de la app; no se deduce de pago ni de la columna cuadro." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Estado_Pedido</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Estado operativo de la app; no se deduce de pago ni de la columna CUADRO.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="transformado" data-search="pedidos pedidos estado_facturacion al facturado total adaptar / separar adaptar facturado total a los estados de facturacion, distinguiendo cobrado de facturado." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Estado_Facturacion</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">AL</span><span class="origin-name">Facturado TOTAL</span></div></div>
+ <p class="rule">Adaptar Facturado TOTAL a los estados de facturación, distinguiendo cobrado de facturado.</p>
+ </article>
+<article class="field-card" data-table="Pedidos" data-status="nuevo" data-search="pedidos pedidos comentarios campo interno / nuevo observaciones propias del pedido. las de «entregas comentarios» corresponden al item." >
+ <div class="card-top"><span class="tag-table">Pedidos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Comentarios</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Observaciones propias del pedido. Las de «ENTREGAS COMENTARIOS» corresponden al ítem.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="nuevo" data-search="pedido_items obras / items pedido_item_id campo interno / nuevo clave tecnica por obra/trabajo dentro del pedido." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Pedido_Item_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Clave técnica por obra/trabajo dentro del pedido.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items pedido_id a i adaptar / separar vincular al pedido generado con la referencia «i»; no copiar el texto como clave." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Pedido_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">A</span><span class="origin-name">i</span></div></div>
+ <p class="rule">Vincular al pedido generado con la referencia «i»; no copiar el texto como clave.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items obra_id d #art requiere validacion vincular al catalogo solo cuando #art identifique una obra existente y verificable." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Obra_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">D</span><span class="origin-name">#ARt</span></div></div>
+ <p class="rule">Vincular al catálogo solo cuando #ARt identifique una obra existente y verificable.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items codigo_art d #art origen directo conservar codigo comercial original de la obra o item." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Codigo_Art</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">D</span><span class="origin-name">#ARt</span></div></div>
+ <p class="rule">Conservar código comercial original de la obra o ítem.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items descripcion e descripcion origen directo conservar descripcion completa del trabajo u obra." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Descripcion</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">E</span><span class="origin-name">DESCRIPCION</span></div></div>
+ <p class="rule">Conservar descripción completa del trabajo u obra.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items medidas f medidas origen directo texto original de medidas, conservado como legado sin perder anotaciones." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Medidas</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">F</span><span class="origin-name">MEDIDAS</span></div></div>
+ <p class="rule">Texto original de MEDIDAS, conservado como legado sin perder anotaciones.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items borde_adicional g borde para agregar origen directo borde blanco de la lamina impresa; no confundir con passe-partout." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Borde_Adicional</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">G</span><span class="origin-name">Borde para agregar</span></div></div>
+ <p class="rule">Borde blanco de la lámina impresa; no confundir con passe-partout.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items passe_partout h passe-partout origen directo passe-partout propiamente dicho, separado del borde blanco." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Passe_Partout</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">H</span><span class="origin-name">PASSE-PARTOUT</span></div></div>
+ <p class="rule">Passe-partout propiamente dicho, separado del borde blanco.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items terminacion_cuadro i cuadro requiere validacion cuadro contiene terminaciones y a veces estados; separar antes de cargar." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Terminacion_Cuadro</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">I</span><span class="origin-name">CUADRO</span></div></div>
+ <p class="rule">CUADRO contiene terminaciones y a veces estados; separar antes de cargar.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items precio_item o precio cuadro origen directo importe de una obra/trabajo individual; matias lo confirmo." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Precio_Item</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">O</span><span class="origin-name">PRECIO CUADRO</span></div></div>
+ <p class="rule">Importe de una obra/trabajo individual; Matías lo confirmó.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items comentarios_produccion j entregas comentarios origen directo comentarios de fabricacion y entrega asociados al item." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Comentarios_Produccion</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">J</span><span class="origin-name">ENTREGAS COMENTARIOS</span></div></div>
+ <p class="rule">Comentarios de fabricación y entrega asociados al ítem.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items estado_produccion i cuadro requiere validacion cuadro puede contener estados, pero necesita criterio antes de normalizar." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Estado_Produccion</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">I</span><span class="origin-name">CUADRO</span></div></div>
+ <p class="rule">CUADRO puede contener estados, pero necesita criterio antes de normalizar.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items estado_entrega_local k entregado al local? adaptar / separar normalizar la situacion de entrega al local, independiente del cobro." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Estado_Entrega_Local</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">K</span><span class="origin-name">ENTREGADO AL LOCAL?</span></div></div>
+ <p class="rule">Normalizar la situación de entrega al local, independiente del cobro.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="directo" data-search="pedido_items obras / items fecha_entrega_proveedor l fecha entrega de luis origen directo fecha en que luis/proveedor entrega el trabajo." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Fecha_Entrega_Proveedor</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">L</span><span class="origin-name">FECHA ENTREGA DE LUIS</span></div></div>
+ <p class="rule">Fecha en que Luis/proveedor entrega el trabajo.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items produccion_pagada m se pago adaptar / separar «se pago» corresponde al pago de produccion, no al cobro del cliente." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Produccion_Pagada</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">M</span><span class="origin-name">SE PAGO</span></div></div>
+ <p class="rule">«SE PAGO» corresponde al pago de producción, no al cobro del cliente.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="nuevo" data-search="pedido_items obras / items costo_produccion_id campo interno / nuevo referencia a costos; el historico no aporta esta clave tecnica." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Costo_Produccion_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Referencia a Costos; el histórico no aporta esta clave técnica.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items tipo_trabajo e descripcion j entregas comentarios requiere validacion clasificar si es obra henris, enmarcado u otro trabajo segun el detalle; validar casos ambiguos." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Tipo_Trabajo</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">E</span><span class="origin-name">DESCRIPCION</span></div><div class="origin-line"><span class="letter">J</span><span class="origin-name">ENTREGAS COMENTARIOS</span></div></div>
+ <p class="rule">Clasificar si es obra Henris, enmarcado u otro trabajo según el detalle; validar casos ambiguos.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items objeto_a_enmarcar e descripcion j entregas comentarios requiere validacion identificar lamina, camiseta, foto u otro objeto solamente cuando esta documentado." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Objeto_A_Enmarcar</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">E</span><span class="origin-name">DESCRIPCION</span></div><div class="origin-line"><span class="letter">J</span><span class="origin-name">ENTREGAS COMENTARIOS</span></div></div>
+ <p class="rule">Identificar lámina, camiseta, foto u otro objeto solamente cuando está documentado.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items medida_ancho f medidas adaptar / separar extraer el ancho solo cuando la medida es inequivoca; caso dudoso → revisar." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Medida_Ancho</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">F</span><span class="origin-name">MEDIDAS</span></div></div>
+ <p class="rule">Extraer el ancho solo cuando la medida es inequívoca; caso dudoso → REVISAR.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items medida_alto f medidas adaptar / separar extraer el alto solo cuando la medida es inequivoca; caso dudoso → revisar." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Medida_Alto</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">F</span><span class="origin-name">MEDIDAS</span></div></div>
+ <p class="rule">Extraer el alto solo cuando la medida es inequívoca; caso dudoso → REVISAR.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items unidad_medida f medidas requiere validacion en historicos no asumir centimetros cuando el texto no lo confirma." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Unidad_Medida</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">F</span><span class="origin-name">MEDIDAS</span></div></div>
+ <p class="rule">En históricos no asumir centímetros cuando el texto no lo confirma.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="revisar" data-search="pedido_items obras / items medida_corresponde_a f medidas j entregas comentarios requiere validacion matias debe confirmar lamina, cuadro terminado u otro para cada caso ambiguo." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Medida_Corresponde_A</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">F</span><span class="origin-name">MEDIDAS</span></div><div class="origin-line"><span class="letter">J</span><span class="origin-name">ENTREGAS COMENTARIOS</span></div></div>
+ <p class="rule">Matías debe confirmar lámina, cuadro terminado u otro para cada caso ambiguo.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="nuevo" data-search="pedido_items obras / items medida_estandar_referencia campo interno / nuevo referencia comercial opcional; no sustituye las dimensiones reales." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Medida_Estandar_Referencia</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Referencia comercial opcional; no sustituye las dimensiones reales.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items es_personalizado e descripcion f medidas g borde para agregar h passe-partout j entregas comentarios adaptar / separar se define con la regla de personalizacion cuando hay evidencia de medida, material, objeto o terminacion especial." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Es_Personalizado</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">E</span><span class="origin-name">DESCRIPCION</span></div><div class="origin-line"><span class="letter">F</span><span class="origin-name">MEDIDAS</span></div><div class="origin-line"><span class="letter">G</span><span class="origin-name">Borde para agregar</span></div><div class="origin-line"><span class="letter">H</span><span class="origin-name">PASSE-PARTOUT</span></div><div class="origin-line"><span class="letter">J</span><span class="origin-name">ENTREGAS COMENTARIOS</span></div></div>
+ <p class="rule">Se define con la regla de personalización cuando hay evidencia de medida, material, objeto o terminación especial.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="transformado" data-search="pedido_items obras / items observaciones_especiales j entregas comentarios adaptar / separar separar excepciones de los comentarios generales; conservar texto sin inventar." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Observaciones_Especiales</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">J</span><span class="origin-name">ENTREGAS COMENTARIOS</span></div></div>
+ <p class="rule">Separar excepciones de los comentarios generales; conservar texto sin inventar.</p>
+ </article>
+<article class="field-card" data-table="Pedido_Items" data-status="nuevo" data-search="pedido_items obras / items estado_revision campo interno / nuevo estado de control ok / revisar generado durante normalizacion." hidden>
+ <div class="card-top"><span class="tag-table">Obras / ítems</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Estado_Revision</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Estado de control OK / REVISAR generado durante normalización.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="nuevo" data-search="pagos pagos pago_id campo interno / nuevo clave tecnica individual por cobro; sena y pago final son filas distintas." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Pago_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Clave técnica individual por cobro; seña y pago final son filas distintas.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="transformado" data-search="pagos pagos pedido_id a i adaptar / separar vinculo al mismo pedido de origen; un pago no pertenece a una obra especifica." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Pedido_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">A</span><span class="origin-name">i</span></div></div>
+ <p class="rule">Vínculo al mismo pedido de origen; un pago no pertenece a una obra específica.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="transformado" data-search="pagos pagos tipo_pago q sena u segunda parte pago adaptar / separar distinguir sena de pago final/segundo pago segun la columna historica." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Tipo_Pago</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">Q</span><span class="origin-name">SEÑA</span></div><div class="origin-line"><span class="letter">U</span><span class="origin-name">SEGUNDA PARTE PAGO</span></div></div>
+ <p class="rule">Distinguir Seña de Pago final/segundo pago según la columna histórica.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="directo" data-search="pagos pagos fecha_pago t fecha pago sena x fecha pago final origen directo fecha de la sena o del segundo pago, segun el cobro correspondiente." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Fecha_Pago</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">T</span><span class="origin-name">FECHA PAGO SENA</span></div><div class="origin-line"><span class="letter">X</span><span class="origin-name">FECHA PAGO FINAL</span></div></div>
+ <p class="rule">Fecha de la seña o del segundo pago, según el cobro correspondiente.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="directo" data-search="pagos pagos importe q sena u segunda parte pago origen directo importe de la sena o de otro pago; cada cobro se transforma en su propia fila." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Importe</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">Q</span><span class="origin-name">SEÑA</span></div><div class="origin-line"><span class="letter">U</span><span class="origin-name">SEGUNDA PARTE PAGO</span></div></div>
+ <p class="rule">Importe de la seña o de otro pago; cada cobro se transforma en su propia fila.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="revisar" data-search="pagos pagos moneda p monedad requiere validacion moneda historica del pedido como referencia; validar si un cobro se realizo en otra moneda." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Moneda</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">P</span><span class="origin-name">Monedad</span></div></div>
+ <p class="rule">Moneda histórica del pedido como referencia; validar si un cobro se realizó en otra moneda.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="directo" data-search="pagos pagos cotizacion_usd af cotizacion dolar origen directo cotizacion historica cuando corresponda conversion; revisar la fecha aplicable." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Cotizacion_USD</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AF</span><span class="origin-name">cotización dolar</span></div></div>
+ <p class="rule">Cotización histórica cuando corresponda conversión; revisar la fecha aplicable.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="calculado" data-search="pagos pagos importe_en_moneda_pedido p monedad q sena u segunda parte pago af cotizacion dolar calculado convertir el importe de cada pago usando su moneda y cotizacion validada." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status calculado">Calculado</span></div>
+ <h3 class="field-name">Importe_En_Moneda_Pedido</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">P</span><span class="origin-name">Monedad</span></div><div class="origin-line"><span class="letter">Q</span><span class="origin-name">SEÑA</span></div><div class="origin-line"><span class="letter">U</span><span class="origin-name">SEGUNDA PARTE PAGO</span></div><div class="origin-line"><span class="letter">AF</span><span class="origin-name">cotización dolar</span></div></div>
+ <p class="rule">Convertir el importe de cada pago usando su moneda y cotización validada.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="revisar" data-search="pagos pagos medio_pago n pago requiere validacion «pago» puede contener medios mixtos, por ejemplo 50% transferencia / 50% efectivo." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status revisar">Requiere validación</span></div>
+ <h3 class="field-name">Medio_Pago</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">N</span><span class="origin-name">PAGO</span></div></div>
+ <p class="rule">«PAGO» puede contener medios mixtos, por ejemplo 50% transferencia / 50% efectivo.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="directo" data-search="pagos pagos recibido_por r quien la recibio? v quien la recibio? origen directo mantener separado receptor de sena y receptor de segundo pago." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Recibido_Por</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">R</span><span class="origin-name">QUIEN LA RECIBIO?</span></div><div class="origin-line"><span class="letter">V</span><span class="origin-name">QUIEN LA RECIBIO?</span></div></div>
+ <p class="rule">Mantener separado receptor de seña y receptor de segundo pago.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="transformado" data-search="pagos pagos estado_pago s sena pagada? w pagado final adaptar / separar normalizar confirmacion de sena/final; conciliar inconsistencias antes de contar como cobro." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Estado_Pago</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">S</span><span class="origin-name">SENA PAGADA?</span></div><div class="origin-line"><span class="letter">W</span><span class="origin-name">PAGADO FINAL</span></div></div>
+ <p class="rule">Normalizar confirmación de seña/final; conciliar inconsistencias antes de contar como cobro.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="transformado" data-search="pagos pagos facturado ak facturado sena adaptar / separar facturado sena corresponde a la sena; el total facturado se controla aparte." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Facturado</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">AK</span><span class="origin-name">Facturado SENA</span></div></div>
+ <p class="rule">Facturado SENA corresponde a la seña; el total facturado se controla aparte.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="transformado" data-search="pagos pagos conciliado_contabilidad ab contabilidad sena ac contabilidad otra partelpago adaptar / separar usar columna contable especifica del cobro; no crear otro pago." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status transformado">Adaptar / separar</span></div>
+ <h3 class="field-name">Conciliado_Contabilidad</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · REFERENCIA HISTÓRICA</span><div class="origin-line"><span class="letter">AB</span><span class="origin-name">CONTABILIDAD SENA</span></div><div class="origin-line"><span class="letter">AC</span><span class="origin-name">CONTABILIDAD OTRA PARTELPAGO</span></div></div>
+ <p class="rule">Usar columna contable específica del cobro; no crear otro pago.</p>
+ </article>
+<article class="field-card" data-table="Pagos" data-status="nuevo" data-search="pagos pagos observaciones campo interno / nuevo comentarios de cada cobro en la aplicacion; sin columna historica exclusiva." hidden>
+ <div class="card-top"><span class="tag-table">Pagos</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Observaciones</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Comentarios de cada cobro en la aplicación; sin columna histórica exclusiva.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="nuevo" data-search="clientes clientes cliente_id campo interno / nuevo clave tecnica generada para vincular pedidos; no deduplicar solamente por nombre." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Cliente_ID</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Clave técnica generada para vincular pedidos; no deduplicar solamente por nombre.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="directo" data-search="clientes clientes nombre ah cliente origen directo nombre original, conservar con revision de duplicados." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Nombre</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AH</span><span class="origin-name">CLIENTE</span></div></div>
+ <p class="rule">Nombre original, conservar con revisión de duplicados.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="directo" data-search="clientes clientes dni_cuil ag datos cleinte dni o cuil origen directo conservar como texto, sin usarlo como key tecnica." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">DNI_CUIL</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AG</span><span class="origin-name">datos cleinte DNI o CUIL</span></div></div>
+ <p class="rule">Conservar como texto, sin usarlo como Key técnica.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="directo" data-search="clientes clientes telefono ai contacto origen directo contacto: conservar caracteres, prefijos y ceros; no tratarlo como numero." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Telefono</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AI</span><span class="origin-name">CONTACTO</span></div></div>
+ <p class="rule">CONTACTO: conservar caracteres, prefijos y ceros; no tratarlo como número.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="directo" data-search="clientes clientes email aj mail origen directo mail del excel historico; dato opcional." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status directo">Origen directo</span></div>
+ <h3 class="field-name">Email</h3>
+ <div class="origin-panel"><span class="origin-heading">EXCEL · COLUMNA DE ORIGEN</span><div class="origin-line"><span class="letter">AJ</span><span class="origin-name">MAIL</span></div></div>
+ <p class="rule">MAIL del Excel histórico; dato opcional.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="nuevo" data-search="clientes clientes notas campo interno / nuevo notas del cliente en la app; no tomar automaticamente comentarios de produccion." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Notas</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Notas del cliente en la app; no tomar automáticamente comentarios de producción.</p>
+ </article>
+<article class="field-card" data-table="Clientes" data-status="nuevo" data-search="clientes clientes fecha_alta campo interno / nuevo fecha de alta en el sistema nuevo, no inventar una fecha historica." hidden>
+ <div class="card-top"><span class="tag-table">Clientes</span><span class="status nuevo">Campo interno / nuevo</span></div>
+ <h3 class="field-name">Fecha_Alta</h3>
+ <div class="origin-panel"><span class="origin-heading">ORIGEN DEL CAMPO</span><div class="origin-blank"><span class="muted-dash" aria-hidden="true">—</span> No tiene una columna de origen</div></div>
+ <p class="rule">Fecha de alta en el sistema nuevo, no inventar una fecha histórica.</p>
+ </article></div><p class="empty" id="empty" hidden>No hay campos que coincidan con esos filtros.</p>
+<div class="disclaimer"><strong>Alcance y trazabilidad:</strong> nombres de columnas verificados en las tablas actuales de Google Sheets y el archivo histórico pedidos.xlsx. El plan de configuración AppSheet existe, pero <strong>no se verificó que todos estos campos estén visibles o configurados exactamente así en la aplicación</strong>. «Requiere validación» no es una importación aprobada. No se muestra información personal de clientes.</div>
+</section>
+<footer><span>Fuentes: Pedidos, Pedido_Items, Pagos, Clientes, Mapa_Migracion_Matias y pedidos.xlsx · revisión 15/10/2026.</span><span>Henris Gallery · vista aislada para revisión de Matías</span></footer>
+</main>
+<script>
+(()=>{const tabs=[...document.querySelectorAll('.tab')],cards=[...document.querySelectorAll('.field-card')],search=document.getElementById('search'),filter=document.getElementById('status'),counter=document.getElementById('visibleCount'),scope=document.getElementById('scopeLabel'),empty=document.getElementById('empty');let active='Pedidos';
+const clean=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+function redraw(){const needle=clean(search.value),state=filter.value;let n=0;for(const card of cards){const ok=(active==='todos'||card.dataset.table===active)&&(state==='todos'||card.dataset.status===state)&&(!needle||card.dataset.search.includes(needle));card.hidden=!ok;if(ok)n++;}counter.textContent=n;scope.textContent=active==='todos'?'Todas las tablas':({Pedidos:'Pedidos',Pedido_Items:'Obras / ítems',Pagos:'Pagos',Clientes:'Clientes'}[active]);empty.hidden=n!==0;tabs.forEach(b=>{const selected=b.dataset.tab===active;b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected));});}
+for(const btn of tabs)btn.addEventListener('click',()=>{active=btn.dataset.tab;redraw();});
+search.addEventListener('input',redraw);filter.addEventListener('change',redraw);redraw();
+})();
+</script></body></html>
