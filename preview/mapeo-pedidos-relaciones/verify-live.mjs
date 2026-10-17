@@ -29,12 +29,15 @@ try {
    return{source:rect('.excel-panel'),phone:rect('.phone'),strip:rect('.relation-strip'),pedido:rect('.relation-master'),obras:rect('.relation-child:first-child'),pagos:rect('.relation-child:last-child'),stage:rect('.map-stage'),scroll:document.documentElement.scrollWidth,viewport:innerWidth};
   });
   assert.ok(b.scroll<=b.viewport+1,'Overflow: '+JSON.stringify(b));
-  assert.ok(b.strip.y>=b.stage.bottom,'Relationship diagram must follow mapping without overlapping');
+  assert.ok(b.strip.y>=b.source.bottom-1 && b.strip.bottom<=b.stage.bottom+1,'Relationship diagram must use available room within the mapping card: '+JSON.stringify(b));
+  assert.equal(await page.locator('.map-stage>.display-grid>.relation-strip').count(),1,'Diagram must live inside the approved composition');
   if(width>=701){
    assert.ok(Math.abs(b.source.y-b.phone.y)<35,'Excel and phone alignment lost');
+   assert.ok(b.strip.right<=b.phone.x+1,'Diagram must not intrude into the phone column: '+JSON.stringify(b));
    assert.ok(b.pedido.right<b.obras.x,'Diagram columns overlap: '+JSON.stringify(b));
    assert.ok(b.obras.right<=b.pagos.x,'The two branches overlap: '+JSON.stringify(b));
   } else {
+   assert.ok(b.strip.y>=b.phone.bottom,'Mobile relationship must follow the phone: '+JSON.stringify(b));
    assert.ok(b.pedido.bottom<b.obras.y,'Mobile relationship must be vertically ordered: '+JSON.stringify(b));
    assert.ok(b.obras.right<=b.pagos.x,'Mobile branches should not overlap');
   }
