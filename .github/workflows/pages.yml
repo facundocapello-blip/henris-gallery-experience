@@ -154,7 +154,7 @@ jobs:
       - name: Checkout unmodified Qwen review candidate
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: a34bc056193a0ee601b6d9acf65ad3376f410be3
+          ref: d5fee6a81edce3b21f81fd3552b5bef22e8c635e
           path: _qwen_preview_src
           persist-credentials: false
       - name: Stage Qwen original HTML in isolated URL
