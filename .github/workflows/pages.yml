@@ -173,6 +173,18 @@ jobs:
           node --check _astra_mapping_src/preview/mapeo-astra-paneles/verify-live.mjs
           mkdir -p _site/mapeo-astra-paneles
           cp _astra_mapping_src/preview/mapeo-astra-paneles/index.html _site/mapeo-astra-paneles/
+      - name: Checkout original Claude Haiku review
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: c36328de5e24360eafc06e9c5ebffbf6b8645f2e
+          path: _haiku_preview_src
+          persist-credentials: false
+      - name: Stage untouched Haiku presentation in isolated URL
+        run: |
+          node --check _haiku_preview_src/preview/claude-haiku-presentacion/verify-live.mjs
+          mkdir -p _site/claude-haiku-presentacion
+          cp _haiku_preview_src/preview/claude-haiku-presentacion/index.html _site/claude-haiku-presentacion/index.html
+          cp _haiku_preview_src/preview/claude-haiku-presentacion/README.md _site/claude-haiku-presentacion/README.md
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -312,5 +324,16 @@ jobs:
         with:
           name: henris-astra-two-panel-screenshots
           path: test-results/henris-astra-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify original Claude Haiku HTML in public browser
+        run: node _haiku_preview_src/preview/claude-haiku-presentacion/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save original Haiku screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-haiku-original-review-screenshots
+          path: test-results/henris-haiku-*.png
           if-no-files-found: ignore
           retention-days: 7
