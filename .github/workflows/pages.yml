@@ -138,6 +138,19 @@ jobs:
           node --check _pedidos_mapping_src/preview/mapeo-pedidos-relaciones/verify-live.mjs
           mkdir -p _site/mapeo-pedidos-relaciones
           cp _pedidos_mapping_src/preview/mapeo-pedidos-relaciones/index.html _site/mapeo-pedidos-relaciones/
+      - name: Checkout Matias field-to-field mapping
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: a3d572123812225278e28ed83c84a1478a9746c0
+          path: _matias_fields_src
+          persist-credentials: false
+      - name: Stage isolated fields mapping without changing prior versions
+        run: |
+          node --check _matias_fields_src/preview/mapeo-campos-pedidos/verify-live.mjs
+          node -e "const d=require('./_matias_fields_src/preview/mapeo-campos-pedidos/mapeo-verificado.json');if(d.sections.reduce((a,b)=>a+b.count,0)!==66||d.originColumns.length!==40)process.exit(1)"
+          mkdir -p _site/mapeo-campos-pedidos
+          cp _matias_fields_src/preview/mapeo-campos-pedidos/index.html _site/mapeo-campos-pedidos/
+          cp _matias_fields_src/preview/mapeo-campos-pedidos/mapeo-verificado.json _site/mapeo-campos-pedidos/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -244,5 +257,16 @@ jobs:
         with:
           name: henris-pedidos-relaciones-captures
           path: test-results/henris-relaciones-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify current fields vs historical Excel mapping in public browser
+        run: node _matias_fields_src/preview/mapeo-campos-pedidos/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save reviewed mapping screenshots desktop tablet and iPhone
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-matias-field-mapping-screenshots
+          path: test-results/henris-campos-*.png
           if-no-files-found: ignore
           retention-days: 7
