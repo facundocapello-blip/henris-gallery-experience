@@ -119,7 +119,7 @@ jobs:
       - name: Checkout V3 and V1 hybrid mockup
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: cc2e0b6fc178bff3a545c41de332590d5cdf59eb
+          ref: 7080708565d76dc6baeae45b3d4c3acdcf085c91
           path: _hybrid_mockup_src
           persist-credentials: false
       - name: Stage isolated hybrid mockup without altering previous versions
