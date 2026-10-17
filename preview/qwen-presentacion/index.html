@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#14241f" />
+<title>Henris Gallery — Sistema de gestión para galerías de arte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   HENRIS GALLERY — Diseño editorial contemporáneo
+   Paleta: verde bosque, marfil, blanco cálido, gris piedra, dorado
+   ========================================================= */
+:root{
+  --verde-bosque:#14241f;
+  --verde-bosque-2:#1c322b;
+  --verde-musgo:#2a4a3e;
+  --marfil:#f3ede0;
+  --marfil-2:#ebe3d2;
+  --blanco-calido:#faf7f0;
+  --gris-piedra:#8a8578;
+  --gris-piedra-2:#b8b2a4;
+  --dorado:#b8965a;
+  --dorado-suave:#d4b882;
+  --tinta:#1a1a18;
+  --tinta-suave:#3a3a35;
+  --linea:rgba(20,36,31,.12);
+  --linea-fuerte:rgba(20,36,31,.22);
+  --sombra-1:0 1px 2px rgba(20,36,31,.04), 0 8px 24px rgba(20,36,31,.06);
+  --sombra-2:0 2px 4px rgba(20,36,31,.06), 0 20px 48px rgba(20,36,31,.12);
+  --sombra-3:0 4px 8px rgba(20,36,31,.08), 0 32px 72px rgba(20,36,31,.18);
+  --serif:'Cormorant Garamond', 'Times New Roman', serif;
+  --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono:'SF Mono', 'JetBrains Mono', Consolas, monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  background:var(--blanco-calido);
+  color:var(--tinta);
+  line-height:1.55;
+  font-size:16px;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--verde-bosque);color:var(--marfil)}
+
+/* ============ NAV ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,247,240,.72);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s var(--ease), background .4s var(--ease);
+}
+.nav.scrolled{border-bottom-color:var(--linea)}
+.nav__brand{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--serif);font-size:22px;font-weight:500;
+  letter-spacing:.02em;
+}
+.nav__mark{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--verde-bosque);
+  display:grid;place-items:center;
+  color:var(--dorado-suave);
+  font-family:var(--serif);font-size:18px;font-style:italic;
+}
+.nav__links{display:flex;gap:32px;font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.nav__links a{color:var(--tinta-suave);transition:color .3s var(--ease);position:relative}
+.nav__links a:hover{color:var(--verde-bosque)}
+.nav__links a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;
+  background:var(--dorado);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.nav__links a:hover::after{transform:scaleX(1)}
+.nav__cta{
+  padding:10px 20px;border:1px solid var(--verde-bosque);
+  border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  transition:all .3s var(--ease);
+}
+.nav__cta:hover{background:var(--verde-bosque);color:var(--marfil)}
+.nav__burger{display:none;width:32px;height:32px;position:relative}
+.nav__burger span{position:absolute;left:6px;right:6px;height:1.5px;background:var(--tinta);transition:all .3s var(--ease)}
+.nav__burger span:nth-child(1){top:11px}
+.nav__burger span:nth-child(2){top:16px}
+.nav__burger span:nth-child(3){top:21px}
+
+/* ============ LAYOUT ============ */
+.container{max-width:1360px;margin:0 auto;padding:0 32px}
+.section{padding:140px 0;position:relative}
+.section--dark{background:var(--verde-bosque);color:var(--marfil)}
+.section--ivory{background:var(--marfil)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dorado);
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--dorado)}
+.section--dark .eyebrow{color:var(--dorado-suave)}
+.section--dark .eyebrow::before{background:var(--dorado-suave)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.08}
+h1{font-size:clamp(44px,7vw,96px)}
+h2{font-size:clamp(36px,5vw,64px)}
+h3{font-size:clamp(24px,2.6vw,34px)}
+.lead{font-size:clamp(17px,1.4vw,20px);line-height:1.55;color:var(--tinta-suave);max-width:62ch}
+.section--dark .lead{color:rgba(243,237,224,.72)}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;padding:140px 0 80px;
+  display:grid;grid-template-columns:1fr;align-content:end;
+  position:relative;overflow:hidden;
+}
+.hero__bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 75% 20%, rgba(184,150,90,.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 80%, rgba(42,74,62,.06) 0%, transparent 55%),
+    var(--blanco-calido);
+}
+.hero__art{
+  position:absolute;top:50%;right:-8%;transform:translateY(-50%);
+  width:58%;max-width:880px;aspect-ratio:4/5;z-index:1;
+  opacity:.95;
+}
+.hero__content{position:relative;z-index:2;max-width:780px}
+.hero__title{margin:28px 0 32px}
+.hero__title em{font-style:italic;color:var(--verde-musgo);font-weight:400}
+.hero__title .gold{color:var(--dorado);font-style:italic}
+.hero__sub{font-size:clamp(17px,1.3vw,19px);color:var(--tinta-suave);max-width:56ch;line-height:1.6}
+.hero__meta{
+  margin-top:56px;display:flex;gap:48px;flex-wrap:wrap;
+  padding-top:32px;border-top:1px solid var(--linea-fuerte);
+}
+.hero__meta-item{display:flex;flex-direction:column;gap:6px}
+.hero__meta-item .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris-piedra);font-weight:600}
+.hero__meta-item .v{font-family:var(--serif);font-size:28px;font-weight:500;color:var(--verde-bosque)}
+.hero__scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gris-piedra);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  z-index:3;
+}
+.hero__scroll::after{
+  content:"";width:1px;height:40px;background:linear-gradient(var(--gris-piedra),transparent);
+  animation:scrollLine 2.4s var(--ease) infinite;
+}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ PROPUESTA ============ */
+.propuesta{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.propuesta__text h2{margin:24px 0 28px}
+.propuesta__text h2 em{font-style:italic;color:var(--dorado)}
+.propuesta__list{margin-top:40px;display:flex;flex-direction:column;gap:24px}
+.propuesta__item{display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start}
+.propuesta__num{
+  font-family:var(--serif);font-size:24px;font-style:italic;color:var(--dorado);
+  padding-top:4px;
+}
+.propuesta__item h4{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:.02em;margin-bottom:6px}
+.propuesta__item p{font-size:14.5px;color:var(--tinta-suave);line-height:1.55}
+.propuesta__visual{
+  position:sticky;top:120px;
+  aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+  box-shadow:var(--sombra-3);
+}
+
+/* ============ MAPEO — PROTAGONISTA ============ */
+.mapeo{padding:140px 0 160px}
+.mapeo__head{max-width:820px;margin-bottom:64px}
+.mapeo__head h2{margin:24px 0 24px}
+.mapeo__head h2 em{font-style:italic;color:var(--dorado-suave)}
+.mapeo__toolbar{
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
+  padding:20px 24px;
+  background:rgba(255,255,255,.5);
+  border:1px solid var(--linea);
+  border-radius:14px;
+  backdrop-filter:blur(10px);
+  margin-bottom:32px;
+}
+.mapeo__filters{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{
+  padding:9px 16px;border-radius:999px;
+  font-size:12.5px;font-weight:500;letter-spacing:.02em;
+  color:var(--tinta-suave);
+  border:1px solid transparent;
+  transition:all .25s var(--ease);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.filter-btn:hover{color:var(--verde-bosque);background:rgba(20,36,31,.04)}
+.filter-btn.active{background:var(--verde-bosque);color:var(--marfil);border-color:var(--verde-bosque)}
+.filter-btn .count{
+  font-size:10px;padding:2px 7px;border-radius:999px;
+  background:rgba(20,36,31,.08);font-weight:600;
+}
+.filter-btn.active .count{background:rgba(243,237,224,.18);color:var(--marfil)}
+.mapeo__search{
+  position:relative;min-width:260px;
+}
+.mapeo__search input{
+  width:100%;padding:10px 14px 10px 38px;
+  border:1px solid var(--linea-fuerte);border-radius:999px;
+  font:inherit;font-size:13.5px;background:var(--blanco-calido);
+  transition:all .25s var(--ease);
+}
+.mapeo__search input:focus{outline:none;border-color:var(--verde-bosque);box-shadow:0 0 0 3px rgba(20,36,31,.08)}
+.mapeo__search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gris-piedra)}
+
+.mapeo__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.mapeo__card{
+  position:relative;
+  padding:22px 22px 20px;
+  background:var(--blanco-calido);
+  border:1px solid var(--linea);
+  border-radius:14px;
+  cursor:pointer;
+  transition:all .35s var(--ease);
+  overflow:hidden;
+}
+.mapeo__card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--dorado);transform:scaleY(0);transform-origin:top;
+  transition:transform .4s var(--ease);
+}
+.mapeo__card:hover{transform:translateY(-3px);box-shadow:var(--sombra-2);border-color:var(--linea-fuerte)}
+.mapeo__card:hover::before{transform:scaleY(1)}
+.mapeo__card.selected{border-color:var(--verde-bosque);box-shadow:var(--sombra-2)}
+.mapeo__card.selected::before{transform:scaleY(1);background:var(--verde-bosque)}
+.mapeo__card-tag{
+  display:inline-block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 9px;border-radius:4px;margin-bottom:14px;
+}
+.tag-pedidos{background:rgba(20,36,31,.08);color:var(--verde-bosque)}
+.tag-obras{background:rgba(184,150,90,.14);color:#8a6a30}
+.tag-pagos{background:rgba(42,74,62,.1);color:var(--verde-musgo)}
+.tag-clientes{background:rgba(138,133,120,.14);color:var(--tinta-suave)}
+.mapeo__card-destino{
+  font-family:var(--mono);font-size:12.5px;font-weight:500;
+  color:var(--verde-bosque);margin-bottom:10px;
+  word-break:break-word;line-height:1.4;
+}
+.mapeo__card-origen{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;
+  background:var(--marfil);
+  font-family:var(--mono);font-size:12px;color:var(--tinta-suave);
+  margin-bottom:12px;
+}
+.mapeo__card-origen .arrow{color:var(--dorado);font-size:14px}
+.mapeo__card-regla{
+  font-size:13px;color:var(--tinta-suave);line-height:1.5;
+}
+.mapeo__card-regla strong{color:var(--tinta);font-weight:600}
+.mapeo__empty{
+  grid-column:1/-1;padding:60px 20px;text-align:center;
+  color:var(--gris-piedra);font-style:italic;font-family:var(--serif);font-size:20px;
+}
+
+/* Panel de detalle */
+.mapeo__detail{
+  margin-top:48px;padding:32px;
+  background:var(--verde-bosque);color:var(--marfil);
+  border-radius:18px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;
+  position:relative;overflow:hidden;
+  min-height:200px;
+  transition:all .4s var(--ease);
+}
+.mapeo__detail::before{
+  content:"";position:absolute;top:-50%;right:-10%;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(184,150,90,.1),transparent 70%);
+  pointer-events:none;
+}
+.mapeo__detail-col{position:relative;z-index:1}
+.mapeo__detail-col .label{
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dorado-suave);margin-bottom:14px;font-weight:600;
+}
+.mapeo__detail-col .value{
+  font-family:var(--mono);font-size:15px;line-height:1.55;color:var(--marfil);
+  word-break:break-word;
+}
+.mapeo__detail-col .value.big{font-family:var(--serif);font-size:24px;font-weight:500}
+.mapeo__detail-col .note{font-size:13px;color:rgba(243,237,224,.7);margin-top:10px;line-height:1.55}
+.mapeo__detail-placeholder{
+  grid-column:1/-1;text-align:center;padding:20px;
+  color:rgba(243,237,224,.6);font-family:var(--serif);font-style:italic;font-size:18px;
+}
+.mapeo__leyenda{
+  margin-top:24px;padding:14px 18px;
+  border-left:2px solid var(--dorado);
+  background:rgba(184,150,90,.06);
+  font-size:12.5px;color:var(--tinta-suave);line-height:1.55;
+  border-radius:0 8px 8px 0;
+}
+.mapeo__leyenda strong{color:var(--tinta);font-weight:600}
+
+/* ============ CIRCUITO ============ */
+.circuito__head{max-width:720px;margin-bottom:72px}
+.circuito__head h2{margin:20px 0 20px}
+.circuito__head h2 em{font-style:italic;color:var(--dorado)}
+.circuito__diagram{
+  position:relative;
+  padding:60px 40px;
+  background:var(--blanco-calido);
+  border:1px solid var(--linea);
+  border-radius:20px;
+  box-shadow:var(--sombra-1);
+}
+.circuito__nodes{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:40px;align-items:center;
+}
+.circuito__node{
+  padding:28px 24px;border-radius:14px;
+  background:var(--marfil);border:1px solid var(--linea);
+  transition:all .3s var(--ease);
+}
+.circuito__node:hover{transform:translateY(-2px);box-shadow:var(--sombra-2)}
+.circuito__node--center{
+  background:var(--verde-bosque);color:var(--marfil);
+  text-align:center;padding:40px 28px;
+  border-color:var(--verde-bosque);
+  position:relative;
+}
+.circuito__node--center::before{
+  content:"";position:absolute;inset:-8px;border:1px solid var(--dorado);
+  border-radius:18px;opacity:.4;
+}
+.circuito__node h4{font-family:var(--serif);font-size:26px;font-weight:500;margin-bottom:8px}
+.circuito__node--center h4{color:var(--dorado-suave)}
+.circuito__node p{font-size:13.5px;color:var(--tinta-suave);line-height:1.55}
+.circuito__node--center p{color:rgba(243,237,224,.75)}
+.circuito__node .count{
+  display:inline-block;margin-top:14px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  padding:4px 10px;border-radius:999px;
+  background:rgba(20,36,31,.06);color:var(--verde-bosque);
+}
+.circuito__node--center .count{background:rgba(243,237,224,.12);color:var(--dorado-suave)}
+.circuito__connector{
+  display:flex;flex-direction:column;gap:14px;align-items:center;
+}
+.circuito__connector-line{
+  width:1px;height:40px;background:linear-gradient(var(--dorado),transparent);
+}
+.circuito__connector-label{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dorado);font-weight:600;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+}
+.circuito__sub{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px;
+}
+.circuito__subnode{
+  padding:20px;border-radius:12px;
+  background:var(--marfil);border:1px solid var(--linea);
+  position:relative;
+}
+.circuito__subnode::before{
+  content:"";position:absolute;top:-20px;left:50%;width:1px;height:20px;
+  background:var(--linea-fuerte);
+}
+.circuito__subnode h5{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--verde-musgo);margin-bottom:6px}
+.circuito__subnode p{font-size:12.5px;color:var(--tinta-suave);line-height:1.5}
+
+/* ============ DEMO CRM ============ */
+.demo{padding:140px 0}
+.demo__head{max-width:760px;margin-bottom:56px}
+.demo__head h2{margin:20px 0 20px}
+.demo__head h2 em{font-style:italic;color:var(--dorado)}
+.sim-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 12px;border-radius:999px;
+  background:rgba(184,150,90,.12);color:#8a6a30;
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.sim-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dorado);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.demo__frame{
+  background:var(--blanco-calido);
+  border:1px solid var(--linea);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--sombra-3);
+}
+.demo__topbar{
+  padding:14px 22px;
+  background:var(--verde-bosque);color:var(--marfil);
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(243,237,224,.1);
+}
+.demo__topbar-left{display:flex;align-items:center;gap:14px}
+.demo__topbar-dots{display:flex;gap:6px}
+.demo__topbar-dots span{width:10px;height:10px;border-radius:50%;background:rgba(243,237,224,.2)}
+.demo__topbar-dots span:first-child{background:#e07a5f}
+.demo__topbar-dots span:nth-child(2){background:var(--dorado)}
+.demo__topbar-dots span:nth-child(3){background:#81b29a}
+.demo__topbar-title{font-family:var(--serif);font-size:16px;font-weight:500}
+.demo__topbar-right{font-size:11px;color:rgba(243,237,224,.6);letter-spacing:.1em;text-transform:uppercase}
+.demo__body{display:grid;grid-template-columns:240px 1fr;min-height:640px}
+.demo__sidebar{
+  padding:24px 16px;background:var(--marfil);
+  border-right:1px solid var(--linea);
+}
+.demo__sidebar-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gris-piedra);font-weight:600;margin:0 12px 12px}
+.demo__nav{display:flex;flex-direction:column;gap:2px}
+.demo__nav-item{
+  padding:10px 12px;border-radius:8px;
+  font-size:13.5px;font-weight:500;color:var(--tinta-suave);
+  display:flex;align-items:center;gap:10px;
+  transition:all .25s var(--ease);
+  cursor:pointer;
+}
+.demo__nav-item:hover{background:rgba(20,36,31,.04);color:var(--verde-bosque)}
+.demo__nav-item.active{background:var(--verde-bosque);color:var(--marfil)}
+.demo__nav-item svg{width:16px;height:16px;flex-shrink:0}
+.demo__nav-item .badge{
+  margin-left:auto;font-size:10px;padding:2px 7px;border-radius:999px;
+  background:rgba(20,36,31,.08);font-weight:600;
+}
+.demo__nav-item.active .badge{background:rgba(243,237,224,.18);color:var(--marfil)}
+.demo__main{padding:32px;overflow:auto}
+.demo__view{display:none;animation:fadeIn .4s var(--ease)}
+.demo__view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.demo__view-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;gap:20px;flex-wrap:wrap}
+.demo__view-title{font-family:var(--serif);font-size:28px;font-weight:500;color:var(--verde-bosque)}
+.demo__view-sub{font-size:13px;color:var(--gris-piedra);margin-top:4px}
+.demo__btn{
+  padding:9px 16px;border-radius:8px;
+  background:var(--verde-bosque);color:var(--marfil);
+  font-size:12.5px;font-weight:600;letter-spacing:.02em;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .25s var(--ease);
+}
+.demo__btn:hover{background:var(--verde-musgo)}
+.demo__btn--ghost{background:transparent;color:var(--verde-bosque);border:1px solid var(--linea-fuerte)}
+.demo__btn--ghost:hover{background:var(--marfil)}
+
+/* Pedido detail */
+.pedido-hero{
+  padding:28px;border-radius:14px;
+  background:linear-gradient(135deg,var(--verde-bosque),var(--verde-musgo));
+  color:var(--marfil);margin-bottom:24px;
+  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+}
+.pedido-hero__num{font-family:var(--serif);font-size:42px;font-weight:500;line-height:1;color:var(--dorado-suave)}
+.pedido-hero__meta{font-size:12px;color:rgba(243,237,224,.7);letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+.pedido-hero__client{font-family:var(--serif);font-size:22px;margin-top:12px}
+.pedido-hero__status{
+  padding:8px 14px;border-radius:999px;
+  background:rgba(243,237,224,.12);color:var(--dorado-suave);
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid rgba(212,184,130,.3);
+}
+.pedido-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.pedido-stat{
+  padding:18px;border-radius:12px;background:var(--marfil);border:1px solid var(--linea);
+}
+.pedido-stat .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris-piedra);font-weight:600}
+.pedido-stat .v{font-family:var(--serif);font-size:24px;color:var(--verde-bosque);margin-top:6px;font-weight:500}
+.pedido-stat .v.danger{color:#b85450}
+.pedido-stat .v.ok{color:var(--verde-musgo)}
+.demo__panel{
+  padding:22px;border-radius:12px;background:var(--marfil);border:1px solid var(--linea);
+  margin-bottom:18px;
+}
+.demo__panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.demo__panel-title{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-bosque)}
+.obra-row{
+  display:grid;grid-template-columns:60px 1fr auto auto;gap:16px;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--linea);
+}
+.obra-row:last-child{border-bottom:0}
+.obra-thumb{
+  width:60px;height:60px;border-radius:8px;overflow:hidden;
+  background:var(--blanco-calido);
+}
+.obra-info h5{font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:4px}
+.obra-info p{font-size:12px;color:var(--gris-piedra);font-family:var(--mono)}
+.obra-precio{font-family:var(--serif);font-size:18px;color:var(--verde-bosque);font-weight:500;text-align:right}
+.obra-tag{font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(184,150,90,.14);color:#8a6a30;letter-spacing:.08em;text-transform:uppercase;font-weight:600;text-align:right}
+.pago-row{
+  display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--linea);
+}
+.pago-row:last-child{border-bottom:0}
+.pago-icon{
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--blanco-calido);color:var(--verde-musgo);
+}
+.pago-info h5{font-family:var(--sans);font-size:14px;font-weight:600;margin-bottom:2px}
+.pago-info p{font-size:12px;color:var(--gris-piedra)}
+.pago-importe{font-family:var(--serif);font-size:18px;color:var(--verde-bosque);font-weight:500;text-align:right}
+.pago-fecha{text-align:right;font-family:var(--mono);font-size:11px;color:var(--gris-piedra)}
+
+/* Tabla simple */
+.demo-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.demo-table th{
+  text-align:left;padding:12px 14px;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gris-piedra);font-weight:600;
+  border-bottom:1px solid var(--linea-fuerte);
+  background:var(--marfil);
+}
+.demo-table td{padding:14px;border-bottom:1px solid var(--linea);vertical-align:middle}
+.demo-table tr:hover td{background:rgba(243,237,224,.4)}
+.demo-table .mono{font-family:var(--mono);font-size:12px;color:var(--tinta-suave)}
+.status-pill{
+  display:inline-block;padding:4px 10px;border-radius:999px;
+  font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+}
+.status-pill--ok{background:rgba(42,74,62,.12);color:var(--verde-musgo)}
+.status-pill--pend{background:rgba(184,150,90,.18);color:#8a6a30}
+.status-pill--pago{background:rgba(20,36,31,.08);color:var(--verde-bosque)}
+
+/* ============ CIERRE ============ */
+.cierre{padding:160px 0;text-align:center;position:relative;overflow:hidden}
+.cierre::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(184,150,90,.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(42,74,62,.08) 0%, transparent 60%);
+}
+.cierre__content{position:relative;z-index:1;max-width:820px;margin:0 auto}
+.cierre h2{margin:24px 0 28px}
+.cierre h2 em{font-style:italic;color:var(--dorado)}
+.cierre__lead{font-size:clamp(17px,1.4vw,20px);color:var(--tinta-suave);max-width:58ch;margin:0 auto 48px;line-height:1.6}
+.beneficios{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  margin-bottom:64px;text-align:left;
+}
+.beneficio{
+  padding:28px 24px;border-radius:14px;
+  background:var(--blanco-calido);border:1px solid var(--linea);
+  transition:all .3s var(--ease);
+}
+.beneficio:hover{transform:translateY(-3px);box-shadow:var(--sombra-2)}
+.beneficio__icon{
+  width:44px;height:44px;border-radius:10px;
+  background:var(--verde-bosque);color:var(--dorado-suave);
+  display:grid;place-items:center;margin-bottom:18px;
+}
+.beneficio h4{font-family:var(--serif);font-size:22px;margin-bottom:8px;font-weight:500}
+.beneficio p{font-size:13.5px;color:var(--tinta-suave);line-height:1.55}
+.cta-big{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:20px 40px;border-radius:999px;
+  background:var(--verde-bosque);color:var(--marfil);
+  font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  transition:all .35s var(--ease);
+  box-shadow:var(--sombra-2);
+}
+.cta-big:hover{background:var(--verde-musgo);transform:translateY(-2px);box-shadow:var(--sombra-3)}
+.cta-big svg{transition:transform .3s var(--ease)}
+.cta-big:hover svg{transform:translateX(4px)}
+.cierre__foot{margin-top:48px;font-size:12px;color:var(--gris-piedra);letter-spacing:.1em}
+
+/* ============ FOOTER ============ */
+.footer{
+  padding:48px 0 32px;
+  background:var(--verde-bosque);color:rgba(243,237,224,.7);
+  font-size:13px;
+}
+.footer__inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer__brand{display:flex;align-items:center;gap:12px;color:var(--marfil);font-family:var(--serif);font-size:18px}
+.footer__meta{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .mapeo__grid{grid-template-columns:repeat(2,1fr)}
+  .circuito__nodes{grid-template-columns:1fr;gap:24px}
+  .circuito__connector{flex-direction:row;writing-mode:horizontal-tb}
+  .circuito__connector-line{width:40px;height:1px;background:linear-gradient(to right,var(--dorado),transparent)}
+  .circuito__connector-label{writing-mode:horizontal-tb;transform:none}
+  .circuito__node--center{order:-1}
+  .propuesta{grid-template-columns:1fr;gap:48px}
+  .propuesta__visual{position:static;max-width:520px;margin:0 auto}
+  .pedido-stats{grid-template-columns:repeat(2,1fr)}
+  .beneficios{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .container{padding:0 22px}
+  .section{padding:90px 0}
+  .nav{padding:14px 22px}
+  .nav__links{display:none}
+  .nav__cta{display:none}
+  .nav__burger{display:block}
+  .hero{padding:110px 0 60px;min-height:auto}
+  .hero__art{opacity:.35;right:-20%;width:80%}
+  .hero__meta{gap:24px}
+  .hero__meta-item .v{font-size:22px}
+  .mapeo__toolbar{flex-direction:column;align-items:stretch}
+  .mapeo__search{min-width:0;width:100%}
+  .mapeo__grid{grid-template-columns:1fr}
+  .mapeo__detail{grid-template-columns:1fr;gap:24px;padding:24px}
+  .demo__body{grid-template-columns:1fr}
+  .demo__sidebar{display:flex;overflow-x:auto;gap:4px;padding:12px;border-right:0;border-bottom:1px solid var(--linea)}
+  .demo__sidebar-label{display:none}
+  .demo__nav{flex-direction:row}
+  .demo__nav-item{white-space:nowrap;padding:8px 12px;font-size:12.5px}
+  .demo__main{padding:20px}
+  .pedido-hero{grid-template-columns:1fr;text-align:left}
+  .pedido-stats{grid-template-columns:1fr 1fr}
+  .obra-row{grid-template-columns:48px 1fr;gap:12px}
+  .obra-thumb{width:48px;height:48px}
+  .obra-precio,.obra-tag{grid-column:2;text-align:left}
+  .pago-row{grid-template-columns:auto 1fr;gap:12px}
+  .pago-importe,.pago-fecha{grid-column:2;text-align:left}
+  .demo-table{font-size:12px}
+  .demo-table th,.demo-table td{padding:10px 8px}
+  .circuito__diagram{padding:28px 20px}
+  .cierre{padding:100px 0}
+  .footer__inner{flex-direction:column;text-align:center}
+}
+@media (max-width:390px){
+  .container{padding:0 18px}
+  h1{font-size:40px}
+  h2{font-size:32px}
+  .hero__meta{flex-direction:column;gap:16px}
+  .pedido-stats{grid-template-columns:1fr}
+  .filter-btn{padding:7px 12px;font-size:11.5px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__brand">
+    <span class="nav__mark">H</span>
+    <span>Henris Gallery</span>
+  </a>
+  <div class="nav__links">
+    <a href="#propuesta">Propuesta</a>
+    <a href="#mapeo">Mapeo</a>
+    <a href="#circuito">Circuito</a>
+    <a href="#demo">Demo</a>
+    <a href="#cierre">Contacto</a>
+  </div>
+  <a href="#cierre" class="nav__cta">Solicitar demo</a>
+  <button class="nav__burger" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero__bg"></div>
+  <!-- Arte abstracto SVG -->
+  <svg class="hero__art" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1c322b"/>
+        <stop offset="1" stop-color="#2a4a3e"/>
+      </linearGradient>
+      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#b8965a" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#b8965a" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#f3ede0"/>
+        <stop offset="1" stop-color="#ebe3d2"/>
+      </linearGradient>
+    </defs>
+    <rect width="800" height="1000" fill="url(#g3)"/>
+    <rect x="60" y="80" width="680" height="840" fill="url(#g1)"/>
+    <circle cx="520" cy="340" r="180" fill="url(#g2)" opacity=".55"/>
+    <path d="M 120 700 Q 300 500 480 680 T 740 640" stroke="#d4b882" stroke-width="1.5" fill="none" opacity=".6"/>
+    <path d="M 120 780 Q 320 600 500 760 T 740 720" stroke="#d4b882" stroke-width="1" fill="none" opacity=".4"/>
+    <rect x="140" y="140" width="200" height="260" fill="#f3ede0" opacity=".08"/>
+    <rect x="420" y="560" width="240" height="300" fill="#f3ede0" opacity=".06"/>
+    <circle cx="240" cy="270" r="40" fill="none" stroke="#d4b882" stroke-width="1" opacity=".5"/>
+    <line x1="60" y1="500" x2="740" y2="500" stroke="#d4b882" stroke-width=".5" opacity=".3"/>
+  </svg>
+  <div class="container">
+    <div class="hero__content">
+      <span class="eyebrow">Sistema de gestión para galerías de arte</span>
+      <h1 class="hero__title">
+        Del Excel al <em>orden</em>.<br/>
+        Una galería, <span class="gold">una sola fuente de verdad.</span>
+      </h1>
+      <p class="hero__sub">
+        Henris Gallery organiza pedidos, obras, pagos y clientes en un sistema pensado para quienes venden arte.
+        Cada venta, cada seña, cada marco — en su lugar, con trazabilidad completa.
+      </p>
+      <div class="hero__meta">
+        <div class="hero__meta-item">
+          <span class="k">Entidades</span>
+          <span class="v">4</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="k">Campos mapeados</span>
+          <span class="v">66</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="k">Origen</span>
+          <span class="v">Excel</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="k">Destino</span>
+          <span class="v">App</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll">Descubrir</div>
+</header>
+
+<!-- ============ PROPUESTA ============ -->
+<section class="section section--ivory" id="propuesta">
+  <div class="container">
+    <div class="propuesta">
+      <div class="propuesta__text">
+        <span class="eyebrow">La propuesta</span>
+        <h2>Un sistema que <em>respeta</em> la forma de trabajar de una galería.</h2>
+        <p class="lead">
+          Henris Gallery nace de un Excel real con 66 columnas. No reemplaza esa lógica: la ordena.
+          Separa lo que estaba mezclado, conecta lo que estaba suelto, calcula lo que se hacía a mano.
+        </p>
+        <div class="propuesta__list">
+          <div class="propuesta__item">
+            <span class="propuesta__num">i.</span>
+            <div>
+              <h4>Pedidos como eje central</h4>
+              <p>Cada venta es un pedido. A él se atan obras, pagos y cliente. Nada queda flotando.</p>
+            </div>
+          </div>
+          <div class="propuesta__item">
+            <span class="propuesta__num">ii.</span>
+            <div>
+              <h4>Obras separadas de pagos</h4>
+              <p>Un pedido puede tener varias obras y varios pagos. Los pagos pertenecen al pedido, no a una obra.</p>
+            </div>
+          </div>
+          <div class="propuesta__item">
+            <span class="propuesta__num">iii.</span>
+            <div>
+              <h4>Saldo calculado, no copiado</h4>
+              <p>El saldo pendiente se calcula automáticamente. La columna “PAGO PENDIENTE” del Excel queda como referencia, nunca como fuente.</p>
+            </div>
+          </div>
+          <div class="propuesta__item">
+            <span class="propuesta__num">iv.</span>
+            <div>
+              <h4>Trazabilidad del origen</h4>
+              <p>Cada campo conserva su referencia histórica al Excel. Se sabe de dónde vino cada dato.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="propuesta__visual">
+        <!-- Arte SVG editorial -->
+        <svg viewBox="0 0 600 750" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+          <defs>
+            <linearGradient id="pv1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#14241f"/>
+              <stop offset="1" stop-color="#2a4a3e"/>
+            </linearGradient>
+            <linearGradient id="pv2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#d4b882"/>
+              <stop offset="1" stop-color="#b8965a"/>
+            </linearGradient>
+            <pattern id="pvP" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="20" cy="20" r="1" fill="#d4b882" opacity=".3"/>
+            </pattern>
+          </defs>
+          <rect width="600" height="750" fill="#ebe3d2"/>
+          <rect x="30" y="30" width="540" height="690" fill="url(#pv1)"/>
+          <rect x="30" y="30" width="540" height="690" fill="url(#pvP)"/>
+          <circle cx="300" cy="320" r="160" fill="url(#pv2)" opacity=".85"/>
+          <circle cx="300" cy="320" r="160" fill="none" stroke="#f3ede0" stroke-width="1" opacity=".4"/>
+          <circle cx="300" cy="320" r="120" fill="none" stroke="#f3ede0" stroke-width=".5" opacity=".3"/>
+          <rect x="80" y="540" width="440" height="140" fill="#f3ede0" opacity=".08"/>
+          <line x1="80" y1="540" x2="520" y2="540" stroke="#d4b882" stroke-width="1" opacity=".5"/>
+          <text x="300" y="620" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="28" font-style="italic" fill="#d4b882" opacity=".7">N° 017</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAPEO ============ -->
+<section class="section section--dark" id="mapeo">
+  <div class="container">
+    <div class="mapeo__head">
+      <span class="eyebrow">Mapeo de pedidos</span>
+      <h2>Cada columna del Excel, <em>en su lugar</em> dentro del sistema.</h2>
+      <p class="lead">
+        Seleccioná un campo para ver de dónde viene, a dónde va y qué regla aplica.
+        Los ejemplos documentados abajo ilustran el funcionamiento; el mapeo completo se valida caso por caso.
+      </p>
+    </div>
+
+    <div class="mapeo__toolbar">
+      <div class="mapeo__filters" id="filters">
+        <button class="filter-btn active" data-filter="todos">Todos <span class="count" id="count-todos">13</span></button>
+        <button class="filter-btn" data-filter="Pedidos">Pedidos <span class="count" id="count-Pedidos">4</span></button>
+        <button class="filter-btn" data-filter="Obras/Ítems">Obras / Ítems <span class="count" id="count-Obras">4</span></button>
+        <button class="filter-btn" data-filter="Pagos">Pagos <span class="count" id="count-Pagos">3</span></button>
+        <button class="filter-btn" data-filter="Clientes">Clientes <span class="count" id="count-Clientes">2</span></button>
+      </div>
+      <div class="mapeo__search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="search" placeholder="Buscar campo, columna o regla…" />
+      </div>
+    </div>
+
+    <div class="mapeo__grid" id="mapeoGrid"></div>
+
+    <div class="mapeo__detail" id="mapeoDetail">
+      <div class="mapeo__detail-placeholder">Seleccioná un campo para ver el detalle de la correspondencia.</div>
+    </div>
+
+    <div class="mapeo__leyenda">
+      <strong>Maqueta de correspondencias.</strong> Ejemplos documentados; mapeo completo sujeto a validación.
+      Los identificadores técnicos (ID de pedido, obra, pago, cliente) son generados por el sistema y no provienen de una columna del Excel.
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIRCUITO ============ -->
+<section class="section" id="circuito">
+  <div class="container">
+    <div class="circuito__head">
+      <span class="eyebrow">Circuito de datos</span>
+      <h2>Un pedido, varias obras, varios pagos, <em>un cliente.</em></h2>
+      <p class="lead">
+        El pedido es el eje. Las obras describen qué se vende. Los pagos describen cómo se cobra.
+        El cliente describe a quién. Todo se calcula, nada se duplica.
+      </p>
+    </div>
+
+    <div class="circuito__diagram">
+      <div class="circuito__nodes">
+        <div class="circuito__node">
+          <h4>Clientes</h4>
+          <p>Nombre, contacto y datos comerciales. Un cliente puede tener muchos pedidos a lo largo del tiempo.</p>
+          <span class="count">7 campos</span>
+        </div>
+        <div class="circuito__connector">
+          <span class="circuito__connector-label">vincula</span>
+          <span class="circuito__connector-line"></span>
+        </div>
+        <div class="circuito__node circuito__node--center">
+          <h4>Pedidos</h4>
+          <p>Registro central de cada venta. Número de origen, canal, moneda y saldo pendiente calculado.</p>
+          <span class="count">19 campos</span>
+        </div>
+      </div>
+
+      <div class="circuito__sub">
+        <div class="circuito__subnode">
+          <h5>Obras / Ítems</h5>
+          <p>Una o varias obras por pedido. Código, descripción, medidas y precio individual. 26 campos.</p>
+        </div>
+        <div class="circuito__subnode">
+          <h5>Pagos</h5>
+          <p>Señas, pagos parciales y cobros. Pertenecen al pedido, no a una obra. 14 campos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEMO CRM ============ -->
+<section class="section section--ivory" id="demo">
+  <div class="container">
+    <div class="demo__head">
+      <span class="sim-badge">Simulación · Datos ficticios</span>
+      <h2>Así se ve <em>Henris Gallery</em> en operación.</h2>
+      <p class="lead">
+        Un pedido ficticio con dos obras, una seña, un segundo pago y saldo calculado automáticamente.
+        Navegá las pestañas para ver pedidos, obras, pagos y clientes tal como los vería Matías.
+      </p>
+    </div>
+
+    <div class="demo__frame">
+      <div class="demo__topbar">
+        <div class="demo__topbar-left">
+          <div class="demo__topbar-dots"><span></span><span></span><span></span></div>
+          <div class="demo__topbar-title">Henris Gallery · Panel</div>
+        </div>
+        <div class="demo__topbar-right">Simulación</div>
+      </div>
+      <div class="demo__body">
+        <aside class="demo__sidebar">
+          <div class="demo__sidebar-label">Navegación</div>
+          <nav class="demo__nav" id="demoNav">
+            <button class="demo__nav-item active" data-view="pedidos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Pedidos
+              <span class="badge">24</span>
+            </button>
+            <button class="demo__nav-item" data-view="obras">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
+              Obras
+              <span class="badge">58</span>
+            </button>
+            <button class="demo__nav-item" data-view="pagos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              Pagos
+              <span class="badge">41</span>
+            </button>
+            <button class="demo__nav-item" data-view="clientes">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Clientes
+              <span class="badge">32</span>
+            </button>
+          </nav>
+        </aside>
+
+        <main class="demo__main">
+          <!-- PEDIDOS -->
+          <div class="demo__view active" data-view="pedidos">
+            <div class="pedido-hero">
+              <div>
+                <div class="pedido-hero__num">P-00127</div>
+                <div class="pedido-hero__meta">Pedido · Instagram · ARS</div>
+                <div class="pedido-hero__client">Lucía Ferrer</div>
+              </div>
+              <span class="pedido-hero__status">Saldo pendiente</span>
+            </div>
+
+            <div class="pedido-stats">
+              <div class="pedido-stat">
+                <div class="k">Total pedido</div>
+                <div class="v">$ 840.000</div>
+              </div>
+              <div class="pedido-stat">
+                <div class="k">Total pagado</div>
+                <div class="v ok">$ 540.000</div>
+              </div>
+              <div class="pedido-stat">
+                <div class="k">Saldo pendiente</div>
+                <div class="v danger">$ 300.000</div>
+              </div>
+              <div class="pedido-stat">
+                <div class="k">Obras</div>
+                <div class="v">2</div>
+              </div>
+            </div>
+
+            <div class="demo__panel">
+              <div class="demo__panel-head">
+                <span class="demo__panel-title">Obras del pedido</span>
+                <button class="demo__btn demo__btn--ghost">+ Agregar obra</button>
+              </div>
+              <div class="obra-row">
+                <div class="obra-thumb">
+                  <svg viewBox="0 0 60 60" width="60" height="60"><rect width="60" height="60" fill="#1c322b"/><circle cx="30" cy="24" r="12" fill="#d4b882"/><rect x="10" y="40" width="40" height="12" fill="#2a4a3e"/></svg>
+                </div>
+                <div class="obra-info">
+                  <h5>Costa en silencio</h5>
+                  <p>#ARt-0412 · 60×80 cm</p>
+                </div>
+                <div class="obra-precio">$ 520.000</div>
+                <div class="obra-tag">Óleo</div>
+              </div>
+              <div class="obra-row">
+                <div class="obra-thumb">
+                  <svg viewBox="0 0 60 60" width="60" height="60"><rect width="60" height="60" fill="#f3ede0"/><rect x="8" y="14" width="44" height="32" fill="#14241f"/><circle cx="42" cy="24" r="6" fill="#d4b882"/></svg>
+                </div>
+                <div class="obra-info">
+                  <h5>Nocturno N° 3</h5>
+                  <p>#ARt-0413 · 40×50 cm</p>
+                </div>
+                <div class="obra-precio">$ 320.000</div>
+                <div class="obra-tag">Fotografía</div>
+              </div>
+            </div>
+
+            <div class="demo__panel">
+              <div class="demo__panel-head">
+                <span class="demo__panel-title">Pagos del pedido</span>
+                <button class="demo__btn demo__btn--ghost">+ Registrar pago</button>
+              </div>
+              <div class="pago-row">
+                <div class="pago-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="pago-info">
+                  <h5>Seña · Transferencia</h5>
+                  <p>Registrado por Instagram</p>
+                </div>
+                <div class="pago-importe">$ 300.000</div>
+                <div class="pago-fecha">03 OCT 2026</div>
+              </div>
+              <div class="pago-row">
+                <div class="pago-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                </div>
+                <div class="pago-info">
+                  <h5>Segunda parte · Débito</h5>
+                  <p>Pago parcial en local</p>
+                </div>
+                <div class="pago-importe">$ 240.000</div>
+                <div class="pago-fecha">12 OCT 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OBRAS -->
+          <div class="demo__view" data-view="obras">
+            <div class="demo__view-head">
+              <div>
+                <div class="demo__view-title">Obras / Ítems</div>
+                <div class="demo__view-sub">58 obras registradas · 24 pedidos activos</div>
+              </div>
+              <button class="demo__btn">+ Nueva obra</button>
+            </div>
+            <table class="demo-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Descripción</th>
+                  <th>Medidas</th>
+                  <th>Precio</th>
+                  <th>Pedido</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">#ARt-0412</td><td>Costa en silencio</td><td class="mono">60×80 cm</td><td>$ 520.000</td><td class="mono">P-00127</td></tr>
+                <tr><td class="mono">#ARt-0413</td><td>Nocturno N° 3</td><td class="mono">40×50 cm</td><td>$ 320.000</td><td class="mono">P-00127</td></tr>
+                <tr><td class="mono">#ARt-0408</td><td>Ventana al sur</td><td class="mono">100×80 cm</td><td>$ 780.000</td><td class="mono">P-00126</td></tr>
+                <tr><td class="mono">#ARt-0405</td><td>Estudio en ocre</td><td class="mono">50×70 cm</td><td>$ 410.000</td><td class="mono">P-00125</td></tr>
+                <tr><td class="mono">#ARt-0401</td><td>Retrato M.</td><td class="mono">60×60 cm</td><td>$ 460.000</td><td class="mono">P-00124</td></tr>
+                <tr><td class="mono">#ARt-0397</td><td>Mar de invierno</td><td class="mono">80×100 cm</td><td>$ 920.000</td><td class="mono">P-00122</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- PAGOS -->
+          <div class="demo__view" data-view="pagos">
+            <div class="demo__view-head">
+              <div>
+                <div class="demo__view-title">Pagos</div>
+                <div class="demo__view-sub">41 pagos registrados · Señas, parciales y cobros finales</div>
+              </div>
+              <button class="demo__btn">+ Nuevo pago</button>
+            </div>
+            <table class="demo-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Pedido</th>
+                  <th>Medio</th>
+                  <th>Importe</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">12 OCT 2026</td><td class="mono">P-00127</td><td>Débito</td><td>$ 240.000</td><td><span class="status-pill status-pill--ok">Cobrado</span></td></tr>
+                <tr><td class="mono">03 OCT 2026</td><td class="mono">P-00127</td><td>Transferencia</td><td>$ 300.000</td><td><span class="status-pill status-pill--ok">Cobrado</span></td></tr>
+                <tr><td class="mono">28 SEP 2026</td><td class="mono">P-00126</td><td>Efectivo</td><td>$ 400.000</td><td><span class="status-pill status-pill--ok">Cobrado</span></td></tr>
+                <tr><td class="mono">22 SEP 2026</td><td class="mono">P-00125</td><td>Transferencia</td><td>$ 200.000</td><td><span class="status-pill status-pill--pend">Seña</span></td></tr>
+                <tr><td class="mono">15 SEP 2026</td><td class="mono">P-00124</td><td>Mercado Pago</td><td>$ 460.000</td><td><span class="status-pill status-pill--ok">Cobrado</span></td></tr>
+                <tr><td class="mono">08 SEP 2026</td><td class="mono">P-00122</td><td>Transferencia</td><td>$ 500.000</td><td><span class="status-pill status-pill--pend">Parcial</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- CLIENTES -->
+          <div class="demo__view" data-view="clientes">
+            <div class="demo__view-head">
+              <div>
+                <div class="demo__view-title">Clientes</div>
+                <div class="demo__view-sub">32 clientes · Historial completo de pedidos</div>
+              </div>
+              <button class="demo__btn">+ Nuevo cliente</button>
+            </div>
+            <table class="demo-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Contacto</th>
+                  <th>Pedidos</th>
+                  <th>Total comprado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Lucía Ferrer</td><td class="mono">+54 11 4023 ···</td><td>3</td><td>$ 1.840.000</td></tr>
+                <tr><td>Martín Aguirre</td><td class="mono">+54 11 5512 ···</td><td>2</td><td>$ 1.240.000</td></tr>
+                <tr><td>Carla Benedetti</td><td class="mono">+54 11 3890 ···</td><td>4</td><td>$ 2.980.000</td></tr>
+                <tr><td>Tomás Herrera</td><td class="mono">+54 11 4478 ···</td><td>1</td><td>$ 780.000</td></tr>
+                <tr><td>Sofía Molina</td><td class="mono">+54 11 2201 ···</td><td>2</td><td>$ 1.120.000</td></tr>
+                <tr><td>Estudio Norte</td><td class="mono">+54 11 4800 ···</td><td>5</td><td>$ 4.310.000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="section" id="cierre">
+  <div class="container">
+    <div class="cierre__content">
+      <span class="eyebrow">Próximo paso</span>
+      <h2>Menos Excel, <em>más galería.</em></h2>
+      <p class="cierre__lead">
+        Henris Gallery libera a la galería de las planillas manuales.
+        Cada venta queda registrada, cada pago trazado, cada cliente con su historia completa.
+      </p>
+
+      <div class="beneficios">
+        <div class="beneficio">
+          <div class="beneficio__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h4>Saldo siempre correcto</h4>
+          <p>Se calcula automáticamente. No hay que copiarlo, no puede quedar desactualizado.</p>
+        </div>
+        <div class="beneficio">
+          <div class="beneficio__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h4>Historial completo</h4>
+          <p>Cada cliente, cada pedido, cada pago. Todo accesible en segundos, desde cualquier dispositivo.</p>
+        </div>
+        <div class="beneficio">
+          <div class="beneficio__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+          </div>
+          <h4>Migración cuidada</h4>
+          <p>El Excel se mapea campo por campo. Nada se pierde, nada se inventa. Se valida con Matías.</p>
+        </div>
+      </div>
+
+      <a href="#top" class="cta-big">
+        Solicitar demostración
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <div class="cierre__foot">Henris Gallery · Maqueta de presentación · Octubre 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="nav__mark">H</span>
+      Henris Gallery
+    </div>
+    <div class="footer__meta">Sistema de gestión · Maqueta demostrativa</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   HENRIS GALLERY — Interacciones
+   ========================================================= */
+
+/* ---------- NAV SCROLL ---------- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, {passive:true});
+
+/* ---------- MAPEO DATA ---------- */
+const mapeo = [
+  {
+    id:1, tabla:'Pedidos', tag:'pedidos',
+    destino:'Pedidos.Numero_Pedido_Origen',
+    origen:"A: 'i'",
+    regla:'Conservar referencia histórica. Se mantiene como identificador legible del pedido original.'
+  },
+  {
+    id:2, tabla:'Pedidos', tag:'pedidos',
+    destino:'Pedidos.Canal_Origen',
+    origen:"AM: 'VENTA'",
+    regla:'Transformación de código: IG → Instagram, WAP → WhatsApp, WEB → Web, LOCAL → Local.'
+  },
+  {
+    id:3, tabla:'Pedidos', tag:'pedidos',
+    destino:'Pedidos.Moneda_Venta',
+    origen:"P: 'Monedad'",
+    regla:'Conservar valor tal cual (ARS, USD, etc.). Campo de referencia comercial.'
+  },
+  {
+    id:4, tabla:'Pedidos', tag:'pedidos',
+    destino:'Pedidos.Saldo_Pendiente',
+    origen:"Y: 'PAGO PENDIENTE' (referencia)",
+    regla:'Cálculo automático: Total_Pedido − Total_Pagado. La columna Y del Excel sirve para contrastar, no para copiar.'
+  },
+  {
+    id:5, tabla:'Obras/Ítems', tag:'obras',
+    destino:'Pedido_Items.Codigo_Art',
+    origen:"D: '#ARt'",
+    regla:'Conservar código de artículo tal cual figura en el Excel.'
+  },
+  {
+    id:6, tabla:'Obras/Ítems', tag:'obras',
+    destino:'Pedido_Items.Descripcion',
+    origen:"E: 'DESCRIPCION'",
+    regla:'Conservar descripción original de la obra.'
+  },
+  {
+    id:7, tabla:'Obras/Ítems', tag:'obras',
+    destino:'Pedido_Items.Medidas',
+    origen:"F: 'MEDIDAS'",
+    regla:'Conservar texto original (ej: 60×80 cm). No se parsea a campos separados.'
+  },
+  {
+    id:8, tabla:'Obras/Ítems', tag:'obras',
+    destino:'Pedido_Items.Precio_Item',
+    origen:"O: 'PRECIO CUADRO'",
+    regla:'Precio individual de la obra. Se usa para calcular el total del pedido.'
+  },
+  {
+    id:9, tabla:'Pagos', tag:'pagos',
+    destino:'Pagos.Medio_Pago',
+    origen:"N: 'PAGO'",
+    regla:'Revisar medios mixtos: si una celda combina varios medios, generar registros separados.'
+  },
+  {
+    id:10, tabla:'Pagos', tag:'pagos',
+    destino:'Pagos.Importe',
+    origen:"Q: 'SEÑA' / U: 'SEGUNDA PARTE PAGO'",
+    regla:'Generar registros separados: un pago por cada columna con importe. No se suman en una sola fila.'
+  },
+  {
+    id:11, tabla:'Pagos', tag:'pagos',
+    destino:'Pagos.Fecha_Pago',
+    origen:"T: 'FECHA PAGO SEÑA' / X: 'FECHA PAGO FINAL'",
+    regla:'Asociar cada fecha al registro de pago correspondiente (seña o segunda parte).'
+  },
+  {
+    id:12, tabla:'Clientes', tag:'clientes',
+    destino:'Clientes.Nombre',
+    origen:"AH: 'CLIENTE'",
+    regla:'Nombre del cliente. Se normaliza para evitar duplicados (mayúsculas, espacios).'
+  },
+  {
+    id:13, tabla:'Clientes', tag:'clientes',
+    destino:'Clientes.Telefono',
+    origen:"AI: 'CONTACTO'",
+    regla:'Teléfono o contacto principal. Se conserva en formato legible.'
+  }
+];
+
+/* ---------- MAPEO RENDER ---------- */
+const grid = document.getElementById('mapeoGrid');
+const detail = document.getElementById('mapeoDetail');
+const search = document.getElementById('search');
+let activeFilter = 'todos';
+let selectedId = null;
+
+function tagClass(tag){
+  return {pedidos:'tag-pedidos', obras:'tag-obras', pagos:'tag-pagos', clientes:'tag-clientes'}[tag] || '';
+}
+function tagLabel(tag){
+  return {pedidos:'Pedido', obras:'Obra / Ítem', pagos:'Pago', clientes:'Cliente'}[tag] || tag;
+}
+
+function renderGrid(){
+  const q = search.value.trim().toLowerCase();
+  const filtered = mapeo.filter(m => {
+    const matchFilter = activeFilter === 'todos' || m.tabla === activeFilter;
+    const matchQ = !q ||
+      m.destino.toLowerCase().includes(q) ||
+      m.origen.toLowerCase().includes(q) ||
+      m.regla.toLowerCase().includes(q) ||
+      m.tabla.toLowerCase().includes(q);
+    return matchFilter && matchQ;
+  });
+
+  if (filtered.length === 0){
+    grid.innerHTML = '<div class="mapeo__empty">Sin resultados para los filtros seleccionados.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(m => `
+    <article class="mapeo__card ${selectedId === m.id ? 'selected' : ''}" data-id="${m.id}">
+      <span class="mapeo__card-tag ${tagClass(m.tag)}">${tagLabel(m.tag)}</span>
+      <div class="mapeo__card-destino">${m.destino}</div>
+      <div class="mapeo__card-origen">
+        <span>${m.origen}</span>
+        <span class="arrow">→</span>
+      </div>
+      <div class="mapeo__card-regla"><strong>Regla:</strong> ${m.regla}</div>
+    </article>
+  `).join('');
+
+  grid.querySelectorAll('.mapeo__card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.id);
+      selectedId = id;
+      renderGrid();
+      renderDetail(id);
+      detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
+}
+
+function renderDetail(id){
+  const m = mapeo.find(x => x.id === id);
+  if (!m){
+    detail.innerHTML = '<div class="mapeo__detail-placeholder">Seleccioná un campo para ver el detalle de la correspondencia.</div>';
+    return;
+  }
+  detail.innerHTML = `
+    <div class="mapeo__detail-col">
+      <div class="label">Origen · Excel</div>
+      <div class="value big">${m.origen}</div>
+      <div class="note">Columna y encabezado original del Excel de Matías.</div>
+    </div>
+    <div class="mapeo__detail-col">
+      <div class="label">Destino · Henris Gallery</div>
+      <div class="value big">${m.destino}</div>
+      <div class="note">Tabla y campo dentro del nuevo sistema.</div>
+    </div>
+    <div class="mapeo__detail-col">
+      <div class="label">Regla de transformación</div>
+      <div class="value" style="font-family:var(--sans);font-size:14px;line-height:1.6">${m.regla}</div>
+    </div>
+  `;
+}
+
+/* ---------- FILTROS ---------- */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderGrid();
+  });
+});
+
+search.addEventListener('input', renderGrid);
+
+/* ---------- CONTADORES ---------- */
+function updateCounts(){
+  document.getElementById('count-todos').textContent = mapeo.length;
+  ['Pedidos','Obras/Ítems','Pagos','Clientes'].forEach(t => {
+    const key = t === 'Obras/Ítems' ? 'Obras' : t;
+    const el = document.getElementById('count-' + key);
+    if (el) el.textContent = mapeo.filter(m => m.tabla === t).length;
+  });
+}
+
+/* ---------- DEMO NAV ---------- */
+document.querySelectorAll('.demo__nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const view = item.dataset.view;
+    document.querySelectorAll('.demo__nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    document.querySelectorAll('.demo__view').forEach(v => v.classList.remove('active'));
+    document.querySelector(`.demo__view[data-view="${view}"]`).classList.add('active');
+  });
+});
+
+/* ---------- INIT ---------- */
+updateCounts();
+renderGrid();
+
+/* ---------- SMOOTH SCROLL OFFSET ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href.length > 1){
+      const target = document.querySelector(href);
+      if (target){
+        e.preventDefault();
+        const y = target.getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({top:y, behavior:'smooth'});
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
