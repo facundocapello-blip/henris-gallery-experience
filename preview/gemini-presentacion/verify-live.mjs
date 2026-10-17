@@ -22,7 +22,7 @@ try{
   await page.locator('.mapping-card').first().click();
   await page.waitForTimeout(650);
   assert.equal(await page.locator('.mapping-card.target-hit').count(),1,'Mapping reveal animation works');
-  assert.match(await page.locator('.mapping-card.active').innerText(),/Regla de Transformación/);
+  assert.match(await page.locator('.mapping-card.active').innerText(),/Regla de Transformación/i);
   await page.locator('.filter-btn[data-filter="all"]').click();
   await page.waitForTimeout(450);
   assert.equal(await page.locator('.mapping-card').count(),13);
