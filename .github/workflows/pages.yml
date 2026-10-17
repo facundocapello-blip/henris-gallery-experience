@@ -127,6 +127,17 @@ jobs:
           node --check _hybrid_mockup_src/preview/mapeo-hibrido-v3-v1/verify-live.mjs
           mkdir -p _site/mapeo-hibrido-v3-v1
           cp _hybrid_mockup_src/preview/mapeo-hibrido-v3-v1/index.html _site/mapeo-hibrido-v3-v1/
+      - name: Checkout Pedido Obras Pagos mapping candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 5ef8304748a6a36eb842ec0c3270aebe91eec906
+          path: _pedidos_mapping_src
+          persist-credentials: false
+      - name: Stage order relationship mapping separately
+        run: |
+          node --check _pedidos_mapping_src/preview/mapeo-pedidos-relaciones/verify-live.mjs
+          mkdir -p _site/mapeo-pedidos-relaciones
+          cp _pedidos_mapping_src/preview/mapeo-pedidos-relaciones/index.html _site/mapeo-pedidos-relaciones/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -222,5 +233,16 @@ jobs:
         with:
           name: henris-v3-v1-hybrid-static-screenshots
           path: test-results/henris-hybrid-static-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify order relationship mapping on published preview
+        run: node _pedidos_mapping_src/preview/mapeo-pedidos-relaciones/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save order mapping desktop mobile visual captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-pedidos-relaciones-captures
+          path: test-results/henris-relaciones-*.png
           if-no-files-found: ignore
           retention-days: 7
