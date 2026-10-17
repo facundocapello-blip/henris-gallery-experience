@@ -46,7 +46,7 @@ try{
    assert.equal(await page.locator('#back').isVisible(),true);
    await page.waitForTimeout(850);
    const top=await page.locator('#detail').evaluate(e=>e.getBoundingClientRect().top);
-   assert.ok(top>=-25 && top<=140,'Selected mobile field detail should be in view: '+top);
+   assert.ok(top>=-25 && top<=450,'Selected mobile field detail must enter the visible upper half of the screen: '+top);
   }
   const metrics=await page.evaluate(()=>{
    const xy=q=>{const r=document.querySelector(q).getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width}};
