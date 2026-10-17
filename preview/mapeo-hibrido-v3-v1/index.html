@@ -47,10 +47,10 @@
 .selected td,.app-field{transition:background-color .3s,box-shadow .3s}.selected td.map-active{background:#d9eccf!important;box-shadow:inset 0 0 0 2px #669b6a}.app-field.map-active{background:#e0f3d9;box-shadow:inset 0 0 0 2px #6a9f72}
 @media(max-width:700px){.map-stage{margin-top:10px}.display-grid{padding-top:14px;gap:0}.visual-connector{padding:5px 0}.visual-connector svg{height:30px}.stage-bar{gap:7px}.map-replay{font-size:10px;padding:8px}.phone-pane{margin-top:0}}
 @media(prefers-reduced-motion:reduce){.selected td,.app-field{transition:none}}
-</style></head><body data-prototype="henris-v3-v1-static"><header class="topbar"><div class="shell nav"><div class="brand"><div class="brand-mark">H·</div><div class="brand-name">HENRIS GALLERY<small>MAPEO DE DATOS</small></div></div><span class="preview-header-note" style="font-size:9px;color:#d0decf;letter-spacing:.06em">MAQUETA VISUAL · SIN CAMBIOS EN LA APP</span></div></header>
+</style></head><body data-prototype="henris-v3-v1-static"><header class="topbar"><div class="shell nav"><div class="brand"><div class="brand-mark">H·</div><div class="brand-name">HENRIS GALLERY<small>MAPEO DE PEDIDOS</small></div></div></div></header>
 <main class="shell">
 <section class="map-stage" aria-label="Vista preliminar de mapeo entre Excel y aplicación">
-<div class="stage-bar"><span>MAPEO DE DATOS · UNA OBRA</span><button class="map-replay" type="button" id="replay">▶ Reproducir mapeo</button></div>
+<div class="stage-bar"><span>MAPEO DE PEDIDOS</span><button class="map-replay" type="button" id="replay">▶ Reproducir mapeo</button></div>
 <div class="display-grid">
 <div class="map-pane"><div class="pane-kicker"><span class="step-dot">01</span>ORIGEN · EXCEL</div>
 <div class="excel-panel"><div class="excel-header"><span class="excel-badge">X</span><div><strong>pedidos.xlsx</strong><small>Hoja1 · Columnas D, E y F</small></div></div>
@@ -66,7 +66,7 @@
 <div class="app-fields"><div class="app-field" data-dest="0"><small>CÓDIGO DE OBRA</small><strong>HG024</strong></div><div class="app-field" data-dest="1"><small>DESCRIPCIÓN</small><strong>Silent lake</strong></div><div class="app-field" data-dest="2"><small>MEDIDAS</small><strong>100x150</strong></div></div>
 <div class="app-ok">✓ Ficha vinculada al registro</div></div><div class="app-home"><span></span></div></div></div></div></div>
 <div class="stage-footer"><span>Cada dato llega al campo correspondiente, sin cambiar su valor.</span><span>VISTA ILUSTRATIVA · NO CONECTADA A APPSHEET</span></div></section>
-<footer class="preview-footer"><span>Primera maqueta estática. Sin animaciones ni cambios en las versiones aprobadas.</span><a href="../muestra-mapeo-v3/" target="_blank" rel="noopener">Ver V3 original ↗</a></footer></main><script>
+<footer class="preview-footer"><span>Demostración ilustrativa de mapeo; no conectada a AppSheet.</span><a href="../muestra-mapeo-v3/" target="_blank" rel="noopener">Ver V3 original ↗</a></footer></main><script>
 (()=>{
  const button=document.getElementById('replay'),sources=[...document.querySelectorAll('[data-map]')],targets=[...document.querySelectorAll('[data-dest]')];let run=0;
  const delay=ms=>new Promise(r=>setTimeout(r,ms));
