@@ -19,7 +19,7 @@ try {
   assert.ok((await page.locator('#mapeo .mapeo__card').count())>=1,'Search must work');
   await page.locator('input#search').fill('');
   await page.locator('.filter-btn[data-filter="todos"]').click();
-  await page.locator('.mapeo__card').first.click();
+  await page.locator('.mapeo__card').first().click();
   assert.match(await page.locator('#mapeoDetail').innerText(),/Origen · Excel/,'Click detail');
   await page.locator('.demo__nav-item[data-view="pagos"]').click();
   assert.equal(await page.locator('.demo__view.active').getAttribute('data-view'),'pagos');
