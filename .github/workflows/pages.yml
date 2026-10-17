@@ -162,6 +162,17 @@ jobs:
           node --check _qwen_preview_src/preview/qwen-presentacion/verify-live.mjs
           mkdir -p _site/qwen-presentacion
           cp _qwen_preview_src/preview/qwen-presentacion/index.html _site/qwen-presentacion/index.html
+      - name: Checkout Astra two-panel mapping
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 3d5657e2c032a806a0faf0a09b45d37162b65e19
+          path: _astra_mapping_src
+          persist-credentials: false
+      - name: Stage isolated Astra mapping without touching approved releases
+        run: |
+          node --check _astra_mapping_src/preview/mapeo-astra-paneles/verify-live.mjs
+          mkdir -p _site/mapeo-astra-paneles
+          cp _astra_mapping_src/preview/mapeo-astra-paneles/index.html _site/mapeo-astra-paneles/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -290,5 +301,16 @@ jobs:
         with:
           name: henris-qwen-review-screenshots
           path: test-results/henris-qwen-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify Astra split field mapping in public browser
+        run: node _astra_mapping_src/preview/mapeo-astra-paneles/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save Astra mapping mobile tablet desktop visual captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-astra-two-panel-screenshots
+          path: test-results/henris-astra-*.png
           if-no-files-found: ignore
           retention-days: 7
