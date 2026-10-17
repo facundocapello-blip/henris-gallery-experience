@@ -185,6 +185,17 @@ jobs:
           mkdir -p _site/claude-haiku-presentacion
           cp _haiku_preview_src/preview/claude-haiku-presentacion/index.html _site/claude-haiku-presentacion/index.html
           cp _haiku_preview_src/preview/claude-haiku-presentacion/README.md _site/claude-haiku-presentacion/README.md
+      - name: Checkout original Gemini review
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 05f2d04d3ab15b37a621940e31a5c9f3ce680421
+          path: _gemini_preview_src
+          persist-credentials: false
+      - name: Stage Gemini mockup for independent review
+        run: |
+          node --check _gemini_preview_src/preview/gemini-presentacion/verify-live.mjs
+          mkdir -p _site/gemini-presentacion
+          cp _gemini_preview_src/preview/gemini-presentacion/index.html _site/gemini-presentacion/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -335,5 +346,16 @@ jobs:
         with:
           name: henris-haiku-original-review-screenshots
           path: test-results/henris-haiku-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify Gemini mockup as isolated public page
+        run: node _gemini_preview_src/preview/gemini-presentacion/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save Gemini mobile and desktop screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-gemini-original-review
+          path: test-results/henris-gemini-*.png
           if-no-files-found: ignore
           retention-days: 7
