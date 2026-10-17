@@ -165,7 +165,7 @@ jobs:
       - name: Checkout Astra two-panel mapping
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 3d5657e2c032a806a0faf0a09b45d37162b65e19
+          ref: c7daa6d00bcdac3fe50c158b2ce5a5054ffac75f
           path: _astra_mapping_src
           persist-credentials: false
       - name: Stage isolated Astra mapping without touching approved releases
