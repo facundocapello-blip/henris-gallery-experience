@@ -42,7 +42,12 @@ try{
   assert.equal(await page.locator('#fields .field').count(),26);
   await page.locator('#tabs [data-tab="Pedidos"]').click();
   await page.locator('#fields [data-field="Canal_Origen"]').click();
-  if(width===390)assert.equal(await page.locator('#back').isVisible(),true);
+  if(width===390){
+   assert.equal(await page.locator('#back').isVisible(),true);
+   await page.waitForTimeout(850);
+   const top=await page.locator('#detail').evaluate(e=>e.getBoundingClientRect().top);
+   assert.ok(top>=-25 && top<=140,'Selected mobile field detail should be in view: '+top);
+  }
   const metrics=await page.evaluate(()=>{
    const xy=q=>{const r=document.querySelector(q).getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width}};
    return{viewport:window.innerWidth,scroll:document.documentElement.scrollWidth,sidebar:xy('.side'),detail:xy('.detail'),split:xy('.split')};
