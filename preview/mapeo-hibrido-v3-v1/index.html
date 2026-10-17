@@ -40,24 +40,47 @@
 @media(max-width:880px){.display-grid{grid-template-columns:minmax(0,1fr) 60px minmax(240px,.8fr);gap:13px;padding:23px 21px}.phone{width:245px}.mini-match>div{padding:9px 6px}.shell{padding-left:18px;padding-right:18px}}
 @media(max-width:700px){.topbar .nav{min-height:64px;gap:6px}.brand-name{font-size:11px}.brand-name small{font-size:7px}.visual-intro{display:block;padding:21px 0 18px}.visual-intro h1{font-size:43px}.visual-intro p{text-align:left;margin:9px 0 0;font-size:12px}.shell{padding:0 14px}.stage-bar{padding:13px;font-size:8px;letter-spacing:.04em}.stage-bar span:last-child{font-size:8px}.display-grid{display:flex;flex-direction:column;padding:20px 14px;gap:0}.map-pane{width:100%}.sheet-table th,.sheet-table td{padding:10px 7px}.sheet-table .selected td{font-size:12px}.mini-match{margin-top:9px}.mini-match small{font-size:7px}.mini-match strong{font-size:11px}.visual-connector{padding:13px 0;width:100%}.visual-connector p{font-size:8px;margin:0}.visual-connector svg{margin:auto;transform:rotate(90deg);height:44px;width:50px}.phone-pane{width:100%}.phone-pane .pane-kicker{margin-left:0}.phone{height:500px;width:264px}.stage-footer{padding:13px;display:block}.stage-footer span:last-child{display:block;margin-top:5px}.preview-footer{display:block}.preview-footer a{display:block;margin-top:10px}}
 .display-grid{align-items:start}.visual-connector{align-self:center}@media(max-width:700px){.preview-header-note{display:none}}
+
+/* Approved simplification: no hero, no repeated value cards. */
+.map-stage{margin-top:18px}.display-grid{padding-top:19px;padding-bottom:19px;column-gap:10px;grid-template-columns:minmax(0,1.18fr) 54px minmax(265px,.95fr)}
+.visual-connector svg{height:46px}.visual-connector p{font-size:8px}.map-replay{border:1px solid #b8cfbc;border-radius:8px;background:#eaf4e9;color:#275c3a;padding:9px 13px;cursor:pointer;font-size:11px;font-weight:750;letter-spacing:0}
+.selected td,.app-field{transition:background-color .3s,box-shadow .3s}.selected td.map-active{background:#d9eccf!important;box-shadow:inset 0 0 0 2px #669b6a}.app-field.map-active{background:#e0f3d9;box-shadow:inset 0 0 0 2px #6a9f72}
+@media(max-width:700px){.map-stage{margin-top:10px}.display-grid{padding-top:14px;gap:0}.visual-connector{padding:5px 0}.visual-connector svg{height:30px}.stage-bar{gap:7px}.map-replay{font-size:10px;padding:8px}.phone-pane{margin-top:0}}
+@media(prefers-reduced-motion:reduce){.selected td,.app-field{transition:none}}
 </style></head><body data-prototype="henris-v3-v1-static"><header class="topbar"><div class="shell nav"><div class="brand"><div class="brand-mark">H·</div><div class="brand-name">HENRIS GALLERY<small>MAPEO DE DATOS</small></div></div><span class="preview-header-note" style="font-size:9px;color:#d0decf;letter-spacing:.06em">MAQUETA VISUAL · SIN CAMBIOS EN LA APP</span></div></header>
 <main class="shell">
-<section class="visual-intro"><div><div class="eyebrow">DEL ORIGEN AL DESTINO</div><h1>Del Excel <em>a la app.</em></h1></div><p>Tres datos de una obra. Una ficha organizada.</p></section>
 <section class="map-stage" aria-label="Vista preliminar de mapeo entre Excel y aplicación">
-<div class="stage-bar"><span>UN MISMO REGISTRO · TRES CONEXIONES</span><span>VISTA DE EJEMPLO</span></div>
+<div class="stage-bar"><span>MAPEO DE DATOS · UNA OBRA</span><button class="map-replay" type="button" id="replay">▶ Reproducir mapeo</button></div>
 <div class="display-grid">
 <div class="map-pane"><div class="pane-kicker"><span class="step-dot">01</span>ORIGEN · EXCEL</div>
 <div class="excel-panel"><div class="excel-header"><span class="excel-badge">X</span><div><strong>pedidos.xlsx</strong><small>Hoja1 · Columnas D, E y F</small></div></div>
-<div class="sheet-table"><table aria-label="Tabla adaptada de dos filas del Excel"><thead><tr><th>#Art</th><th>Descripción</th><th>Medidas</th></tr></thead><tbody><tr class="dim"><td>FD008</td><td>Storm Playa de Le Porge</td><td>80x120</td></tr><tr class="selected"><td>HG024</td><td>Silent lake</td><td>100x150</td></tr></tbody></table></div>
+<div class="sheet-table"><table aria-label="Tabla adaptada de dos filas del Excel"><thead><tr><th>#Art</th><th>Descripción</th><th>Medidas</th></tr></thead><tbody><tr class="dim"><td>FD008</td><td>Storm Playa de Le Porge</td><td>80x120</td></tr><tr class="selected"><td data-map="0">HG024</td><td data-map="1">Silent lake</td><td data-map="2">100x150</td></tr></tbody></table></div>
 <div class="sheet-foot"><span>Fila 3 seleccionada</span><span>D3:F3</span></div></div>
-<div class="mini-match"><div><small>CÓDIGO</small><strong>HG024</strong></div><div><small>DESCRIPCIÓN</small><strong>Silent lake</strong></div><div><small>MEDIDAS</small><strong>100x150</strong></div></div></div>
+</div>
 <div class="visual-connector" aria-hidden="true"><p>MAPEO</p><svg viewBox="0 0 110 60"><path d="M2 30 H100 M87 17 101 30 87 43"/></svg></div>
 <div class="phone-pane"><div class="pane-kicker"><span class="step-dot">02</span>DESTINO · APLICACIÓN</div>
 <div class="phone" aria-label="Vista demostrativa de la ficha de obra de Henris Gallery"><div class="phone-display">
 <div class="statusbar"><span>9:41</span><span class="notch"></span><span>▂▄▆</span></div>
 <div class="app-header"><span class="app-logo">H<span>·</span></span><div><strong>HENRIS GALLERY</strong><small>GESTIÓN DE OBRAS</small></div><span class="app-menu">☰</span></div>
 <div class="app-body"><div class="breadcrumbs">Pedidos › Obras › Ficha</div><div class="phone-eyebrow">FICHA DE OBRA</div><h2>Silent lake</h2><div class="art-panel" aria-hidden="true"></div>
-<div class="app-fields"><div class="app-field"><small>CÓDIGO DE OBRA</small><strong>HG024</strong></div><div class="app-field"><small>DESCRIPCIÓN</small><strong>Silent lake</strong></div><div class="app-field"><small>MEDIDAS</small><strong>100x150</strong></div></div>
+<div class="app-fields"><div class="app-field" data-dest="0"><small>CÓDIGO DE OBRA</small><strong>HG024</strong></div><div class="app-field" data-dest="1"><small>DESCRIPCIÓN</small><strong>Silent lake</strong></div><div class="app-field" data-dest="2"><small>MEDIDAS</small><strong>100x150</strong></div></div>
 <div class="app-ok">✓ Ficha vinculada al registro</div></div><div class="app-home"><span></span></div></div></div></div></div>
 <div class="stage-footer"><span>Cada dato llega al campo correspondiente, sin cambiar su valor.</span><span>VISTA ILUSTRATIVA · NO CONECTADA A APPSHEET</span></div></section>
-<footer class="preview-footer"><span>Primera maqueta estática. Sin animaciones ni cambios en las versiones aprobadas.</span><a href="../muestra-mapeo-v3/" target="_blank" rel="noopener">Ver V3 original ↗</a></footer></main></body></html>
+<footer class="preview-footer"><span>Primera maqueta estática. Sin animaciones ni cambios en las versiones aprobadas.</span><a href="../muestra-mapeo-v3/" target="_blank" rel="noopener">Ver V3 original ↗</a></footer></main><script>
+(()=>{
+ const button=document.getElementById('replay'),sources=[...document.querySelectorAll('[data-map]')],targets=[...document.querySelectorAll('[data-dest]')];let run=0;
+ const delay=ms=>new Promise(r=>setTimeout(r,ms));
+ const clear=()=>{sources.forEach(x=>x.classList.remove('map-active'));targets.forEach(x=>x.classList.remove('map-active'))};
+ button.addEventListener('click',async()=>{
+  const id=++run;button.disabled=true;button.textContent='Mapeando…';clear();
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for(let i=0;i<3;i++){
+   if(id!==run)return;
+   sources[i].classList.add('map-active');await delay(reduced?150:480);
+   targets[i].classList.add('map-active');await delay(reduced?150:650);
+   sources[i].classList.remove('map-active');targets[i].classList.remove('map-active');
+  }
+  button.disabled=false;button.textContent='↻ Repetir mapeo';
+ });
+})();
+</script></body></html>
