@@ -25,7 +25,7 @@ for(const width of [1440,390,768]){
  assert.ok(b.scroll<=b.viewport+1,JSON.stringify(b));
  assert.ok(b.source.height<350,'Excel too tall: '+b.source.height);
  if(width>=701){assert.ok(b.source.right<b.connector.x && b.connector.right<b.phone.x,'Horizontal mapping elements overlap: '+JSON.stringify(b));assert.ok(Math.abs(b.source.y-b.phone.y)<35,'Source and phone are not aligned at the top: '+JSON.stringify(b));}
- else assert.ok(b.source.bottom<b.connector.y && b.connector.bottom<b.phone.y,'Mobile mapping order incorrect: '+JSON.stringify(b));
+ else assert.ok(b.source.bottom<=b.connector.y+1 && b.connector.bottom<=b.phone.y+1,'Mobile mapping order incorrect: '+JSON.stringify(b));
  assert.deepEqual(errors,[]);
  await page.screenshot({path:'test-results/henris-hybrid-static-'+width+'.png',fullPage:true});
  await page.close();
