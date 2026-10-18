@@ -196,6 +196,17 @@ jobs:
           node --check _gemini_preview_src/preview/gemini-presentacion/verify-live.mjs
           mkdir -p _site/gemini-presentacion
           cp _gemini_preview_src/preview/gemini-presentacion/index.html _site/gemini-presentacion/index.html
+      - name: Checkout Matias 29/66 candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 4c97b742c40de8605176ad7d81bbd6f3e45fd2bf
+          path: _matias_29_66_src
+          persist-credentials: false
+      - name: Stage isolated Matias 29/66 candidate
+        run: |
+          node --check _matias_29_66_src/preview/matias-propuesta-final/verify-live.mjs
+          mkdir -p _site/matias-propuesta-final
+          cp _matias_29_66_src/preview/matias-propuesta-final/index.html _site/matias-propuesta-final/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -357,5 +368,16 @@ jobs:
         with:
           name: henris-gemini-original-review
           path: test-results/henris-gemini-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify Matias 29/66 candidate in public browser
+        run: node _matias_29_66_src/preview/matias-propuesta-final/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save Matias 29/66 candidate screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-matias-29-66-screenshots
+          path: test-results/henris-matias-final-*.png
           if-no-files-found: ignore
           retention-days: 7
