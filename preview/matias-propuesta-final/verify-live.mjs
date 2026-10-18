@@ -12,7 +12,12 @@ try{
   const r=await page.goto(url,{waitUntil:'networkidle',timeout:30000});assert.equal(r.status(),200);
   assert.equal(await page.locator('body').getAttribute('data-preview'),'astra-mapeo-66');
   assert.equal(await page.locator('#tabs .tab').count(),5);
-  assert.equal(await page.locator('#fields .field').count(),19);
+  assert.equal(await page.locator('#mode-main').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('#fields .field').count(),29,'Initial list must contain 29 essential fields');
+  assert.equal(await page.locator('#field-count').innerText(),'29 de 29');
+  assert.equal(await page.locator('#tabs [data-tab="todos"]').getAttribute('aria-pressed'),'true');
+  const essentials=await page.locator('#fields .field').count();
+  assert.equal(essentials,29);
   assert.equal(await page.locator('.relation-card').count(),4,'Client/order/item/payment relationship cards remain visible');
   assert.equal(await page.locator('.intro h1').innerText(),'Del Excel al pedido.');
   assert.equal(await page.locator('.connector').count(),1,'Visible origin-destination connector');
@@ -20,8 +25,19 @@ try{
   assert.equal(await page.locator('#origins .column-letter').first().innerText(),'AM');
   assert.equal(await page.locator('#origins .column-name').first().innerText(),'VENTA');
   await page.screenshot({path:'test-results/henris-matias-final-'+width+'-inicio.png',fullPage:false});
+  await page.locator('#tabs [data-tab="Pedidos"]').click();
+  assert.equal(await page.locator('#fields .field').count(),11,'Pedidos visible essentials');
+  await page.locator('#tabs [data-tab="Pedido_Items"]').click();
+  assert.equal(await page.locator('#fields .field').count(),9,'Items visible essentials');
+  await page.locator('#tabs [data-tab="Pagos"]').click();
+  assert.equal(await page.locator('#fields .field').count(),7,'Pagos visible essentials');
+  await page.locator('#tabs [data-tab="Clientes"]').click();
+  assert.equal(await page.locator('#fields .field').count(),2,'Clientes visible essentials');
   await page.locator('#tabs [data-tab="todos"]').click();
-  assert.equal(await page.locator('#fields .field').count(),66);
+  await page.locator('#mode-all').click();
+  assert.equal(await page.locator('#mode-all').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('#fields .field').count(),66,'66 fields after expand');
+  assert.equal(await page.locator('#field-count').innerText(),'66 de 66');
   await page.locator('#status').selectOption('revisar');
   assert.equal(await page.locator('#fields .field').count(),10);
   await page.locator('#status').selectOption('todos');
@@ -52,6 +68,12 @@ try{
    const top=await page.locator('#detail').evaluate(e=>e.getBoundingClientRect().top);
    assert.ok(top>=-25 && top<=450,'Selected mobile field detail must enter the visible upper half of the screen: '+top);
   }
+  await page.locator('#mode-main').click();
+  await page.locator('#tabs [data-tab="todos"]').click();
+  assert.equal(await page.locator('#fields .field').count(),29,'Switching back restores the curated selection');
+  assert.equal(await page.locator('#fields [data-field="Pago_ID"]').count(),0,'Internal keys hidden only in essential mode');
+  await page.locator('#mode-all').click();
+  assert.equal(await page.locator('#fields [data-field="Pago_ID"]').count(),1,'Internal key accessible in complete mode');
   const metrics=await page.evaluate(()=>{
    const xy=q=>{const r=document.querySelector(q).getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width}};
    return{viewport:window.innerWidth,scroll:document.documentElement.scrollWidth,sidebar:xy('.side'),detail:xy('.detail'),split:xy('.split')};
@@ -60,7 +82,7 @@ try{
   if(width>=681)assert.ok(metrics.sidebar.right<=metrics.detail.left,'Two panel overlap: '+JSON.stringify(metrics));
   else assert.ok(metrics.sidebar.bottom<=metrics.detail.top+1,'Mobile panel order incorrect: '+JSON.stringify(metrics));
   assert.deepEqual(errors,[],'Javascript errors at '+width);
-  await page.screenshot({path:'test-results/henris-astra-'+width+'-detalle.png',fullPage:false});
+  await page.screenshot({path:'test-results/henris-matias-final-'+width+'-detalle.png',fullPage:false});
   await page.close();
  }
  console.log('SUCCESS Final Matias composition with 66 mapped fields, direct/derived/review badges, tabs, search, mobile navigation, no overlap 390/768/1440');
