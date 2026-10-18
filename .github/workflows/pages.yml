@@ -188,7 +188,7 @@ jobs:
       - name: Checkout original Gemini review
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 05f2d04d3ab15b37a621940e31a5c9f3ce680421
+          ref: dc63981c7ea3a3ecb30caaa7292dd19516efbc77
           path: _gemini_preview_src
           persist-credentials: false
       - name: Stage Gemini mockup for independent review
