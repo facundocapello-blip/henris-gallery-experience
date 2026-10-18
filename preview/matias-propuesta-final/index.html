@@ -112,6 +112,20 @@ body{background:linear-gradient(180deg,#f6f3e9 0%,#f3f2eb 55%,#f6f4ee 100%);font
 @media(max-width:680px){.masthead-inner{min-height:57px}.identity strong{font-size:14px}.identity span{font-size:7px;letter-spacing:.06em}.edition{font-size:8px;max-width:110px}.edition-dot{display:none}.intro{padding:23px 0 17px}.intro h1{font-size:36px;line-height:1.1}.intro .intro-standfirst{margin-top:8px;font-size:12px}.intro-aside{width:auto;max-width:none;border-left:0;border-top:1px solid #d8c9ad;padding:10px 0 0;margin-top:14px}.intro-aside .aside-index{display:none}.intro-aside .aside-kicker{font-size:8px}.intro-aside p{margin:4px 0 0;font-size:10px}.metrics{gap:5px}.metric{min-width:calc(50% - 5px);padding:9px 10px;gap:8px}.metric strong{font-size:21px}.metric>span{font-size:9px}.metric-flag{min-width:calc(50% - 5px)}.split{display:flex}.field-list{height:231px}.detail{scroll-margin-top:12px}.detail-head{padding-top:14px;gap:8px}.detail-head h2{font-size:26px}.detail-body{gap:8px}.origin-display{padding:12px}.connector{height:24px}.connector-track{height:21px!important}.detail-head .technical{font-size:10px}.status-pill{font-size:8px;white-space:normal;max-width:110px;text-align:center}.relation{padding:23px 1px 0}.relation-head{display:block}.relation-head h2{font-size:22px}.relation-head p{margin-top:7px}.relation-grid{display:flex;flex-direction:column;gap:6px}.relation-card{min-height:66px;padding:10px 12px}.relation-card strong{font-size:18px}.relation-arrow{transform:rotate(90deg);line-height:17px}.relation-branches{display:grid;grid-template-columns:1fr 1fr;gap:6px}.relation-branches .relation-card strong{font-size:16px}.relation-foot{font-size:9px}.footer{margin-top:17px}}
 @media(prefers-reduced-motion:reduce){.detail.reveal .connector::before,.detail.reveal .origin-display,.detail.reveal .destination{animation:none!important}}
 
+
+
+/* Clasificación de presentación: 29 esenciales / 37 en vista ampliada. Sin modificar datos. */
+.view-switch{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 18px;background:#f8faf5;border-bottom:1px solid #dde5d9}
+.view-switch-info{display:flex;flex-direction:column;gap:3px}
+.view-switch-info strong{font-size:11px;color:#254934;letter-spacing:.015em}
+.view-switch-info span{font-size:10px;color:#70816f;line-height:1.4}
+.view-switch-buttons{display:flex;flex:none;gap:3px;padding:4px;border:1px solid #d1ddcf;background:#ecf1e9;border-radius:5px}
+.view-toggle{min-height:39px;border:1px solid transparent;border-radius:3px;background:transparent;color:#476450;padding:7px 12px;font-weight:700;font-size:11px;white-space:nowrap}
+.view-toggle b{margin-left:5px;font-size:10px;font-weight:700;opacity:.75}
+.view-toggle[aria-pressed=true]{background:#193e30;color:#fff9e9;border-color:#193e30;box-shadow:0 2px 5px #09241719}
+.view-toggle:focus-visible{outline:3px solid #c8a361;outline-offset:2px}
+#view-source-note{display:block;margin-bottom:4px;color:#52745a}
+@media(max-width:680px){.view-switch{flex-direction:column;align-items:stretch;gap:9px;padding:11px}.view-switch-buttons{width:100%}.view-toggle{flex:1;white-space:normal;font-size:10px;padding:7px 6px;min-height:40px}.view-switch-info span{font-size:10px}}
 </style></head>
 <body data-preview="astra-mapeo-66" data-total="66">
 <header class="masthead"><div class="shell masthead-inner"><span class="monogram" aria-hidden="true">H·</span><div class="identity"><strong>HENRIS GALLERY</strong><span>ARCHIVO COMERCIAL · MAPEO DE PEDIDOS</span></div><span class="edition">PROPUESTA VISUAL PARA MATÍAS <span class="edition-dot" aria-hidden="true">●</span> SIN CAMBIOS EN PRODUCCIÓN</span></div></header>
@@ -120,6 +134,12 @@ body{background:linear-gradient(180deg,#f6f3e9 0%,#f3f2eb 55%,#f6f4ee 100%);font
 <div class="metrics" aria-label="Alcance del mapeo"><div class="metric"><strong>66</strong><span>Campos del modelo actual</span></div><div class="metric"><strong>40</strong><span>Columnas del Excel histórico</span></div><div class="metric"><strong>4</strong><span>Tablas relacionadas</span></div><div class="metric metric-flag"><span class="live-dot" aria-hidden="true"></span><span>Correspondencias documentadas<br>con validaciones pendientes</span></div></div>
 <section class="workspace" aria-label="Herramienta de mapeo de campos">
 <div class="workspace-head"><strong><span class="head-line"></span> DICCIONARIO DE CAMPOS</strong><span>EXCEL HISTÓRICO <b aria-hidden="true">→</b> HENRIS GALLERY</span></div>
+<div class="view-switch" aria-label="Modo de consulta">
+<div class="view-switch-info"><strong>¿Qué querés consultar?</strong><span id="view-description">29 campos clave para entender el cambio desde Excel.</span></div>
+<div class="view-switch-buttons" role="group" aria-label="Nivel de detalle">
+<button id="mode-main" type="button" class="view-toggle" aria-pressed="true" data-mode="main">Esenciales <b>29</b></button>
+<button id="mode-all" type="button" class="view-toggle" aria-pressed="false" data-mode="all">Todos los campos <b>66</b></button>
+</div></div>
 <nav id="tabs" class="tabs" aria-label="Seleccionar tabla"></nav>
 <div class="controls"><div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><label for="search" class="sr-only">Buscar campo o columna</label><input type="search" id="search" placeholder="Buscar campo, columna, regla…" autocomplete="off"></div><label for="status" class="sr-only">Filtrar por clasificación</label><select id="status"><option value="todos">Todos los tipos de origen</option><option value="directo">Origen directo</option><option value="transformado">Adaptar / separar</option><option value="calculado">Calculado</option><option value="nuevo">Campo nuevo</option><option value="revisar">Pendiente de validación</option></select></div>
 <div class="split">
@@ -136,7 +156,7 @@ body{background:linear-gradient(180deg,#f6f3e9 0%,#f3f2eb 55%,#f6f4ee 100%);font
 </div>
 </div>
 </div>
-<div class="under"><strong>Fuentes documentales:</strong> encabezados del archivo histórico <i>pedidos.xlsx</i>, esquema de Google Sheets y hoja <i>Mapa_Migracion_Matias</i>. Las claves técnicas y los totales calculados no se presentan como columnas copiadas. Los datos ambiguos conservan el estado «Requiere validación».</div>
+<div class="under"><span id="view-source-note"><strong>Vista inicial:</strong> 29 campos priorizados comercialmente; los otros 37 quedan disponibles en «Todos los campos». No se eliminaron datos del mapeo.</span> <strong>Fuentes documentales:</strong> encabezados del archivo histórico <i>pedidos.xlsx</i>, esquema de Google Sheets y hoja <i>Mapa_Migracion_Matias</i>. Las claves técnicas y los totales calculados no se presentan como columnas copiadas. Los datos ambiguos conservan el estado «Requiere validación».</div>
 </section>
 <section class="relation" aria-labelledby="relation-title">
 <div class="relation-head"><div><small>MODELO DE GESTIÓN</small><h2 id="relation-title">Un pedido, toda la información relacionada.</h2></div><p>La información del Excel se organiza en relaciones estables. Un pedido puede contener varias obras y varios cobros, sin duplicar los pagos por cada obra.</p></div>
@@ -158,16 +178,27 @@ const sections=src.sections;
 const labels={Pedidos:"Pedidos",Pedido_Items:"Obras / Ítems",Pagos:"Pagos",Clientes:"Clientes",todos:"Todos los campos"};
 const statuses={directo:"Origen directo",transformado:"Adaptar / separar",calculado:"Calculado",nuevo:"Campo nuevo",revisar:"Requiere validación"};
 const all=sections.flatMap(section=>section.items.map(item=>({...item,table:section.table})));
+const essential=new Set(["Pedidos.Numero_Pedido_Origen","Pedidos.Fecha_Pedido","Pedidos.Canal_Origen","Pedidos.Moneda_Venta","Pedidos.Total_Pedido","Pedidos.Total_Pagado","Pedidos.Saldo_Pendiente","Pedidos.Estado_Cobro","Pedidos.Fecha_Entrega_Prevista","Pedidos.Fecha_Entrega_Real","Pedidos.Estado_Facturacion","Pedido_Items.Codigo_Art","Pedido_Items.Descripcion","Pedido_Items.Medidas","Pedido_Items.Borde_Adicional","Pedido_Items.Passe_Partout","Pedido_Items.Terminacion_Cuadro","Pedido_Items.Precio_Item","Pedido_Items.Produccion_Pagada","Pedido_Items.Estado_Produccion","Pagos.Tipo_Pago","Pagos.Fecha_Pago","Pagos.Importe","Pagos.Moneda","Pagos.Medio_Pago","Pagos.Estado_Pago","Pagos.Facturado","Clientes.Nombre","Clientes.Telefono"]);
+if(all.length!==66||essential.size!==29||all.filter(x=>essential.has(x.table+"."+x.field)).length!==29)throw new Error("No coinciden los 29 campos esenciales con el catálogo de 66.");
+const viewLabels={main:"29 campos clave para entender el cambio desde Excel.",all:"66 campos documentados, incluidos técnicos, derivados y pendientes de revisión."};
+let mode="main";
 const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
-const refs={tabs:document.getElementById("tabs"),fields:document.getElementById("fields"),detail:document.getElementById("detail"),count:document.getElementById("field-count"),search:document.getElementById("search"),status:document.getElementById("status"),back:document.getElementById("back")};
+const refs={tabs:document.getElementById("tabs"),fields:document.getElementById("fields"),detail:document.getElementById("detail"),count:document.getElementById("field-count"),search:document.getElementById("search"),status:document.getElementById("status"),back:document.getElementById("back"),description:document.getElementById("view-description"),sourceNote:document.getElementById("view-source-note"),modes:[document.getElementById("mode-main"),document.getElementById("mode-all")]};
 let table="Pedidos",selectedKey="Pedidos::Canal_Origen",filtered=[];
 function node(tag,className,content){const el=document.createElement(tag);if(className)el.className=className;if(content!==undefined)el.textContent=content;return el;}
 function key(item){return item.table+"::"+item.field;}
-function renderTabs(){refs.tabs.replaceChildren();for(const sec of [...sections,{table:"todos",count:all.length}]){const b=node("button","tab");b.type="button";b.dataset.tab=sec.table;b.setAttribute("aria-pressed",String(table===sec.table));b.append(node("span","",labels[sec.table]),node("em","",String(sec.count)));b.addEventListener("click",()=>{table=sec.table;renderTabs();applyFilters();});refs.tabs.append(b);}}
-function applyFilters(){const q=norm(refs.search.value),status=refs.status.value;filtered=all.filter(x=>(table==="todos"||x.table===table)&&(status==="todos"||x.status===status)&&(!q||norm([x.field,x.table,labels[x.table],x.rule,statuses[x.status],...x.origin.map(y=>y.column+" "+y.header)].join(" ")).includes(q)));
+function isVisible(item){return mode==="all"||essential.has(item.table+"."+item.field);}
+function scopeCount(tableName){return all.filter(x=>(tableName==="todos"||x.table===tableName)&&isVisible(x)).length;}
+function setMode(next){if(next!== "main" && next!=="all")return;mode=next;
+refs.modes.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
+refs.description.textContent=viewLabels[mode];
+refs.sourceNote.textContent=mode==="main"?"Vista inicial: 29 campos esenciales. Los otros 37 están disponibles en «Todos los campos».":"Vista completa: los 66 campos están disponibles, sin omisiones ni cambios de información.";
+renderTabs();applyFilters();}
+function renderTabs(){refs.tabs.replaceChildren();for(const sec of [...sections,{table:"todos",count:all.length}]){const b=node("button","tab");b.type="button";b.dataset.tab=sec.table;b.setAttribute("aria-pressed",String(table===sec.table));b.append(node("span","",labels[sec.table]),node("em","",String(scopeCount(sec.table))));b.addEventListener("click",()=>{table=sec.table;renderTabs();applyFilters();});refs.tabs.append(b);}}
+function applyFilters(){const q=norm(refs.search.value),status=refs.status.value;filtered=all.filter(x=>isVisible(x)&&(table==="todos"||x.table===table)&&(status==="todos"||x.status===status)&&(!q||norm([x.field,x.table,labels[x.table],x.rule,statuses[x.status],...x.origin.map(y=>y.column+" "+y.header)].join(" ")).includes(q)));
 if(!filtered.some(x=>key(x)===selectedKey))selectedKey=filtered.length?key(filtered[0]):null;
 renderList();renderDetail();}
-function renderList(){refs.fields.replaceChildren();refs.count.textContent=filtered.length+" de "+(table==="todos"?all.length:sections.find(s=>s.table===table).count);if(!filtered.length){refs.fields.append(node("p","empty","No se encontraron campos con esos filtros."));return;}
+function renderList(){refs.fields.replaceChildren();refs.count.textContent=filtered.length+" de "+scopeCount(table);if(!filtered.length){refs.fields.append(node("p","empty",mode==="main"?"No hay resultados en la vista esencial. Probá «Todos los campos» o ajustá los filtros.":"No se encontraron campos con esos filtros."));return;}
 const group=document.createDocumentFragment();for(const x of filtered){const b=node("button","field");b.type="button";b.dataset.field=x.field;b.dataset.table=x.table;b.setAttribute("aria-pressed",String(key(x)===selectedKey));const wrap=node("span","field-copy");wrap.append(node("span","field-name",x.field),node("span","field-status",labels[x.table]+" · "+statuses[x.status]));b.append(wrap,node("span","field-arrow","↗"));b.addEventListener("click",()=>{selectedKey=key(x);renderList();renderDetail();if(matchMedia("(max-width:680px)").matches){refs.detail.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"instant":"smooth",block:"start"});}});group.append(b);}refs.fields.append(group);
 const active=[...refs.fields.querySelectorAll(".field")].find(x=>x.getAttribute("aria-pressed")==="true");if(active)active.scrollIntoView({block:"nearest"});}
 function renderDetail(){const x=filtered.find(y=>key(y)===selectedKey);refs.detail.hidden=!x;if(!x)return;
@@ -183,6 +214,7 @@ document.getElementById("destination-note").textContent="Tabla "+labels[x.table]
 document.getElementById("rule").textContent=x.rule;
 refs.detail.classList.remove("reveal"); void refs.detail.offsetWidth; refs.detail.classList.add("reveal");
 }
+refs.modes.forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 refs.search.addEventListener("input",applyFilters);
 refs.status.addEventListener("change",applyFilters);
 refs.back.addEventListener("click",()=>document.getElementById("side").scrollIntoView({behavior:"smooth",block:"start"}));
