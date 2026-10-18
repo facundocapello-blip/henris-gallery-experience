@@ -207,6 +207,17 @@ jobs:
           node --check _matias_29_66_src/preview/matias-propuesta-final/verify-live.mjs
           mkdir -p _site/matias-propuesta-final
           cp _matias_29_66_src/preview/matias-propuesta-final/index.html _site/matias-propuesta-final/index.html
+      - name: Checkout Henris V4 Gemini integration
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 66dd1263092a138be13f771462e850f3c4c4b4e8
+          path: _henris_v4_src
+          persist-credentials: false
+      - name: Stage V4 as independent preview
+        run: |
+          node --check _henris_v4_src/preview/henris-v4/verify-live.mjs
+          mkdir -p _site/henris-v4
+          cp _henris_v4_src/preview/henris-v4/index.html _site/henris-v4/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
@@ -379,5 +390,16 @@ jobs:
         with:
           name: henris-matias-29-66-screenshots
           path: test-results/henris-matias-final-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Verify V4 original 29/66 mapping and mock transaction flows
+        run: node _henris_v4_src/preview/henris-v4/verify-live.mjs '${{ steps.deployment.outputs.page_url }}'
+      - name: Save Henris V4 desktop and mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henris-v4-matias-review
+          path: test-results/henris-v4-*.png
           if-no-files-found: ignore
           retention-days: 7
