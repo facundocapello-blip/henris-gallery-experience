@@ -184,7 +184,7 @@ const viewLabels={main:"29 campos clave para entender el cambio desde Excel.",al
 let mode="main";
 const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
 const refs={tabs:document.getElementById("tabs"),fields:document.getElementById("fields"),detail:document.getElementById("detail"),count:document.getElementById("field-count"),search:document.getElementById("search"),status:document.getElementById("status"),back:document.getElementById("back"),description:document.getElementById("view-description"),sourceNote:document.getElementById("view-source-note"),modes:[document.getElementById("mode-main"),document.getElementById("mode-all")]};
-let table="Pedidos",selectedKey="Pedidos::Canal_Origen",filtered=[];
+let table="todos",selectedKey="Pedidos::Canal_Origen",filtered=[];
 function node(tag,className,content){const el=document.createElement(tag);if(className)el.className=className;if(content!==undefined)el.textContent=content;return el;}
 function key(item){return item.table+"::"+item.field;}
 function isVisible(item){return mode==="all"||essential.has(item.table+"."+item.field);}
@@ -194,7 +194,7 @@ refs.modes.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode
 refs.description.textContent=viewLabels[mode];
 refs.sourceNote.textContent=mode==="main"?"Vista inicial: 29 campos esenciales. Los otros 37 están disponibles en «Todos los campos».":"Vista completa: los 66 campos están disponibles, sin omisiones ni cambios de información.";
 renderTabs();applyFilters();}
-function renderTabs(){refs.tabs.replaceChildren();for(const sec of [...sections,{table:"todos",count:all.length}]){const b=node("button","tab");b.type="button";b.dataset.tab=sec.table;b.setAttribute("aria-pressed",String(table===sec.table));b.append(node("span","",labels[sec.table]),node("em","",String(scopeCount(sec.table))));b.addEventListener("click",()=>{table=sec.table;renderTabs();applyFilters();});refs.tabs.append(b);}}
+function renderTabs(){refs.tabs.replaceChildren();for(const sec of [{table:"todos",count:all.length},...sections]){const b=node("button","tab");b.type="button";b.dataset.tab=sec.table;b.setAttribute("aria-pressed",String(table===sec.table));b.append(node("span","",labels[sec.table]),node("em","",String(scopeCount(sec.table))));b.addEventListener("click",()=>{table=sec.table;renderTabs();applyFilters();});refs.tabs.append(b);}}
 function applyFilters(){const q=norm(refs.search.value),status=refs.status.value;filtered=all.filter(x=>isVisible(x)&&(table==="todos"||x.table===table)&&(status==="todos"||x.status===status)&&(!q||norm([x.field,x.table,labels[x.table],x.rule,statuses[x.status],...x.origin.map(y=>y.column+" "+y.header)].join(" ")).includes(q)));
 if(!filtered.some(x=>key(x)===selectedKey))selectedKey=filtered.length?key(filtered[0]):null;
 renderList();renderDetail();}
