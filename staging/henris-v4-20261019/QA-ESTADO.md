@@ -1,30 +1,20 @@
-# Henris V4 — validación 19/10/2026
+# Estado actual Henris Gallery — 19/10/2026
 
-## Fuentes y alcance
-- Base GitHub V4.1: `feat/henris-v4-iphone-real-appsheet`, `preview/henris-v4-iphone/index.html`.
-- Rama aislada de integración: `staging/henris-v4-20261019`, `staging/henris-v4-20261019/index.html`.
-- Maqueta local del 19/10: `Henris_Gallery_V4_3_Candidata.html`; **no** es idéntica al archivo integrado en esta rama.
-- Producción (`main`), AppSheet y Google Sheets: sin cambios.
+## Web V4.3
+Implementada y publicada en https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-v4-20261019/
+Archivo exacto integrado en commit c341ef8a3f9eb2498e17fa3313440a6f27ead8b7, sin reemplazar HTML estable. Pages run 39315902553 completed/success. Pruebas de navegación/mapeo 29/66 y pagos aprobadas en Chrome conectado; móvil efectivo 390×844 sin overflow. Ver QA-V43.md para evidencia y límites. Safari físico pendiente. Correspondencia visual de Fecha_Pedido con captura reutilizada de pagos pendiente de corrección/revisión.
 
-## QA ejecutado sobre V4.3 local (NO sobre la rama GitHub)
-Chromium cargado mediante `page.set_content()`, porque `file://` devolvió ERR_BLOCKED_BY_ADMINISTRATOR.
-- 390 px y 1280 px: 29 esenciales, 66 completos.
-- Selección `Fecha_Pedido`: destino técnico `Pedidos · Fecha_Pedido`.
-- Pago ficticio +ARS 25.000: pagado ARS 105.000, saldo ARS 60.000; deshacer devuelve ARS 85.000.
-- Sin errores JS de página ni overflow horizontal.
-- Capturas locales realizadas.
-**No extrapolar estas pruebas a la rama GitHub.**
+## AppSheet STAGING E2E
+- App ID 3300a579-5a49-4738-98f5-19979e4952e4. Producción 7f05d824-ccdc-4dc7-ad55-8a43f7739d0b se consultó solo para comparar el origen.
+- Confirmado: STAGING y producción usan documentos distintos. No se modificó configuración ni datos de producción.
+- El botón + Nuevo pedido ya existía, es visible en panel Pedidos y abre el formulario Pedidos_Form. Adds habilitado. No se reimplementó.
+- Pedido ficticio creado: referencia STG-E2E-20261019; cliente de prueba existente STG-CAMPOS-20261014; comentarios marcan PRUEBA FICTICIA y exclusión de indicadores.
+- Se definió moneda PESOS. Dos ítems identificados como ficticios: Obra A 100000 y Obra B 50000.
+- Cálculos observados después de sincronizar: Total 150000; sin pagos: Pagado 0/Saldo 150000/Pendiente; seña 50000: Pagado 50000/Saldo 100000/Parcial; segundo 25000: Pagado 75000/Saldo 75000/Parcial; final 75000: Pagado 150000/Saldo 0/Pagado.
+- Confirmación final: 2 obras, 3 pagos, Unsynced changes 0.
+- La interfaz puede mostrar totales anteriores mientras sincroniza; los valores correctos se confirmaron después.
+- Validación comprobada: bloquea precio si no se definió moneda y exige el alcance de medidas. Sin cambios de configuración necesarios.
+- Los registros ficticios se conservan únicamente en STAGING como evidencia. No deben usarse en indicadores reales.
 
-## Controles estáticos sobre la rama GitHub
-- Archivo recuperado por API después del commit.
-- Conserva 29/66, bloque de pagos, captura real y fallback, reproducción/pausa y cambio de campo.
-- Falta QA de navegador sobre la versión exacta de la rama.
-
-## Bloqueo de publicación
-El workflow `.github/workflows/pages.yml` solo ejecuta en `main` y copia una lista explícita de rutas. No incorpora `staging/henris-v4-20261019/`. Publicar una URL Pages requeriría modificar y ejecutar el pipeline, con revisión y autorización de ese cambio estructural. No se modifica `main` en esta etapa.
-
-## Pendientes
-1. Comparación funcional y visual completa entre V4.3 local y archivo GitHub.
-2. Ejecutar pruebas de la versión exacta del PR en Chromium y Safari físico.
-3. Revisar resaltado del campo sobre capturas reales; no afirmar equivalencias visuales no verificadas.
-4. Publicación aislada en STAGING, sin sustituir rutas estables, después de QA.
+## Siguiente etapa
+Safari iPhone físico pendiente. Análisis y marketing todavía no conectados ni ejecutados por esta tarea. Antes de calcular indicadores: verificar fuente, período, monedas y exclusión de pruebas.
