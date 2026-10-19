@@ -229,6 +229,17 @@ jobs:
           node --check _henris_v4_iphone_src/preview/henris-v4-iphone/verify-live.mjs
           mkdir -p _site/henris-v4-iphone
           cp _henris_v4_iphone_src/preview/henris-v4-iphone/index.html _site/henris-v4-iphone/index.html
+      - name: Checkout validated V4.3 staging snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: c341ef8a3f9eb2498e17fa3313440a6f27ead8b7
+          path: _henris_v43_staging
+          persist-credentials: false
+      - name: Add V4.3 isolated staging URL
+        run: |
+          mkdir -p _site/staging/henris-v4-20261019
+          cp _henris_v43_staging/staging/henris-v4-20261019/index.html _site/staging/henris-v4-20261019/index.html
+          echo "882be4ddcabe6988f133edaec8c9dbfaba7ef534b6f8949b3c3c390ca53f1f77  _site/staging/henris-v4-20261019/index.html" | sha256sum -c
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
