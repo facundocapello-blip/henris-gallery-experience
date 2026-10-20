@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Presentación del nuevo sistema de gestión V4 de Henri's Gallery.">
+    <title>Henris Gallery | Experiencia V4 Ultimate</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+    :root {
+        --brand-black: #000000;
+        --brand-white: #ffffff;
+        --brand-gray: #777777;
+        --brand-light-gray: #f4f4f4;
+        --brand-border: #e0e0e0;
+        --app-green: #3A5F48;
+        --app-bg: #F0F2F1;
+        --app-text: #333333;
+        --app-accent: #E59835;
+        --sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; min-width: 320px; font-size: 13px; line-height: 1.6; color: var(--brand-black); background: var(--brand-white); font-family: var(--sans); letter-spacing: 0.02em; }
+    
+    button, input, select { font: inherit; border-radius: 0; outline: none;}
+    button { cursor: pointer; border: 1px solid var(--brand-black); background: transparent; color: var(--brand-black); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px; font-weight: 600; padding: 10px 15px; transition: all 0.3s ease; }
+    button:hover { background: var(--brand-black); color: var(--brand-white); }
+    [hidden] { display: none !important; }
+
+    .shell { width: min(1180px, calc(100% - 60px)); margin: 0 auto; }
+    
+    .masthead { background: var(--brand-white); color: var(--brand-black); border-bottom: 1px solid var(--brand-border); position: sticky; top: 0; z-index: 50; }
+    .masthead-inner { min-height: 70px; display: flex; gap: 30px; align-items: center; }
+    .brand-link { display: flex; align-items: center; gap: 15px; color: inherit; text-decoration: none; }
+    .identity strong { font-weight: 700; font-size: 18px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .identity strong em { font-style: normal; font-weight: 300; }
+    .identity span { display: block; margin-top: 2px; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brand-gray); }
+    .header-nav { display: flex; gap: 25px; margin-left: auto; }
+    .header-nav a { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-black); text-decoration: none; position: relative; }
+    .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px; background: var(--brand-black); transition: width 0.3s ease; }
+    .header-nav a:hover::after { width: 100%; }
+
+    .intro { padding: 80px 0 60px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--brand-border); margin-bottom: 40px; }
+    .intro-copy { flex: 1; max-width: 650px;}
+    .intro small { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brand-gray); margin-bottom: 10px;}
+    .intro h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 20px; text-transform: uppercase; }
+    .intro h1 em { font-style: normal; font-weight: 300; }
+    .intro p { font-size: 15px; color: var(--brand-gray); line-height: 1.6; margin: 0; }
+    .hero-actions { display: flex; gap: 15px; margin-top: 35px; }
+    .btn-solid { background: var(--brand-black); color: var(--brand-white); text-decoration: none; text-transform: uppercase; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; padding: 15px 25px; border: 1px solid var(--brand-black); transition: all 0.3s;}
+    .btn-solid:hover { background: var(--brand-gray); border-color: var(--brand-gray); color: var(--brand-white);}
+    .btn-outline { background: transparent; color: var(--brand-black); text-decoration: none; text-transform: uppercase; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; padding: 15px 25px; border: 1px solid var(--brand-black); transition: all 0.3s;}
+    .btn-outline:hover { background: var(--brand-light-gray); }
+
+    .section-title { margin-bottom: 40px; }
+    .section-title small { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--brand-gray); display: block; margin-bottom: 10px; }
+    .section-title h2 { font-size: 32px; font-weight: 300; text-transform: uppercase; margin: 0; }
+    
+    .simulator { background: var(--brand-light-gray); border: 1px solid var(--brand-black); padding: 40px; display: flex; gap: 60px; margin-bottom: 60px; }
+    .sim-steps { flex: 1; display: flex; flex-direction: column; gap: 20px; border-right: 1px solid var(--brand-border); padding-right: 40px; justify-content: center;}
+    .sim-step { background: var(--brand-white); border: 1px solid var(--brand-border); padding: 25px; cursor: pointer; transition: all 0.3s; opacity: 0.5; position: relative;}
+    .sim-step:hover { opacity: 0.8; }
+    .sim-step.active { opacity: 1; border-color: var(--brand-black); box-shadow: 6px 6px 0 rgba(0,0,0,0.05); transform: translateX(10px);}
+    .step-num { position: absolute; top: -12px; left: -12px; width: 26px; height: 26px; background: var(--brand-black); color: var(--brand-white); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .sim-step h3 { font-size: 14px; text-transform: uppercase; margin: 0 0 8px; }
+    .sim-step p { font-size: 12px; color: var(--brand-gray); margin: 0; line-height: 1.5; }
+
+    .sim-device { flex: 1; display: flex; align-items: center; justify-content: center; perspective: 1000px;}
+    .iphone-mockup { width: 100%; max-width: 320px; background: var(--brand-black); border: 12px solid var(--brand-black); border-radius: 35px; aspect-ratio: 9/19.5; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 40px rgba(0,0,0,0.15); transition: transform 0.5s ease;}
+    .iphone-mockup::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 18px; background: var(--brand-black); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 100; }
+    
+    .app-ui { flex: 1; background: var(--app-bg); display: flex; flex-direction: column; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; position: relative;}
+    .app-header { background: var(--app-green); color: white; padding: 35px 15px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 10;}
+    .app-header-left { display: flex; align-items: center; gap: 15px; font-size: 16px;}
+    .app-title { font-weight: 500; font-size: 17px; }
+    .app-body { flex: 1; overflow-y: auto; padding-bottom: 80px; position: relative;}
+    .app-bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; background: var(--app-green); color: rgba(255,255,255,0.7); display: flex; justify-content: space-around; padding: 10px 0 20px; font-size: 10px; border-top: 1px solid rgba(0,0,0,0.1); z-index: 10;}
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .nav-item.active { color: white; }
+    
+    .app-view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; transform: translateX(20px);}
+    .app-view.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+
+    .app-heading { font-size: 22px; font-weight: 400; color: var(--app-text); margin: 0 0 5px; }
+    .app-subheading { font-size: 14px; color: #666; margin-bottom: 20px; }
+    .app-card { background: white; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 15px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);}
+    .app-card-header { background: #f9f9f9; padding: 12px 15px; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;}
+    .app-field-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #f0f0f0; align-items: center;}
+    .app-field-row:last-child { border-bottom: none; }
+    .app-label { font-size: 13px; color: #666; }
+    .app-value { font-size: 15px; color: var(--app-text); font-weight: 400; }
+    .app-value.orange { color: var(--app-accent); font-weight: 600; }
+    .app-pill { background: #f0f0f0; color: #666; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+    .app-pill.orange { background: #FFF4E5; color: var(--app-accent); }
+    .app-list-item { padding: 15px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: flex-start;}
+    .app-list-main { display: flex; gap: 12px; }
+    .app-thumb { width: 40px; height: 40px; background: #ddd; border-radius: 4px; overflow: hidden; }
+    .app-list-text strong { display: block; font-size: 14px; color: var(--app-text); margin-bottom: 2px;}
+    .app-list-text span { font-size: 12px; color: #888; }
+    @keyframes pulseAppFab { 0% { box-shadow: 0 4px 10px rgba(0,0,0,0.2), 0 0 0 0 rgba(58, 95, 72, 0.5); } 70% { box-shadow: 0 4px 10px rgba(0,0,0,0.2), 0 0 0 15px rgba(58, 95, 72, 0); } 100% { box-shadow: 0 4px 10px rgba(0,0,0,0.2), 0 0 0 0 rgba(58, 95, 72, 0); } }
+    .app-fab { position: absolute; bottom: 80px; right: 20px; width: 50px; height: 50px; background: var(--app-green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 20; animation: pulseAppFab 2s infinite;}
+
+    .workspace { border: 1px solid var(--brand-black); background: var(--brand-white); margin-bottom: 60px; }
+    .workspace-head { padding: 20px; border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; text-transform: uppercase; align-items: center; background: var(--brand-light-gray);}
+    .workspace-head strong { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; }
+    
+    .tabs { display: flex; padding: 0 20px; border-bottom: 1px solid var(--brand-border); background: var(--brand-white); overflow-x: auto; scrollbar-width: none; }
+    .tab { flex: none; border: none; border-bottom: 2px solid transparent; padding: 15px 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--brand-gray); }
+    .tab:hover { color: var(--brand-black); }
+    .tab[aria-pressed=true] { color: var(--brand-black); border-bottom-color: var(--brand-black); }
+    .tab em { margin-left: 5px; font-style: normal; opacity: 0.5; }
+    
+    .controls { padding: 15px 20px; border-bottom: 1px solid var(--brand-border); display: flex; gap: 15px; background: var(--brand-white);}
+    .input-wrap { flex: 1; position: relative; }
+    .input-wrap input { width: 100%; border: 1px solid var(--brand-border); padding: 10px 15px; font-size: 12px; outline: none; }
+    .input-wrap input:focus { border-color: var(--brand-black); }
+    .controls select { border: 1px solid var(--brand-border); padding: 10px 15px; font-size: 11px; text-transform: uppercase; outline: none; cursor: pointer; }
+
+    .split { display: grid; grid-template-columns: 320px 1fr; }
+    .side { border-right: 1px solid var(--brand-border); background: var(--brand-white); }
+    .side-head { padding: 15px 20px; border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; font-weight: 700; background: var(--brand-light-gray);}
+    .field-list { height: 450px; overflow-y: auto; padding: 10px; }
+    .field { width: 100%; text-align: left; padding: 15px; border: 1px solid transparent; background: transparent; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--brand-border); cursor: pointer; transition: all 0.2s;}
+    .field:hover { background: var(--brand-light-gray); }
+    .field[aria-pressed=true] { background: var(--brand-black); color: var(--brand-white); border-color: var(--brand-black); }
+    .field-name { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; }
+    .field[aria-pressed=true] .field-status { color: #aaa; }
+    .field-status { font-size: 9px; color: var(--brand-gray); text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .detail { position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--brand-white);}
+    .mapping-stage { display: flex; align-items: center; justify-content: space-between; padding: 40px 30px; flex: 1; }
+    
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes drawLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes particleFlow { 0% { left: 10%; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { left: 90%; opacity: 0; } }
+
+    .excel-ui { background: var(--brand-white); border: 1px solid var(--brand-black); width: 240px; opacity: 0; box-shadow: 4px 4px 0 rgba(0,0,0,0.05);}
+    .detail.reveal .excel-ui { animation: slideInLeft 0.8s ease forwards; }
+    .excel-header-grid { display: grid; grid-template-columns: 40px 1fr; border-bottom: 1px solid var(--brand-black); background: var(--brand-black); color: var(--brand-white); font-weight: 700; font-size: 11px; }
+    .excel-header-grid div { padding: 10px; text-align: center; border-right: 1px solid #333;}
+    .excel-row-grid { display: grid; grid-template-columns: 40px 1fr; font-size: 11px; border-bottom: 1px solid var(--brand-border);}
+    .excel-row-grid > div { padding: 12px 10px; }
+    .cell-index { text-align: center; font-weight: 700; border-right: 1px solid var(--brand-border); background: var(--brand-light-gray); color: var(--brand-gray); }
+
+    .flow-container { flex: 1; position: relative; height: 60px; display: flex; justify-content: center; align-items: center; z-index: 1; margin: 0 20px;}
+    .mapping-line-anim { position: absolute; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--brand-black), transparent); transform-origin: left; transform: scaleX(0); opacity: 0;}
+    .detail.reveal .mapping-line-anim { animation: drawLine 0.8s 0.8s ease forwards; }
+    .particle { position: absolute; width: 6px; height: 6px; background: var(--brand-black); border-radius: 50%; opacity: 0; }
+    .detail.reveal .particle { animation: particleFlow 2s infinite linear; }
+
+    .app-dest-ui { width: 240px; border: 4px solid var(--brand-black); border-radius: 15px; background: var(--app-bg); opacity: 0; font-family: sans-serif; overflow: hidden; box-shadow: 4px 4px 0 rgba(0,0,0,0.05);}
+    .detail.reveal .app-dest-ui { animation: slideInRight 0.8s 0.4s ease forwards; }
+    .app-dest-head { background: var(--app-green); padding: 15px 10px; color: white; font-size: 11px; font-weight: 600;}
+    .app-dest-body { padding: 15px 10px; }
+    .app-dest-field { background: white; padding: 10px; border: 1px solid #e0e0e0; border-left: 3px solid var(--app-green); font-size: 12px; margin-bottom: 10px;}
+    .app-dest-field span { display: block; font-size: 9px; color: #888; text-transform: uppercase; margin-bottom: 4px;}
+
+    .rule-box { border-top: 1px solid var(--brand-border); padding: 20px 30px; background: var(--brand-light-gray); }
+    .rule-box p { margin: 0; font-size: 13px; line-height: 1.6;}
+    .rule-box strong { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 5px; color: var(--brand-gray);}
+
+    .relation-grid { display: flex; align-items: stretch; justify-content: space-between; gap: 15px; margin-bottom: 60px; }
+    .relation-card { flex: 1; border: 1px solid var(--brand-border); padding: 25px 20px; background: var(--brand-light-gray); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+    .relation-card .relation-num { display: block; font-size: 10px; font-weight: 700; color: var(--brand-gray); margin-bottom: 10px; }
+    .relation-card strong { display: block; font-size: 18px; font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
+    .relation-card span { font-size: 11px; color: var(--brand-gray); }
+    .relation-main { border-color: var(--brand-black); background: var(--brand-black); color: var(--brand-white); }
+    .relation-main .relation-num, .relation-main span { color: #aaa; }
+    .relation-arrow { font-size: 24px; color: var(--brand-gray); display: flex; align-items: center; }
+    .relation-branches { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+
+    .demo-shell { border: 1px solid var(--brand-black); background: var(--brand-white); margin-bottom: 60px; }
+    .demo-topbar { padding: 20px; background: var(--brand-light-gray); border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; align-items: center; }
+    .demo-number { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--brand-gray); display: block; margin-bottom: 5px; }
+    .demo-order-heading h3 { font-size: 22px; font-weight: 600; text-transform: uppercase; margin: 0; }
+    .demo-info { display: flex; gap: 30px; padding: 15px 20px; border-bottom: 1px solid var(--brand-border); background: var(--brand-white); }
+    .demo-info > span { font-size: 10px; color: var(--brand-gray); text-transform: uppercase; letter-spacing: 0.05em; }
+    .demo-info strong { display: block; font-size: 12px; color: var(--brand-black); margin-top: 4px; }
+    .demo-layout { display: grid; grid-template-columns: 1fr 350px; gap: 0; }
+    .demo-left { border-right: 1px solid var(--brand-border); }
+    .demo-card-head { padding: 15px 20px; border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; align-items: center; background: var(--brand-light-gray); }
+    .demo-mini { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-gray); display: block; margin-bottom: 5px; }
+    .demo-card-head h4 { font-size: 16px; font-weight: 600; text-transform: uppercase; margin: 0; }
+    .demo-art { padding: 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid var(--brand-border); }
+    .demo-art:last-child { border-bottom: none; }
+    .demo-art-icon { width: 50px; height: 60px; background: var(--brand-light-gray); border: 1px solid var(--brand-border); display: grid; place-items: center; font-size: 20px; color: var(--brand-gray); }
+    .demo-art-description { flex: 1; }
+    .demo-art-description strong { display: block; font-size: 14px; text-transform: uppercase; margin-bottom: 4px; }
+    .demo-art-description span { display: block; font-size: 11px; color: var(--brand-gray); margin-bottom: 8px; }
+    .demo-art-status { display: inline-block; padding: 4px 8px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; background: var(--brand-white); border: 1px solid var(--brand-black); color: var(--brand-black); transition: all 0.3s ease; }
+    .demo-art-status.ready { background: var(--brand-black); color: var(--brand-white); }
+    .demo-art-amount { font-size: 16px; font-weight: 600; }
+    .demo-balance { background: var(--brand-black); color: var(--brand-white); padding: 25px 20px; }
+    .demo-balance .demo-mini { color: #aaa; }
+    .demo-balance-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #aaa; display: block; margin-bottom: 5px; }
+    .demo-balance > strong { font-size: 36px; font-weight: 300; display: block; margin-bottom: 20px; }
+    .demo-balance-pair { display: flex; justify-content: space-between; margin-bottom: 15px; border-top: 1px solid #333; padding-top: 15px; }
+    .demo-balance-pair span { font-size: 10px; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 5px; }
+    .demo-balance-pair strong { font-size: 16px; }
+    .demo-progress-track { height: 6px; background: #333; position: relative; }
+    .demo-progress-track div { height: 100%; background: var(--brand-white); transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+    .demo-progress-note { font-size: 9px; color: #aaa; margin-top: 8px; display: block; text-transform: uppercase; }
+    .demo-payment-list { padding: 0 20px; }
+    .demo-payment-entry { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--brand-border); }
+    .demo-payment-entry:last-child { border-bottom: none; }
+    .demo-payment-entry-details strong { font-size: 12px; display: block; text-transform: uppercase; margin-bottom: 4px; }
+    .demo-payment-entry-details span { font-size: 10px; color: var(--brand-gray); }
+    .demo-payment-entry-amount { font-size: 14px; font-weight: 600; }
+
+    .toast-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 9999; pointer-events: none;}
+    .toast { background: var(--brand-black); color: var(--brand-white); padding: 15px 25px; font-size: 12px; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transform: translateY(20px); opacity: 0; animation: slideUpToast 0.3s forwards; display: flex; align-items: center; gap: 10px; border-radius: 4px;}
+    .toast.success { border-left: 4px solid var(--app-green); }
+    .toast.hide { animation: fadeOutToast 0.3s forwards; }
+    @keyframes slideUpToast { to { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeOutToast { to { opacity: 0; transform: translateY(-10px); } }
+    
+    @keyframes pulseAction {
+        0% { box-shadow: 0 0 0 0 rgba(0,0,0, 0.2); }
+        70% { box-shadow: 0 0 0 10px rgba(0,0,0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0,0,0, 0); }
+    }
+    .pulse-action:not(:disabled) { animation: pulseAction 2s infinite; }
+
+    .btn-whatsapp { background: #25D366; color: white; border-color: #25D366; }
+
+    @media (max-width: 900px) {
+        .intro { flex-direction: column; align-items: flex-start; }
+        .simulator { flex-direction: column; padding: 20px; gap: 30px;}
+        .sim-steps { border-right: none; border-bottom: 1px solid var(--brand-border); padding-right: 0; padding-bottom: 30px;}
+        .split { grid-template-columns: 1fr; }
+        .field-list { height: 250px; border-bottom: 1px solid var(--brand-black);}
+        .mapping-stage { flex-direction: column; gap: 20px; }
+        .flow-container { transform: rotate(90deg); width: 60px;}
+        .relation-grid { flex-direction: column; }
+        .relation-arrow { transform: rotate(90deg); margin: 10px 0; }
+        .demo-layout { grid-template-columns: 1fr; }
+        .demo-left { border-right: none; border-bottom: 1px solid var(--brand-border); }
+    }
+    @media(max-width:650px){.shell{width:calc(100% - 28px)}.masthead-inner{flex-wrap:wrap;gap:8px;padding:10px 0}.header-nav{margin-left:0;width:100%;justify-content:space-between;gap:8px;overflow:auto}.header-nav a{font-size:9px;white-space:nowrap}.intro{padding:32px 0 30px}.intro h1{font-size:32px}.hero-actions{flex-direction:column}.hero-actions a{text-align:center}.simulator{padding:14px}.sim-step{padding:16px}.mapping-stage{padding:18px 10px}.excel-ui,.app-dest-ui{max-width:100%;width:240px}.controls{flex-direction:column}.demo-info{flex-wrap:wrap;gap:12px}.demo-art{padding:12px;gap:8px}.demo-art-description{min-width:0}.demo-art-amount{white-space:nowrap;font-size:12px}.demo-balance>strong{font-size:30px}}.demo-note{font-size:11px;color:#666;line-height:1.5;margin-top:12px}button:disabled{opacity:.45;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+    <div class="shell masthead-inner">
+        <a href="#" class="brand-link">
+            <span class="identity"><strong>HENRIS <em>Gallery</em></strong><span>Experiencia de Gestión · V4</span></span>
+        </a>
+        <nav class="header-nav">
+            <a href="#simulador">Operación</a>
+            <a href="#mapeo">Diccionario (66)</a>
+            <a href="#demo">Dashboard Vivo</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+<section class="shell intro">
+    <div class="intro-copy">
+        <small>Presentación comercial · STAGING · MAQUETA INDEPENDIENTE</small>
+        <h1>De planillas sueltas a <strong>control total.</strong></h1>
+        <p>Olvidate de buscar datos perdidos. El nuevo sistema V4 organiza pedidos, obras y cobros y documenta las correspondencias con el Excel histórico.</p>
+        <div class="hero-actions">
+            <a class="btn-solid" href="#simulador">Ver Simulador AppSheet</a>
+            <a class="btn-outline" href="#mapeo">Explorar Diccionario de Datos</a>
+        </div>
+    </div>
+</section>
+
+<section id="simulador" class="shell section-title">
+    <small>Experiencia de Usuario</small>
+    <h2>Tu nueva operación diaria</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Recreación ilustrativa del circuito de AppSheet. Hacé clic en los pasos de la izquierda <strong>(o dejá que la demostración corra sola)</strong> para ver cómo se completa un pedido de forma fluida y sin errores de tipeo.</p>
+</section>
+
+<div class="shell simulator">
+    <div class="sim-steps">
+        <div class="sim-step active" onclick="setAppStep(1)" id="step1">
+            <div class="step-num">1</div>
+            <h3>Crear Pedido</h3>
+            <p>Seleccionar al cliente (ej. Cliente ficticio) y el canal desde listas desplegables. El sistema asigna el ID automático.</p>
+        </div>
+        <div class="sim-step" onclick="setAppStep(2)" id="step2">
+            <div class="step-num">2</div>
+            <h3>Sumar Obras</h3>
+            <p>Se busca la obra en el catálogo. Completá medidas y precio según las validaciones disponibles. Se añade detalle para el taller.</p>
+        </div>
+        <div class="sim-step" onclick="setAppStep(3)" id="step3">
+            <div class="step-num">3</div>
+            <h3>Registrar Cobro</h3>
+            <p>Ingreso de la Seña por transferencia. El sistema recalcula Total, Pagado y Saldo luego de sincronizar.</p>
+        </div>
+        <div class="sim-step" onclick="setAppStep(4)" id="step4">
+            <div class="step-num">4</div>
+            <h3>Vista Resumen</h3>
+            <p>El pedido final centraliza al cliente, la obra a producir y el historial de pagos en una sola pantalla consolidada.</p>
+        </div>
+    </div>
+
+    <div class="sim-device">
+        <div class="iphone-mockup">
+            <div class="app-ui">
+                <div class="app-header">
+                    <div class="app-header-left">
+                        <span style="font-size: 20px;">≡</span>
+                        <span class="app-title">Henri's Gallery</span>
+                    </div>
+                    <span>⟳</span>
+                </div>
+                
+                <div class="app-body">
+                    <!-- VISTA 1 -->
+                    <div class="app-view active" id="view1">
+                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px;">
+                            <span style="font-size:18px; color:var(--app-green);">←</span>
+                            <h2 class="app-heading" style="margin:0;">Cliente ficticio</h2>
+                        </div>
+                        <p class="app-subheading" style="margin-top:-15px; margin-left:25px;">En producción</p>
+                        <div class="app-card">
+                            <div class="app-field-row"><span class="app-label">Total (PESOS)</span><span class="app-value">0</span></div>
+                            <div class="app-field-row"><span class="app-label">Pagado (PESOS)</span><span class="app-value">0</span></div>
+                            <div class="app-field-row"><span class="app-label">Saldo (PESOS)</span><span class="app-value">0</span></div>
+                            <div class="app-field-row"><span class="app-label">Estado cobro</span><span class="app-pill">Pendiente</span></div>
+                        </div>
+                        <div class="app-card">
+                            <div class="app-card-header"><span>OBRA</span><span style="background:#ddd; padding:2px 6px; border-radius:10px;">0</span></div>
+                            <div style="padding: 30px; text-align:center; color:#999; font-size:13px;">No items</div>
+                            <div style="padding: 10px 15px; text-align:right; border-top:1px solid #eee;"><span style="color:var(--app-green); font-weight:600; font-size:13px;">Agregar</span></div>
+                        </div>
+                        <div class="app-fab">✎</div>
+                    </div>
+
+                    <!-- VISTA 2 -->
+                    <div class="app-view" id="view2">
+                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px;">
+                            <span style="font-size:18px; color:var(--app-green);">←</span>
+                            <h2 class="app-heading" style="margin:0;">Cliente ficticio</h2>
+                        </div>
+                        <div class="app-card">
+                            <div class="app-field-row"><span class="app-label">Total (PESOS)</span><span class="app-value">54.500</span></div>
+                            <div class="app-field-row"><span class="app-label">Pagado (PESOS)</span><span class="app-value">0</span></div>
+                            <div class="app-field-row"><span class="app-label">Saldo (PESOS)</span><span class="app-value orange">54.500</span></div>
+                            <div class="app-field-row"><span class="app-label">Estado cobro</span><span class="app-pill orange">Pendiente</span></div>
+                        </div>
+                        <div class="app-card">
+                            <div class="app-card-header"><span>OBRA</span><span style="background:var(--app-green); color:white; padding:2px 6px; border-radius:10px;">1</span></div>
+                            <div class="app-list-item">
+                                <div class="app-list-main">
+                                    <div class="app-thumb" style="background: #222;"></div>
+                                    <div class="app-list-text"><strong>Captain Diego 1989 B&N</strong><span>Diegote</span></div>
+                                </div>
+                                <span style="font-size:11px; color:#888;">Pendiente</span>
+                            </div>
+                        </div>
+                        <div class="app-fab">✎</div>
+                    </div>
+
+                    <!-- VISTA 3 -->
+                    <div class="app-view" id="view3">
+                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px;">
+                            <span style="font-size:18px; color:var(--app-green);">←</span>
+                            <h2 class="app-heading" style="margin:0;">Cliente ficticio</h2>
+                        </div>
+                        <div class="app-card">
+                            <div class="app-field-row"><span class="app-label">Total (PESOS)</span><span class="app-value">54.500</span></div>
+                            <div class="app-field-row"><span class="app-label">Pagado (PESOS)</span><span class="app-value">30.000</span></div>
+                            <div class="app-field-row"><span class="app-label">Saldo (PESOS)</span><span class="app-value orange">24.500</span></div>
+                            <div class="app-field-row"><span class="app-label">Estado cobro</span><span class="app-pill orange">Parcial</span></div>
+                        </div>
+                        <div class="app-card">
+                            <div class="app-card-header"><span>Pagos relacionados</span><span style="background:var(--app-green); color:white; padding:2px 6px; border-radius:10px;">1</span></div>
+                            <div class="app-list-item">
+                                <div class="app-list-main"><div class="app-list-text"><strong>Seña</strong><span>Pagado</span></div></div>
+                                <span style="font-size:14px; font-weight:400;">30.000</span>
+                            </div>
+                        </div>
+                        <div class="app-fab">✎</div>
+                    </div>
+
+                    <!-- VISTA 4 -->
+                    <div class="app-view" id="view4">
+                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 15px;">
+                            <span style="font-size:18px; color:var(--app-green);">←</span>
+                            <h2 class="app-heading" style="margin:0; font-size: 18px;">Pedido #1024</h2>
+                        </div>
+                        
+                        <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-bottom: 15px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                            <div>
+                                <span style="display:block; font-size:10px; color:#888; text-transform:uppercase; margin-bottom: 2px;">Cliente</span>
+                                <strong style="font-size:16px; color:var(--app-text);">Cliente ficticio</strong>
+                            </div>
+                            <span class="app-pill" style="background:var(--brand-black); color:white;">En Producción</span>
+                        </div>
+
+                        <div class="app-card">
+                            <div class="app-field-row" style="background:#f9f9f9;"><span class="app-label">Saldo Pendiente</span><span class="app-value orange">24.500</span></div>
+                        </div>
+
+                        <div class="app-card">
+                            <div class="app-card-header" style="font-size:10px;"><span>Obras (1)</span></div>
+                            <div class="app-list-item" style="padding: 10px 15px;">
+                                <div class="app-list-main">
+                                    <div class="app-list-text"><strong>Captain Diego 1989 B&N</strong><span style="font-size:11px;">En taller</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="app-card">
+                            <div class="app-card-header" style="font-size:10px;"><span>Pagos (1)</span></div>
+                            <div class="app-list-item" style="padding: 10px 15px;">
+                                <div class="app-list-main">
+                                    <div class="app-list-text"><strong>Transferencia (Seña)</strong><span style="font-size:11px;">Confirmado</span></div>
+                                </div>
+                                <span style="font-size:13px; font-weight:600;">30.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-bottom-nav">
+                    <div class="nav-item"><span style="font-size:16px;">⌂</span><span>Dashboard</span></div>
+                    <div class="nav-item"><span style="font-size:16px;">🖼</span><span>Obras</span></div>
+                    <div class="nav-item active"><span style="font-size:16px;">📦</span><span>Pedidos</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="circuito" class="shell section-title">
+    <small>Arquitectura</small>
+    <h2>Un pedido, todo relacionado.</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">La información del Excel se organiza en relaciones estables. Un pedido agrupa obras y cobros sin duplicar datos.</p>
+</section>
+
+<div class="shell relation-grid">
+    <div class="relation-card"><span class="relation-num">01</span><strong>Clientes</strong><span>Datos de contacto</span></div>
+    <span class="relation-arrow">→</span>
+    <div class="relation-card relation-main"><span class="relation-num">02</span><strong>Pedidos</strong><span>Registro central</span></div>
+    <span class="relation-arrow">→</span>
+    <div class="relation-branches">
+        <div class="relation-card" style="padding: 15px;"><span class="relation-num">03</span><strong>Obras</strong><span>Ítems del pedido</span></div>
+        <div class="relation-card" style="padding: 15px;"><span class="relation-num">04</span><strong>Pagos</strong><span>Seña y saldos</span></div>
+    </div>
+</div>
+
+<section id="mapeo" class="shell section-title">
+    <small>Auditoría de Datos (66 Campos Documentados)</small>
+    <h2>Trazabilidad de la información</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Consultá cómo viaja la información desde tu viejo formato en Excel hacia la nueva estructura de AppSheet. <strong>Hacé clic en cualquier campo de la izquierda para ver su animación de transformación.</strong></p>
+</section>
+
+<div class="shell workspace">
+    <div class="workspace-head">
+        <strong>Diccionario de Campos</strong>
+        <span>Excel Histórico → AppSheet</span>
+    </div>
+    
+    <nav id="tabs" class="tabs" aria-label="Seleccionar tabla"></nav>
+    
+    <div class="controls">
+        <div class="input-wrap">
+            <input type="search" id="search" placeholder="Buscar campo, columna o regla..." autocomplete="off">
+        </div>
+        <select id="statusFilter">
+            <option value="todos">Todos los orígenes</option>
+            <option value="directo">Origen directo</option>
+            <option value="transformado">Adaptar / separar</option>
+            <option value="calculado">Calculado</option>
+            <option value="nuevo">Campo nuevo</option>
+            <option value="revisar">Validación pdte.</option>
+        </select>
+    </div>
+
+    <div class="split">
+        <div class="side">
+            <div class="side-head">
+                <span>Seleccioná un campo (Clic)</span>
+                <span id="field-count">0 / 66</span>
+            </div>
+            <div class="field-list" id="field-list">
+                <!-- Se inyecta por JS -->
+            </div>
+        </div>
+        
+        <div class="detail" id="detail-view">
+            <div class="mapping-stage" id="anim-stage">
+                
+                <!-- Origen Excel -->
+                <div class="excel-ui">
+                    <div class="excel-header-grid">
+                        <div>Col</div>
+                        <div>Encabezado Histórico</div>
+                    </div>
+                    <div id="excel-rows">
+                        <!-- JS fill -->
+                    </div>
+                </div>
+
+                <!-- Línea de Flujo Animada -->
+                <div class="flow-container" id="flow-container">
+                    <div class="mapping-line-anim"></div>
+                    <!-- JS inyecta partículas aquí -->
+                </div>
+
+                <!-- Destino AppSheet -->
+                <div class="app-dest-ui">
+                    <div class="app-dest-head" id="app-screen-title">Detalle</div>
+                    <div class="app-dest-body">
+                        <div class="app-dest-field">
+                            <span>Campo en Pantalla</span>
+                            <strong id="app-field-name" style="font-size:14px; font-weight:400; color:var(--app-text);">...</strong>
+                        </div>
+                        <div class="app-dest-field" style="background:#f9f9f9; border-color:transparent;">
+                            <span>Estado Técnico</span>
+                            <strong id="app-field-status" style="font-size:11px;">...</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rule-box">
+                <strong>Regla de Transformación Técnica</strong>
+                <p id="detail-rule">Seleccioná un ítem del menú izquierdo para analizar su origen.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="demo" class="shell section-title">
+    <small>Demo Interactiva</small>
+    <h2>Dashboard en Vivo</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Registrá pagos ficticios o marcá obras como listas para explorar los cambios de esta maqueta independiente.</p>
+</section>
+
+<div class="shell demo-shell">
+    <div class="demo-topbar">
+        <div class="demo-order-heading">
+            <span class="demo-number">PED-1024</span>
+            <h3>Pedido de muestra</h3>
+        </div>
+        <button id="demo-reset" class="btn-outline" type="button" style="padding: 10px 15px; margin: 0;">Reiniciar Demo</button>
+    </div>
+    
+    <div class="demo-info">
+        <span>Cliente <strong>Cliente ficticio</strong></span>
+        <span>Canal <strong>Instagram</strong></span>
+        <span>Estado <strong id="demo-payment-state">Parcial</strong></span>
+    </div>
+    
+    <div class="demo-layout">
+        <div class="demo-left">
+            <div class="demo-card-head">
+                <span class="demo-mini">Inventario</span>
+                <h4>Obras incluidas</h4>
+            </div>
+            
+            <div class="demo-art">
+                <div class="demo-art-icon" aria-hidden="true">C</div>
+                <div class="demo-art-description">
+                    <strong>Captain Diego 1989 B&N</strong>
+                    <span>#ART-042 · 50x70 · Roble</span>
+                    <span class="demo-art-status" id="demo-work-status">En taller</span>
+                </div>
+                <div class="demo-art-amount">$120.000</div>
+            </div>
+            <div class="demo-art">
+                <div class="demo-art-icon" aria-hidden="true">F</div>
+                <div class="demo-art-description">
+                    <strong>Fotografía Urbana</strong>
+                    <span>#ART-105 · 30x40 · Sin marco</span>
+                    <span class="demo-art-status ready" style="background: var(--brand-black); color: var(--brand-white);">Entregada</span>
+                </div>
+                <div class="demo-art-amount">$45.000</div>
+            </div>
+            
+            <div style="padding: 20px;">
+                <button id="demo-work-done" type="button" class="btn-solid pulse-action" style="width: 100%;">Marcar obra en taller como lista</button>
+            </div>
+        </div>
+        
+        <div class="demo-right">
+            <div class="demo-balance">
+                <span class="demo-balance-label">Total del pedido</span>
+                <strong id="demo-order-total">$165.000</strong>
+                
+                <div class="demo-balance-pair">
+                    <div><span>Pagado</span><strong id="demo-paid">$80.000</strong></div>
+                    <div><span>Saldo</span><strong id="demo-due">$85.000</strong></div>
+                </div>
+                
+                <div class="demo-progress-track">
+                    <div id="demo-progress-bar" style="width: 48.48%;"></div>
+                </div>
+                <span id="demo-progress-label" class="demo-progress-note">48% Cobrado</span>
+            </div>
+            
+            <div class="demo-payment-list" id="demo-payment-list"></div>
+            
+            <div style="padding: 20px;">
+                <label for="demo-payment-amount" style="display:block;font-weight:600;font-size:12px;margin-bottom:6px">Importe del pago ficticio (ARS)</label><input id="demo-payment-amount" type="number" min="1" max="85000" step="1" inputmode="numeric" placeholder="Ej.: 25000" style="width:100%;padding:12px;border:1px solid #777;margin-bottom:10px;border-radius:4px"><button id="demo-payment-toggle" class="btn-outline" type="button" style="width:100%;margin:0;text-align:center">Simular pago parcial</button><button id="demo-undo" class="btn-outline" type="button" style="width:100%;margin-top:10px;text-align:center">Deshacer último pago ficticio</button><p id="demo-payment-error" role="status" style="color:#9e332a;font-size:12px;min-height:18px"></p>
+                <p class="demo-note">Simulación sin conexión: no envía mensajes ni registra cobros reales.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="padding: 40px 0; text-align:center; font-size: 10px; text-transform: uppercase; color: var(--brand-gray); border-top: 1px solid var(--brand-border); margin-top:60px;">
+    <span>Henri's Gallery - Sistema V4 Ultimate (AppSheet)</span>
+</footer>
+</main>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script id="mapping-source" type="application/json">
+{"sections":[{"table":"Pedidos","count":19,"items":[{"field":"Pedido_ID","origin":[],"status":"nuevo","rule":"Identificador técnico propio del sistema; nunca sustituye el número histórico."},{"field":"Numero_Pedido_Origen","origin":[{"column":"A","header":"i"}],"status":"directo","rule":"Conservar «i» como referencia histórica; no usar como clave técnica."},{"field":"Fecha_Pedido","origin":[{"column":"B","header":"MES PEDIDO"},{"column":"C","header":"CARPETA"}],"status":"revisar","rule":"El mes y la carpeta no garantizan una fecha completa; nuevas cargas usan fecha del pedido."},{"field":"Periodo","origin":[{"column":"B","header":"MES PEDIDO"}],"status":"transformado","rule":"Conservar el mes histórico; en nuevos pedidos se deriva de Fecha_Pedido."},{"field":"Carpeta_Produccion","origin":[{"column":"C","header":"CARPETA"}],"status":"directo","rule":"Conservar texto o fecha tal como venga de «CARPETA»."},{"field":"Cliente_ID","origin":[{"column":"AH","header":"CLIENTE"}],"status":"nuevo","rule":"Referencia técnica a Clientes. Usar CLIENTE para vincular, sin deduplicar solo por nombre."},{"field":"Canal_Origen","origin":[{"column":"AM","header":"VENTA"}],"status":"transformado","rule":"Normalizar valores: IG→Instagram, WAP→WhatsApp, WEB→Web, LOCAL→Local."},{"field":"Campaña_ID","origin":[],"status":"nuevo","rule":"Referencia opcional de campañas: no tiene una columna de origen en el Excel histórico."},{"field":"Numero_Pedido_Web","origin":[{"column":"AN","header":"NUMERO DE PEDIDO WEB"}],"status":"directo","rule":"Referencia externa opcional; no reemplaza Pedido_ID."},{"field":"Moneda_Venta","origin":[{"column":"P","header":"Monedad"}],"status":"directo","rule":"Conservar PESOS / USD; el encabezado histórico dice «Monedad»."},{"field":"Total_Pedido","origin":[{"column":"O","header":"PRECIO CUADRO"}],"status":"calculado","rule":"Suma de los precios de cada ítem; «PRECIO CUADRO» es importe por obra, no total de pedido."},{"field":"Total_Pagado","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"calculado","rule":"Suma de pagos efectivamente confirmados del pedido: seña y pagos posteriores."},{"field":"Saldo_Pendiente","origin":[{"column":"Y","header":"PAGO PENDIENTE"}],"status":"calculado","rule":"Total_Pedido − Total_Pagado; «PAGO PENDIENTE» sirve para contrastar, no para copiar."},{"field":"Estado_Cobro","origin":[{"column":"S","header":"SENA PAGADA?"},{"column":"W","header":"PAGADO FINAL"}],"status":"calculado","rule":"Derivar de pagos y saldo; las marcas históricas solo sirven como referencia."},{"field":"Fecha_Entrega_Prevista","origin":[{"column":"Z","header":"FECHA TENTATIVA DE ENTREGA"}],"status":"directo","rule":"Fecha tentativa o comprometida; no confundir con entrega real."},{"field":"Fecha_Entrega_Real","origin":[{"column":"AA","header":"FECHA ENTREGA"}],"status":"directo","rule":"Fecha real de entrega al cliente."},{"field":"Estado_Pedido","origin":[],"status":"nuevo","rule":"Estado operativo de la app; no se deduce de pago ni de la columna CUADRO."},{"field":"Estado_Facturacion","origin":[{"column":"AL","header":"Facturado TOTAL"}],"status":"transformado","rule":"Adaptar Facturado TOTAL a los estados de facturación, distinguiendo cobrado de facturado."},{"field":"Comentarios","origin":[],"status":"nuevo","rule":"Observaciones propias del pedido. Las de «ENTREGAS COMENTARIOS» corresponden al ítem."}]},{"table":"Pedido_Items","count":26,"items":[{"field":"Pedido_Item_ID","origin":[],"status":"nuevo","rule":"Clave técnica por obra/trabajo dentro del pedido."},{"field":"Pedido_ID","origin":[{"column":"A","header":"i"}],"status":"transformado","rule":"Vincular al pedido generado con la referencia «i»; no copiar el texto como clave."},{"field":"Obra_ID","origin":[{"column":"D","header":"#ARt"}],"status":"revisar","rule":"Vincular al catálogo solo cuando #ARt identifique una obra existente y verificable."},{"field":"Codigo_Art","origin":[{"column":"D","header":"#ARt"}],"status":"directo","rule":"Conservar código comercial original de la obra o ítem."},{"field":"Descripcion","origin":[{"column":"E","header":"DESCRIPCION"}],"status":"directo","rule":"Conservar descripción completa del trabajo u obra."},{"field":"Medidas","origin":[{"column":"F","header":"MEDIDAS"}],"status":"directo","rule":"Texto original de MEDIDAS, conservado como legado sin perder anotaciones."},{"field":"Borde_Adicional","origin":[{"column":"G","header":"Borde para agregar"}],"status":"directo","rule":"Borde blanco de la lámina impresa; no confundir con passe-partout."},{"field":"Passe_Partout","origin":[{"column":"H","header":"PASSE-PARTOUT"}],"status":"directo","rule":"Passe-partout propiamente dicho, separado del borde blanco."},{"field":"Terminacion_Cuadro","origin":[{"column":"I","header":"CUADRO"}],"status":"revisar","rule":"CUADRO contiene terminaciones y a veces estados; separar antes de cargar."},{"field":"Precio_Item","origin":[{"column":"O","header":"PRECIO CUADRO"}],"status":"directo","rule":"Importe de una obra/trabajo individual; Matías lo confirmó."},{"field":"Comentarios_Produccion","origin":[{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"directo","rule":"Comentarios de fabricación y entrega asociados al ítem."},{"field":"Estado_Produccion","origin":[{"column":"I","header":"CUADRO"}],"status":"revisar","rule":"CUADRO puede contener estados, pero necesita criterio antes de normalizar."},{"field":"Estado_Entrega_Local","origin":[{"column":"K","header":"ENTREGADO AL LOCAL?"}],"status":"transformado","rule":"Normalizar la situación de entrega al local, independiente del cobro."},{"field":"Fecha_Entrega_Proveedor","origin":[{"column":"L","header":"FECHA ENTREGA DE LUIS"}],"status":"directo","rule":"Fecha en que Luis/proveedor entrega el trabajo."},{"field":"Produccion_Pagada","origin":[{"column":"M","header":"SE PAGO"}],"status":"transformado","rule":"«SE PAGO» corresponde al pago de producción, no al cobro del cliente."},{"field":"Costo_Produccion_ID","origin":[],"status":"nuevo","rule":"Referencia a Costos; el histórico no aporta esta clave técnica."},{"field":"Tipo_Trabajo","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Clasificar si es obra Henris, enmarcado u otro trabajo según el detalle; validar casos ambiguos."},{"field":"Objeto_A_Enmarcar","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Identificar lámina, camiseta, foto u otro objeto solamente cuando está documentado."},{"field":"Medida_Ancho","origin":[{"column":"F","header":"MEDIDAS"}],"status":"transformado","rule":"Extraer el ancho solo cuando la medida es inequívoca; caso dudoso → REVISAR."},{"field":"Medida_Alto","origin":[{"column":"F","header":"MEDIDAS"}],"status":"transformado","rule":"Extraer el alto solo cuando la medida es inequívoca; caso dudoso → REVISAR."},{"field":"Unidad_Medida","origin":[{"column":"F","header":"MEDIDAS"}],"status":"revisar","rule":"En históricos no asumir centímetros cuando el texto no lo confirma."},{"field":"Medida_Corresponde_A","origin":[{"column":"F","header":"MEDIDAS"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Matías debe confirmar lámina, cuadro terminado u otro para cada caso ambiguo."},{"field":"Medida_Estandar_Referencia","origin":[],"status":"nuevo","rule":"Referencia comercial opcional; no sustituye las dimensiones reales."},{"field":"Es_Personalizado","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"F","header":"MEDIDAS"},{"column":"G","header":"Borde para agregar"},{"column":"H","header":"PASSE-PARTOUT"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"transformado","rule":"Se define con la regla de personalización cuando hay evidencia de medida, material, objeto o terminación especial."},{"field":"Observaciones_Especiales","origin":[{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"transformado","rule":"Separar excepciones de los comentarios generales; conservar texto sin inventar."},{"field":"Estado_Revision","origin":[],"status":"nuevo","rule":"Estado de control OK / REVISAR generado durante normalización."}]},{"table":"Pagos","count":14,"items":[{"field":"Pago_ID","origin":[],"status":"nuevo","rule":"Clave técnica individual por cobro; seña y pago final son filas distintas."},{"field":"Pedido_ID","origin":[{"column":"A","header":"i"}],"status":"transformado","rule":"Vínculo al mismo pedido de origen; un pago no pertenece a una obra específica."},{"field":"Tipo_Pago","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"transformado","rule":"Distinguir Seña de Pago final/segundo pago según la columna histórica."},{"field":"Fecha_Pago","origin":[{"column":"T","header":"FECHA PAGO SENA"},{"column":"X","header":"FECHA PAGO FINAL"}],"status":"directo","rule":"Fecha de la seña o del segundo pago, según el cobro correspondiente."},{"field":"Importe","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"directo","rule":"Importe de la seña o de otro pago; cada cobro se transforma en su propia fila."},{"field":"Moneda","origin":[{"column":"P","header":"Monedad"}],"status":"revisar","rule":"Moneda histórica del pedido como referencia; validar si un cobro se realizó en otra moneda."},{"field":"Cotizacion_USD","origin":[{"column":"AF","header":"cotización dolar"}],"status":"directo","rule":"Cotización histórica cuando corresponda conversión; revisar la fecha aplicable."},{"field":"Importe_En_Moneda_Pedido","origin":[{"column":"P","header":"Monedad"},{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"},{"column":"AF","header":"cotización dolar"}],"status":"calculado","rule":"Convertir el importe de cada pago usando su moneda y cotización validada."},{"field":"Medio_Pago","origin":[{"column":"N","header":"PAGO"}],"status":"revisar","rule":"«PAGO» puede contener medios mixtos, por ejemplo 50% transferencia / 50% efectivo."},{"field":"Recibido_Por","origin":[{"column":"R","header":"QUIEN LA RECIBIO?"},{"column":"V","header":"QUIEN LA RECIBIO?"}],"status":"directo","rule":"Mantener separado receptor de seña y receptor de segundo pago."},{"field":"Estado_Pago","origin":[{"column":"S","header":"SENA PAGADA?"},{"column":"W","header":"PAGADO FINAL"}],"status":"transformado","rule":"Normalizar confirmación de seña/final; conciliar inconsistencias antes de contar como cobro."},{"field":"Facturado","origin":[{"column":"AK","header":"Facturado SENA"}],"status":"transformado","rule":"Facturado SENA corresponde a la seña; el total facturado se controla aparte."},{"field":"Conciliado_Contabilidad","origin":[{"column":"AB","header":"CONTABILIDAD SENA"},{"column":"AC","header":"CONTABILIDAD OTRA PARTELPAGO"}],"status":"transformado","rule":"Usar columna contable específica del cobro; no crear otro pago."},{"field":"Observaciones","origin":[],"status":"nuevo","rule":"Comentarios de cada cobro en la aplicación; sin columna histórica exclusiva."}]},{"table":"Clientes","count":7,"items":[{"field":"Cliente_ID","origin":[],"status":"nuevo","rule":"Clave técnica generada para vincular pedidos; no deduplicar solamente por nombre."},{"field":"Nombre","origin":[{"column":"AH","header":"CLIENTE"}],"status":"directo","rule":"Nombre original, conservar con revisión de duplicados."},{"field":"DNI_CUIL","origin":[{"column":"AG","header":"datos cleinte DNI o CUIL"}],"status":"directo","rule":"Conservar como texto, sin usarlo como Key técnica."},{"field":"Telefono","origin":[{"column":"AI","header":"CONTACTO"}],"status":"directo","rule":"CONTACTO: conservar caracteres, prefijos y ceros; no tratarlo como número."},{"field":"Email","origin":[{"column":"AJ","header":"MAIL"}],"status":"directo","rule":"MAIL del Excel histórico; dato opcional."},{"field":"Notas","origin":[],"status":"nuevo","rule":"Notas del cliente en la app; no tomar automáticamente comentarios de producción."},{"field":"Fecha_Alta","origin":[],"status":"nuevo","rule":"Fecha de alta en el sistema nuevo, no inventar una fecha histórica."}]}]}
+</script>
+
+<script>
+let currentAppStep = 1;
+let simInterval = null;
+
+function setAppStep(step) {
+    currentAppStep = step;
+    document.querySelectorAll('.sim-step').forEach((el, index) => {
+        el.classList.remove('active');
+        if(index + 1 === step) el.classList.add('active');
+    });
+    document.querySelectorAll('.app-view').forEach((el, index) => {
+        el.classList.remove('active');
+        if(index + 1 === step) el.classList.add('active');
+    });
+}
+
+function startSimAutoPlay() {
+    if(simInterval) clearInterval(simInterval);
+    simInterval = setInterval(() => {
+        let nextStep = currentAppStep >= 4 ? 1 : currentAppStep + 1;
+        setAppStep(nextStep);
+    }, 3500);
+}
+
+// Iniciar autoplay
+startSimAutoPlay();
+
+// Pausar al interactuar
+const simContainer = document.querySelector('.simulator');
+if(simContainer) {
+    simContainer.addEventListener('mouseenter', () => clearInterval(simInterval));
+    simContainer.addEventListener('mouseleave', startSimAutoPlay);
+}
+
+(() => {
+    const src = JSON.parse(document.getElementById("mapping-source").textContent);
+    const sections = src.sections;
+    const labels = { Pedidos: "Pedidos", Pedido_Items: "Obras", Pagos: "Pagos", Clientes: "Clientes", todos: "Todas las tablas" };
+    const statuses = { directo: "Origen directo", transformado: "Adaptar / separar", calculado: "Calculado", nuevo: "Campo nuevo", revisar: "Requiere validación" };
+    const allFields = sections.flatMap(sec => sec.items.map(item => ({...item, table: sec.table})));
+    
+    let currentTable = "todos";
+    let selectedField = null;
+    let filteredData = [];
+    
+    const tabsContainer = document.getElementById('tabs');
+    const listContainer = document.getElementById('field-list');
+    const searchInput = document.getElementById('search');
+    const statusSelect = document.getElementById('statusFilter');
+    const countDisplay = document.getElementById('field-count');
+    
+    const norm = t => String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+
+    function renderTabs() {
+        tabsContainer.innerHTML = '';
+        [{table: "todos", count: allFields.length}, ...sections].forEach(sec => {
+            let btn = document.createElement('button');
+            btn.className = 'tab';
+            btn.setAttribute('aria-pressed', currentTable === sec.table);
+            btn.innerHTML = `${labels[sec.table]} <em>${sec.count || sec.items.length}</em>`;
+            btn.onclick = () => { currentTable = sec.table; renderTabs(); applyFilters(); };
+            tabsContainer.appendChild(btn);
+        });
+    }
+
+    function createDynamicParticles() {
+        const container = document.getElementById('flow-container');
+        container.querySelectorAll('.particle').forEach(p => p.remove());
+        for(let i=0; i<3; i++) {
+            let p = document.createElement('div');
+            p.className = 'particle';
+            p.style.top = '48%'; 
+            p.style.animationDelay = (i * 0.6) + 's';
+            container.appendChild(p);
+        }
+    }
+
+    function renderDetail(item) {
+        if (!item) return;
+        document.getElementById('app-screen-title').textContent = labels[item.table];
+        document.getElementById('app-field-name').textContent = item.field.replace(/_/g, ' ');
+        document.getElementById('app-field-status').textContent = statuses[item.status];
+        document.getElementById('detail-rule').textContent = item.rule;
+
+        const rowsContainer = document.getElementById('excel-rows');
+        rowsContainer.innerHTML = '';
+        
+        if (item.origin.length === 0) {
+            rowsContainer.innerHTML = `<div class="excel-row-grid"><div class="cell-index">-</div><div style="font-weight:600; text-transform:uppercase; color: var(--brand-gray);">Campo Técnico (Sin Excel)</div></div>`;
+        } else {
+            item.origin.forEach(orig => {
+                rowsContainer.innerHTML += `<div class="excel-row-grid"><div class="cell-index">${orig.column}</div><div style="font-weight:600; text-transform:uppercase;">${orig.header}</div></div>`;
+            });
+        }
+
+        const stage = document.getElementById('detail-view');
+        stage.classList.remove('reveal');
+        void stage.offsetWidth; 
+        stage.classList.add('reveal');
+        createDynamicParticles();
+    }
+
+    function applyFilters() {
+        const q = norm(searchInput.value);
+        const st = statusSelect.value;
+        filteredData = allFields.filter(x => 
+            (currentTable === "todos" || x.table === currentTable) &&
+            (st === "todos" || x.status === st) &&
+            (!q || norm([x.field, x.table, x.rule, statuses[x.status], ...x.origin.map(y => y.column + " " + y.header)].join(" ")).includes(q))
+        );
+
+        if (!filteredData.includes(selectedField)) selectedField = filteredData[0] || null;
+        
+        countDisplay.textContent = `${filteredData.length} / 66`;
+        listContainer.innerHTML = '';
+        
+        filteredData.forEach(item => {
+            let btn = document.createElement('div');
+            btn.className = 'field';
+            if (item === selectedField) btn.setAttribute('aria-pressed', 'true');
+            btn.innerHTML = `<div><span class="field-name">${item.field.replace(/_/g, ' ')}</span><span class="field-status">${labels[item.table]} · ${statuses[item.status]}</span></div><span style="font-size: 16px;">→</span>`;
+            btn.onclick = () => {
+                selectedField = item;
+                document.querySelectorAll('.field').forEach(el => el.setAttribute('aria-pressed', 'false'));
+                btn.setAttribute('aria-pressed', 'true');
+                renderDetail(item);
+            };
+            listContainer.appendChild(btn);
+        });
+
+        renderDetail(selectedField);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    statusSelect.addEventListener('change', applyFilters);
+
+    renderTabs();
+    applyFilters();
+})();
+
+const totalPedido = 165000;
+let pagosDemo = [
+    { label: 'Seña inicial', amount: 50000, method: 'Transferencia', date: '12/10/2026' },
+    { label: 'Segundo pago', amount: 30000, method: 'Efectivo', date: '18/10/2026' }
+];
+let obraLista = false;
+
+function renderDemo() {
+    const value = pagosDemo.reduce((a, p) => a + p.amount, 0);
+    const due = totalPedido - value;
+    const percent = Math.round(value * 100 / totalPedido);
+    
+    const currency = n => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(n);
+    
+    document.getElementById('demo-paid').textContent = currency(value);
+    document.getElementById('demo-due').textContent = currency(due);
+    document.getElementById('demo-progress-bar').style.width = (value * 100 / totalPedido).toFixed(2) + '%';
+    document.getElementById('demo-progress-label').textContent = percent + '% Cobrado';
+    document.getElementById('demo-payment-state').textContent = value <= 0 ? 'Sin cobros' : due === 0 ? 'Saldado' : 'Parcial';
+    
+    const list = document.getElementById('demo-payment-list');
+    list.innerHTML = '';
+    pagosDemo.forEach(p => {
+        list.innerHTML += `
+            <div class="demo-payment-entry">
+                <div class="demo-payment-entry-details">
+                    <strong>${p.label}</strong>
+                    <span>${p.method} · ${p.date}</span>
+                </div>
+                <span class="demo-payment-entry-amount">${currency(p.amount)}</span>
+            </div>
+        `;
+    });
+    
+    const btnPago = document.getElementById('demo-payment-toggle');
+    const input = document.getElementById('demo-payment-amount');
+    const undo = document.getElementById('demo-undo');
+    btnPago.disabled = due <= 0;
+    input.disabled = due <= 0;
+    input.max = String(Math.max(0,due));
+    btnPago.textContent = due <= 0 ? 'Pedido saldado (simulación)' : 'Simular pago parcial';
+    undo.disabled = pagosDemo.length <= 2;
+    btnPago.onclick = () => {
+      const amount=Number(input.value);
+      const err=document.getElementById('demo-payment-error');
+      if(!Number.isSafeInteger(amount)||amount<=0||amount>due){err.textContent='Ingresá un importe entero entre $1 y $'+due.toLocaleString('es-AR')+'.';return;}
+      err.textContent='';
+      pagosDemo.push({label:'Pago adicional (ficticio)',amount,method:'Demostración',date:new Intl.DateTimeFormat('es-AR').format(new Date())});
+      input.value='';
+      showToast('Pago agregado únicamente a la simulación.','success');
+      renderDemo();
+    };
+    undo.onclick=()=>{if(pagosDemo.length>2){pagosDemo.pop();renderDemo();showToast('Último pago ficticio deshecho.');}};
+    const status = document.getElementById('demo-work-status');
+    status.textContent = obraLista ? 'Lista para entregar' : 'En taller';
+    if(obraLista) {
+        status.style.background = 'var(--brand-black)';
+        status.style.color = 'var(--brand-white)';
+    } else {
+        status.style.background = 'var(--brand-white)';
+        status.style.color = 'var(--brand-black)';
+    }
+    
+    const btnObra = document.getElementById('demo-work-done');
+    btnObra.disabled = obraLista;
+    btnObra.textContent = obraLista ? 'Obra ya lista ✓' : 'Marcar obra en taller como lista';
+    btnObra.style.opacity = obraLista ? '0.5' : '1';
+}
+
+function showToast(message, type = 'default') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add('hide');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+document.getElementById('demo-work-done').onclick = () => { 
+    obraLista = true; 
+    showToast('Obra marcada como lista en la simulación.', 'success');
+    renderDemo(); 
+};
+
+
+
+document.getElementById('demo-reset').onclick = () => {
+    pagosDemo = [
+        { label: 'Seña inicial', amount: 50000, method: 'Transferencia', date: '12/10/2026' },
+        { label: 'Segundo pago', amount: 30000, method: 'Efectivo', date: '18/10/2026' }
+    ];
+    obraLista = false;
+    document.getElementById('demo-payment-amount').value='';
+    document.getElementById('demo-payment-error').textContent='';
+    showToast('🔄 Dashboard reiniciado a su estado original.');
+    renderDemo();
+};
+
+renderDemo();
+</script>
+
+</body>
+</html>
