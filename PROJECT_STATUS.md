@@ -32,3 +32,15 @@ Safari iPhone físico pendiente. Análisis y marketing todavía no conectados ni
 - Prueba real en URL publicada, Chrome cloud 1363×936: 7 pasos/avance/retroceso/selección directa; siguiente deshabilitado al final; diccionario 66/66; pago simulado 25000 → pagado105000/saldo60000; deshacer restaura; captura carga con ancho natural320. Sin overflow horizontal de escritorio.
 - Safari iPhone y nuevo layout móvil: pendientes de validación en dispositivo. No se modificó AppSheet ni producción en esta iteración.
 - Aclaración del pendiente anterior Fecha_Pedido: revisión visual de 19/10 confirmó que el campo sí está debajo de Pagos en la captura. No se considera captura equivocada; el encuadre de la referencia sigue siendo mejorable.
+
+
+## Corrección de enfoque visual — 19/10/2026
+- Pedido explícito del usuario: reducir texto; campos de Excel → captura de APP.
+- Principal: selector de campos + mini tabla de encabezados reales + flecha corta + captura real. Criterios, fuentes, guía y simulador quedan plegados, conservados.
+- No se inventan pantallas para campos sin captura: muestra Captura real pendiente; se oculta el anterior campo ilustrativo.
+- Altura de marco ajustada a la captura real, sin zona vacía artificial.
+- Contenido final 52813246ce4c92b65295a7a4e8dfa1de45fe1b8f; SHA256 249d0fcd8e2fd6632c44a2281a07b371cbf7d6fdb609c7ce47b130d9d8ad4aba. Workflow 9686b4763711b444cbae2ca596c7cfac9a87c21c, run39345190713: paso Deploy completed/success; verificaciones históricas posteriores aún en curso al registrar.
+- URL publicada abierta y verificada con frame aspect-ratio auto y guía/pagos cerrados. Desktop sin overflow. Selección Fecha_Pedido y 66/66 comprobados en simplificación; pago simulado25000 deja saldo60000 y deshacer85000.
+- Marco responsive comprobado en Chrome conectado a390×843, sin overflow; no equivale a Safari físico. Datos de mapeo y lógica del simulador preservados estáticamente.
+- Rollback previo: e4609a43662f356d65601c523bebf690f8ee73aa (guía extensa) o c341ef8a3f9eb2498e17fa3313440a6f27ead8b7 (V4.3 exacta original).
+- Sin modificaciones en AppSheet ni producción. Capturas reales restantes y Safari físico continúan pendientes.
