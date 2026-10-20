@@ -240,6 +240,16 @@ jobs:
           mkdir -p _site/staging/henris-v4-20261019
           cp _henris_v43_staging/staging/henris-v4-20261019/index.html _site/staging/henris-v4-20261019/index.html
           echo "249d0fcd8e2fd6632c44a2281a07b371cbf7d6fdb609c7ce47b130d9d8ad4aba  _site/staging/henris-v4-20261019/index.html" | sha256sum -c
+      - name: Checkout exact animated reference for independent review
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: e8434b7adfd9b2e1d0799a0815e4627fed3d9d56
+          path: _original_animation_reference
+          persist-credentials: false
+      - name: Stage original animation without changing Henris
+        run: |
+          mkdir -p _site/referencia-animada-original
+          cp _original_animation_reference/preview/referencia-animada-original/index.html _site/referencia-animada-original/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
