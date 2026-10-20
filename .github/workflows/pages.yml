@@ -253,7 +253,7 @@ jobs:
       - name: Checkout isolated Gemini fusion candidate
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 183a7c3f1208ec7badb67468ce4ee830c70c092f
+          ref: 547686317aa74657920613f7acba3d6709f224a0
           path: _gemini_fusion_candidate
           persist-credentials: false
       - name: Include Gemini fusion demo at separate STAGING URL
