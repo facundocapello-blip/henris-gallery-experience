@@ -232,14 +232,14 @@ jobs:
       - name: Checkout validated V4.3 staging snapshot
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: a0ac80cfed58ea0a97b2d9827ff416f82856e882
+          ref: 52813246ce4c92b65295a7a4e8dfa1de45fe1b8f
           path: _henris_v43_staging
           persist-credentials: false
       - name: Add V4.3 isolated staging URL
         run: |
           mkdir -p _site/staging/henris-v4-20261019
           cp _henris_v43_staging/staging/henris-v4-20261019/index.html _site/staging/henris-v4-20261019/index.html
-          echo "c00e02f1fdb58a8b95fd22c99fb1b5ca9373c8e370ee697a6c84b73dc05474b2  _site/staging/henris-v4-20261019/index.html" | sha256sum -c
+          echo "249d0fcd8e2fd6632c44a2281a07b371cbf7d6fdb609c7ce47b130d9d8ad4aba  _site/staging/henris-v4-20261019/index.html" | sha256sum -c
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
