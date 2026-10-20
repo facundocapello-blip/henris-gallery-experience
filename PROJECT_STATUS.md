@@ -44,3 +44,11 @@ Safari iPhone físico pendiente. Análisis y marketing todavía no conectados ni
 - Marco responsive comprobado en Chrome conectado a390×843, sin overflow; no equivale a Safari físico. Datos de mapeo y lógica del simulador preservados estáticamente.
 - Rollback previo: e4609a43662f356d65601c523bebf690f8ee73aa (guía extensa) o c341ef8a3f9eb2498e17fa3313440a6f27ead8b7 (V4.3 exacta original).
 - Sin modificaciones en AppSheet ni producción. Capturas reales restantes y Safari físico continúan pendientes.
+
+
+## Original animated reference — independent review (2026-10-19)
+- User requested the supplied example exactly. Extracted HTML without changing its interface, text, timing or 15-second reload.
+- Source: preview/referencia-animada-original/index.html, commit e8434b7adfd9b2e1d0799a0815e4627fed3d9d56.
+- Published separately at https://facundocapello-blip.github.io/henris-gallery-experience/referencia-animada-original/ via workflow commit 74c9462a73072237b440026dd0b8931eec4dcaba, run 39346854802 Deploy success.
+- Verified source equality, JavaScript syntax and published browser page. This is an illustrative reference, not verified AppSheet UI; labels/date and automatic-mapping claim are retained solely for exact reproduction. Original layout is desktop-oriented; physical Safari not verified.
+- Stable site and V4.3 pinned staging content unchanged. Rollback: remove only the two added reference workflow steps; previous workflow commit 9686b4763711b444cbae2ca596c7cfac9a87c21c.
