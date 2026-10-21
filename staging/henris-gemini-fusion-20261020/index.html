@@ -254,7 +254,7 @@
 .proof-pending{padding:20px;text-align:center;border:1px dashed #bbb;background:#fff;color:#777;font-size:13px}
 .proof-panel button{margin:9px 0 0}
 @media(max-width:600px){.proof-panel{padding:15px}.proof-panel h3{font-size:16px}}
-.hero-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0}.hero-benefits span{border-top:2px solid #111;padding-top:12px;display:flex;flex-direction:column;gap:4px}.hero-benefits strong{font-size:14px}.hero-benefits small{font-size:12px;color:#666}.hero-start{display:inline-block;margin:0 0 18px;min-height:45px}.presentation-guide .guide-note{margin:5px 0 26px}.guide-steps a{min-height:125px}.field-mode{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;border-bottom:1px solid #ddd;background:#fafafa}.mode-btn{font-size:11px;text-transform:none;letter-spacing:0;border:1px solid #ccc;padding:12px;background:white}.mode-btn.active{background:#111;border-color:#111;color:white}.field{text-transform:none;letter-spacing:0}.journey-next{display:flex;align-items:center;justify-content:space-between;padding:15px 0 45px;margin-bottom:35px;gap:15px;border-bottom:1px solid #e5e5e5}.journey-next span{font-size:12px;color:#777}.header-nav{gap:15px;overflow-x:auto}.header-nav a{white-space:nowrap}@media(max-width:650px){.hero-benefits{grid-template-columns:1fr;gap:8px}.hero-benefits span{padding:7px 0}.hero-start{width:100%;text-align:center}.journey-next{flex-direction:column;align-items:stretch;text-align:center}.field-mode{padding:10px}.mode-btn{flex:1}.guide-steps{grid-template-columns:1fr 1fr}}</style>
+.hero-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0}.hero-benefits span{border-top:2px solid #111;padding-top:12px;display:flex;flex-direction:column;gap:4px}.hero-benefits strong{font-size:14px}.hero-benefits small{font-size:12px;color:#666}.hero-start{display:inline-block;margin:0 0 18px;min-height:45px}.presentation-guide .guide-note{margin:5px 0 26px}.guide-steps a{min-height:125px}.field-mode{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;border-bottom:1px solid #ddd;background:#fafafa}.mode-btn{font-size:11px;text-transform:none;letter-spacing:0;border:1px solid #ccc;padding:12px;background:white}.mode-btn.active{background:#111;border-color:#111;color:white}.field{text-transform:none;letter-spacing:0}.journey-next{display:flex;align-items:center;justify-content:space-between;padding:15px 0 45px;margin-bottom:35px;gap:15px;border-bottom:1px solid #e5e5e5}.journey-next span{font-size:12px;color:#777}.header-nav{gap:15px;overflow-x:auto}.header-nav a{white-space:nowrap}@media(max-width:650px){.hero-benefits{grid-template-columns:1fr;gap:8px}.hero-benefits span{padding:7px 0}.hero-start{width:100%;text-align:center}.journey-next{flex-direction:column;align-items:stretch;text-align:center}.field-mode{padding:10px}.mode-btn{flex:1}.guide-steps{grid-template-columns:1fr 1fr}}.sim-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.sim-controls span{color:#555;font-size:12px;font-weight:600}.sim-controls button{font-size:10px;min-height:42px}.sim-step:focus-visible{outline:3px solid #111;outline-offset:3px}.app-list-item{gap:8px}.app-list-item>strong{font-size:11px;white-space:nowrap}@media(max-width:650px){.sim-controls{flex-wrap:wrap}.sim-controls button{flex:1}}</style>
 </head>
 <body>
 
@@ -293,26 +293,27 @@
 
 <div class="shell simulator">
     <div class="sim-steps">
-        <div class="sim-step active" onclick="setAppStep(1)" id="step1">
+        <div class="sim-step active" onclick="setAppStep(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setAppStep(1);}" role="button" tabindex="0" aria-pressed="true" id="step1">
             <div class="step-num">1</div>
             <h3>Crear Pedido</h3>
-            <p>Seleccionar al cliente (ej. Cliente ficticio) y el canal desde listas desplegables. El sistema asigna el ID automático.</p>
+            <p>Elegí un cliente ficticio y moneda ARS. Todavía no hay obras ni pagos.</p>
         </div>
-        <div class="sim-step" onclick="setAppStep(2)" id="step2">
+        <div class="sim-step" onclick="setAppStep(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setAppStep(2);}" role="button" tabindex="0" aria-pressed="false" id="step2">
             <div class="step-num">2</div>
             <h3>Sumar Obras</h3>
-            <p>Se busca la obra en el catálogo. Completá medidas y precio según las validaciones disponibles. Se añade detalle para el taller.</p>
+            <p>Agregá dos obras: $120.000 + $45.000. Total del pedido: $165.000.</p>
         </div>
-        <div class="sim-step" onclick="setAppStep(3)" id="step3">
+        <div class="sim-step" onclick="setAppStep(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setAppStep(3);}" role="button" tabindex="0" aria-pressed="false" id="step3">
             <div class="step-num">3</div>
             <h3>Registrar Cobro</h3>
-            <p>Ingreso de la Seña por transferencia. El sistema recalcula Total, Pagado y Saldo luego de sincronizar.</p>
+            <p>Cargá una seña de $50.000 y otro pago de $30.000. Saldo: $85.000.</p>
         </div>
-        <div class="sim-step" onclick="setAppStep(4)" id="step4">
+        <div class="sim-step" onclick="setAppStep(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setAppStep(4);}" role="button" tabindex="0" aria-pressed="false" id="step4">
             <div class="step-num">4</div>
             <h3>Vista Resumen</h3>
-            <p>El pedido final centraliza al cliente, la obra a producir y el historial de pagos en una sola pantalla consolidada.</p>
+            <p>Consultá las dos obras, los dos cobros y el saldo pendiente en el mismo pedido.</p>
         </div>
+        <div class="sim-controls"><span id="sim-position" aria-live="polite">Paso 1 de 4</span><button type="button" id="sim-next" class="btn-solid">Siguiente paso →</button></div>
     </div>
 
     <div class="sim-device">
@@ -333,7 +334,7 @@
                             <span style="font-size:18px; color:var(--app-green);">←</span>
                             <h2 class="app-heading" style="margin:0;">Cliente ficticio</h2>
                         </div>
-                        <p class="app-subheading" style="margin-top:-15px; margin-left:25px;">En producción</p>
+                        <p class="app-subheading" style="margin-top:-15px; margin-left:25px;">Pedido ficticio 1024 · sin obras</p>
                         <div class="app-card">
                             <div class="app-field-row"><span class="app-label">Total (PESOS)</span><span class="app-value">0</span></div>
                             <div class="app-field-row"><span class="app-label">Pagado (PESOS)</span><span class="app-value">0</span></div>
@@ -349,90 +350,14 @@
                     </div>
 
                     <!-- VISTA 2 -->
-                    <div class="app-view" id="view2">
-                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px;">
-                            <span style="font-size:18px; color:var(--app-green);">←</span>
-                            <h2 class="app-heading" style="margin:0;">Cliente ficticio</h2>
-                        </div>
-                        <div class="app-card">
-                            <div class="app-field-row"><span class="app-label">Total (PESOS)</span><span class="app-value">54.500</span></div>
-                            <div class="app-field-row"><span class="app-label">Pagado (PESOS)</span><span class="app-value">0</span></div>
-                            <div class="app-field-row"><span class="app-label">Saldo (PESOS)</span><span class="app-value orange">54.500</span></div>
-                            <div class="app-field-row"><span class="app-label">Estado cobro</span><span class="app-pill orange">Pendiente</span></div>
-                        </div>
-                        <div class="app-card">
-                            <div class="app-card-header"><span>OBRA</span><span style="background:var(--app-green); color:white; padding:2px 6px; border-radius:10px;">1</span></div>
-                            <div class="app-list-item">
-                                <div class="app-list-main">
-                                    <div class="app-thumb" style="background: #222;"></div>
-                                    <div class="app-list-text"><strong>Abstracto geométrico</strong><span>Diegote</span></div>
-                                </div>
-                                <span style="font-size:11px; color:#888;">Pendiente</span>
-                            </div>
-                        </div>
-                        <div class="app-fab">✎</div>
-                    </div>
+<div class="app-view" id="view2"><h2 class="app-heading" style="font-size:19px">Pedido #1024</h2><p class="app-subheading">Dos obras agregadas · Ejemplo ficticio</p><div class="app-card"><div class="app-field-row"><span class="app-label">Total (ARS)</span><strong class="app-value">165.000</strong></div><div class="app-field-row"><span class="app-label">Pagado (ARS)</span><strong class="app-value">0</strong></div><div class="app-field-row"><span class="app-label">Saldo (ARS)</span><strong class="app-value orange">165.000</strong></div><div class="app-field-row"><span class="app-label">Cobro</span><span class="app-pill orange">Pendiente</span></div></div><div class="app-card"><div class="app-card-header">OBRAS (2)</div><div class="app-list-item"><div class="app-list-text"><strong>Abstracto geométrico</strong><span>50 × 70 · Marco roble</span></div><strong>$120.000</strong></div><div class="app-list-item"><div class="app-list-text"><strong>Fotografía urbana</strong><span>30 × 40 · Sin marco</span></div><strong>$45.000</strong></div></div></div>
 
-                    <!-- VISTA 3 -->
-                    <div class="app-view" id="view3">
-                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px;">
-                            <span style="font-size:18px; color:var(--app-green);">←</span>
-                            <h2 class="app-heading" style="margin:0;">Cliente ficticio</h2>
-                        </div>
-                        <div class="app-card">
-                            <div class="app-field-row"><span class="app-label">Total (PESOS)</span><span class="app-value">54.500</span></div>
-                            <div class="app-field-row"><span class="app-label">Pagado (PESOS)</span><span class="app-value">30.000</span></div>
-                            <div class="app-field-row"><span class="app-label">Saldo (PESOS)</span><span class="app-value orange">24.500</span></div>
-                            <div class="app-field-row"><span class="app-label">Estado cobro</span><span class="app-pill orange">Parcial</span></div>
-                        </div>
-                        <div class="app-card">
-                            <div class="app-card-header"><span>Pagos relacionados</span><span style="background:var(--app-green); color:white; padding:2px 6px; border-radius:10px;">1</span></div>
-                            <div class="app-list-item">
-                                <div class="app-list-main"><div class="app-list-text"><strong>Seña</strong><span>Pagado</span></div></div>
-                                <span style="font-size:14px; font-weight:400;">30.000</span>
-                            </div>
-                        </div>
-                        <div class="app-fab">✎</div>
-                    </div>
+<!-- VISTA 3 -->
+<div class="app-view" id="view3"><h2 class="app-heading" style="font-size:19px">Pedido #1024</h2><p class="app-subheading">Dos cobros registrados · Ejemplo ficticio</p><div class="app-card"><div class="app-field-row"><span class="app-label">Total (ARS)</span><strong class="app-value">165.000</strong></div><div class="app-field-row"><span class="app-label">Pagado (ARS)</span><strong class="app-value">80.000</strong></div><div class="app-field-row"><span class="app-label">Saldo (ARS)</span><strong class="app-value orange">85.000</strong></div><div class="app-field-row"><span class="app-label">Cobro</span><span class="app-pill orange">Parcial</span></div></div><div class="app-card"><div class="app-card-header">PAGOS (2)</div><div class="app-list-item"><div class="app-list-text"><strong>Seña</strong><span>Transferencia</span></div><strong>$50.000</strong></div><div class="app-list-item"><div class="app-list-text"><strong>Segundo pago</strong><span>Efectivo</span></div><strong>$30.000</strong></div></div></div>
 
-                    <!-- VISTA 4 -->
-                    <div class="app-view" id="view4">
-                        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 15px;">
-                            <span style="font-size:18px; color:var(--app-green);">←</span>
-                            <h2 class="app-heading" style="margin:0; font-size: 18px;">Pedido #1024</h2>
-                        </div>
-                        
-                        <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-bottom: 15px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                            <div>
-                                <span style="display:block; font-size:10px; color:#888; text-transform:uppercase; margin-bottom: 2px;">Cliente</span>
-                                <strong style="font-size:16px; color:var(--app-text);">Cliente ficticio</strong>
-                            </div>
-                            <span class="app-pill" style="background:var(--brand-black); color:white;">En Producción</span>
-                        </div>
+<!-- VISTA 4 -->
+<div class="app-view" id="view4"><h2 class="app-heading" style="font-size:19px">Pedido #1024</h2><p class="app-subheading">Cliente ficticio · 2 obras · 2 cobros</p><div class="app-card"><div class="app-field-row"><span class="app-label">Total (ARS)</span><strong class="app-value">165.000</strong></div><div class="app-field-row"><span class="app-label">Pagado (ARS)</span><strong class="app-value">80.000</strong></div><div class="app-field-row"><span class="app-label">Saldo (ARS)</span><strong class="app-value orange">85.000</strong></div><div class="app-field-row"><span class="app-label">Cobro</span><span class="app-pill orange">Parcial</span></div></div><div class="app-card"><div class="app-card-header">OBRAS (2)</div><div class="app-list-item"><div class="app-list-text"><strong>Abstracto geométrico</strong><span>50 × 70 · Marco roble</span></div><strong>$120.000</strong></div><div class="app-list-item"><div class="app-list-text"><strong>Fotografía urbana</strong><span>30 × 40 · Sin marco</span></div><strong>$45.000</strong></div></div><div class="app-card"><div class="app-card-header">PAGOS (2)</div><div class="app-list-item"><div class="app-list-text"><strong>Seña</strong><span>Transferencia</span></div><strong>$50.000</strong></div><div class="app-list-item"><div class="app-list-text"><strong>Segundo pago</strong><span>Efectivo</span></div><strong>$30.000</strong></div></div></div>
 
-                        <div class="app-card">
-                            <div class="app-field-row" style="background:#f9f9f9;"><span class="app-label">Saldo Pendiente</span><span class="app-value orange">24.500</span></div>
-                        </div>
-
-                        <div class="app-card">
-                            <div class="app-card-header" style="font-size:10px;"><span>Obras (1)</span></div>
-                            <div class="app-list-item" style="padding: 10px 15px;">
-                                <div class="app-list-main">
-                                    <div class="app-list-text"><strong>Captain Diego 1989 B&N</strong><span style="font-size:11px;">En taller</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="app-card">
-                            <div class="app-card-header" style="font-size:10px;"><span>Pagos (1)</span></div>
-                            <div class="app-list-item" style="padding: 10px 15px;">
-                                <div class="app-list-main">
-                                    <div class="app-list-text"><strong>Transferencia (Seña)</strong><span style="font-size:11px;">Confirmado</span></div>
-                                </div>
-                                <span style="font-size:13px; font-weight:600;">30.000</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="app-bottom-nav">
@@ -651,10 +576,13 @@ let currentAppStep = 1;
 let simInterval = null;
 
 function setAppStep(step) {
-    currentAppStep = step;
+    currentAppStep = Math.max(1,Math.min(4,step));
+    document.getElementById('sim-position').textContent='Paso '+currentAppStep+' de 4';
+    document.getElementById('sim-next').textContent=currentAppStep===4?'Volver al paso 1 ↺':'Siguiente paso →';
     document.querySelectorAll('.sim-step').forEach((el, index) => {
         el.classList.remove('active');
-        if(index + 1 === step) el.classList.add('active');
+        if(index + 1 === currentAppStep) el.classList.add('active');
+        el.setAttribute('aria-pressed',String(index + 1 === currentAppStep));
     });
     document.querySelectorAll('.app-view').forEach((el, index) => {
         el.classList.remove('active');
@@ -662,23 +590,7 @@ function setAppStep(step) {
     });
 }
 
-function startSimAutoPlay() {
-    if(simInterval) clearInterval(simInterval);
-    simInterval = setInterval(() => {
-        let nextStep = currentAppStep >= 4 ? 1 : currentAppStep + 1;
-        setAppStep(nextStep);
-    }, 3500);
-}
-
-// Iniciar autoplay
-startSimAutoPlay();
-
-// Pausar al interactuar
-const simContainer = document.querySelector('.simulator');
-if(simContainer) {
-    simContainer.addEventListener('mouseenter', () => clearInterval(simInterval));
-    simContainer.addEventListener('mouseleave', startSimAutoPlay);
-}
+document.getElementById('sim-next').addEventListener('click',()=>setAppStep(currentAppStep===4?1:currentAppStep+1));
 
 (() => {
     const src = JSON.parse(document.getElementById("mapping-source").textContent);
