@@ -254,44 +254,41 @@
 .proof-pending{padding:20px;text-align:center;border:1px dashed #bbb;background:#fff;color:#777;font-size:13px}
 .proof-panel button{margin:9px 0 0}
 @media(max-width:600px){.proof-panel{padding:15px}.proof-panel h3{font-size:16px}}
-</style>
+.hero-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0}.hero-benefits span{border-top:2px solid #111;padding-top:12px;display:flex;flex-direction:column;gap:4px}.hero-benefits strong{font-size:14px}.hero-benefits small{font-size:12px;color:#666}.hero-start{display:inline-block;margin:0 0 18px;min-height:45px}.presentation-guide .guide-note{margin:5px 0 26px}.guide-steps a{min-height:125px}.field-mode{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;border-bottom:1px solid #ddd;background:#fafafa}.mode-btn{font-size:11px;text-transform:none;letter-spacing:0;border:1px solid #ccc;padding:12px;background:white}.mode-btn.active{background:#111;border-color:#111;color:white}.field{text-transform:none;letter-spacing:0}.journey-next{display:flex;align-items:center;justify-content:space-between;padding:15px 0 45px;margin-bottom:35px;gap:15px;border-bottom:1px solid #e5e5e5}.journey-next span{font-size:12px;color:#777}.header-nav{gap:15px;overflow-x:auto}.header-nav a{white-space:nowrap}@media(max-width:650px){.hero-benefits{grid-template-columns:1fr;gap:8px}.hero-benefits span{padding:7px 0}.hero-start{width:100%;text-align:center}.journey-next{flex-direction:column;align-items:stretch;text-align:center}.field-mode{padding:10px}.mode-btn{flex:1}.guide-steps{grid-template-columns:1fr 1fr}}</style>
 </head>
 <body>
 
 <header class="masthead">
     <div class="shell masthead-inner">
         <a href="#" class="brand-link">
-            <span class="identity"><strong>HENRIS <em>Gallery</em></strong><span>Experiencia de Gestión · V4</span></span>
+            <span class="identity"><strong>HENRIS <em>Gallery</em></strong><span>Presentación interactiva · Ejemplo ficticio</span></span>
         </a>
-        <nav class="header-nav">
-            <a href="#simulador">01 · Pedido</a>
-            <a href="#mapeo">03 · Excel → App</a>
-            <a href="#demo">04 · Pagos</a>
-        </nav>
+        <nav class="header-nav"><a href="#simulador">01 · Pedido</a><a href="#circuito">02 · Organización</a><a href="#mapeo">03 · Excel → App</a><a href="#demo">04 · Pagos</a></nav>
     </div>
 </header>
 
 <main>
 <section class="shell presentation-guide" aria-labelledby="guide-title">
- <div class="guide-eyebrow">HENRIS GALLERY · PRESENTACIÓN DEL SISTEMA DE GESTIÓN</div>
- <h1 id="guide-title">Conocé la nueva gestión de Henris Gallery.</h1>
- <p class="guide-lead">Una presentación para Mati y Marine: cómo registrar un pedido, agregar varias obras, controlar las señas y los pagos parciales y saber cuánto queda por cobrar. También vas a ver qué información del Excel histórico corresponde a cada parte del nuevo sistema.</p>
- <div class="guide-note"><strong>Antes de empezar:</strong> esta es una demostración interactiva con datos ficticios. La aplicación real funciona en AppSheet; avanzar por estas pantallas no crea pedidos ni registra pagos.</div>
+ <div class="guide-eyebrow">HENRIS GALLERY · PARA MATI Y MARINE</div>
+ <h1 id="guide-title">Un pedido, todas las obras y los cobros en un solo lugar.</h1>
+ <p class="guide-lead">Descubrí cómo registrar una venta, organizar el trabajo del taller y controlar cuánto falta cobrar. Lo recorremos con <strong>un único pedido ficticio: el 1024</strong>.</p>
+ <div class="hero-benefits"><span><strong>Pedidos ordenados</strong><small>Cliente y obras vinculados</small></span><span><strong>Control de cobros</strong><small>Señas y pagos parciales</small></span><span><strong>Datos del Excel</strong><small>Correspondencias documentadas</small></span></div>
+ <a class="btn-solid hero-start" href="#simulador">Comenzar demostración →</a>
+ <p class="guide-note"><strong>Es una demostración.</strong> No modifica AppSheet ni registra pagos reales. Las capturas identificadas como reales muestran pantallas grabadas, no necesariamente el pedido ficticio 1024.</p>
  <h2>Recorré la presentación en este orden</h2>
  <div class="guide-steps">
-  <a href="#simulador"><span>01 · EL TRABAJO DIARIO</span><strong>Cómo se carga un pedido</strong><small>Cliente, obra, seña y consulta del estado.</small></a>
-  <a href="#circuito"><span>02 · LA ORGANIZACIÓN</span><strong>Cómo se relacionan los datos</strong><small>Un pedido, varias obras y varios pagos.</small></a>
-  <a href="#mapeo"><span>03 · DEL EXCEL A LA APP</span><strong>De dónde viene cada campo</strong><small>Consultá los 66 campos documentados y los que requieren validación.</small></a>
-  <a href="#demo"><span>04 · LA PRÁCTICA</span><strong>Probá un pago ficticio</strong><small>Comprobá Total, Pagado y Saldo sin modificar datos reales.</small></a>
+  <a href="#simulador"><span>01 · PEDIDO</span><strong>Registrar una venta</strong><small>Cliente, obras y cobros</small></a>
+  <a href="#circuito"><span>02 · ORGANIZACIÓN</span><strong>Relacionar la información</strong><small>Todo dentro de un pedido</small></a>
+  <a href="#mapeo"><span>03 · EXCEL → APP</span><strong>Encontrar los campos</strong><small>Medidas, precio y saldo</small></a>
+  <a href="#demo"><span>04 · PRÁCTICA</span><strong>Probar un pago</strong><small>Sin modificar datos reales</small></a>
  </div>
- <p class="guide-foot">Tiempo estimado: 5 a 8 minutos · Empezá por el paso 01 y avanzá hacia abajo.</p>
+ <p class="guide-foot">Tiempo estimado: 5 a 8 minutos.</p>
 </section>
-
 
 <section id="simulador" class="shell section-title">
     <small>Experiencia de Usuario</small>
     <h2>01 · Así se gestiona un pedido</h2>
-    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Recreación ilustrativa del circuito de AppSheet. Hacé clic en los pasos de la izquierda <strong>(o dejá que la demostración corra sola)</strong> para ver cómo se completa un pedido de forma fluida y sin errores de tipeo.</p>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Recreación ilustrativa del circuito de AppSheet. Elegí un paso para ver cómo avanza el pedido ficticio 1024. La demostración no guarda información real.</p>
 </section>
 
 <div class="shell simulator">
@@ -368,7 +365,7 @@
                             <div class="app-list-item">
                                 <div class="app-list-main">
                                     <div class="app-thumb" style="background: #222;"></div>
-                                    <div class="app-list-text"><strong>Captain Diego 1989 B&N</strong><span>Diegote</span></div>
+                                    <div class="app-list-text"><strong>Abstracto geométrico</strong><span>Diegote</span></div>
                                 </div>
                                 <span style="font-size:11px; color:#888;">Pendiente</span>
                             </div>
@@ -448,10 +445,11 @@
     </div>
 </div>
 
+<div class="shell journey-next"><span>Fin de la etapa 1 de 4</span><a class="btn-solid" href="#circuito">Ver la organización →</a></div>
 <section id="circuito" class="shell section-title">
     <small>Arquitectura</small>
     <h2>02 · Cómo se organiza la información</h2>
-    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">La información del Excel se organiza en relaciones estables. Un pedido agrupa obras y cobros sin duplicar datos.</p>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">El pedido ficticio 1024 reúne dos obras y dos pagos relacionados con la misma venta, sin duplicar los registros.</p>
 </section>
 
 <div class="shell relation-grid">
@@ -465,20 +463,22 @@
     </div>
 </div>
 
+<div class="shell journey-next"><span>Fin de la etapa 2 de 4</span><a class="btn-solid" href="#mapeo">Ver los datos del Excel →</a></div>
 <section id="mapeo" class="shell section-title">
     <small>Auditoría de Datos (66 Campos Documentados)</small>
-    <h2>03 · De dónde salen los datos</h2>
-    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Consultá cómo viaja la información desde tu viejo formato en Excel hacia la nueva estructura de AppSheet. <strong>Hacé clic en cualquier campo de la izquierda para ver su animación de transformación.</strong></p>
+    <h2>03 · ¿Dónde encuentro los datos del Excel?</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Tocá Medidas, Precio o Saldo y mirá dónde corresponde en el modelo. Si tenemos una captura real, aparece debajo. El diccionario técnico completo sigue disponible.</p>
 </section>
 
 <div class="shell workspace">
     <div class="workspace-head">
-        <strong>Diccionario de Campos</strong>
+        <strong>Encontrá un campo del Excel</strong>
         <span>Excel Histórico → AppSheet</span>
     </div>
     
     <nav id="tabs" class="tabs" aria-label="Seleccionar tabla"></nav>
     
+    <div class="field-mode" role="group" aria-label="Vista del diccionario"><button type="button" id="mode-essential" class="mode-btn active" aria-pressed="true">7 campos principales</button><button type="button" id="mode-all" class="mode-btn" aria-pressed="false">Ver los 66 campos</button></div>
     <div class="controls">
         <div class="input-wrap">
             <input type="search" id="search" placeholder="Buscar campo, columna o regla..." autocomplete="off">
@@ -496,7 +496,7 @@
     <div class="split">
         <div class="side">
             <div class="side-head">
-                <span>Seleccioná un campo (Clic)</span>
+                <span>Seleccioná un campo para ver su destino</span>
                 <span id="field-count">0 / 66</span>
             </div>
             <div class="field-list" id="field-list">
@@ -529,7 +529,7 @@
                     <div class="app-dest-head" id="app-screen-title">Detalle</div>
                     <div class="app-dest-body">
                         <div class="app-dest-field">
-                            <span>Campo en Pantalla</span>
+                            <span>Campo documentado en el modelo</span>
                             <strong id="app-field-name" style="font-size:14px; font-weight:400; color:var(--app-text);">...</strong>
                         </div>
                         <div class="app-dest-field" style="background:#f9f9f9; border-color:transparent;">
@@ -553,10 +553,11 @@
     </div>
 </div>
 
+<div class="shell journey-next"><span>Fin de la etapa 3 de 4</span><a class="btn-solid" href="#demo">Probar un pago →</a></div>
 <section id="demo" class="shell section-title">
     <small>Demo Interactiva</small>
-    <h2>04 · Practicá con un pedido de ejemplo</h2>
-    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">Registrá pagos ficticios o marcá obras como listas para explorar los cambios de esta maqueta independiente.</p>
+    <h2>04 · Probá un pago del pedido 1024</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 10px;">El pedido 1024 tiene un total de $165.000, $80.000 pagados y un saldo de $85.000. Probá registrar $25.000: el saldo debería bajar a $60.000; después podés deshacerlo.</p>
 </section>
 
 <div class="shell demo-shell">
@@ -631,8 +632,9 @@
     </div>
 </div>
 
+<div class="shell journey-next"><span>Recorrido terminado · Ejemplo ficticio</span><a class="btn-outline" href="#guide-title">Volver al inicio ↑</a></div>
 <footer style="padding: 40px 0; text-align:center; font-size: 10px; text-transform: uppercase; color: var(--brand-gray); border-top: 1px solid var(--brand-border); margin-top:60px;">
-    <span>Henri's Gallery - Sistema V4 Ultimate (AppSheet)</span>
+    <span>Henris Gallery · Presentación de ejemplo · Sin conexión a AppSheet</span>
 </footer>
 </main>
 
@@ -686,7 +688,9 @@ if(simContainer) {
     const allFields = sections.flatMap(sec => sec.items.map(item => ({...item, table: sec.table})));
     
     let currentTable = "todos";
-    let selectedField = null;
+    let currentView = "esenciales";
+    const essentials=new Set(['Nombre','Descripcion','Medidas','Precio_Item','Importe','Saldo_Pendiente','Estado_Cobro']);
+    let selectedField=allFields.find(x=>x.field==='Medidas' && x.table==='Pedido_Items');
     let filteredData = [];
     
     const tabsContainer = document.getElementById('tabs');
@@ -704,7 +708,7 @@ if(simContainer) {
             btn.className = 'tab';
             btn.setAttribute('aria-pressed', currentTable === sec.table);
             btn.innerHTML = `${labels[sec.table]} <em>${sec.count || sec.items.length}</em>`;
-            btn.onclick = () => { currentTable = sec.table; renderTabs(); applyFilters(); };
+            btn.onclick = () => {currentTable=sec.table;currentView="todos";updateModeButtons();renderTabs();applyFilters();};
             tabsContainer.appendChild(btn);
         });
     }
@@ -787,11 +791,17 @@ if(simContainer) {
         createDynamicParticles();
     }
 
+    function updateModeButtons(){
+      for(const [id,v] of [['mode-essential','esenciales'],['mode-all','todos']]){
+        const b=document.getElementById(id);b.classList.toggle('active',currentView===v);b.setAttribute('aria-pressed',String(currentView===v));
+      }
+    }
     function applyFilters() {
         const q = norm(searchInput.value);
         const st = statusSelect.value;
         filteredData = allFields.filter(x => 
             (currentTable === "todos" || x.table === currentTable) &&
+            (currentView==="todos" || essentials.has(x.field)) &&
             (st === "todos" || x.status === st) &&
             (!q || norm([x.field, x.table, x.rule, statuses[x.status], ...x.origin.map(y => y.column + " " + y.header)].join(" ")).includes(q))
         );
@@ -802,7 +812,8 @@ if(simContainer) {
         listContainer.innerHTML = '';
         
         filteredData.forEach(item => {
-            let btn = document.createElement('div');
+            let btn = document.createElement('button');
+            btn.type = 'button';
             btn.className = 'field';
             if (item === selectedField) btn.setAttribute('aria-pressed', 'true');
             btn.innerHTML = `<div><span class="field-name">${item.field.replace(/_/g, ' ')}</span><span class="field-status">${labels[item.table]} · ${statuses[item.status]}</span></div><span style="font-size: 16px;">→</span>`;
@@ -811,6 +822,7 @@ if(simContainer) {
                 document.querySelectorAll('.field').forEach(el => el.setAttribute('aria-pressed', 'false'));
                 btn.setAttribute('aria-pressed', 'true');
                 renderDetail(item);
+                if(window.matchMedia('(max-width:900px)').matches)document.getElementById('detail-view').scrollIntoView({behavior:'smooth',block:'start'});
             };
             listContainer.appendChild(btn);
         });
@@ -818,9 +830,12 @@ if(simContainer) {
         renderDetail(selectedField);
     }
 
-    searchInput.addEventListener('input', applyFilters);
+    document.getElementById('mode-essential').onclick=()=>{currentView='esenciales';currentTable='todos';searchInput.value='';statusSelect.value='todos';selectedField=allFields.find(x=>x.field==='Medidas' && x.table==='Pedido_Items');updateModeButtons();renderTabs();applyFilters();};
+    document.getElementById('mode-all').onclick=()=>{currentView='todos';currentTable='todos';updateModeButtons();renderTabs();applyFilters();};
+    searchInput.addEventListener('input',()=>{if(searchInput.value.trim())currentView='todos';updateModeButtons();applyFilters();});
     statusSelect.addEventListener('change', applyFilters);
 
+    updateModeButtons();
     renderTabs();
     applyFilters();
 })();
