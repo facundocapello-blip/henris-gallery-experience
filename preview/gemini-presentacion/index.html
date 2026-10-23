@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henris Gallery | Sistema de Gestión Premium</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#112419',      /* Verde bosque profundo */
+                        forestLight: '#1A3626',
+                        ivory: '#F9F8F6',       /* Marfil/Blanco cálido */
+                        stone: '#8A8D88',       /* Gris piedra */
+                        gold: '#C2A364',        /* Dorado suave */
+                        borderLight: '#E8E6E1'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(17, 36, 25, 0.08)',
+                        'soft': '0 4px 20px -2px rgba(17, 36, 25, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Selection */
+        ::selection {
+            background-color: #C2A364;
+            color: #112419;
+        }
+
+        /* Subtle fade-in animation for sections */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- ESTILOS RICOS Y VISUALMENTE IMPACTANTES --- */
+        .mapping-card {
+            background: linear-gradient(145deg, #ffffff, #F9F8F6);
+            border: 1px solid #E8E6E1;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        /* Borde superior decorativo que se enciende */
+        .mapping-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, transparent);
+            transition: background 0.5s ease;
+        }
+        .mapping-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(17, 36, 25, 0.12);
+            border-color: #C2A364;
+        }
+        .mapping-card.active {
+            border-color: #C2A364;
+            box-shadow: 0 25px 50px -12px rgba(194, 163, 100, 0.2);
+        }
+        .mapping-card.active::before {
+            background: linear-gradient(90deg, #112419, #C2A364, #112419);
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+
+        /* Nodo Excel - Textura de celda */
+        .excel-node {
+            background: #f3f4f6;
+            border: 1px dashed #d1d5db;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .mapping-card:hover .excel-node {
+            background: #fff;
+            border-color: #C2A364;
+            box-shadow: 0 4px 12px rgba(194, 163, 100, 0.1);
+        }
+
+        .click-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(194, 163, 100, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(194, 163, 100, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(194, 163, 100, 0); }
+        }
+        
+        .mapping-card.active .click-hint {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* Pista de energía */
+        .path-container {
+            position: relative;
+            height: 3px;
+            background: #E8E6E1;
+            flex: 1;
+            margin: 0 15px;
+            border-radius: 3px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .mapping-card.active .path-container {
+            opacity: 1;
+        }
+        .path-beam {
+            position: absolute;
+            top: 0; left: 0; height: 100%; width: 100%;
+            background: linear-gradient(90deg, transparent, #C2A364, #fff);
+            transform: translateX(-100%);
+            box-shadow: 0 0 10px #C2A364;
+        }
+        .mapping-card.is-animating .path-beam {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+
+        /* Nodo App - Lujo total */
+        .app-node {
+            opacity: 0;
+            transform: scale(0.8) translateX(20px);
+            background: linear-gradient(135deg, #112419, #1A3626);
+            color: #F9F8F6;
+            border: 1px solid #C2A364;
+            box-shadow: 0 0 0 rgba(194, 163, 100, 0);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); /* Rebote premium */
+        }
+        .mapping-card.target-hit .app-node {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+            box-shadow: 0 10px 25px -5px rgba(194, 163, 100, 0.5);
+        }
+
+        /* Expansión de la regla */
+        .rule-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mapping-card.active .rule-wrapper {
+            grid-template-rows: 1fr;
+        }
+        .rule-inner {
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .mapping-card.target-hit .rule-inner {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.1s;
+        }
+
+        /* Mockup CRM Scrollbar */
+        .crm-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .crm-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .crm-scroll::-webkit-scrollbar-thumb {
+            background: #E8E6E1;
+            border-radius: 4px;
+        }
+
+        /* Animación suave para la grilla de filtros */
+        #mapping-grid {
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #mapping-grid.is-filtering {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .status-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+    </style>
+</head>
+<body class="bg-ivory text-forest font-sans antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 transition-all duration-300 py-6 px-8 flex justify-between items-center backdrop-blur-md bg-ivory/80 border-b border-borderLight" id="navbar">
+        <div class="font-serif text-2xl font-semibold tracking-wide text-forest">
+            HENRIS<span class="text-gold italic ml-1">Gallery</span>
+        </div>
+        <ul class="hidden md:flex space-x-8 text-sm font-medium text-stone">
+            <li><a href="#concepto" class="hover:text-forest transition-colors">Concepto</a></li>
+            <li><a href="#mapeo" class="hover:text-forest transition-colors text-forest border-b border-gold">Mapeo</a></li>
+            <li><a href="#circuito" class="hover:text-forest transition-colors">Circuito</a></li>
+            <li><a href="#simulacion" class="hover:text-forest transition-colors">Simulación</a></li>
+        </ul>
+        <a href="#simulacion" class="hidden md:inline-block px-5 py-2 border border-forest text-forest text-sm uppercase tracking-wider hover:bg-forest hover:text-ivory transition-colors duration-300">
+            Ver Demo
+        </a>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center px-6 pt-24 overflow-hidden bg-forest text-ivory">
+        <!-- Abstract art background hint -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 70% 30%, #C2A364 0%, transparent 40%), radial-gradient(circle at 30% 70%, #F9F8F6 0%, transparent 40%); filter: blur(60px);"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto text-center fade-in-up">
+            <span class="uppercase tracking-[0.2em] text-gold text-xs font-semibold mb-6 block">Presentación Ejecutiva</span>
+            <h1 class="font-serif text-5xl md:text-7xl mb-8 leading-tight">
+                La evolución del <br>
+                <span class="italic text-gold">control y gestión</span>
+            </h1>
+            <p class="text-stone text-lg md:text-xl font-light max-w-2xl mx-auto mb-12 leading-relaxed">
+                De una planilla estática a un ecosistema dinámico. Henris Gallery organiza obras, centraliza pagos y agiliza ventas en una única herramienta diseñada a medida.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#mapeo" class="px-8 py-4 bg-gold text-forest font-medium tracking-wide hover:bg-white transition-colors duration-300">
+                    Explorar el Mapeo
+                </a>
+            </div>
+        </div>
+        
+        <a href="#concepto" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-stone hover:text-gold transition-colors animate-bounce">
+            <i class="ph ph-arrow-down text-2xl"></i>
+        </a>
+    </section>
+
+    <section id="concepto" class="py-32 px-6 bg-ivory">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 fade-in-up">
+                <h2 class="font-serif text-4xl md:text-5xl text-forest mb-4">El Nuevo Circuito</h2>
+                <p class="text-stone max-w-2xl mx-auto">
+                    El sistema estructura la información relacionando un <strong>Pedido Central</strong> con múltiples entidades. Los pagos ya no son de la obra, sino del pedido general.
+                </p>
+            </div>
+
+            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 fade-in-up">
+                
+                <!-- Cliente -->
+                <div class="w-full md:w-64 bg-white p-6 rounded-lg shadow-soft border border-borderLight text-center relative z-10">
+                    <i class="ph-light ph-user text-4xl text-gold mb-3"></i>
+                    <h3 class="font-serif text-xl font-semibold mb-2">Cliente</h3>
+                    <p class="text-xs text-stone">Información comercial, contacto e historial.</p>
+                </div>
+
+                <!-- Arrow -->
+                <div class="hidden md:block w-16 h-px bg-gold/50 relative">
+                    <i class="ph ph-caret-right text-gold absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-ivory"></i>
+                </div>
+
+                <!-- Pedido Central -->
+                <div class="w-full md:w-80 bg-forest text-ivory p-8 rounded-lg shadow-premium text-center relative z-10 border border-gold/30">
+                    <div class="absolute -top-3 -right-3 bg-gold text-forest text-[10px] uppercase font-bold px-2 py-1 tracking-wider rounded-sm">Núcleo</div>
+                    <i class="ph-light ph-shopping-bag text-5xl text-gold mb-4"></i>
+                    <h3 class="font-serif text-2xl font-semibold mb-2">Pedido</h3>
+                    <p class="text-sm font-light text-stone/80">Registro central de la venta. Agrupa obras, calcula saldos y gestiona el estado.</p>
+                </div>
+
+                <!-- Branches -->
+                <div class="hidden md:flex flex-col justify-between h-48 w-16 relative">
+                    <!-- Top Branch -->
+                    <div class="absolute top-0 left-0 w-full h-1/2 border-t border-r border-gold/50 rounded-tr-lg">
+                        <i class="ph ph-caret-right text-gold absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 bg-ivory"></i>
+                    </div>
+                    <!-- Bottom Branch -->
+                    <div class="absolute bottom-0 left-0 w-full h-1/2 border-b border-r border-gold/50 rounded-br-lg">
+                        <i class="ph ph-caret-right text-gold absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 bg-ivory"></i>
+                    </div>
+                </div>
+
+                <!-- Obras y Pagos -->
+                <div class="flex flex-col gap-8 w-full md:w-64 relative z-10">
+                    <!-- Obras -->
+                    <div class="bg-white p-6 rounded-lg shadow-soft border border-borderLight text-center">
+                        <i class="ph-light ph-image text-3xl text-forest mb-3"></i>
+                        <h3 class="font-serif text-lg font-semibold mb-1">Obras / Ítems</h3>
+                        <p class="text-xs text-stone">Pueden ser 1 o varias por pedido. Incluye medidas y precio individual.</p>
+                    </div>
+                    <!-- Pagos -->
+                    <div class="bg-white p-6 rounded-lg shadow-soft border border-borderLight text-center">
+                        <i class="ph-light ph-credit-card text-3xl text-forest mb-3"></i>
+                        <h3 class="font-serif text-lg font-semibold mb-1">Pagos</h3>
+                        <p class="text-xs text-stone">Señas, saldos parciales. Impactan en el Pedido total.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mapeo" class="py-32 px-6 bg-white border-t border-borderLight">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-in-up">
+                <div class="max-w-2xl">
+                    <span class="text-gold text-sm tracking-[0.1em] font-semibold uppercase mb-2 block">Diccionario de Datos</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-forest mb-4">Mapeo de Pedidos</h2>
+                    <p class="text-stone">
+                        Correspondencia entre el formato Excel original y la nueva estructura en bases de datos relacionales.
+                        <br><span class="text-xs mt-2 inline-block bg-ivory px-2 py-1 border border-borderLight text-stone">Maqueta de correspondencias. Ejemplos documentados; mapeo completo sujeto a validación.</span>
+                    </p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-2 mt-8 md:mt-0" id="filter-container">
+                    <button class="filter-btn active px-4 py-2 text-sm border border-forest bg-forest text-ivory transition-colors" data-filter="all">Todos</button>
+                    <button class="filter-btn px-4 py-2 text-sm border border-borderLight text-stone hover:border-forest hover:text-forest transition-colors" data-filter="Pedidos">Pedidos</button>
+                    <button class="filter-btn px-4 py-2 text-sm border border-borderLight text-stone hover:border-forest hover:text-forest transition-colors" data-filter="Obras/Ítems">Obras/Ítems</button>
+                    <button class="filter-btn px-4 py-2 text-sm border border-borderLight text-stone hover:border-forest hover:text-forest transition-colors" data-filter="Pagos">Pagos</button>
+                    <button class="filter-btn px-4 py-2 text-sm border border-borderLight text-stone hover:border-forest hover:text-forest transition-colors" data-filter="Clientes">Clientes</button>
+                </div>
+            </div>
+
+            <!-- Mapping Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-up" id="mapping-grid">
+                <!-- Cards will be injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="simulacion" class="py-32 px-6 bg-forest text-ivory relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-gold text-sm tracking-[0.1em] font-semibold uppercase mb-2 block">Demostración Interactiva</span>
+                <h2 class="font-serif text-4xl md:text-5xl mb-4">Experiencia CRM</h2>
+                <p class="text-stone/80 max-w-2xl mx-auto">
+                    Simulación de interfaz. Visualizá cómo se presenta un pedido con múltiples obras y pagos unificados bajo el nuevo modelo de datos.
+                </p>
+            </div>
+
+            <!-- App Mockup Window Container (Premium Glass) -->
+            <div class="p-2 md:p-3 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-[0_20px_80px_-20px_rgba(0,0,0,0.5)] fade-in-up">
+                
+                <!-- Inner Mockup Window -->
+                <div class="bg-ivory text-forest rounded-[2rem] overflow-hidden flex flex-col md:flex-row h-[750px] md:h-[650px] border border-white/20 shadow-inner">
+                    
+                    <!-- Mockup Sidebar -->
+                    <div class="w-full md:w-64 bg-forestLight border-r border-forest/10 flex flex-col hidden md:flex text-ivory/80">
+                    <div class="p-4 flex-1">
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-3 p-3 bg-white/10 text-white rounded-md cursor-pointer border border-white/10">
+                                <i class="ph ph-shopping-bag text-lg"></i> Pedidos
+                            </li>
+                            <li class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-md cursor-pointer transition-colors">
+                                <i class="ph ph-image text-lg"></i> Inventario
+                            </li>
+                            <li class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-md cursor-pointer transition-colors">
+                                <i class="ph ph-users text-lg"></i> Clientes
+                            </li>
+                            <li class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-md cursor-pointer transition-colors">
+                                <i class="ph ph-chart-bar text-lg"></i> Reportes
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border-t border-white/5 text-xs text-white/40 text-center">
+                        MODO SIMULACIÓN
+                    </div>
+                </div>
+
+                <!-- Mockup Main Content -->
+                <div class="flex-1 flex flex-col h-full bg-[#F4F4F4]">
+                    <!-- Mockup Header -->
+                    <div class="bg-white px-8 py-5 border-b border-borderLight flex justify-between items-center shadow-sm">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <h1 class="text-2xl font-semibold tracking-tight">Pedido #1024</h1>
+                                <span class="status-glow bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-md border border-green-200 font-medium flex items-center gap-1">
+                                    <div class="w-1.5 h-1.5 bg-green-600 rounded-full"></div> Activo
+                                </span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded border border-blue-200"><i class="ph ph-instagram-logo mr-1"></i>IG</span>
+                            </div>
+                            <p class="text-sm text-stone flex items-center gap-2">
+                                <i class="ph ph-user"></i> Cliente: <strong>Matías E.</strong> | <i class="ph ph-whatsapp-logo"></i> +54 9 11 1234-5678
+                            </p>
+                        </div>
+                        <div class="hidden sm:block">
+                            <button class="bg-forest text-ivory px-4 py-2 rounded text-sm hover:bg-forestLight transition-colors flex items-center gap-2">
+                                <i class="ph ph-plus"></i> Nuevo Pago
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mockup Body (Scrollable) -->
+                    <div class="p-8 flex-1 overflow-y-auto crm-scroll grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Left Column (Obras) -->
+                        <div class="lg:col-span-2 space-y-6">
+                            
+                            <!-- Obras Card -->
+                            <div class="bg-white border border-borderLight rounded-lg shadow-sm">
+                                <div class="px-6 py-4 border-b border-borderLight flex justify-between items-center bg-gray-50/50">
+                                    <h2 class="font-medium flex items-center gap-2"><i class="ph ph-images text-stone"></i> Obras del Pedido (2)</h2>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <!-- Item 1 -->
+                                    <div class="flex justify-between items-center pb-4 border-b border-borderLight border-dashed">
+                                        <div class="flex gap-4">
+                                            <div class="w-12 h-12 bg-gray-100 rounded border border-gray-200 flex items-center justify-center text-stone">
+                                                <i class="ph ph-image text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">#ART-092 - Abstracto Geométrico</p>
+                                                <p class="text-xs text-stone mt-1">Medidas: 50x70 cm | Marco roble</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium">ARS $120,000</p>
+                                        </div>
+                                    </div>
+                                    <!-- Item 2 -->
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex gap-4">
+                                            <div class="w-12 h-12 bg-gray-100 rounded border border-gray-200 flex items-center justify-center text-stone">
+                                                <i class="ph ph-image text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">#ART-105 - Fotografía Urbana</p>
+                                                <p class="text-xs text-stone mt-1">Medidas: 30x40 cm | Sin marco</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium">ARS $45,000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Historial Interno (Simulated) -->
+                            <div class="bg-transparent text-sm text-stone">
+                                <p class="mb-2 font-medium">Historial de Origen (Excel original)</p>
+                                <div class="bg-gray-100 p-3 rounded font-mono text-xs overflow-hidden text-ellipsis whitespace-nowrap">
+                                    Ref_Origen: i | Canal: VENTA | Moneda: ARS | F_Sena: 12/10/26
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column (Pagos & Resumen) -->
+                        <div class="space-y-6">
+                            
+                            <!-- Resumen Financiero -->
+                            <div class="bg-white border border-borderLight rounded-lg shadow-sm overflow-hidden">
+                                <div class="bg-forest text-ivory px-6 py-4">
+                                    <p class="text-xs uppercase tracking-wider text-gold mb-1">Total Pedido</p>
+                                    <p class="text-3xl font-serif">ARS $165,000</p>
+                                </div>
+                                <div class="p-6">
+                                    <div class="flex justify-between text-sm mb-3 text-stone">
+                                        <span>Total Pagado:</span>
+                                        <span class="text-forest font-medium">ARS $80,000</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mb-4 overflow-hidden">
+                                        <div id="crm-progress" class="bg-gold h-2 rounded-full transition-all duration-1500 ease-out w-0" data-target="48%"></div>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-4 border-t border-borderLight">
+                                        <span class="font-medium text-forest">Saldo Pendiente:</span>
+                                        <span class="font-bold text-red-600 text-lg">ARS $85,000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Historial de Pagos -->
+                            <div class="bg-white border border-borderLight rounded-lg shadow-sm">
+                                <div class="px-6 py-4 border-b border-borderLight bg-gray-50/50">
+                                    <h2 class="font-medium text-sm flex items-center gap-2"><i class="ph ph-receipt text-stone"></i> Pagos Recibidos</h2>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <!-- Pago 1 -->
+                                    <div class="flex justify-between items-center py-3 border-b border-borderLight border-dashed group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-white hover:border-transparent rounded-lg -mx-6 px-6 relative overflow-hidden">
+                                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-green-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                                        <div class="flex gap-4">
+                                            <div class="w-12 h-12 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-stone group-hover:bg-green-50 group-hover:border-green-200 group-hover:text-green-600 transition-colors">
+                                                <i class="ph ph-check-circle text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm group-hover:text-forest transition-colors">Seña Inicial</p>
+                                                <p class="text-xs text-stone mt-1">Transferencia | 12/10/26</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-forest group-hover:text-green-600 transition-colors">ARS $50,000</p>
+                                        </div>
+                                    </div>
+                                    <!-- Pago 2 -->
+                                    <div class="flex justify-between items-center py-3 group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-white hover:border-transparent rounded-lg -mx-6 px-6 relative overflow-hidden">
+                                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-green-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                                        <div class="flex gap-4">
+                                            <div class="w-12 h-12 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-stone group-hover:bg-green-50 group-hover:border-green-200 group-hover:text-green-600 transition-colors">
+                                                <i class="ph ph-wallet text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm group-hover:text-forest transition-colors">Segundo Pago</p>
+                                                <p class="text-xs text-stone mt-1">Efectivo | 18/10/26</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-forest group-hover:text-green-600 transition-colors">ARS $30,000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-forestLight text-ivory py-20 px-6 border-t border-white/10 text-center">
+        <div class="max-w-3xl mx-auto fade-in-up">
+            <h2 class="font-serif text-3xl md:text-4xl mb-6">El arte del orden</h2>
+            <p class="text-stone text-sm mb-10 max-w-md mx-auto">
+                Implementar una estructura robusta es el primer paso para escalar comercialmente, reduciendo errores y ofreciendo mejor atención a los clientes.
+            </p>
+            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-gold to-transparent mb-8">
+                <button class="bg-forest px-8 py-3 text-sm font-medium tracking-wide uppercase hover:bg-gold hover:text-forest transition-colors duration-500">
+                    Validar Propuesta
+                </button>
+            </div>
+            <p class="text-xs text-stone/50 uppercase tracking-widest font-serif">
+                Henris Gallery CRM Mockup &copy; 2026
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. MAPPING DATA (Exactly as requested) ---
+            const mapData = [
+                {
+                    cat: 'Pedidos',
+                    appField: 'Numero_Pedido_Origen',
+                    xlColumn: 'A: "i"',
+                    rule: 'Conservar referencia histórica para rastreo.',
+                    icon: 'ph-hash'
+                },
+                {
+                    cat: 'Pedidos',
+                    appField: 'Canal_Origen',
+                    xlColumn: 'AM: "VENTA"',
+                    rule: 'Traducción de siglas: IG→Instagram, WAP→WhatsApp, WEB→Web, LOCAL→Local.',
+                    icon: 'ph-megaphone'
+                },
+                {
+                    cat: 'Pedidos',
+                    appField: 'Moneda_Venta',
+                    xlColumn: 'P: "Monedad"',
+                    rule: 'Estandarización de divisa para cálculos de balance.',
+                    icon: 'ph-currency-circle-dollar'
+                },
+                {
+                    cat: 'Obras/Ítems',
+                    appField: 'Codigo_Art',
+                    xlColumn: 'D: "#ARt"',
+                    rule: 'Identificador único por obra o ítem de enmarcado.',
+                    icon: 'ph-barcode'
+                },
+                {
+                    cat: 'Obras/Ítems',
+                    appField: 'Descripcion',
+                    xlColumn: 'E: "DESCRIPCION"',
+                    rule: 'Traslado directo de texto descriptivo principal.',
+                    icon: 'ph-text-align-left'
+                },
+                {
+                    cat: 'Obras/Ítems',
+                    appField: 'Medidas',
+                    xlColumn: 'F: "MEDIDAS"',
+                    rule: 'Conservar texto original sin forzar tipo de dato numérico.',
+                    icon: 'ph-ruler'
+                },
+                {
+                    cat: 'Obras/Ítems',
+                    appField: 'Precio_Item',
+                    xlColumn: 'O: "PRECIO CUADRO"',
+                    rule: 'Precio individual. No confundir con el total del pedido.',
+                    icon: 'ph-tag'
+                },
+                {
+                    cat: 'Pagos',
+                    appField: 'Medio_Pago',
+                    xlColumn: 'N: "PAGO"',
+                    rule: 'Requiere revisión manual si existen medios mixtos en la celda original.',
+                    icon: 'ph-wallet'
+                },
+                {
+                    cat: 'Pagos',
+                    appField: 'Importe',
+                    xlColumn: 'Q: "SEÑA" / U: "SEGUNDA PARTE"',
+                    rule: 'Se divide la fila del Excel en MÚLTIPLES registros en la tabla Pagos.',
+                    icon: 'ph-coins'
+                },
+                {
+                    cat: 'Pagos',
+                    appField: 'Fecha_Pago',
+                    xlColumn: 'T: "FECHA SENA" / X: "FECHA FINAL"',
+                    rule: 'Formateo a fecha estándar ISO para ordenar cronológicamente.',
+                    icon: 'ph-calendar-blank'
+                },
+                {
+                    cat: 'Clientes',
+                    appField: 'Nombre',
+                    xlColumn: 'AH: "CLIENTE"',
+                    rule: 'Normalización de mayúsculas/minúsculas y limpieza de espacios.',
+                    icon: 'ph-user-focus'
+                },
+                {
+                    cat: 'Clientes',
+                    appField: 'Telefono',
+                    xlColumn: 'AI: "CONTACTO"',
+                    rule: 'Limpieza de guiones para facilitar enlaces directos a WhatsApp.',
+                    icon: 'ph-phone'
+                },
+                {
+                    cat: 'Pedidos',
+                    appField: 'Saldo_Pendiente',
+                    xlColumn: 'No directo (Ref: Y)',
+                    rule: 'Se autocalcula vía (Total_Pedido − Total_Pagado). La columna Y: "PAGO PENDIENTE" se usa solo para auditoría de migración.',
+                    icon: 'ph-calculator'
+                }
+            ];
+
+            // --- 2. RENDER CARDS LOGIC ---
+            const grid = document.getElementById('mapping-grid');
+            
+            function renderCards(filter) {
+                grid.classList.add('is-filtering');
+                
+                setTimeout(() => {
+                    grid.innerHTML = '';
+                    
+                    const filteredData = filter === 'all' 
+                        ? mapData 
+                        : mapData.filter(item => item.cat === filter);
+
+                    filteredData.forEach((item, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'mapping-card rounded-2xl p-6 relative flex flex-col justify-center';
+                        
+                        card.innerHTML = `
+                            <div class="flex items-center justify-between w-full relative z-10">
+                                
+                                <!-- EXCEL NODE (Source) -->
+                                <div class="excel-node p-4 rounded-xl flex flex-col items-center justify-center w-[35%] relative">
+                                    <span class="text-[9px] uppercase text-stone font-bold tracking-widest mb-2 bg-white px-2 py-0.5 rounded shadow-sm">Excel Origen</span>
+                                    <span class="font-mono text-sm sm:text-base font-semibold text-forest text-center">${item.xlColumn}</span>
+                                    
+                                    <div class="click-hint absolute -bottom-3 bg-gold text-forest text-[10px] uppercase font-bold px-3 py-1 rounded-full shadow-md click-pulse transition-all duration-300">
+                                        Revelar destino
+                                    </div>
+                                </div>
+
+                                <!-- CONNECTION PATH -->
+                                <div class="path-container">
+                                    <div class="path-beam"></div>
+                                </div>
+
+                                <!-- APP NODE (Target) -->
+                                <div class="app-node p-4 rounded-xl flex flex-col items-center justify-center w-[35%] relative">
+                                    <span class="text-[9px] uppercase text-gold font-bold tracking-widest mb-2">Nuevo Sistema</span>
+                                    <div class="flex flex-col sm:flex-row items-center gap-2 text-center">
+                                        <i class="ph ${item.icon} text-gold text-2xl drop-shadow-md"></i>
+                                        <span class="font-serif text-sm sm:text-base font-semibold leading-tight">${item.appField}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RULE BOX (Grid Expansion) -->
+                            <div class="rule-wrapper">
+                                <div class="rule-inner">
+                                    <div class="mt-8 p-4 bg-gray-50 rounded-lg border-l-4 border-gold flex items-start gap-4 shadow-inner">
+                                        <div class="p-2 bg-white rounded-full shadow-sm">
+                                            <i class="ph-fill ph-magic-wand text-gold text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-forest block mb-1 text-[11px] uppercase tracking-widest font-bold">Regla de Transformación</strong>
+                                            <span class="text-sm text-stone leading-relaxed">${item.rule}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        // Interacción Rica
+                        card.addEventListener('click', () => {
+                            if(card.classList.contains('active')) return;
+
+                            document.querySelectorAll('.mapping-card').forEach(c => {
+                                if(c !== card) {
+                                    c.classList.remove('active', 'is-animating', 'target-hit');
+                                }
+                            });
+
+                            card.classList.add('active');
+                            
+                            // Dispara el rayo
+                            setTimeout(() => {
+                                card.classList.add('is-animating');
+                            }, 50);
+                            
+                            // Impacta en la App (Sincronizado con los 600ms de CSS)
+                            setTimeout(() => {
+                                card.classList.add('target-hit');
+                            }, 550); 
+                        });
+
+                        grid.appendChild(card);
+                    });
+
+                    setTimeout(() => {
+                        grid.classList.remove('is-filtering');
+                    }, 50);
+
+                }, 300);
+            }
+
+            // Initial render
+            renderCards('all');
+
+            // --- 3. FILTER BUTTONS LOGIC ---
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update active state styles
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-forest', 'text-ivory');
+                        b.classList.add('bg-transparent', 'text-stone');
+                    });
+                    e.target.classList.add('active', 'bg-forest', 'text-ivory');
+                    e.target.classList.remove('text-stone');
+
+                    // Filter cards
+                    const filter = e.target.getAttribute('data-filter');
+                    renderCards(filter);
+                });
+            });
+
+            // --- 4. SCROLL ANIMATIONS ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Si es la sección de simulación, animamos la barra de progreso
+                        if (entry.target.id === 'simulacion' || entry.target.closest('#simulacion')) {
+                            setTimeout(() => {
+                                const progressBar = document.getElementById('crm-progress');
+                                if (progressBar) {
+                                    progressBar.style.width = progressBar.getAttribute('data-target');
+                                }
+                            }, 500); // Pequeño retraso para que el usuario termine de hacer scroll
+                        }
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach((el) => {
+                observer.observe(el);
+            });
+
+            // Navbar background on scroll
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('shadow-sm');
+                } else {
+                    nav.classList.remove('shadow-sm');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
