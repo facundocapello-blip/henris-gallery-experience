@@ -1,0 +1,935 @@
+{
+  "source": {
+    "current": "Henris Gallery - Base de Datos Marketing y Ventas",
+    "historical": "pedidos.xlsx",
+    "migration": "Mapa_Migracion_Matias",
+    "plans": "Plan_Config_AppSheet_Pedidos_v1",
+    "sourceDate": "2026-10-15",
+    "note": "Campos de Google Sheets verificados. Visibilidad o implementación exacta de cada columna en AppSheet no verificada."
+  },
+  "originColumns": [
+    {
+      "column": "A",
+      "header": "i"
+    },
+    {
+      "column": "B",
+      "header": "MES PEDIDO"
+    },
+    {
+      "column": "C",
+      "header": "CARPETA"
+    },
+    {
+      "column": "D",
+      "header": "#ARt"
+    },
+    {
+      "column": "E",
+      "header": "DESCRIPCION"
+    },
+    {
+      "column": "F",
+      "header": "MEDIDAS"
+    },
+    {
+      "column": "G",
+      "header": "Borde para agregar"
+    },
+    {
+      "column": "H",
+      "header": "PASSE-PARTOUT"
+    },
+    {
+      "column": "I",
+      "header": "CUADRO"
+    },
+    {
+      "column": "J",
+      "header": "ENTREGAS COMENTARIOS"
+    },
+    {
+      "column": "K",
+      "header": "ENTREGADO AL LOCAL?"
+    },
+    {
+      "column": "L",
+      "header": "FECHA ENTREGA DE LUIS"
+    },
+    {
+      "column": "M",
+      "header": "SE PAGO"
+    },
+    {
+      "column": "N",
+      "header": "PAGO"
+    },
+    {
+      "column": "O",
+      "header": "PRECIO CUADRO"
+    },
+    {
+      "column": "P",
+      "header": "Monedad"
+    },
+    {
+      "column": "Q",
+      "header": "SEÑA"
+    },
+    {
+      "column": "R",
+      "header": "QUIEN LA RECIBIO?"
+    },
+    {
+      "column": "S",
+      "header": "SENA PAGADA?"
+    },
+    {
+      "column": "T",
+      "header": "FECHA PAGO SENA"
+    },
+    {
+      "column": "U",
+      "header": "SEGUNDA PARTE PAGO"
+    },
+    {
+      "column": "V",
+      "header": "QUIEN LA RECIBIO?"
+    },
+    {
+      "column": "W",
+      "header": "PAGADO FINAL"
+    },
+    {
+      "column": "X",
+      "header": "FECHA PAGO FINAL"
+    },
+    {
+      "column": "Y",
+      "header": "PAGO PENDIENTE"
+    },
+    {
+      "column": "Z",
+      "header": "FECHA TENTATIVA DE ENTREGA"
+    },
+    {
+      "column": "AA",
+      "header": "FECHA ENTREGA"
+    },
+    {
+      "column": "AB",
+      "header": "CONTABILIDAD SENA"
+    },
+    {
+      "column": "AC",
+      "header": "CONTABILIDAD OTRA PARTELPAGO"
+    },
+    {
+      "column": "AD",
+      "header": "COBRO SENA (NETO)"
+    },
+    {
+      "column": "AE",
+      "header": "COBRO FINAL PAGO (NETO)"
+    },
+    {
+      "column": "AF",
+      "header": "cotización dolar"
+    },
+    {
+      "column": "AG",
+      "header": "datos cleinte DNI o CUIL"
+    },
+    {
+      "column": "AH",
+      "header": "CLIENTE"
+    },
+    {
+      "column": "AI",
+      "header": "CONTACTO"
+    },
+    {
+      "column": "AJ",
+      "header": "MAIL"
+    },
+    {
+      "column": "AK",
+      "header": "Facturado SENA"
+    },
+    {
+      "column": "AL",
+      "header": "Facturado TOTAL"
+    },
+    {
+      "column": "AM",
+      "header": "VENTA"
+    },
+    {
+      "column": "AN",
+      "header": "NUMERO DE PEDIDO WEB"
+    }
+  ],
+  "sections": [
+    {
+      "table": "Pedidos",
+      "count": 19,
+      "items": [
+        {
+          "field": "Pedido_ID",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Identificador técnico propio del sistema; nunca sustituye el número histórico."
+        },
+        {
+          "field": "Numero_Pedido_Origen",
+          "origin": [
+            {
+              "column": "A",
+              "header": "i"
+            }
+          ],
+          "status": "directo",
+          "rule": "Conservar «i» como referencia histórica; no usar como clave técnica."
+        },
+        {
+          "field": "Fecha_Pedido",
+          "origin": [
+            {
+              "column": "B",
+              "header": "MES PEDIDO"
+            },
+            {
+              "column": "C",
+              "header": "CARPETA"
+            }
+          ],
+          "status": "revisar",
+          "rule": "El mes y la carpeta no garantizan una fecha completa; nuevas cargas usan fecha del pedido."
+        },
+        {
+          "field": "Periodo",
+          "origin": [
+            {
+              "column": "B",
+              "header": "MES PEDIDO"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Conservar el mes histórico; en nuevos pedidos se deriva de Fecha_Pedido."
+        },
+        {
+          "field": "Carpeta_Produccion",
+          "origin": [
+            {
+              "column": "C",
+              "header": "CARPETA"
+            }
+          ],
+          "status": "directo",
+          "rule": "Conservar texto o fecha tal como venga de «CARPETA»."
+        },
+        {
+          "field": "Cliente_ID",
+          "origin": [
+            {
+              "column": "AH",
+              "header": "CLIENTE"
+            }
+          ],
+          "status": "nuevo",
+          "rule": "Referencia técnica a Clientes. Usar CLIENTE para vincular, sin deduplicar solo por nombre."
+        },
+        {
+          "field": "Canal_Origen",
+          "origin": [
+            {
+              "column": "AM",
+              "header": "VENTA"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Normalizar valores: IG→Instagram, WAP→WhatsApp, WEB→Web, LOCAL→Local."
+        },
+        {
+          "field": "Campaña_ID",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Referencia opcional de campañas: no tiene una columna de origen en el Excel histórico."
+        },
+        {
+          "field": "Numero_Pedido_Web",
+          "origin": [
+            {
+              "column": "AN",
+              "header": "NUMERO DE PEDIDO WEB"
+            }
+          ],
+          "status": "directo",
+          "rule": "Referencia externa opcional; no reemplaza Pedido_ID."
+        },
+        {
+          "field": "Moneda_Venta",
+          "origin": [
+            {
+              "column": "P",
+              "header": "Monedad"
+            }
+          ],
+          "status": "directo",
+          "rule": "Conservar PESOS / USD; el encabezado histórico dice «Monedad»."
+        },
+        {
+          "field": "Total_Pedido",
+          "origin": [
+            {
+              "column": "O",
+              "header": "PRECIO CUADRO"
+            }
+          ],
+          "status": "calculado",
+          "rule": "Suma de los precios de cada ítem; «PRECIO CUADRO» es importe por obra, no total de pedido."
+        },
+        {
+          "field": "Total_Pagado",
+          "origin": [
+            {
+              "column": "Q",
+              "header": "SEÑA"
+            },
+            {
+              "column": "U",
+              "header": "SEGUNDA PARTE PAGO"
+            }
+          ],
+          "status": "calculado",
+          "rule": "Suma de pagos efectivamente confirmados del pedido: seña y pagos posteriores."
+        },
+        {
+          "field": "Saldo_Pendiente",
+          "origin": [
+            {
+              "column": "Y",
+              "header": "PAGO PENDIENTE"
+            }
+          ],
+          "status": "calculado",
+          "rule": "Total_Pedido − Total_Pagado; «PAGO PENDIENTE» sirve para contrastar, no para copiar."
+        },
+        {
+          "field": "Estado_Cobro",
+          "origin": [
+            {
+              "column": "S",
+              "header": "SENA PAGADA?"
+            },
+            {
+              "column": "W",
+              "header": "PAGADO FINAL"
+            }
+          ],
+          "status": "calculado",
+          "rule": "Derivar de pagos y saldo; las marcas históricas solo sirven como referencia."
+        },
+        {
+          "field": "Fecha_Entrega_Prevista",
+          "origin": [
+            {
+              "column": "Z",
+              "header": "FECHA TENTATIVA DE ENTREGA"
+            }
+          ],
+          "status": "directo",
+          "rule": "Fecha tentativa o comprometida; no confundir con entrega real."
+        },
+        {
+          "field": "Fecha_Entrega_Real",
+          "origin": [
+            {
+              "column": "AA",
+              "header": "FECHA ENTREGA"
+            }
+          ],
+          "status": "directo",
+          "rule": "Fecha real de entrega al cliente."
+        },
+        {
+          "field": "Estado_Pedido",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Estado operativo de la app; no se deduce de pago ni de la columna CUADRO."
+        },
+        {
+          "field": "Estado_Facturacion",
+          "origin": [
+            {
+              "column": "AL",
+              "header": "Facturado TOTAL"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Adaptar Facturado TOTAL a los estados de facturación, distinguiendo cobrado de facturado."
+        },
+        {
+          "field": "Comentarios",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Observaciones propias del pedido. Las de «ENTREGAS COMENTARIOS» corresponden al ítem."
+        }
+      ]
+    },
+    {
+      "table": "Pedido_Items",
+      "count": 26,
+      "items": [
+        {
+          "field": "Pedido_Item_ID",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Clave técnica por obra/trabajo dentro del pedido."
+        },
+        {
+          "field": "Pedido_ID",
+          "origin": [
+            {
+              "column": "A",
+              "header": "i"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Vincular al pedido generado con la referencia «i»; no copiar el texto como clave."
+        },
+        {
+          "field": "Obra_ID",
+          "origin": [
+            {
+              "column": "D",
+              "header": "#ARt"
+            }
+          ],
+          "status": "revisar",
+          "rule": "Vincular al catálogo solo cuando #ARt identifique una obra existente y verificable."
+        },
+        {
+          "field": "Codigo_Art",
+          "origin": [
+            {
+              "column": "D",
+              "header": "#ARt"
+            }
+          ],
+          "status": "directo",
+          "rule": "Conservar código comercial original de la obra o ítem."
+        },
+        {
+          "field": "Descripcion",
+          "origin": [
+            {
+              "column": "E",
+              "header": "DESCRIPCION"
+            }
+          ],
+          "status": "directo",
+          "rule": "Conservar descripción completa del trabajo u obra."
+        },
+        {
+          "field": "Medidas",
+          "origin": [
+            {
+              "column": "F",
+              "header": "MEDIDAS"
+            }
+          ],
+          "status": "directo",
+          "rule": "Texto original de MEDIDAS, conservado como legado sin perder anotaciones."
+        },
+        {
+          "field": "Borde_Adicional",
+          "origin": [
+            {
+              "column": "G",
+              "header": "Borde para agregar"
+            }
+          ],
+          "status": "directo",
+          "rule": "Borde blanco de la lámina impresa; no confundir con passe-partout."
+        },
+        {
+          "field": "Passe_Partout",
+          "origin": [
+            {
+              "column": "H",
+              "header": "PASSE-PARTOUT"
+            }
+          ],
+          "status": "directo",
+          "rule": "Passe-partout propiamente dicho, separado del borde blanco."
+        },
+        {
+          "field": "Terminacion_Cuadro",
+          "origin": [
+            {
+              "column": "I",
+              "header": "CUADRO"
+            }
+          ],
+          "status": "revisar",
+          "rule": "CUADRO contiene terminaciones y a veces estados; separar antes de cargar."
+        },
+        {
+          "field": "Precio_Item",
+          "origin": [
+            {
+              "column": "O",
+              "header": "PRECIO CUADRO"
+            }
+          ],
+          "status": "directo",
+          "rule": "Importe de una obra/trabajo individual; Matías lo confirmó."
+        },
+        {
+          "field": "Comentarios_Produccion",
+          "origin": [
+            {
+              "column": "J",
+              "header": "ENTREGAS COMENTARIOS"
+            }
+          ],
+          "status": "directo",
+          "rule": "Comentarios de fabricación y entrega asociados al ítem."
+        },
+        {
+          "field": "Estado_Produccion",
+          "origin": [
+            {
+              "column": "I",
+              "header": "CUADRO"
+            }
+          ],
+          "status": "revisar",
+          "rule": "CUADRO puede contener estados, pero necesita criterio antes de normalizar."
+        },
+        {
+          "field": "Estado_Entrega_Local",
+          "origin": [
+            {
+              "column": "K",
+              "header": "ENTREGADO AL LOCAL?"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Normalizar la situación de entrega al local, independiente del cobro."
+        },
+        {
+          "field": "Fecha_Entrega_Proveedor",
+          "origin": [
+            {
+              "column": "L",
+              "header": "FECHA ENTREGA DE LUIS"
+            }
+          ],
+          "status": "directo",
+          "rule": "Fecha en que Luis/proveedor entrega el trabajo."
+        },
+        {
+          "field": "Produccion_Pagada",
+          "origin": [
+            {
+              "column": "M",
+              "header": "SE PAGO"
+            }
+          ],
+          "status": "transformado",
+          "rule": "«SE PAGO» corresponde al pago de producción, no al cobro del cliente."
+        },
+        {
+          "field": "Costo_Produccion_ID",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Referencia a Costos; el histórico no aporta esta clave técnica."
+        },
+        {
+          "field": "Tipo_Trabajo",
+          "origin": [
+            {
+              "column": "E",
+              "header": "DESCRIPCION"
+            },
+            {
+              "column": "J",
+              "header": "ENTREGAS COMENTARIOS"
+            }
+          ],
+          "status": "revisar",
+          "rule": "Clasificar si es obra Henris, enmarcado u otro trabajo según el detalle; validar casos ambiguos."
+        },
+        {
+          "field": "Objeto_A_Enmarcar",
+          "origin": [
+            {
+              "column": "E",
+              "header": "DESCRIPCION"
+            },
+            {
+              "column": "J",
+              "header": "ENTREGAS COMENTARIOS"
+            }
+          ],
+          "status": "revisar",
+          "rule": "Identificar lámina, camiseta, foto u otro objeto solamente cuando está documentado."
+        },
+        {
+          "field": "Medida_Ancho",
+          "origin": [
+            {
+              "column": "F",
+              "header": "MEDIDAS"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Extraer el ancho solo cuando la medida es inequívoca; caso dudoso → REVISAR."
+        },
+        {
+          "field": "Medida_Alto",
+          "origin": [
+            {
+              "column": "F",
+              "header": "MEDIDAS"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Extraer el alto solo cuando la medida es inequívoca; caso dudoso → REVISAR."
+        },
+        {
+          "field": "Unidad_Medida",
+          "origin": [
+            {
+              "column": "F",
+              "header": "MEDIDAS"
+            }
+          ],
+          "status": "revisar",
+          "rule": "En históricos no asumir centímetros cuando el texto no lo confirma."
+        },
+        {
+          "field": "Medida_Corresponde_A",
+          "origin": [
+            {
+              "column": "F",
+              "header": "MEDIDAS"
+            },
+            {
+              "column": "J",
+              "header": "ENTREGAS COMENTARIOS"
+            }
+          ],
+          "status": "revisar",
+          "rule": "Matías debe confirmar lámina, cuadro terminado u otro para cada caso ambiguo."
+        },
+        {
+          "field": "Medida_Estandar_Referencia",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Referencia comercial opcional; no sustituye las dimensiones reales."
+        },
+        {
+          "field": "Es_Personalizado",
+          "origin": [
+            {
+              "column": "E",
+              "header": "DESCRIPCION"
+            },
+            {
+              "column": "F",
+              "header": "MEDIDAS"
+            },
+            {
+              "column": "G",
+              "header": "Borde para agregar"
+            },
+            {
+              "column": "H",
+              "header": "PASSE-PARTOUT"
+            },
+            {
+              "column": "J",
+              "header": "ENTREGAS COMENTARIOS"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Se define con la regla de personalización cuando hay evidencia de medida, material, objeto o terminación especial."
+        },
+        {
+          "field": "Observaciones_Especiales",
+          "origin": [
+            {
+              "column": "J",
+              "header": "ENTREGAS COMENTARIOS"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Separar excepciones de los comentarios generales; conservar texto sin inventar."
+        },
+        {
+          "field": "Estado_Revision",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Estado de control OK / REVISAR generado durante normalización."
+        }
+      ]
+    },
+    {
+      "table": "Pagos",
+      "count": 14,
+      "items": [
+        {
+          "field": "Pago_ID",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Clave técnica individual por cobro; seña y pago final son filas distintas."
+        },
+        {
+          "field": "Pedido_ID",
+          "origin": [
+            {
+              "column": "A",
+              "header": "i"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Vínculo al mismo pedido de origen; un pago no pertenece a una obra específica."
+        },
+        {
+          "field": "Tipo_Pago",
+          "origin": [
+            {
+              "column": "Q",
+              "header": "SEÑA"
+            },
+            {
+              "column": "U",
+              "header": "SEGUNDA PARTE PAGO"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Distinguir Seña de Pago final/segundo pago según la columna histórica."
+        },
+        {
+          "field": "Fecha_Pago",
+          "origin": [
+            {
+              "column": "T",
+              "header": "FECHA PAGO SENA"
+            },
+            {
+              "column": "X",
+              "header": "FECHA PAGO FINAL"
+            }
+          ],
+          "status": "directo",
+          "rule": "Fecha de la seña o del segundo pago, según el cobro correspondiente."
+        },
+        {
+          "field": "Importe",
+          "origin": [
+            {
+              "column": "Q",
+              "header": "SEÑA"
+            },
+            {
+              "column": "U",
+              "header": "SEGUNDA PARTE PAGO"
+            }
+          ],
+          "status": "directo",
+          "rule": "Importe de la seña o de otro pago; cada cobro se transforma en su propia fila."
+        },
+        {
+          "field": "Moneda",
+          "origin": [
+            {
+              "column": "P",
+              "header": "Monedad"
+            }
+          ],
+          "status": "revisar",
+          "rule": "Moneda histórica del pedido como referencia; validar si un cobro se realizó en otra moneda."
+        },
+        {
+          "field": "Cotizacion_USD",
+          "origin": [
+            {
+              "column": "AF",
+              "header": "cotización dolar"
+            }
+          ],
+          "status": "directo",
+          "rule": "Cotización histórica cuando corresponda conversión; revisar la fecha aplicable."
+        },
+        {
+          "field": "Importe_En_Moneda_Pedido",
+          "origin": [
+            {
+              "column": "P",
+              "header": "Monedad"
+            },
+            {
+              "column": "Q",
+              "header": "SEÑA"
+            },
+            {
+              "column": "U",
+              "header": "SEGUNDA PARTE PAGO"
+            },
+            {
+              "column": "AF",
+              "header": "cotización dolar"
+            }
+          ],
+          "status": "calculado",
+          "rule": "Convertir el importe de cada pago usando su moneda y cotización validada."
+        },
+        {
+          "field": "Medio_Pago",
+          "origin": [
+            {
+              "column": "N",
+              "header": "PAGO"
+            }
+          ],
+          "status": "revisar",
+          "rule": "«PAGO» puede contener medios mixtos, por ejemplo 50% transferencia / 50% efectivo."
+        },
+        {
+          "field": "Recibido_Por",
+          "origin": [
+            {
+              "column": "R",
+              "header": "QUIEN LA RECIBIO?"
+            },
+            {
+              "column": "V",
+              "header": "QUIEN LA RECIBIO?"
+            }
+          ],
+          "status": "directo",
+          "rule": "Mantener separado receptor de seña y receptor de segundo pago."
+        },
+        {
+          "field": "Estado_Pago",
+          "origin": [
+            {
+              "column": "S",
+              "header": "SENA PAGADA?"
+            },
+            {
+              "column": "W",
+              "header": "PAGADO FINAL"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Normalizar confirmación de seña/final; conciliar inconsistencias antes de contar como cobro."
+        },
+        {
+          "field": "Facturado",
+          "origin": [
+            {
+              "column": "AK",
+              "header": "Facturado SENA"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Facturado SENA corresponde a la seña; el total facturado se controla aparte."
+        },
+        {
+          "field": "Conciliado_Contabilidad",
+          "origin": [
+            {
+              "column": "AB",
+              "header": "CONTABILIDAD SENA"
+            },
+            {
+              "column": "AC",
+              "header": "CONTABILIDAD OTRA PARTELPAGO"
+            }
+          ],
+          "status": "transformado",
+          "rule": "Usar columna contable específica del cobro; no crear otro pago."
+        },
+        {
+          "field": "Observaciones",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Comentarios de cada cobro en la aplicación; sin columna histórica exclusiva."
+        }
+      ]
+    },
+    {
+      "table": "Clientes",
+      "count": 7,
+      "items": [
+        {
+          "field": "Cliente_ID",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Clave técnica generada para vincular pedidos; no deduplicar solamente por nombre."
+        },
+        {
+          "field": "Nombre",
+          "origin": [
+            {
+              "column": "AH",
+              "header": "CLIENTE"
+            }
+          ],
+          "status": "directo",
+          "rule": "Nombre original, conservar con revisión de duplicados."
+        },
+        {
+          "field": "DNI_CUIL",
+          "origin": [
+            {
+              "column": "AG",
+              "header": "datos cleinte DNI o CUIL"
+            }
+          ],
+          "status": "directo",
+          "rule": "Conservar como texto, sin usarlo como Key técnica."
+        },
+        {
+          "field": "Telefono",
+          "origin": [
+            {
+              "column": "AI",
+              "header": "CONTACTO"
+            }
+          ],
+          "status": "directo",
+          "rule": "CONTACTO: conservar caracteres, prefijos y ceros; no tratarlo como número."
+        },
+        {
+          "field": "Email",
+          "origin": [
+            {
+              "column": "AJ",
+              "header": "MAIL"
+            }
+          ],
+          "status": "directo",
+          "rule": "MAIL del Excel histórico; dato opcional."
+        },
+        {
+          "field": "Notas",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Notas del cliente en la app; no tomar automáticamente comentarios de producción."
+        },
+        {
+          "field": "Fecha_Alta",
+          "origin": [],
+          "status": "nuevo",
+          "rule": "Fecha de alta en el sistema nuevo, no inventar una fecha histórica."
+        }
+      ]
+    }
+  ]
+}
