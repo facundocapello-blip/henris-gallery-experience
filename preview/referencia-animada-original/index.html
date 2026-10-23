@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to App Mapping - Motion Graphics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a3a2e 0%, #0d1f1a 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Title Animation */
+        .title {
+            position: absolute;
+            top: 40px;
+            font-size: 48px;
+            font-weight: bold;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeInTitle 1s ease forwards;
+        }
+
+        @keyframes fadeInTitle {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Excel Section */
+        .excel-container {
+            position: absolute;
+            left: 15%;
+            opacity: 0;
+            animation: slideInLeft 1s 1s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .excel-label {
+            font-size: 28px;
+            color: #c9d6cf;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .excel-table {
+            background: #2d4a3e;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            animation: pulse 2s 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .excel-header {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cell-header {
+            background: #4a6b5a;
+            padding: 12px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+
+        .excel-row {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 10px;
+        }
+
+        .cell {
+            background: #f5f5dc;
+            padding: 15px;
+            border-radius: 6px;
+            color: #2d4a3e;
+            font-size: 16px;
+        }
+
+        .cell-index {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Arrow Animation */
+        .arrow {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 80px;
+            color: #7fc9a3;
+            opacity: 0;
+            animation: arrowPulse 1.5s 2.5s ease forwards;
+        }
+
+        @keyframes arrowPulse {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.5);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        /* Data Particles */
+        .particle {
+            position: absolute;
+            left: 45%;
+            width: 8px;
+            height: 8px;
+            background: #7fc9a3;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFlow 2s 3s ease forwards;
+        }
+
+        @keyframes particleFlow {
+            0% {
+                opacity: 1;
+                left: 45%;
+            }
+            100% {
+                opacity: 0;
+                left: 65%;
+            }
+        }
+
+        .particle:nth-child(1) { top: 35%; animation-delay: 3s; }
+        .particle:nth-child(2) { top: 45%; animation-delay: 3.2s; }
+        .particle:nth-child(3) { top: 55%; animation-delay: 3.4s; }
+        .particle:nth-child(4) { top: 65%; animation-delay: 3.6s; }
+
+        /* App Section */
+        .app-container {
+            position: absolute;
+            right: 12%;
+            opacity: 0;
+            animation: slideInRight 1s 4s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px) rotateY(-20deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) rotateY(0);
+            }
+        }
+
+        .app-label {
+            font-size: 28px;
+            color: #c9d6cf;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: #1a1a1a;
+            border-radius: 35px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            position: relative;
+            animation: phoneGlow 2s 5s infinite;
+        }
+
+        @keyframes phoneGlow {
+            0%, 100% {
+                box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(127, 201, 163, 0.4);
+            }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #f5f5f5;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-header {
+            background: #2d4a3e;
+            padding: 50px 20px 20px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-arrow {
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .app-content {
+            padding: 20px;
+        }
+
+        .app-section {
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInSection 0.5s forwards;
+        }
+
+        .app-section:nth-child(1) { animation-delay: 5s; }
+        .app-section:nth-child(2) { animation-delay: 5.3s; }
+        .app-section:nth-child(3) { animation-delay: 5.6s; }
+
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .section-value {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .highlight-box {
+            background: #fff4e6;
+            border: 2px solid #ff9800;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            color: #ff9800;
+            font-weight: bold;
+            font-size: 12px;
+            opacity: 0;
+            animation: highlightPop 0.6s 6s ease forwards;
+        }
+
+        @keyframes highlightPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            60% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .action-buttons {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            right: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 0.5s 6.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .action-btn {
+            background: #2d4a3e;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .primary-btn {
+            background: #7fc9a3;
+        }
+
+        /* Mapping Lines */
+        .mapping-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7fc9a3, transparent);
+            opacity: 0;
+            animation: drawLine 1s 3.5s ease forwards;
+            transform-origin: left;
+        }
+
+        @keyframes drawLine {
+            0% {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        .line1 {
+            top: 38%;
+            left: 38%;
+            width: 200px;
+        }
+
+        .line2 {
+            top: 50%;
+            left: 38%;
+            width: 200px;
+            animation-delay: 3.7s;
+        }
+
+        /* Final Badge */
+        .badge {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #7fc9a3 0%, #4a9b6e 100%);
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(127, 201, 163, 0.4);
+            opacity: 0;
+            animation: badgeAppear 1s 7s ease forwards;
+        }
+
+        @keyframes badgeAppear {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(30px) scale(0.8);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+
+        /* Floating Background Elements */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(127, 201, 163, 0.1) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .bg-circle1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .bg-circle2 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .bg-circle3 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background Elements -->
+        <div class="bg-circle bg-circle1"></div>
+        <div class="bg-circle bg-circle2"></div>
+        <div class="bg-circle bg-circle3"></div>
+
+        <!-- Title -->
+        <div class="title">Tipo de pago</div>
+
+        <!-- Excel Section -->
+        <div class="excel-container">
+            <div class="excel-label">EXCEL</div>
+            <div class="excel-table">
+                <div class="excel-header">
+                    <div class="cell-header">Q</div>
+                    <div class="cell-header">U</div>
+                </div>
+                <div class="excel-row">
+                    <div class="cell cell-index">1</div>
+                    <div class="cell">
+                        <div style="margin-bottom: 8px;"><strong>SEÑA</strong></div>
+                        <div style="color: #666; font-size: 14px;">SEGUNDA PARTE PAGO</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="arrow">→</div>
+
+        <!-- Mapping Lines -->
+        <div class="mapping-line line1"></div>
+        <div class="mapping-line line2"></div>
+
+        <!-- Data Particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+
+        <!-- App Section -->
+        <div class="app-container">
+            <div class="app-label">APP</div>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <span class="back-arrow">←</span>
+                        <span class="header-title">Pedidos</span>
+                    </div>
+                    <div class="app-content">
+                        <div class="app-section">
+                            <div class="section-label">Pago final</div>
+                            <div class="section-value">Detalles</div>
+                        </div>
+                        <div class="app-section">
+                            <div class="section-label">Señal</div>
+                            <div class="section-value">Detalles</div>
+                        </div>
+                        <div class="highlight-box">
+                            Pagos relacionados<br>
+                            13/10/2095
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="action-btn">📞</div>
+                        <div class="action-btn">💬</div>
+                        <div class="action-btn">📧</div>
+                        <div class="action-btn">📍</div>
+                        <div class="action-btn primary-btn">✓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Badge -->
+        <div class="badge">✨ Mapeo Automático ✨</div>
+    </div>
+
+    <script>
+        // Add dynamic particles
+        function createDynamicParticles() {
+            const container = document.querySelector('.container');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = (3 + Math.random() * 2) + 's';
+                particle.style.animationDuration = (1.5 + Math.random()) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createDynamicParticles();
+
+        // Reset animation after 15 seconds
+        setTimeout(() => {
+            location.reload();
+        }, 15000);
+    </script>
+</body>
+</html>
