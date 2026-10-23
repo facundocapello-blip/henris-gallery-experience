@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#183e34"><meta name="description" content="Conocé los 66 campos documentados de Henris Gallery y rastreá su origen en las 40 columnas del Excel histórico de Matías.">
+<title>Henris Gallery | Experiencia V4 · Mapeo y gestión</title>
+<style>
+:root{--pine:#183e34;--deep:#112d26;--gold:#d9bf8d;--ivory:#f4f1e9;--paper:#fffdf8;--ink:#25382f;--muted:#65746b;--line:#dce1d6;--soft:#eff2e9;--accent:#8a9b7b;--serif:Georgia,"Iowan Old Style","Palatino Linotype",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:var(--ivory);font-family:var(--sans);font-synthesis:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;min-width:320px;font-size:14px;line-height:1.5}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a88445;outline-offset:2px}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.shell{width:min(1180px,calc(100% - 60px));margin:0 auto}
+.masthead{background:var(--pine);color:#fff}.masthead-inner{min-height:67px;display:flex;gap:15px;align-items:center}.monogram{font:38px/1 var(--serif);letter-spacing:-.12em;color:var(--gold);padding-right:5px}.identity strong{display:block;font-family:var(--serif);font-size:16px;font-weight:500;letter-spacing:.055em}.identity span{display:block;margin-top:3px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#c4d2c5}.edition{margin-left:auto;font-size:10px;letter-spacing:.06em;color:#c7d3c9}
+.intro{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:25px 0 20px}.intro small{display:block;font-size:10px;font-weight:700;letter-spacing:.17em;color:#607c66;text-transform:uppercase}.intro h1{font:400 clamp(29px,3.2vw,43px)/1.1 var(--serif);letter-spacing:-.035em;margin:8px 0 0;color:#1e4232}.intro p{max-width:350px;font-size:12px;color:var(--muted);margin:0 0 3px;line-height:1.55}
+.metrics{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.metric{display:flex;align-items:center;gap:8px;border:1px solid #d9e1d5;background:#f9faf5;border-radius:7px;padding:7px 11px;color:#677d69;font-size:11px}.metric strong{font:600 16px var(--serif);color:#254f38}
+.workspace{overflow:hidden;border:1px solid #d6dfd3;border-radius:12px;background:#f2f4ec;box-shadow:0 13px 36px rgba(28,57,35,.09)}
+.workspace-head{padding:15px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--paper);border-bottom:1px solid var(--line)}.workspace-head strong{letter-spacing:.13em;font-size:10px;color:#55745c}.workspace-head span{font-size:10px;color:#7e8d80}
+.tabs{display:flex;gap:5px;overflow-x:auto;background:var(--paper);padding:0 13px 12px;border-bottom:1px solid var(--line);scrollbar-width:thin}.tab{flex:none;background:transparent;border:1px solid transparent;border-radius:7px;padding:10px 12px;color:#546c5b;font-size:12px;white-space:nowrap}.tab:hover{background:#edf2e8}.tab[aria-pressed=true]{background:var(--pine);color:#fff}.tab em{font-style:normal;font-size:10px;margin-left:4px;opacity:.65}
+.controls{display:flex;gap:9px;align-items:center;justify-content:space-between;padding:12px 15px;background:#fcfcf8;border-bottom:1px solid var(--line)}.input-wrap{flex:1;min-width:0;position:relative}.input-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#789080}.input-wrap input{min-height:42px;width:100%;background:white;border:1px solid #cfdacf;border-radius:6px;padding:9px 11px 9px 36px;font-size:12px;color:#203b2a}.controls select{min-height:42px;width:206px;max-width:46%;border:1px solid #cfdacf;background:#fff;border-radius:6px;color:#355c43;padding:8px 9px;font-size:11px}
+.split{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(0,1.52fr);align-items:stretch;min-height:535px;padding:15px;gap:15px}.side{display:flex;flex-direction:column;min-width:0;border:1px solid #dce4d6;border-radius:9px;background:#f9faf5;overflow:hidden}.side-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #e4eae1}.side-head strong{font-size:11px;color:#405f48}.side-head span{font-size:10px;color:#829083}.field-list{height:433px;overflow-y:auto;overscroll-behavior:contain;padding:7px;scrollbar-color:#adc2ae #f3f7ef;scrollbar-width:thin}.field{width:100%;text-align:left;display:flex;align-items:center;gap:11px;background:transparent;border:1px solid transparent;border-radius:6px;padding:11px 11px;margin:0 0 3px;min-height:60px;color:var(--ink);transition:background .15s,border-color .15s}.field:hover{background:#edf2e9}.field[aria-pressed=true]{border-color:#b9ccb8;background:#e8f0e4;box-shadow:inset 3px 0 var(--pine)}.field-copy{flex:1;min-width:0}.field-name{display:block;font-size:12px;font-weight:700;line-height:1.35;overflow-wrap:anywhere}.field-status{display:block;margin-top:4px;font-size:10px;color:#718676}.field-arrow{font-size:16px;color:#7a9a81}.empty{margin:20px;padding:20px;border:1px dashed #c7d6c3;border-radius:6px;text-align:center;font-size:12px;color:#788c7c}
+.detail{min-width:0;display:flex;flex-direction:column;border:1px solid #d6e2d4;border-radius:9px;background:var(--paper);overflow:hidden;min-height:495px}.detail-head{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:21px 24px 16px;border-bottom:1px solid #e8ece5}.detail-head small{font-size:9px;letter-spacing:.15em;color:#7b8f7c;font-weight:700}.detail-head h2{font:400 clamp(22px,2.7vw,31px)/1.15 var(--serif);letter-spacing:-.025em;color:#20432f;margin:6px 0 5px;overflow-wrap:anywhere}.detail-head .technical{font-size:11px;color:#657d6b;overflow-wrap:anywhere}.status-pill{display:inline-block;border-radius:5px;padding:6px 9px;font-size:9px;font-weight:700;line-height:1.3;white-space:nowrap}.status-pill.directo{background:#e7f2e3;color:#3d7146}.status-pill.transformado{background:#ecf0fa;color:#55698c}.status-pill.calculado{background:#f4ecda;color:#8c6b36}.status-pill.nuevo{background:#eef0ef;color:#6c7b75}.status-pill.revisar{background:#f8e8dc;color:#965b2c}
+.detail-body{padding:19px 24px 20px;display:flex;flex-direction:column;gap:12px;flex:1}.mapping-step{display:grid;grid-template-columns:25px minmax(0,1fr);gap:11px;align-items:start}.step-num{width:24px;height:24px;border:1px solid #cbd9c7;background:#f5f8f0;border-radius:50%;font-size:10px;color:#50795b;display:grid;place-items:center;font-weight:700}.step-content small{display:block;font-size:9px;letter-spacing:.1em;font-weight:700;text-transform:uppercase;color:#7b8c7c;margin:3px 0 9px}.origin-display{padding:13px;border:1px solid #dce7d8;background:#f7faf3;border-radius:7px;min-height:55px}.origin-row{display:flex;align-items:center;gap:10px;min-height:31px;margin-bottom:5px}.origin-row:last-child{margin-bottom:0}.column-letter{display:grid;place-items:center;flex:none;min-width:33px;height:26px;background:#e4efe1;border:1px solid #c7dac4;border-radius:4px;font-family:var(--serif);font-size:15px;color:#315e3d}.column-name{font-size:13px;color:#2e503b;font-weight:600;overflow-wrap:anywhere}.origin-missing{font-size:12px;color:#7a887c;line-height:1.6}.connector{padding-left:11px;height:15px;margin:-6px 0 -4px;display:flex;align-items:center;gap:9px;color:#b99f6b;font-size:9px}.connector span:first-child{height:100%;width:1px;background:#bca677;margin-left:0}.destination{background:#183e34;border-radius:7px;padding:13px 15px;color:#fff}.destination strong{display:block;font-size:14px;overflow-wrap:anywhere}.destination span{display:block;margin-top:6px;color:#cadaca;font-size:10px}
+.rule-box{border-top:1px solid #e8eee6;padding-top:15px;margin-top:0}.rule-box .rule-label{display:block;font-size:9px;font-weight:800;letter-spacing:.1em;color:#829083;margin-bottom:7px}.rule-box p{margin:0;font-size:12px;line-height:1.65;color:#4a6350}.notice{background:#f5f0e5;border-left:2px solid #bfa46e;border-radius:0 6px 6px 0;padding:10px 12px;font-size:10px;color:#75684e;line-height:1.65}
+.nav-detail{display:none;font-size:10px;border:1px solid #c7d8c4;background:#eaf1e5;border-radius:5px;padding:7px 9px;color:#2c5538}.under{border-top:1px solid #d9e4d5;padding:12px 17px 14px;background:#fafbf7;font-size:10px;color:#718575;line-height:1.65}.under strong{color:#4e6b54}.footer{display:flex;justify-content:space-between;gap:14px;color:#849283;font-size:10px;line-height:1.5;padding:14px 0 28px}
+@media(max-width:890px){.shell{width:min(100% - 34px,1180px)}.split{grid-template-columns:minmax(240px,.8fr) minmax(0,1.2fr);gap:10px;padding:10px}.detail-head{padding:16px 17px 13px}.detail-body{padding:15px 17px 17px}.field-list{height:440px}}
+@media(max-width:680px){html{scroll-padding-top:14px}.shell{width:calc(100% - 24px)}.masthead-inner{min-height:56px}.monogram{font-size:33px}.identity strong{font-size:14px}.identity span{font-size:8px}.edition{font-size:9px;max-width:118px;text-align:right}.intro{display:block;padding:18px 0 13px}.intro h1{font-size:30px}.intro p{margin-top:7px;font-size:12px}.metrics{margin-bottom:11px;gap:6px}.metric{padding:6px 8px;font-size:10px}.metric strong{font-size:14px}.workspace-head{padding:11px 12px}.workspace-head span{font-size:9px;text-align:right}.tabs{padding:0 7px 9px}.tab{padding:9px 10px;font-size:11px}.controls{padding:10px;gap:6px;align-items:stretch;flex-wrap:wrap}.input-wrap{width:100%;flex:auto}.controls select{width:100%;max-width:none}.split{display:flex;flex-direction:column;gap:9px;padding:9px}.side-head{padding:10px 11px}.field-list{height:236px;padding:5px}.field{min-height:53px;padding:9px 10px}.field-name{font-size:12px}.field-status{font-size:9px}.detail{min-height:0;scroll-margin-top:11px}.detail-head{padding:14px 13px 12px}.detail-head h2{font-size:24px}.detail-head .technical{font-size:10px}.detail-body{padding:13px;gap:10px}.mapping-step{grid-template-columns:22px minmax(0,1fr);gap:8px}.step-num{width:22px;height:22px}.origin-display{padding:10px}.origin-row{gap:7px}.column-name{font-size:12px}.destination{padding:11px 13px}.rule-box{padding-top:12px}.nav-detail{display:inline-block}.under{padding:11px 12px}.footer{display:block;font-size:9px;padding-bottom:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.field{transition:none}}
+
+
+/* Candidata final Matías: composición Astra + profundidad Haiku + señal visual Gemini */
+:root{--pine:#19382e;--deep:#0f2922;--gold:#cba865;--ivory:#f4f1e9;--paper:#fffdf8;--ink:#26362a;--line:#dbe2d7}
+body{background:linear-gradient(180deg,#f6f3e9 0%,#f3f2eb 55%,#f6f4ee 100%);font-size:14px}
+.masthead{background:#112b24;border-bottom:1px solid #735f3b}
+.masthead-inner{min-height:65px}
+.monogram{font-size:42px;color:#d8bc84}.identity strong{font-family:Georgia,serif;font-size:17px;letter-spacing:.07em}.identity span{letter-spacing:.13em;color:#c6d1bd}
+.edition{font-size:10px;letter-spacing:.07em;color:#d7d9c8}
+.edition-dot{color:#cbb079;margin:0 7px;font-size:7px}
+.intro{padding:36px 0 25px;align-items:center;gap:36px}
+.intro-copy{max-width:650px}.intro h1{font-family:Georgia,"Iowan Old Style",serif;font-size:clamp(34px,4.7vw,56px);letter-spacing:-.06em;color:#1a382b;margin:6px 0 13px}
+.intro h1 em{font-weight:400;color:#99805b}
+.intro .intro-standfirst{max-width:620px;font-size:13px;line-height:1.75;color:#6b7569}
+.intro-aside{width:256px;max-width:33%;border-left:2px solid #c7ad7c;padding:4px 0 4px 17px;flex:none}
+.intro-aside .aside-index{font:italic 20px/1 Georgia,serif;color:#9e8356;display:block;margin-bottom:9px}
+.intro-aside .aside-kicker{display:block;font-size:9px;letter-spacing:.16em;font-weight:750;color:#70806e}
+.intro-aside p{font-size:11px;line-height:1.65;margin:7px 0 0;color:#536354}
+.metrics{gap:9px;margin-bottom:19px}
+.metric{flex:1;min-width:148px;padding:12px 16px;background:#fffdf8;border:1px solid #e0e4d8;gap:11px;border-radius:7px;box-shadow:0 2px 8px #13302505}
+.metric strong{font-size:27px;font-weight:400;color:#234535}.metric>span{font-size:11px;line-height:1.35;color:#68766a}.metric-flag{background:#e7ece4;min-width:200px;justify-content:center;gap:10px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#9b8a5b;flex:none}
+.workspace{border-color:#cbd7c7;box-shadow:0 18px 52px #132c2217}
+.workspace-head{padding:16px 19px}
+.workspace-head strong{color:#2b5540;font-size:11px}.workspace-head span{color:#6a756e;letter-spacing:.06em}.workspace-head b{color:#c19a5f;font-size:15px;margin:0 7px}
+.head-line{display:inline-block;width:17px;height:2px;background:#b59760;vertical-align:middle;margin-right:5px}
+.tabs{padding:0 15px 12px;gap:5px}
+.tab{border-radius:4px}.tab[aria-pressed=true]{background:#1b4132;box-shadow:inset 0 -2px #b89555}
+.controls{background:#f8faf6;border-top:1px solid #eef0e8}
+.split{grid-template-columns:minmax(260px,.85fr) minmax(0,1.55fr);gap:12px;background:#ebefe8;min-height:530px}
+.side{background:#f9faf7;border-radius:6px}
+.side-head strong{font-size:10px;letter-spacing:.075em;color:#ab8853}.side-head strong span{color:#465f4c;margin-left:4px}
+.side-head>span{color:#677b6c}
+.field{border-radius:3px;border-bottom:1px solid #e6eae3;margin-bottom:0;min-height:58px}
+.field[aria-pressed=true]{background:#e4eee2;border:1px solid #b7c9b5;box-shadow:inset 3px 0 #ba9258}
+.field-name{font-size:12px}.field-arrow{color:#a68c57}.field-status{font-size:10px}
+.detail{position:relative;background:linear-gradient(160deg,#1c4536 0%,#142e26 70%);color:#f3f1e6;border:1px solid #204535;border-radius:7px;min-height:490px;box-shadow:0 16px 36px #102b2521}
+.detail-goldrule{height:3px;width:100%;background:linear-gradient(90deg,#aa8d56,#e0c48a 42%,#8f744c)}
+.detail-head{border-color:#436351;padding-top:22px}
+.detail-head small{color:#c9b388;letter-spacing:.18em}
+.detail-head h2{color:#f6f1e4;font-size:clamp(28px,2.9vw,38px)}
+.detail-head .technical{color:#b4c8b3;font-size:11px}
+.group-chip{display:inline-block;border:1px solid #476954;background:#234d3d;padding:3px 8px;margin-top:9px;color:#cedec8;font-size:9px;letter-spacing:.08em}
+.status-pill{color:#244131!important;background:#f3e7c9!important;border:1px solid #c8aa76;border-radius:3px}
+.status-pill.revisar{background:#f2dfcf!important;color:#7d4623!important}
+.detail-body{gap:14px}
+.step-num{background:#2b5743;color:#e4d1a2;border:1px solid #b69b68}
+.step-content small{color:#bdcdbb;letter-spacing:.12em}
+.origin-display{background:#f6f5ec;border:1px solid #a7bda2;padding:15px}
+.column-letter{background:#e2e9dd;border-color:#b3c8b1;color:#365a3e;font-weight:600}
+.column-name{color:#234631}.origin-missing{color:#596b5e}
+.destination{background:#295441;border:1px solid #bba171;color:#fffdf0;box-shadow:0 0 0 3px #b2a27213;padding:15px}
+.destination strong{font-size:16px;color:#fffdf2}.destination span{color:#d0decf}
+.connector{height:31px;position:relative;color:#e6c993;margin:0;padding-left:11px;gap:12px}
+.connector-track{height:28px!important;background:linear-gradient(#c3a369,#f4d99e)!important;width:2px!important;border-radius:2px}
+.connector-caption{font-size:9px;letter-spacing:.15em;color:#ddc79e}
+.connector::before{position:absolute;content:"";left:9px;top:-6px;width:7px;height:7px;background:#ffefbe;box-shadow:0 0 10px #ecc580;border-radius:50%;opacity:0;pointer-events:none}
+.detail.reveal .connector::before{animation:mappingTravel .72s ease-out both}
+@keyframes mappingTravel{0%{top:-6px;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:32px;opacity:0}}
+.detail.reveal .origin-display{animation:originFocus .4s ease-out both}
+@keyframes originFocus{from{box-shadow:0 0 0 0 #dec28caa}to{box-shadow:0 0 0 0 #dec28c00}}
+.detail.reveal .destination{animation:destinationFocus .58s .24s ease-out both}
+@keyframes destinationFocus{0%{box-shadow:0 0 0 0 #e9c78a77}100%{box-shadow:0 0 0 8px #e9c78a00}}
+.rule-box{border-color:#4e6a56;background:#193a2f;margin-top:0;padding:13px;border-radius:4px}
+.rule-box .rule-label{color:#e2c995;font-size:10px}
+.rule-box p{color:#e8f0e2;line-height:1.65;font-size:12px}.rule-dot{color:#ddc08a}
+.notice{background:#264737;color:#cfd8c7;border-left-color:#ceb27e;line-height:1.55}
+.notice strong{color:#f0e1bd}
+.nav-detail{background:#d6e0d0;color:#214232}
+.under{background:#f8f9f5;border-color:#cedacb;font-size:10px;color:#738071;line-height:1.6}
+.relation{padding:31px 4px 10px}
+.relation-head{display:flex;justify-content:space-between;align-items:end;gap:25px;padding-bottom:18px}
+.relation-head small{font-size:9px;color:#748877;font-weight:750;letter-spacing:.16em}
+.relation-head h2{font:400 24px/1.23 Georgia,serif;letter-spacing:-.03em;margin:5px 0;color:#1e4230}
+.relation-head p{max-width:370px;color:#69766c;font-size:11px;line-height:1.7;margin:0}
+.relation-grid{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1.1fr) 30px minmax(0,1.25fr);gap:9px;align-items:stretch}
+.relation-arrow{align-self:center;text-align:center;color:#af945d;font-size:23px}
+.relation-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;background:#fffdf8;border:1px solid #d8e1d3;min-width:0;min-height:88px}
+.relation-card .relation-num{font-size:9px;color:#aa915e;letter-spacing:.07em}
+.relation-card strong{font:400 19px Georgia,serif;color:#264432}
+.relation-card>span:last-child{font-size:10px;color:#7c897d}
+.relation-main{background:#1c4133;border-color:#285743}.relation-main strong{color:#fffae9}.relation-main>span:last-child{color:#cedecc}
+.relation-branches{display:grid;gap:8px;grid-template-columns:1fr 1fr;min-width:0}
+.relation-branches .relation-card{padding:14px 12px}
+.relation-branches .relation-card strong{font-size:17px}
+.relation-foot{font-size:10px;color:#7a877c;margin:11px 0 0}
+.footer{border-top:1px solid #dfe4da;margin-top:20px}.footer strong{color:#204232;font-family:Georgia,serif}
+@media(max-width:890px){.split{grid-template-columns:minmax(230px,.82fr) minmax(0,1.3fr)}.relation-branches{grid-template-columns:1fr}.relation-arrow{font-size:19px}.relation-grid{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1.2fr)}}
+@media(max-width:680px){.masthead-inner{min-height:57px}.identity strong{font-size:14px}.identity span{font-size:7px;letter-spacing:.06em}.edition{font-size:8px;max-width:110px}.edition-dot{display:none}.intro{padding:23px 0 17px}.intro h1{font-size:36px;line-height:1.1}.intro .intro-standfirst{margin-top:8px;font-size:12px}.intro-aside{width:auto;max-width:none;border-left:0;border-top:1px solid #d8c9ad;padding:10px 0 0;margin-top:14px}.intro-aside .aside-index{display:none}.intro-aside .aside-kicker{font-size:8px}.intro-aside p{margin:4px 0 0;font-size:10px}.metrics{gap:5px}.metric{min-width:calc(50% - 5px);padding:9px 10px;gap:8px}.metric strong{font-size:21px}.metric>span{font-size:9px}.metric-flag{min-width:calc(50% - 5px)}.split{display:flex}.field-list{height:231px}.detail{scroll-margin-top:12px}.detail-head{padding-top:14px;gap:8px}.detail-head h2{font-size:26px}.detail-body{gap:8px}.origin-display{padding:12px}.connector{height:24px}.connector-track{height:21px!important}.detail-head .technical{font-size:10px}.status-pill{font-size:8px;white-space:normal;max-width:110px;text-align:center}.relation{padding:23px 1px 0}.relation-head{display:block}.relation-head h2{font-size:22px}.relation-head p{margin-top:7px}.relation-grid{display:flex;flex-direction:column;gap:6px}.relation-card{min-height:66px;padding:10px 12px}.relation-card strong{font-size:18px}.relation-arrow{transform:rotate(90deg);line-height:17px}.relation-branches{display:grid;grid-template-columns:1fr 1fr;gap:6px}.relation-branches .relation-card strong{font-size:16px}.relation-foot{font-size:9px}.footer{margin-top:17px}}
+@media(prefers-reduced-motion:reduce){.detail.reveal .connector::before,.detail.reveal .origin-display,.detail.reveal .destination{animation:none!important}}
+
+
+
+/* Clasificación de presentación: 29 esenciales / 37 en vista ampliada. Sin modificar datos. */
+.view-switch{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 18px;background:#f8faf5;border-bottom:1px solid #dde5d9}
+.view-switch-info{display:flex;flex-direction:column;gap:3px}
+.view-switch-info strong{font-size:11px;color:#254934;letter-spacing:.015em}
+.view-switch-info span{font-size:10px;color:#70816f;line-height:1.4}
+.view-switch-buttons{display:flex;flex:none;gap:3px;padding:4px;border:1px solid #d1ddcf;background:#ecf1e9;border-radius:5px}
+.view-toggle{min-height:39px;border:1px solid transparent;border-radius:3px;background:transparent;color:#476450;padding:7px 12px;font-weight:700;font-size:11px;white-space:nowrap}
+.view-toggle b{margin-left:5px;font-size:10px;font-weight:700;opacity:.75}
+.view-toggle[aria-pressed=true]{background:#193e30;color:#fff9e9;border-color:#193e30;box-shadow:0 2px 5px #09241719}
+.view-toggle:focus-visible{outline:3px solid #c8a361;outline-offset:2px}
+#view-source-note{display:block;margin-bottom:4px;color:#52745a}
+@media(max-width:680px){.view-switch{flex-direction:column;align-items:stretch;gap:9px;padding:11px}.view-switch-buttons{width:100%}.view-toggle{flex:1;white-space:normal;font-size:10px;padding:7px 6px;min-height:40px}.view-switch-info span{font-size:10px}}
+
+/* Henris V4: paleta editorial inspirada en maqueta Gemini, sin CDN ni dependencias */
+:root{--pine:#11291d;--deep:#0a2117;--gold:#c4a364;--ivory:#f9f8f5;--paper:#fffefa;--ink:#1d3025;--muted:#777d74;--line:#e7e8e1}
+body{background:#f9f8f6;color:#1a3123}
+.masthead{background:#10291e;border-bottom:1px solid #496044;position:relative;z-index:5}
+.masthead-inner{min-height:68px;gap:30px}.brand-link{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;min-width:0}.identity strong{font:500 20px/1 Georgia,serif;color:#f6f0e3;letter-spacing:.02em}.identity strong em{font-style:italic;color:#d4b47b;font-weight:400}.identity span{font-size:8px;letter-spacing:.15em;color:#b6c4b8}.header-nav{display:flex;gap:22px;margin-left:auto}.header-nav a{font-size:11px;color:#d6ddd3;text-decoration:none;transition:color .2s}.header-nav a:hover{color:#dfbd7e}.edition{margin-left:12px;color:#c5cdbf;font-size:9px}.monogram{font-size:40px}
+.intro{background:#112c1e;color:#f3f0e6;border:1px solid #314b37;border-radius:9px;margin-top:19px;padding:37px 42px;gap:25px;overflow:hidden;position:relative;box-shadow:0 18px 30px #142f221a}
+.intro:after{content:"";position:absolute;right:-210px;top:-225px;border:1px solid #c5ad7d35;width:530px;height:530px;border-radius:50%;pointer-events:none;box-shadow:0 0 0 58px #c5ad7d0c,0 0 0 130px #c5ad7d08}
+.intro-copy,.intro-aside{position:relative;z-index:1}.intro small{font-size:10px;color:#c8aa75;letter-spacing:.2em}.intro-slash{color:#7d9b83;padding:0 6px}.intro h1{color:#f9f6ed;font-size:clamp(42px,5vw,61px);line-height:1.08;letter-spacing:-.063em;margin:10px 0 17px}.intro h1 em{color:#d5b580;font-weight:400}.intro .intro-standfirst{color:#c9d1c6;max-width:555px;font-size:13px;line-height:1.76}.intro-aside{border-left:1px solid #90764e;max-width:30%;color:#f6f0e0;padding-left:20px}.intro-aside .aside-kicker{color:#b7c6ae}.intro-aside p{color:#d1d8ca;font-size:11px}.intro-aside .aside-index{color:#d7ba8d;font-size:22px}.aside-lines{margin-top:22px;display:flex;align-items:center;gap:7px;color:#dfc08d;font-size:8px;letter-spacing:.15em}.aside-lines i{flex:1;max-width:28px;height:1px;background:#ddbf81;position:relative}.aside-lines i:after{content:"";position:absolute;right:0;top:-2px;width:4px;height:4px;border-top:1px solid #ddbf81;border-right:1px solid #ddbf81;transform:rotate(45deg)}
+.hero-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:23px}.hero-actions a{font-size:11px;text-decoration:none;padding:11px 16px;border-radius:3px;font-weight:700}.hero-primary{background:#c5a264;color:#132a1d}.hero-secondary{border:1px solid #77917c;color:#f6f1df}.hero-actions a span{margin-left:7px}
+.metrics{margin:15px 0 17px}.metric{border:1px solid #e1e5dc;background:#fffdf9;box-shadow:none;border-radius:4px;padding:10px 14px}.metric strong{font:400 27px Georgia,serif;color:#1d3f29}.metric-flag{background:#edf1ea}
+.workspace{border-radius:6px;box-shadow:0 14px 38px #12291c0f;border-color:#d8dfd6}
+.workspace-head{background:#fcfbf7}.workspace-head strong{letter-spacing:.14em}.workspace-head b{color:#b69159}
+.view-switch{background:#f8f9f4}.view-toggle[aria-pressed=true]{background:#153523;border-color:#153523}
+.tab[aria-pressed=true]{background:#183923}
+.split{background:#f0f2ec}.side{background:#fffefa}.field-list{scrollbar-color:#a4b8a4 #eff2ec}.field[aria-pressed=true]{background:#edf3e9;box-shadow:inset 3px 0 #c5a365}.detail{background:linear-gradient(155deg,#153724,#0f2a1e 74%)}.detail-goldrule{background:linear-gradient(90deg,#ae8850,#e2c98e,#987f54)}.detail-head h2{font-family:Georgia,serif;color:#f6f1e5}.destination{background:#315a3e;border-color:#c3a46c}.status-pill{box-shadow:none}
+.relation{padding:31px 0 20px}.relation-head h2{font-size:clamp(26px,3vw,32px)}.relation-card{border-radius:4px}.relation-main{background:#153825}
+.demo-section{background:#132d21;color:#f7f4e8;border-radius:9px;margin:17px 0 19px;padding:32px;box-shadow:0 15px 50px #11281a18;overflow:hidden;position:relative}
+.demo-section:before{content:"";position:absolute;top:-280px;right:-140px;width:620px;height:620px;background:radial-gradient(circle,#c4a36412,transparent 65%);pointer-events:none}
+.demo-intro{position:relative;display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:21px}.demo-eyebrow,.demo-mini{display:block;letter-spacing:.16em;font-size:9px;font-weight:800;color:#a78652}.demo-intro .demo-eyebrow{color:#dbb97c}.demo-intro h2{font:400 clamp(29px,3.1vw,39px)/1.2 Georgia,serif;margin:6px 0 11px;letter-spacing:-.03em}.demo-intro h2 em{color:#d7b87e;font-weight:400}.demo-intro p{max-width:710px;font-size:12px;color:#c9d3c9;line-height:1.6;margin:0}.demo-mark{display:flex;flex-direction:column;align-items:center;color:#c7a567;border:1px solid #6b6953;padding:12px 18px;border-radius:4px}.demo-mark strong{font:32px/1 Georgia,serif}.demo-mark span{font-size:7px;letter-spacing:.16em;margin-top:5px}
+.demo-shell{position:relative;overflow:hidden;background:#f9faf7;color:#243b2d;border:1px solid #d8e0d7;border-radius:6px;box-shadow:0 12px 30px #0e231c39}
+.demo-topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#fffefa;border-bottom:1px solid #e5e7e1;padding:16px 19px}.demo-order-heading{min-width:0}.demo-number{font-size:9px;letter-spacing:.15em;color:#ad8850;font-weight:800}.demo-order-heading h3{font:400 22px Georgia,serif;letter-spacing:-.035em;margin:2px 0 5px;color:#223e2d}.demo-order-heading h3 span{color:#778675}.demo-label{display:inline-flex;background:#f6ead4;color:#86683c;border:1px solid #dcc29a;padding:3px 7px;border-radius:3px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.demo-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.demo-btn{min-height:38px;padding:9px 13px;border-radius:3px;border:1px solid transparent;font-size:11px;font-weight:750;white-space:normal}.demo-btn-primary{background:#c3a161;color:#193121}.demo-btn-secondary{background:#183c2a;color:#f8f1e1}.demo-btn-secondary[aria-pressed=true]{background:#d8bd8a;color:#1b3526}.demo-btn-ghost{background:transparent;border-color:#d2d9cd;color:#45634b}.demo-btn-outline{width:100%;background:#f2f5ef;border:1px solid #b6c7b1;color:#25462f}.demo-btn:hover:not(:disabled){filter:brightness(.96)}.demo-btn:disabled{opacity:.6;cursor:default}
+.demo-info{display:flex;flex-wrap:wrap;gap:12px 23px;border-bottom:1px solid #e5e9e2;padding:11px 19px;background:#f4f6f1}.demo-info>span{font-size:9px;color:#88998a;letter-spacing:.06em}.demo-info strong{color:#34513a;font-size:10px;margin-left:5px;letter-spacing:0}
+.demo-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.9fr);gap:14px;padding:17px;align-items:start}.demo-left,.demo-right{display:grid;gap:13px;min-width:0}
+.demo-card{border:1px solid #e3e7de;background:#fffefa;border-radius:5px;overflow:hidden}.demo-card-head{padding:13px 16px;display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #e8ebe4}.demo-card-head h4{font:400 21px Georgia,serif;margin:3px 0 0;color:#274333}.demo-count{white-space:nowrap;border:1px solid #e0e5dc;background:#f4f5f0;padding:5px 7px;border-radius:3px;color:#6b7b6d;font-size:9px}
+.demo-art{padding:15px 16px;display:flex;align-items:start;gap:12px;border-bottom:1px dashed #e4e9e1}.demo-art:last-child{border-bottom:0}.demo-art-icon{flex:none;width:39px;height:44px;border-radius:2px;background:linear-gradient(145deg,#425848,#d2c09b);display:grid;place-items:center;color:#f7f0df;font:italic 24px Georgia,serif;border:3px solid #b7a78c}.demo-art-icon.photo{background:linear-gradient(145deg,#789092,#d2dfd9);color:#1f4a3f;border-color:#99acaa}.demo-art-description{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.demo-art-description strong{font-size:12px;color:#304a37}.demo-art-description>span:nth-child(2){font-size:10px;color:#7c8c7d}.demo-art-amount{font-size:12px;white-space:nowrap;color:#284331}.demo-art-status{font-size:9px;font-weight:750;color:#916b38;background:#f6eddb;padding:4px 7px;border:1px solid #e9d7ae;border-radius:2px;width:max-content}.demo-art-status.ready{color:#357244;background:#e6f2e3;border-color:#bcd6b7}
+.demo-caption{display:flex;gap:8px;color:#728c75;font-size:10px;line-height:1.6;padding:0 5px}.caption-line{width:20px;height:1px;background:#c1a26a;margin-top:7px;flex:none}
+.demo-balance{display:flex;flex-direction:column;gap:6px;background:#1c4030;color:#fffbed;padding:18px 19px;border-radius:5px}.demo-balance .demo-mini{color:#d2b37d}.demo-balance-label{font-size:11px;color:#cdd8c9;margin-top:4px}.demo-balance>strong{font:400 38px/1.2 Georgia,serif;letter-spacing:-.025em}.demo-balance-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:7px 0 11px}.demo-balance-pair div{display:flex;flex-direction:column;gap:5px;border-top:1px solid #ffffff2a;padding-top:10px}.demo-balance-pair span{font-size:10px;color:#bdd0bc}.demo-balance-pair strong{font-size:18px;color:#f2e2b6;font-weight:500}.demo-balance-pair div:last-child strong{color:#fff2d8}.demo-progress-track{height:7px;border-radius:10px;background:#ffffff29;overflow:hidden}.demo-progress-track div{height:100%;background:#c4a263;transition:width .25s ease}.demo-progress-note{color:#bdd0bc;font-size:10px;margin-top:4px}
+.demo-payments{padding-bottom:13px}.demo-payment-list{padding:2px 16px}.demo-payment-entry{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px dashed #e6e9e2}.demo-payment-entry:last-child{border-bottom:0}.demo-payment-mark{width:29px;height:29px;border-radius:50%;background:#edf3e9;border:1px solid #d1e0cc;color:#3d6a45;display:grid;place-items:center;font-weight:bold}.demo-payment-entry-details{flex:1;min-width:0}.demo-payment-entry-details strong{font-size:11px;color:#34513a;display:block}.demo-payment-entry-details span{font-size:10px;color:#839083}.demo-payment-entry-amount{font-weight:700;font-size:12px;color:#2d4f34;white-space:nowrap}
+.demo-payments>.demo-btn{margin:7px 16px 0;width:calc(100% - 32px)}.demo-payment-form{background:#f5f7f2;border:1px solid #e0e5dc;border-radius:4px;margin:10px 16px 0;padding:12px}.demo-payment-form label{display:block;font-size:10px;font-weight:750;color:#58705b}.demo-form-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px}.demo-form-row input,.demo-form-row select{display:block;margin-top:6px;height:39px;background:#fff;border:1px solid #cbd9c8;border-radius:3px;width:100%;padding:8px;color:#1e3a2a;font-size:12px}.demo-confirm{display:flex!important;align-items:start;gap:7px;margin:11px 0}.demo-confirm input{margin-top:2px;accent-color:#22462e}.demo-form-error{color:#a1462f;font-size:10px;min-height:0;margin:5px 0}.demo-form-error:empty{display:none}.demo-form-actions{display:flex;justify-content:end;gap:8px}.demo-undo-row{min-height:0;padding:0 16px}.demo-undo-row button{background:none;color:#8a744a;border:0;font-size:10px;text-decoration:underline;padding:9px 0}
+.demo-workshop .demo-card-head{background:#1c4030;color:#f5f1e4}.demo-workshop h4{color:#f5f1e4}.demo-workshop .demo-mini{color:#d9bd88}.demo-work-content{display:flex;align-items:start;gap:11px;padding:15px 16px 4px}.demo-work-icon{display:grid;place-items:center;background:#e7eee4;color:#28643a;border-radius:4px;width:37px;height:37px;font-size:22px}.demo-work-content strong{font-size:12px;color:#334c3b}.demo-work-content p{font-size:11px;color:#7a8b7d;line-height:1.5;margin:6px 0}.demo-workshop .demo-btn{margin:12px 16px 0}.demo-workshop .demo-feedback{font-size:10px;color:#457049;padding:0 16px 10px;margin:9px 0}
+.demo-disclaimer{color:#b9c9b9;font-size:10px;line-height:1.6;margin:15px 0 0}.demo-disclaimer strong{color:#ddc895}
+.footer{border-top:1px solid #e2e7df;padding-bottom:23px}
+@media(max-width:1040px){.header-nav{gap:12px}.edition{display:none}.demo-layout{grid-template-columns:minmax(0,1fr) minmax(290px,.95fr)}}
+@media(max-width:760px){.header-nav{margin-left:auto;gap:12px}.masthead-inner{gap:12px}.intro{padding:26px}.intro-aside{max-width:34%}.demo-section{padding:20px}.demo-layout{grid-template-columns:1fr}.demo-info{gap:8px 14px}}
+@media(max-width:680px){.masthead-inner{min-height:60px}.identity strong{font-size:16px}.identity span{font-size:7px;letter-spacing:.06em}.header-nav{gap:10px}.header-nav a{font-size:10px}.intro{margin-top:10px;padding:19px 17px 21px}.intro h1{font-size:37px}.intro .intro-standfirst{font-size:11px;line-height:1.65}.intro-aside{max-width:none;border-left:0;border-top:1px solid #5c7259;padding:12px 0 0;margin-top:20px}.intro-aside .aside-index{display:none}.intro-aside p{font-size:10px}.aside-lines{margin-top:8px}.hero-actions{gap:7px;margin-top:16px}.hero-actions a{font-size:10px;padding:10px 12px}.metric{border-radius:3px}.demo-section{padding:16px 11px;margin:15px 0}.demo-intro{align-items:start;margin-bottom:15px}.demo-intro h2{font-size:28px}.demo-intro p{font-size:11px}.demo-mark{padding:9px;min-width:55px}.demo-mark strong{font-size:24px}.demo-mark span{font-size:6px}.demo-topbar{padding:13px 12px;align-items:start;flex-wrap:wrap}.demo-order-heading h3{font-size:21px}.demo-actions{width:100%;gap:7px}.demo-actions .demo-btn{flex:1;min-width:0;font-size:10px}.demo-info{padding:11px 12px;display:grid;grid-template-columns:1fr 1fr;gap:9px}.demo-info>span{font-size:8px}.demo-info strong{display:block;margin:3px 0 0;font-size:10px}.demo-layout{padding:9px;gap:9px}.demo-card-head{padding:12px}.demo-art{padding:13px 10px;gap:8px;flex-wrap:wrap}.demo-art-icon{width:32px;height:36px;font-size:19px}.demo-art-amount{margin-left:auto;font-size:11px}.demo-art-description strong{font-size:11px}.demo-art-description>span:nth-child(2){font-size:9px}.demo-card-head h4{font-size:19px}.demo-balance{padding:15px}.demo-balance>strong{font-size:34px}.demo-balance-pair strong{font-size:18px}.demo-form-row{grid-template-columns:1fr 1fr}.demo-disclaimer{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.hero-actions a,.demo-progress-track div{transition:none}}
+</style></head>
+<body data-preview="henris-v4" data-total="66">
+<header class="masthead"><div class="shell masthead-inner"><a href="#inicio" class="brand-link" aria-label="Volver al inicio de Henris Gallery"><span class="monogram" aria-hidden="true">H·</span><span class="identity"><strong>HENRIS <em>Gallery</em></strong><span>EXPERIENCIA DE GESTIÓN · V4</span></span></a><nav class="header-nav" aria-label="Navegación"><a href="#mapeo">Mapeo</a><a href="#circuito">Circuito</a><a href="#demo">Demo</a></nav><span class="edition">MAQUETA INDEPENDIENTE <span class="edition-dot" aria-hidden="true">●</span> SIN DATOS REALES</span></div></header>
+<main class="shell">
+<section class="intro" id="inicio"><div class="intro-copy"><small>HENRIS GALLERY <span class="intro-slash">/</span> PRESENTACIÓN COMERCIAL</small><h1>El arte de <em>poner orden.</em></h1><p class="intro-standfirst">Del Excel histórico a una estructura clara de pedidos, obras y pagos. Descubrí el origen de cada dato y explorá cómo sería su gestión en una demostración interactiva.</p><div class="hero-actions"><a class="hero-primary" href="#mapeo">Explorar el mapeo <span aria-hidden="true">↗</span></a><a class="hero-secondary" href="#demo">Ver pedido de ejemplo <span aria-hidden="true">→</span></a></div></div><div class="intro-aside"><span class="aside-index">01 / 03</span><span class="aside-kicker">EL ORIGEN ES IMPORTANTE</span><p>Seleccioná un campo y seguí su correspondencia de Excel al modelo Henris.</p><div class="aside-lines" aria-hidden="true"><span>EXCEL</span><i></i><span>HENRIS</span></div></div></section>
+<div class="metrics" aria-label="Alcance del mapeo"><div class="metric"><strong>66</strong><span>Campos del modelo actual</span></div><div class="metric"><strong>40</strong><span>Columnas del Excel histórico</span></div><div class="metric"><strong>4</strong><span>Tablas relacionadas</span></div><div class="metric metric-flag"><span class="live-dot" aria-hidden="true"></span><span>Correspondencias documentadas<br>con validaciones pendientes</span></div></div>
+<section class="workspace" id="mapeo" aria-label="Herramienta de mapeo de campos">
+<div class="workspace-head"><strong><span class="head-line"></span> DICCIONARIO DE CAMPOS</strong><span>EXCEL HISTÓRICO <b aria-hidden="true">→</b> HENRIS GALLERY</span></div>
+<div class="view-switch" aria-label="Modo de consulta">
+<div class="view-switch-info"><strong>¿Qué querés consultar?</strong><span id="view-description">29 campos clave para entender el cambio desde Excel.</span></div>
+<div class="view-switch-buttons" role="group" aria-label="Nivel de detalle">
+<button id="mode-main" type="button" class="view-toggle" aria-pressed="true" data-mode="main">Esenciales <b>29</b></button>
+<button id="mode-all" type="button" class="view-toggle" aria-pressed="false" data-mode="all">Todos los campos <b>66</b></button>
+</div></div>
+<nav id="tabs" class="tabs" aria-label="Seleccionar tabla"></nav>
+<div class="controls"><div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><label for="search" class="sr-only">Buscar campo o columna</label><input type="search" id="search" placeholder="Buscar campo, columna, regla…" autocomplete="off"></div><label for="status" class="sr-only">Filtrar por clasificación</label><select id="status"><option value="todos">Todos los tipos de origen</option><option value="directo">Origen directo</option><option value="transformado">Adaptar / separar</option><option value="calculado">Calculado</option><option value="nuevo">Campo nuevo</option><option value="revisar">Pendiente de validación</option></select></div>
+<div class="split">
+<div class="side" id="side"><div class="side-head"><strong>01 <span>SELECCIONÁ UN CAMPO</span></strong><span aria-live="polite" id="field-count"></span></div><div class="field-list" id="fields" role="group" aria-label="Seleccionar campo actual"></div></div>
+<div class="detail" id="detail" tabindex="-1" aria-live="polite"><div class="detail-goldrule" aria-hidden="true"></div>
+<div class="detail-head"><div><small>02 · CORRESPONDENCIA SELECCIONADA</small><h2 id="detail-title"></h2><span class="technical" id="detail-technical"></span><span class="group-chip" id="detail-group"></span></div><span class="status-pill" id="detail-status"></span></div>
+<div class="detail-body">
+<div class="mapping-step"><span class="step-num">01</span><div class="step-content"><small>Origen · Excel histórico</small><div class="origin-display" id="origins"></div></div></div>
+<div class="connector" aria-hidden="true"><span class="connector-track"></span><span class="connector-caption">LECTURA DE ORIGEN → DESTINO</span></div>
+<div class="mapping-step"><span class="step-num">02</span><div class="step-content"><small>Destino · Modelo Henris</small><div class="destination"><strong id="destination"></strong><span id="destination-note"></span></div></div></div>
+<div class="rule-box"><span class="rule-label"><span class="rule-dot"></span> CRITERIO DE TRANSFORMACIÓN</span><p id="rule"></p></div>
+<div class="notice"><strong>Alcance documental:</strong> este mapa representa campos de Google Sheets. No confirma cuáles aparecen en pantallas de AppSheet ni afirma que se ejecutó una migración completa.</div>
+<button class="nav-detail" id="back" type="button">↑ Volver a los campos</button>
+</div>
+</div>
+</div>
+<div class="under"><span id="view-source-note"><strong>Vista inicial:</strong> 29 campos priorizados comercialmente; los otros 37 quedan disponibles en «Todos los campos». No se eliminaron datos del mapeo.</span> <strong>Fuentes documentales:</strong> encabezados del archivo histórico <i>pedidos.xlsx</i>, esquema de Google Sheets y hoja <i>Mapa_Migracion_Matias</i>. Las claves técnicas y los totales calculados no se presentan como columnas copiadas. Los datos ambiguos conservan el estado «Requiere validación».</div>
+</section>
+<section class="relation" id="circuito" aria-labelledby="relation-title">
+<div class="relation-head"><div><small>MODELO DE GESTIÓN</small><h2 id="relation-title">Un pedido, toda la información relacionada.</h2></div><p>La información del Excel se organiza en relaciones estables. Un pedido puede contener varias obras y varios cobros, sin duplicar los pagos por cada obra.</p></div>
+<div class="relation-grid">
+<div class="relation-card"><span class="relation-num">01</span><strong>Clientes</strong><span>Datos de contacto</span></div>
+<span class="relation-arrow" aria-hidden="true">→</span>
+<div class="relation-card relation-main"><span class="relation-num">02</span><strong>Pedidos</strong><span>Registro central</span></div>
+<span class="relation-arrow" aria-hidden="true">→</span>
+<div class="relation-branches"><div class="relation-card"><span class="relation-num">03</span><strong>Obras / Ítems</strong><span>Una o varias por pedido</span></div><div class="relation-card"><span class="relation-num">04</span><strong>Pagos</strong><span>Seña, parciales y saldo</span></div></div>
+</div>
+<p class="relation-foot">Relaciones lógicas: Clientes 1 → N Pedidos · Pedidos 1 → N Ítems · Pedidos 1 → N Pagos</p>
+</section>
+<section class="demo-section" id="demo" aria-labelledby="demo-title">
+  <div class="demo-intro">
+    <div><span class="demo-eyebrow">03 / 03 · EXPERIENCIA DE GESTIÓN</span><h2 id="demo-title">Un pedido. <em>Todo conectado.</em></h2><p>De la venta a la producción y los cobros, sin perder la trazabilidad. Probá registrar un pago o marcar una obra como lista.</p></div>
+    <div class="demo-mark"><strong>V4</strong><span>INTERACTIVA</span></div>
+  </div>
+  <div class="demo-shell">
+    <div class="demo-topbar">
+      <div class="demo-order-heading"><span class="demo-number">HG / 1024</span><h3>Pedido de muestra <span>· 1024</span></h3><span class="demo-label">Datos ficticios</span></div>
+      <div class="demo-actions"><button id="demo-reset" class="demo-btn demo-btn-ghost" type="button">↺ Reiniciar</button><button id="demo-taller-toggle" class="demo-btn demo-btn-secondary" type="button" aria-pressed="false">⌁ Ver taller</button></div>
+    </div>
+    <div class="demo-info"><span>CLIENTE <strong>Cliente de demostración</strong></span><span>MONEDA <strong>ARS</strong></span><span>CANAL <strong>Instagram · ejemplo</strong></span><span>ESTADO DE COBRO <strong id="demo-payment-state">Parcial</strong></span></div>
+    <div class="demo-layout">
+      <div class="demo-left">
+        <div class="demo-card">
+          <div class="demo-card-head"><div><span class="demo-mini">01 / INVENTARIO DEL PEDIDO</span><h4>Obras incluidas</h4></div><span class="demo-count">2 ÍTEMS</span></div>
+          <div class="demo-art"><div class="demo-art-icon" aria-hidden="true">A</div><div class="demo-art-description"><strong>Abstracto geométrico</strong><span>#ART-092 · 50 × 70 cm · Marco roble</span><span class="demo-art-status" id="demo-work-status" role="status">En taller</span></div><strong class="demo-art-amount">$120.000</strong></div>
+          <div class="demo-art"><div class="demo-art-icon photo" aria-hidden="true">F</div><div class="demo-art-description"><strong>Fotografía urbana</strong><span>#ART-105 · 30 × 40 cm · Sin marco</span><span class="demo-art-status ready">Entregada</span></div><strong class="demo-art-amount">$45.000</strong></div>
+        </div>
+        <div id="demo-workshop" class="demo-card demo-workshop" hidden>
+          <div class="demo-card-head"><div><span class="demo-mini">02 / PRODUCCIÓN</span><h4>Vista Taller</h4></div><span class="demo-count">SIMULACIÓN</span></div>
+          <div class="demo-work-content"><span class="demo-work-icon" aria-hidden="true">✳</span><div><strong>Preparación de Abstracto geométrico</strong><p>Marco roble natural · 50 × 70 cm. Esta acción solo modifica el estado de la maqueta.</p></div></div>
+          <button id="demo-work-done" class="demo-btn demo-btn-primary" type="button">Marcar obra como lista</button><p id="demo-work-feedback" class="demo-feedback" role="status" aria-live="polite"></p>
+        </div>
+        <div class="demo-caption"><span class="caption-line" aria-hidden="true"></span>La obra y el cobro se relacionan mediante el pedido. Ningún pago se asigna a un ítem individual.</div>
+      </div>
+      <div class="demo-right">
+        <div class="demo-balance">
+          <span class="demo-mini">03 / CONTROL DE COBROS</span><span class="demo-balance-label">Total del pedido</span>
+          <strong id="demo-order-total">$165.000</strong>
+          <div class="demo-balance-pair"><div><span>Pagado</span><strong id="demo-paid">$80.000</strong></div><div><span>Saldo pendiente</span><strong id="demo-due">$85.000</strong></div></div>
+          <div class="demo-progress-track" role="progressbar" aria-label="Proporción del pedido cobrada" aria-valuemin="0" aria-valuemax="100" aria-valuenow="48" id="demo-progress"><div id="demo-progress-bar" style="width:48.48%"></div></div>
+          <span id="demo-progress-label" class="demo-progress-note">48 % cobrado · ejemplo</span>
+        </div>
+        <div class="demo-card demo-payments">
+          <div class="demo-card-head"><div><span class="demo-mini">COBROS ASOCIADOS AL PEDIDO</span><h4>Historial de pagos</h4></div><span id="demo-payment-count" class="demo-count">2 PAGOS</span></div>
+          <div id="demo-payment-list" class="demo-payment-list" aria-live="polite"></div>
+          <button id="demo-payment-toggle" class="demo-btn demo-btn-outline" type="button" aria-expanded="false" aria-controls="demo-payment-form">+ Registrar pago simulado</button>
+          <form id="demo-payment-form" class="demo-payment-form" hidden>
+            <div class="demo-form-row"><label>Importe (ARS)<input id="demo-payment-amount" type="number" inputmode="decimal" min="1" step="1" required placeholder="Ej.: 25000"></label><label>Medio<select id="demo-payment-method"><option value="Transferencia">Transferencia</option><option value="Efectivo">Efectivo</option><option value="Otro">Otro</option></select></label></div>
+            <label class="demo-confirm"><input id="demo-payment-confirm" type="checkbox" required> Confirmar cobro ficticio (no se guarda en el sistema)</label>
+            <p id="demo-payment-error" class="demo-form-error" role="alert" aria-live="polite"></p>
+            <div class="demo-form-actions"><button id="demo-payment-cancel" type="button" class="demo-btn demo-btn-ghost">Cancelar</button><button id="demo-payment-submit" type="submit" class="demo-btn demo-btn-primary">Confirmar pago</button></div>
+          </form>
+          <div class="demo-undo-row"><button type="button" id="demo-payment-undo" hidden>↶ Deshacer último pago ficticio</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="demo-disclaimer"><strong>Demostración independiente.</strong> Los nombres, obras, importes y acciones son ficticios. No se conecta a AppSheet ni modifica pedidos, pagos o datos reales.</p>
+</section>
+<footer class="footer"><span><strong>H· HENRIS GALLERY</strong> · Presentación V4 para revisión</span><span>29 esenciales · 66 documentados · demo ficticia · sin modificaciones en producción.</span></footer></main>
+<script id="mapping-source" type="application/json">{"sections":[{"table":"Pedidos","count":19,"items":[{"field":"Pedido_ID","origin":[],"status":"nuevo","rule":"Identificador técnico propio del sistema; nunca sustituye el número histórico."},{"field":"Numero_Pedido_Origen","origin":[{"column":"A","header":"i"}],"status":"directo","rule":"Conservar «i» como referencia histórica; no usar como clave técnica."},{"field":"Fecha_Pedido","origin":[{"column":"B","header":"MES PEDIDO"},{"column":"C","header":"CARPETA"}],"status":"revisar","rule":"El mes y la carpeta no garantizan una fecha completa; nuevas cargas usan fecha del pedido."},{"field":"Periodo","origin":[{"column":"B","header":"MES PEDIDO"}],"status":"transformado","rule":"Conservar el mes histórico; en nuevos pedidos se deriva de Fecha_Pedido."},{"field":"Carpeta_Produccion","origin":[{"column":"C","header":"CARPETA"}],"status":"directo","rule":"Conservar texto o fecha tal como venga de «CARPETA»."},{"field":"Cliente_ID","origin":[{"column":"AH","header":"CLIENTE"}],"status":"nuevo","rule":"Referencia técnica a Clientes. Usar CLIENTE para vincular, sin deduplicar solo por nombre."},{"field":"Canal_Origen","origin":[{"column":"AM","header":"VENTA"}],"status":"transformado","rule":"Normalizar valores: IG→Instagram, WAP→WhatsApp, WEB→Web, LOCAL→Local."},{"field":"Campaña_ID","origin":[],"status":"nuevo","rule":"Referencia opcional de campañas: no tiene una columna de origen en el Excel histórico."},{"field":"Numero_Pedido_Web","origin":[{"column":"AN","header":"NUMERO DE PEDIDO WEB"}],"status":"directo","rule":"Referencia externa opcional; no reemplaza Pedido_ID."},{"field":"Moneda_Venta","origin":[{"column":"P","header":"Monedad"}],"status":"directo","rule":"Conservar PESOS / USD; el encabezado histórico dice «Monedad»."},{"field":"Total_Pedido","origin":[{"column":"O","header":"PRECIO CUADRO"}],"status":"calculado","rule":"Suma de los precios de cada ítem; «PRECIO CUADRO» es importe por obra, no total de pedido."},{"field":"Total_Pagado","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"calculado","rule":"Suma de pagos efectivamente confirmados del pedido: seña y pagos posteriores."},{"field":"Saldo_Pendiente","origin":[{"column":"Y","header":"PAGO PENDIENTE"}],"status":"calculado","rule":"Total_Pedido − Total_Pagado; «PAGO PENDIENTE» sirve para contrastar, no para copiar."},{"field":"Estado_Cobro","origin":[{"column":"S","header":"SENA PAGADA?"},{"column":"W","header":"PAGADO FINAL"}],"status":"calculado","rule":"Derivar de pagos y saldo; las marcas históricas solo sirven como referencia."},{"field":"Fecha_Entrega_Prevista","origin":[{"column":"Z","header":"FECHA TENTATIVA DE ENTREGA"}],"status":"directo","rule":"Fecha tentativa o comprometida; no confundir con entrega real."},{"field":"Fecha_Entrega_Real","origin":[{"column":"AA","header":"FECHA ENTREGA"}],"status":"directo","rule":"Fecha real de entrega al cliente."},{"field":"Estado_Pedido","origin":[],"status":"nuevo","rule":"Estado operativo de la app; no se deduce de pago ni de la columna CUADRO."},{"field":"Estado_Facturacion","origin":[{"column":"AL","header":"Facturado TOTAL"}],"status":"transformado","rule":"Adaptar Facturado TOTAL a los estados de facturación, distinguiendo cobrado de facturado."},{"field":"Comentarios","origin":[],"status":"nuevo","rule":"Observaciones propias del pedido. Las de «ENTREGAS COMENTARIOS» corresponden al ítem."}]},{"table":"Pedido_Items","count":26,"items":[{"field":"Pedido_Item_ID","origin":[],"status":"nuevo","rule":"Clave técnica por obra/trabajo dentro del pedido."},{"field":"Pedido_ID","origin":[{"column":"A","header":"i"}],"status":"transformado","rule":"Vincular al pedido generado con la referencia «i»; no copiar el texto como clave."},{"field":"Obra_ID","origin":[{"column":"D","header":"#ARt"}],"status":"revisar","rule":"Vincular al catálogo solo cuando #ARt identifique una obra existente y verificable."},{"field":"Codigo_Art","origin":[{"column":"D","header":"#ARt"}],"status":"directo","rule":"Conservar código comercial original de la obra o ítem."},{"field":"Descripcion","origin":[{"column":"E","header":"DESCRIPCION"}],"status":"directo","rule":"Conservar descripción completa del trabajo u obra."},{"field":"Medidas","origin":[{"column":"F","header":"MEDIDAS"}],"status":"directo","rule":"Texto original de MEDIDAS, conservado como legado sin perder anotaciones."},{"field":"Borde_Adicional","origin":[{"column":"G","header":"Borde para agregar"}],"status":"directo","rule":"Borde blanco de la lámina impresa; no confundir con passe-partout."},{"field":"Passe_Partout","origin":[{"column":"H","header":"PASSE-PARTOUT"}],"status":"directo","rule":"Passe-partout propiamente dicho, separado del borde blanco."},{"field":"Terminacion_Cuadro","origin":[{"column":"I","header":"CUADRO"}],"status":"revisar","rule":"CUADRO contiene terminaciones y a veces estados; separar antes de cargar."},{"field":"Precio_Item","origin":[{"column":"O","header":"PRECIO CUADRO"}],"status":"directo","rule":"Importe de una obra/trabajo individual; Matías lo confirmó."},{"field":"Comentarios_Produccion","origin":[{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"directo","rule":"Comentarios de fabricación y entrega asociados al ítem."},{"field":"Estado_Produccion","origin":[{"column":"I","header":"CUADRO"}],"status":"revisar","rule":"CUADRO puede contener estados, pero necesita criterio antes de normalizar."},{"field":"Estado_Entrega_Local","origin":[{"column":"K","header":"ENTREGADO AL LOCAL?"}],"status":"transformado","rule":"Normalizar la situación de entrega al local, independiente del cobro."},{"field":"Fecha_Entrega_Proveedor","origin":[{"column":"L","header":"FECHA ENTREGA DE LUIS"}],"status":"directo","rule":"Fecha en que Luis/proveedor entrega el trabajo."},{"field":"Produccion_Pagada","origin":[{"column":"M","header":"SE PAGO"}],"status":"transformado","rule":"«SE PAGO» corresponde al pago de producción, no al cobro del cliente."},{"field":"Costo_Produccion_ID","origin":[],"status":"nuevo","rule":"Referencia a Costos; el histórico no aporta esta clave técnica."},{"field":"Tipo_Trabajo","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Clasificar si es obra Henris, enmarcado u otro trabajo según el detalle; validar casos ambiguos."},{"field":"Objeto_A_Enmarcar","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Identificar lámina, camiseta, foto u otro objeto solamente cuando está documentado."},{"field":"Medida_Ancho","origin":[{"column":"F","header":"MEDIDAS"}],"status":"transformado","rule":"Extraer el ancho solo cuando la medida es inequívoca; caso dudoso → REVISAR."},{"field":"Medida_Alto","origin":[{"column":"F","header":"MEDIDAS"}],"status":"transformado","rule":"Extraer el alto solo cuando la medida es inequívoca; caso dudoso → REVISAR."},{"field":"Unidad_Medida","origin":[{"column":"F","header":"MEDIDAS"}],"status":"revisar","rule":"En históricos no asumir centímetros cuando el texto no lo confirma."},{"field":"Medida_Corresponde_A","origin":[{"column":"F","header":"MEDIDAS"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Matías debe confirmar lámina, cuadro terminado u otro para cada caso ambiguo."},{"field":"Medida_Estandar_Referencia","origin":[],"status":"nuevo","rule":"Referencia comercial opcional; no sustituye las dimensiones reales."},{"field":"Es_Personalizado","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"F","header":"MEDIDAS"},{"column":"G","header":"Borde para agregar"},{"column":"H","header":"PASSE-PARTOUT"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"transformado","rule":"Se define con la regla de personalización cuando hay evidencia de medida, material, objeto o terminación especial."},{"field":"Observaciones_Especiales","origin":[{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"transformado","rule":"Separar excepciones de los comentarios generales; conservar texto sin inventar."},{"field":"Estado_Revision","origin":[],"status":"nuevo","rule":"Estado de control OK / REVISAR generado durante normalización."}]},{"table":"Pagos","count":14,"items":[{"field":"Pago_ID","origin":[],"status":"nuevo","rule":"Clave técnica individual por cobro; seña y pago final son filas distintas."},{"field":"Pedido_ID","origin":[{"column":"A","header":"i"}],"status":"transformado","rule":"Vínculo al mismo pedido de origen; un pago no pertenece a una obra específica."},{"field":"Tipo_Pago","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"transformado","rule":"Distinguir Seña de Pago final/segundo pago según la columna histórica."},{"field":"Fecha_Pago","origin":[{"column":"T","header":"FECHA PAGO SENA"},{"column":"X","header":"FECHA PAGO FINAL"}],"status":"directo","rule":"Fecha de la seña o del segundo pago, según el cobro correspondiente."},{"field":"Importe","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"directo","rule":"Importe de la seña o de otro pago; cada cobro se transforma en su propia fila."},{"field":"Moneda","origin":[{"column":"P","header":"Monedad"}],"status":"revisar","rule":"Moneda histórica del pedido como referencia; validar si un cobro se realizó en otra moneda."},{"field":"Cotizacion_USD","origin":[{"column":"AF","header":"cotización dolar"}],"status":"directo","rule":"Cotización histórica cuando corresponda conversión; revisar la fecha aplicable."},{"field":"Importe_En_Moneda_Pedido","origin":[{"column":"P","header":"Monedad"},{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"},{"column":"AF","header":"cotización dolar"}],"status":"calculado","rule":"Convertir el importe de cada pago usando su moneda y cotización validada."},{"field":"Medio_Pago","origin":[{"column":"N","header":"PAGO"}],"status":"revisar","rule":"«PAGO» puede contener medios mixtos, por ejemplo 50% transferencia / 50% efectivo."},{"field":"Recibido_Por","origin":[{"column":"R","header":"QUIEN LA RECIBIO?"},{"column":"V","header":"QUIEN LA RECIBIO?"}],"status":"directo","rule":"Mantener separado receptor de seña y receptor de segundo pago."},{"field":"Estado_Pago","origin":[{"column":"S","header":"SENA PAGADA?"},{"column":"W","header":"PAGADO FINAL"}],"status":"transformado","rule":"Normalizar confirmación de seña/final; conciliar inconsistencias antes de contar como cobro."},{"field":"Facturado","origin":[{"column":"AK","header":"Facturado SENA"}],"status":"transformado","rule":"Facturado SENA corresponde a la seña; el total facturado se controla aparte."},{"field":"Conciliado_Contabilidad","origin":[{"column":"AB","header":"CONTABILIDAD SENA"},{"column":"AC","header":"CONTABILIDAD OTRA PARTELPAGO"}],"status":"transformado","rule":"Usar columna contable específica del cobro; no crear otro pago."},{"field":"Observaciones","origin":[],"status":"nuevo","rule":"Comentarios de cada cobro en la aplicación; sin columna histórica exclusiva."}]},{"table":"Clientes","count":7,"items":[{"field":"Cliente_ID","origin":[],"status":"nuevo","rule":"Clave técnica generada para vincular pedidos; no deduplicar solamente por nombre."},{"field":"Nombre","origin":[{"column":"AH","header":"CLIENTE"}],"status":"directo","rule":"Nombre original, conservar con revisión de duplicados."},{"field":"DNI_CUIL","origin":[{"column":"AG","header":"datos cleinte DNI o CUIL"}],"status":"directo","rule":"Conservar como texto, sin usarlo como Key técnica."},{"field":"Telefono","origin":[{"column":"AI","header":"CONTACTO"}],"status":"directo","rule":"CONTACTO: conservar caracteres, prefijos y ceros; no tratarlo como número."},{"field":"Email","origin":[{"column":"AJ","header":"MAIL"}],"status":"directo","rule":"MAIL del Excel histórico; dato opcional."},{"field":"Notas","origin":[],"status":"nuevo","rule":"Notas del cliente en la app; no tomar automáticamente comentarios de producción."},{"field":"Fecha_Alta","origin":[],"status":"nuevo","rule":"Fecha de alta en el sistema nuevo, no inventar una fecha histórica."}]}],"originColumnsCount":40,"source":{"current":"Henris Gallery - Base de Datos Marketing y Ventas","historical":"pedidos.xlsx","migration":"Mapa_Migracion_Matias","plans":"Plan_Config_AppSheet_Pedidos_v1","sourceDate":"2026-10-15","note":"Campos de Google Sheets verificados. Visibilidad o implementación exacta de cada columna en AppSheet no verificada."}}</script>
+<script>
+(()=>{
+const src=JSON.parse(document.getElementById("mapping-source").textContent);
+const sections=src.sections;
+const labels={Pedidos:"Pedidos",Pedido_Items:"Obras / Ítems",Pagos:"Pagos",Clientes:"Clientes",todos:"Todos los campos"};
+const statuses={directo:"Origen directo",transformado:"Adaptar / separar",calculado:"Calculado",nuevo:"Campo nuevo",revisar:"Requiere validación"};
+const all=sections.flatMap(section=>section.items.map(item=>({...item,table:section.table})));
+const essential=new Set(["Pedidos.Numero_Pedido_Origen","Pedidos.Fecha_Pedido","Pedidos.Canal_Origen","Pedidos.Moneda_Venta","Pedidos.Total_Pedido","Pedidos.Total_Pagado","Pedidos.Saldo_Pendiente","Pedidos.Estado_Cobro","Pedidos.Fecha_Entrega_Prevista","Pedidos.Fecha_Entrega_Real","Pedidos.Estado_Facturacion","Pedido_Items.Codigo_Art","Pedido_Items.Descripcion","Pedido_Items.Medidas","Pedido_Items.Borde_Adicional","Pedido_Items.Passe_Partout","Pedido_Items.Terminacion_Cuadro","Pedido_Items.Precio_Item","Pedido_Items.Produccion_Pagada","Pedido_Items.Estado_Produccion","Pagos.Tipo_Pago","Pagos.Fecha_Pago","Pagos.Importe","Pagos.Moneda","Pagos.Medio_Pago","Pagos.Estado_Pago","Pagos.Facturado","Clientes.Nombre","Clientes.Telefono"]);
+if(all.length!==66||essential.size!==29||all.filter(x=>essential.has(x.table+"."+x.field)).length!==29)throw new Error("No coinciden los 29 campos esenciales con el catálogo de 66.");
+const viewLabels={main:"29 campos clave para entender el cambio desde Excel.",all:"66 campos documentados, incluidos técnicos, derivados y pendientes de revisión."};
+let mode="main";
+const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+const refs={tabs:document.getElementById("tabs"),fields:document.getElementById("fields"),detail:document.getElementById("detail"),count:document.getElementById("field-count"),search:document.getElementById("search"),status:document.getElementById("status"),back:document.getElementById("back"),description:document.getElementById("view-description"),sourceNote:document.getElementById("view-source-note"),modes:[document.getElementById("mode-main"),document.getElementById("mode-all")]};
+let table="todos",selectedKey="Pedidos::Canal_Origen",filtered=[];
+function node(tag,className,content){const el=document.createElement(tag);if(className)el.className=className;if(content!==undefined)el.textContent=content;return el;}
+function key(item){return item.table+"::"+item.field;}
+function isVisible(item){return mode==="all"||essential.has(item.table+"."+item.field);}
+function scopeCount(tableName){return all.filter(x=>(tableName==="todos"||x.table===tableName)&&isVisible(x)).length;}
+function setMode(next){if(next!== "main" && next!=="all")return;mode=next;
+refs.modes.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
+refs.description.textContent=viewLabels[mode];
+refs.sourceNote.textContent=mode==="main"?"Vista inicial: 29 campos esenciales. Los otros 37 están disponibles en «Todos los campos».":"Vista completa: los 66 campos están disponibles, sin omisiones ni cambios de información.";
+renderTabs();applyFilters();}
+function renderTabs(){refs.tabs.replaceChildren();for(const sec of [{table:"todos",count:all.length},...sections]){const b=node("button","tab");b.type="button";b.dataset.tab=sec.table;b.setAttribute("aria-pressed",String(table===sec.table));b.append(node("span","",labels[sec.table]),node("em","",String(scopeCount(sec.table))));b.addEventListener("click",()=>{table=sec.table;renderTabs();applyFilters();});refs.tabs.append(b);}}
+function applyFilters(){const q=norm(refs.search.value),status=refs.status.value;filtered=all.filter(x=>isVisible(x)&&(table==="todos"||x.table===table)&&(status==="todos"||x.status===status)&&(!q||norm([x.field,x.table,labels[x.table],x.rule,statuses[x.status],...x.origin.map(y=>y.column+" "+y.header)].join(" ")).includes(q)));
+if(!filtered.some(x=>key(x)===selectedKey))selectedKey=filtered.length?key(filtered[0]):null;
+renderList();renderDetail();}
+function renderList(){refs.fields.replaceChildren();refs.count.textContent=filtered.length+" de "+scopeCount(table);if(!filtered.length){refs.fields.append(node("p","empty",mode==="main"?"No hay resultados en la vista esencial. Probá «Todos los campos» o ajustá los filtros.":"No se encontraron campos con esos filtros."));return;}
+const group=document.createDocumentFragment();for(const x of filtered){const b=node("button","field");b.type="button";b.dataset.field=x.field;b.dataset.table=x.table;b.setAttribute("aria-pressed",String(key(x)===selectedKey));const wrap=node("span","field-copy");wrap.append(node("span","field-name",x.field),node("span","field-status",labels[x.table]+" · "+statuses[x.status]));b.append(wrap,node("span","field-arrow","↗"));b.addEventListener("click",()=>{selectedKey=key(x);renderList();renderDetail();if(matchMedia("(max-width:680px)").matches){refs.detail.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"instant":"smooth",block:"start"});}});group.append(b);}refs.fields.append(group);
+const active=[...refs.fields.querySelectorAll(".field")].find(x=>x.getAttribute("aria-pressed")==="true");if(active)active.scrollIntoView({block:"nearest"});}
+function renderDetail(){const x=filtered.find(y=>key(y)===selectedKey);refs.detail.hidden=!x;if(!x)return;
+document.getElementById("detail-group").textContent=labels[x.table].toUpperCase()+" · CAMPO ACTUAL";
+document.getElementById("detail-title").textContent=x.field.replace(/_/g," ");
+document.getElementById("detail-technical").textContent=x.field;
+const pill=document.getElementById("detail-status");pill.className="status-pill "+x.status;pill.textContent=statuses[x.status];
+const origin=document.getElementById("origins");origin.replaceChildren();
+if(!x.origin.length)origin.append(node("span","origin-missing","No tiene columna equivalente en el Excel histórico. Es un campo técnico, derivado o propio del nuevo sistema."));
+else for(const item of x.origin){const line=node("div","origin-row");line.append(node("span","column-letter",item.column),node("span","column-name",item.header));origin.append(line);}
+document.getElementById("destination").textContent=x.field;
+document.getElementById("destination-note").textContent="Tabla "+labels[x.table]+" · Campo del modelo actual";
+document.getElementById("rule").textContent=x.rule;
+refs.detail.classList.remove("reveal"); void refs.detail.offsetWidth; refs.detail.classList.add("reveal");
+}
+refs.modes.forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+refs.search.addEventListener("input",applyFilters);
+refs.status.addEventListener("change",applyFilters);
+refs.back.addEventListener("click",()=>document.getElementById("side").scrollIntoView({behavior:"smooth",block:"start"}));
+renderTabs();applyFilters();
+})();
+</script>
+
+<script>
+/* Demo V4: standalone in-memory fictional records only. No network, no persistence, no access to production. */
+(() => {
+'use strict';
+const total=165000;
+const basePayments=Object.freeze([{id:'example-seña',label:'Seña inicial',amount:50000,method:'Transferencia',date:'12/10/2026',fictitious:true},{id:'example-segundo',label:'Segundo pago',amount:30000,method:'Efectivo',date:'18/10/2026',fictitious:true}]);
+let payments=basePayments.map(p=>({...p}));
+let nextId=1, finished=false, submitting=false;
+const el=id=>document.getElementById(id);
+const currency=n=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(n);
+function paid(){return payments.reduce((a,p)=>a+p.amount,0);}
+function render(){
+ const value=paid(),due=total-value,percent=Math.round(value*100/total);
+ el('demo-order-total').textContent=currency(total);el('demo-paid').textContent=currency(value);el('demo-due').textContent=currency(due);
+ el('demo-progress-bar').style.width=(value*100/total).toFixed(2)+'%';
+ el('demo-progress').setAttribute('aria-valuenow',String(percent));
+ el('demo-progress-label').textContent=percent+' % cobrado · demostración';
+ el('demo-payment-state').textContent=value<=0?'Sin cobros':due===0?'Saldado':'Parcial';
+ el('demo-payment-count').textContent=payments.length+' '+(payments.length===1?'PAGO':'PAGOS');
+ const list=el('demo-payment-list');list.replaceChildren();
+ payments.forEach(p=>{
+ const item=document.createElement('div');item.className='demo-payment-entry';
+ const mark=document.createElement('span');mark.className='demo-payment-mark';mark.setAttribute('aria-hidden','true');mark.textContent='✓';
+ const detail=document.createElement('div');detail.className='demo-payment-entry-details';
+ const label=document.createElement('strong');label.textContent=p.label;
+ const note=document.createElement('span');note.textContent=p.method+' · '+p.date+(p.id.startsWith('sim-')?' · simulación':'');
+ const amount=document.createElement('span');amount.className='demo-payment-entry-amount';amount.textContent=currency(p.amount);
+ detail.append(label,note);item.append(mark,detail,amount);list.append(item);
+ });
+ el('demo-payment-undo').hidden=!payments.some(p=>p.id.startsWith('sim-'));
+ const canAdd=due>0; el('demo-payment-toggle').disabled=!canAdd;
+ el('demo-payment-toggle').textContent=canAdd?'+ Registrar pago simulado':'✓ Pedido saldado (demo)';
+ if(!canAdd)hidePaymentForm();
+ const status=el('demo-work-status');status.textContent=finished?'Lista para entregar':'En taller';status.classList.toggle('ready',finished);
+ el('demo-work-done').disabled=finished;el('demo-work-done').textContent=finished?'✓ Obra lista':'Marcar obra como lista';
+ el('demo-work-feedback').textContent=finished?'Estado actualizado únicamente en esta demostración.':'';
+}
+function hidePaymentForm(){
+ el('demo-payment-form').hidden=true; el('demo-payment-toggle').setAttribute('aria-expanded','false');
+ el('demo-payment-error').textContent='';el('demo-payment-form').reset();
+}
+el('demo-taller-toggle').addEventListener('click',()=>{
+ const show=el('demo-workshop').hidden;el('demo-workshop').hidden=!show;
+ el('demo-taller-toggle').setAttribute('aria-pressed',String(show));
+ el('demo-taller-toggle').textContent=show?'× Cerrar taller':'⌁ Ver taller';
+});
+el('demo-work-done').addEventListener('click',()=>{if(finished)return;finished=true;render();});
+el('demo-payment-toggle').addEventListener('click',()=>{
+ if(paid()>=total)return;
+ const f=el('demo-payment-form');f.hidden=!f.hidden;
+ el('demo-payment-toggle').setAttribute('aria-expanded',String(!f.hidden));
+ el('demo-payment-error').textContent='';
+ if(!f.hidden)el('demo-payment-amount').focus();
+});
+el('demo-payment-cancel').addEventListener('click',hidePaymentForm);
+el('demo-payment-form').addEventListener('submit',e=>{
+ e.preventDefault();if(submitting)return;
+ submitting=true;const button=el('demo-payment-submit');button.disabled=true;
+ try{
+ const raw=el('demo-payment-amount').value.trim();
+ const amount=Number(raw);const due=total-paid();const errors=el('demo-payment-error');
+ if(!raw||!Number.isSafeInteger(amount)||amount<=0){errors.textContent='Ingresá un importe entero positivo en ARS.';return;}
+ if(amount>due){errors.textContent='El importe supera el saldo pendiente de '+currency(due)+'.';return;}
+ if(!el('demo-payment-confirm').checked){errors.textContent='Confirmá que se trata de un cobro ficticio.';return;}
+ const method=el('demo-payment-method').value;
+ if(!['Transferencia','Efectivo','Otro'].includes(method)){errors.textContent='Medio de pago no válido.';return;}
+ const now=new Date();const date=new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'}).format(now);
+ payments.push({id:'sim-'+nextId++,label:'Pago simulado',amount,method,date});
+ hidePaymentForm();render();
+ }finally{submitting=false;button.disabled=false;}
+});
+el('demo-payment-undo').addEventListener('click',()=>{
+ const index=payments.findLastIndex(p=>p.id.startsWith('sim-'));
+ if(index<0)return;payments.splice(index,1);render();
+});
+el('demo-reset').addEventListener('click',()=>{
+ payments=basePayments.map(p=>({...p}));nextId=1;finished=false;
+ hidePaymentForm();el('demo-workshop').hidden=true;
+ el('demo-taller-toggle').setAttribute('aria-pressed','false');
+ el('demo-taller-toggle').textContent='⌁ Ver taller';
+ render();
+});
+render();
+})();
+</script>
+</body></html>
