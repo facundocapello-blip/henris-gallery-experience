@@ -250,16 +250,10 @@ jobs:
         run: |
           mkdir -p _site/referencia-animada-original
           cp _original_animation_reference/preview/referencia-animada-original/index.html _site/referencia-animada-original/index.html
-      - name: Checkout isolated Gemini fusion candidate
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          ref: aa4700c07949b950921f82eb60bd85294cf12e81
-          path: _gemini_fusion_candidate
-          persist-credentials: false
       - name: Include Gemini fusion demo at separate STAGING URL
         run: |
           mkdir -p _site/staging/henris-gemini-fusion-20261020
-          cp _gemini_fusion_candidate/staging/henris-gemini-fusion-20261020/index.html _site/staging/henris-gemini-fusion-20261020/index.html
+          cp staging/henris-gemini-fusion-20261020/index.html _site/staging/henris-gemini-fusion-20261020/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site

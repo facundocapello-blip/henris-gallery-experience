@@ -1,5 +1,9 @@
 # Estado de Henris Gallery Experience
 
+## Ejecución AppSheet 2026-10-28
+
+Se trabajó sobre el ID de AppSheet indicado por el usuario, sin crear copia, cambiar datos comerciales ni publicar. El registro de cambios, QA y bloqueos está en [docs/HENRIS-QA-20261028.md](docs/HENRIS-QA-20261028.md). Se corrigió localmente el estado vacío del diccionario de 66 campos en la web y se preparó su workflow; **no hubo push ni republicación**. **Pendiente prioritario:** autenticación y prueba con Mati/Marine e iPhone físico.
+
 Actualizado: 2026-10-15. Registro inicial, no auditoría funcional completa.
 
 ## Fuentes verificadas
