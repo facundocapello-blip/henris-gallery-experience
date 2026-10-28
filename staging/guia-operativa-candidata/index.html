@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Guía interactiva operativa y consola de gestión AppSheet de Henris Gallery para Matías y Marine.">
+    <title>Henris Gallery | Guía Operativa & AppSheet Real</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+    :root {
+        --brand-black: #000000;
+        --brand-white: #ffffff;
+        --brand-gray: #777777;
+        --brand-light-gray: #f4f4f4;
+        --brand-border: #e0e0e0;
+        --app-green: #3A5F48;
+        --app-bg: #F0F2F1;
+        --app-text: #333333;
+        --sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { margin: 0; min-width: 320px; font-size: 13px; line-height: 1.6; color: var(--brand-black); background: var(--brand-white); font-family: var(--sans); letter-spacing: 0.02em; }
+
+    button, input, select { font: inherit; border-radius: 0; outline: none; }
+    button { cursor: pointer; border: 1px solid var(--brand-black); background: transparent; color: var(--brand-black); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px; font-weight: 600; padding: 10px 15px; transition: all 0.3s ease; }
+    button:hover { background: var(--brand-black); color: var(--brand-white); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    [hidden] { display: none !important; }
+
+    .shell { width: min(1200px, calc(100% - 40px)); margin: 0 auto; }
+
+    .masthead { background: var(--brand-white); color: var(--brand-black); border-bottom: 1px solid var(--brand-border); position: sticky; top: 0; z-index: 50; }
+    .masthead-inner { min-height: 65px; display: flex; gap: 20px; align-items: center; justify-content: space-between; }
+    .brand-link { display: flex; align-items: center; gap: 15px; color: inherit; text-decoration: none; }
+    .identity strong { font-weight: 700; font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .identity strong em { font-style: normal; font-weight: 300; }
+    .identity span { display: block; margin-top: 1px; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brand-gray); }
+    .header-nav { display: flex; gap: 20px; }
+    .header-nav a { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-black); text-decoration: none; position: relative; }
+    .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px; background: var(--brand-black); transition: width 0.3s ease; }
+    .header-nav a:hover::after { width: 100%; }
+
+    /* Mode selector bar */
+    .hero-path { background: #fafafa; border-bottom: 1px solid var(--brand-border); padding: 25px 0; }
+    .path-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .path-card { border: 1px solid var(--brand-border); padding: 20px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s; }
+    .path-card:hover { border-color: var(--brand-black); }
+    .path-card.active { border-color: var(--brand-black); background: #fcfcfc; box-shadow: 4px 4px 0 rgba(0,0,0,0.05); }
+    .path-card span { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; color: var(--brand-gray); text-transform: uppercase; }
+    .path-card h3 { font-size: 18px; margin: 8px 0 6px; font-weight: 600; text-transform: uppercase; }
+    .path-card p { font-size: 12px; color: #555; margin: 0 0 15px; line-height: 1.5; }
+
+    .btn-solid { background: var(--brand-black); color: var(--brand-white); border: 1px solid var(--brand-black); text-decoration: none; display: inline-block; text-align: center; }
+    .btn-solid:hover { background: #333; color: #fff; }
+    .btn-outline { background: transparent; color: var(--brand-black); border: 1px solid var(--brand-black); text-decoration: none; display: inline-block; text-align: center; }
+    .btn-outline:hover { background: var(--brand-light-gray); }
+
+    .section-title { margin: 40px 0 20px; }
+    .section-title small { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--brand-gray); display: block; margin-bottom: 8px; }
+    .section-title h2 { font-size: 26px; font-weight: 300; text-transform: uppercase; margin: 0; }
+
+    /* Section 01: Structure cards */
+    .relation-grid { display: flex; align-items: stretch; justify-content: space-between; gap: 12px; margin-bottom: 40px; }
+    .relation-card { flex: 1; border: 1px solid var(--brand-border); padding: 18px 15px; background: var(--brand-light-gray); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+    .relation-card .relation-num { display: block; font-size: 9px; font-weight: 700; color: var(--brand-gray); margin-bottom: 6px; }
+    .relation-card strong { display: block; font-size: 15px; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+    .relation-card span { font-size: 10px; color: var(--brand-gray); }
+    .relation-main { border-color: var(--brand-black); background: var(--brand-black); color: var(--brand-white); }
+    .relation-main .relation-num, .relation-main span { color: #aaa; }
+    .relation-arrow { font-size: 20px; color: var(--brand-gray); display: flex; align-items: center; }
+    .relation-branches { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+    /* Mobile switcher for Workspace */
+    .mobile-view-toggle { display: none; margin-bottom: 15px; gap: 10px; }
+    .mobile-view-toggle button { flex: 1; padding: 12px; font-size: 11px; font-weight: 700; }
+
+    /* Interactive Workspace (Split Console) */
+    .workspace-split { display: grid; grid-template-columns: 380px 1fr; gap: 24px; margin-bottom: 50px; align-items: start; }
+    .guide-panel { background: #fff; border: 1px solid var(--brand-black); display: flex; flex-direction: column; }
+    .guide-header { padding: 18px; background: var(--brand-light-gray); border-bottom: 1px solid var(--brand-border); }
+    .guide-header h3 { font-size: 14px; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 0.05em; }
+    .guide-header p { font-size: 11px; color: var(--brand-gray); margin: 4px 0 0; }
+
+    .guide-steps-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--brand-border); }
+    .guide-step-btn { text-align: left; padding: 16px 18px; border: none; border-bottom: 1px solid var(--brand-border); background: #fff; cursor: pointer; transition: all 0.2s; position: relative; }
+    .guide-step-btn:last-child { border-bottom: none; }
+    .guide-step-btn:hover { background: #f9f9f9; }
+    .guide-step-btn.active { background: var(--brand-black); color: #fff; }
+    .guide-step-btn.active .step-tag { color: #aaa; }
+    .guide-step-btn.active p { color: #ddd; }
+    .step-tag { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: var(--brand-gray); text-transform: uppercase; display: block; margin-bottom: 4px; }
+    .step-title { font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: block; }
+    .step-desc { font-size: 11px; line-height: 1.4; color: #666; margin: 0; }
+
+    .guide-instructions { padding: 20px; background: #fafafa; border-bottom: 1px solid var(--brand-border); }
+    .guide-instructions h4 { font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; margin: 0 0 10px; color: var(--brand-black); }
+    .instruction-item { display: flex; gap: 10px; font-size: 12px; margin-bottom: 10px; line-height: 1.4; color: #333; }
+    .instruction-item:last-child { margin-bottom: 0; }
+    .instruction-num { background: var(--brand-black); color: #fff; min-width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; border-radius: 50%; }
+
+    .action-cta-box { background: #fff8e1; border: 1px solid #ffe082; padding: 12px 15px; margin-top: 15px; border-radius: 4px; font-size: 11px; color: #5d4037; line-height: 1.4; }
+    .action-cta-box strong { color: #333; text-transform: uppercase; font-size: 10px; display: block; margin-bottom: 3px; }
+
+    .guide-nav-bar { padding: 15px 18px; display: flex; justify-content: space-between; align-items: center; background: #fff; }
+    .guide-nav-bar span { font-size: 11px; font-weight: 600; color: var(--brand-gray); }
+
+    /* AppSheet View Frame */
+    .appsheet-host { border: 1px solid var(--brand-black); background: #fff; position: sticky; top: 85px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    .appsheet-topbar { padding: 12px 18px; background: var(--brand-light-gray); border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .appsheet-topbar .status-indicator { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--app-green); display: flex; align-items: center; gap: 6px; }
+    .appsheet-topbar .status-indicator::before { content: ''; width: 7px; height: 7px; background: var(--app-green); border-radius: 50%; }
+
+    .auth-banner-notice { padding: 10px 18px; background: #e8f5e9; border-bottom: 1px solid var(--brand-border); font-size: 11px; color: #2e7d32; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .auth-banner-notice p { margin: 0; line-height: 1.3; }
+
+    .appsheet-frame-wrapper { position: relative; width: 100%; height: 720px; background: #fafafa; }
+    .appsheet-frame-wrapper iframe { width: 100%; height: 100%; border: none; }
+
+    /* Verification / Proof drawer */
+    .proof-drawer { padding: 15px 18px; background: #fff; border-top: 1px solid var(--brand-border); font-size: 11px; }
+    .proof-drawer summary { font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; color: var(--brand-black); }
+    .proof-drawer-content { margin-top: 12px; display: flex; gap: 15px; align-items: center; }
+    .proof-drawer-content img { max-width: 140px; border: 1px solid var(--brand-border); border-radius: 4px; }
+    .proof-drawer-content p { margin: 0; font-size: 11px; color: #555; line-height: 1.4; }
+
+    /* Mapeo Section */
+    .workspace { border: 1px solid var(--brand-black); background: var(--brand-white); margin-bottom: 50px; }
+    .workspace-head { padding: 18px 20px; border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; text-transform: uppercase; align-items: center; background: var(--brand-light-gray); }
+    .workspace-head strong { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; }
+
+    .tabs { display: flex; padding: 0 20px; border-bottom: 1px solid var(--brand-border); background: var(--brand-white); overflow-x: auto; scrollbar-width: none; }
+    .tab { flex: none; border: none; border-bottom: 2px solid transparent; padding: 12px 18px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--brand-gray); }
+    .tab:hover { color: var(--brand-black); }
+    .tab[aria-pressed=true] { color: var(--brand-black); border-bottom-color: var(--brand-black); }
+    .tab em { margin-left: 4px; font-style: normal; opacity: 0.5; }
+
+    .controls { padding: 12px 20px; border-bottom: 1px solid var(--brand-border); display: flex; gap: 15px; background: var(--brand-white); }
+    .input-wrap { flex: 1; position: relative; }
+    .input-wrap input { width: 100%; border: 1px solid var(--brand-border); padding: 8px 12px; font-size: 12px; outline: none; }
+    .input-wrap input:focus { border-color: var(--brand-black); }
+    .controls select { border: 1px solid var(--brand-border); padding: 8px 12px; font-size: 11px; text-transform: uppercase; outline: none; cursor: pointer; }
+
+    .split { display: grid; grid-template-columns: 320px 1fr; }
+    .side { border-right: 1px solid var(--brand-border); background: var(--brand-white); }
+    .side-head { padding: 12px 18px; border-bottom: 1px solid var(--brand-border); display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; font-weight: 700; background: var(--brand-light-gray); }
+    .field-list { height: 420px; overflow-y: auto; padding: 5px; }
+    .field { width: 100%; text-align: left; padding: 12px 15px; border: 1px solid transparent; background: transparent; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--brand-border); cursor: pointer; transition: all 0.2s; }
+    .field:hover { background: var(--brand-light-gray); }
+    .field[aria-pressed=true] { background: var(--brand-black); color: var(--brand-white); border-color: var(--brand-black); }
+    .field-name { display: block; font-size: 11px; font-weight: 700; margin-bottom: 2px; text-transform: uppercase; }
+    .field[aria-pressed=true] .field-status { color: #aaa; }
+    .field-status { font-size: 9px; color: var(--brand-gray); text-transform: uppercase; }
+
+    .detail { position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--brand-white); }
+    .mapping-stage { display: flex; align-items: center; justify-content: space-between; padding: 30px 20px; flex: 1; }
+
+    .excel-ui { background: var(--brand-white); border: 1px solid var(--brand-black); width: 220px; box-shadow: 4px 4px 0 rgba(0,0,0,0.05); }
+    .excel-header-grid { display: grid; grid-template-columns: 35px 1fr; border-bottom: 1px solid var(--brand-black); background: var(--brand-black); color: var(--brand-white); font-weight: 700; font-size: 10px; }
+    .excel-header-grid div { padding: 8px; text-align: center; border-right: 1px solid #333; }
+    .excel-row-grid { display: grid; grid-template-columns: 35px 1fr; font-size: 10px; border-bottom: 1px solid var(--brand-border); }
+    .excel-row-grid > div { padding: 10px 8px; }
+    .cell-index { text-align: center; font-weight: 700; border-right: 1px solid var(--brand-border); background: var(--brand-light-gray); color: var(--brand-gray); }
+
+    .app-dest-ui { width: 220px; border: 3px solid var(--brand-black); border-radius: 10px; background: var(--app-bg); font-family: sans-serif; overflow: hidden; box-shadow: 4px 4px 0 rgba(0,0,0,0.05); }
+    .app-dest-head { background: var(--app-green); padding: 12px 10px; color: white; font-size: 10px; font-weight: 600; }
+    .app-dest-body { padding: 12px 10px; }
+    .app-dest-field { background: white; padding: 8px; border: 1px solid #e0e0e0; border-left: 3px solid var(--app-green); font-size: 11px; margin-bottom: 8px; }
+    .app-dest-field span { display: block; font-size: 8px; color: #888; text-transform: uppercase; margin-bottom: 2px; }
+
+    .proof-panel { background: #fafafa; border-top: 1px solid #ddd; padding: 18px 20px; }
+    .proof-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 0.13em; color: #777; }
+    .proof-panel h3 { font-size: 15px; line-height: 1.3; margin: 6px 0 8px; font-weight: 600; }
+    .proof-figure { margin: 10px 0; max-width: 320px; }
+    .proof-figure img { max-width: 100%; border: 1px solid #d1d1d1; border-radius: 4px; }
+    .rule-box { border-top: 1px solid var(--brand-border); padding: 15px 20px; background: var(--brand-light-gray); }
+    .rule-box p { margin: 0; font-size: 12px; line-height: 1.5; }
+    .rule-box strong { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 4px; color: var(--brand-gray); }
+
+    /* Dialog */
+    .real-screen-dialog { width: min(440px, 95vw); padding: 0; border: 1px solid #ddd; border-radius: 10px; background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .real-screen-dialog::backdrop { background: rgba(0,0,0,0.7); }
+    .real-dialog-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: #fff; border-bottom: 1px solid #eee; }
+    .real-dialog-top strong { font-size: 12px; }
+    .real-screen-dialog > img { display: block; width: 100%; max-height: 75vh; object-fit: contain; }
+
+    .floating-fab { position: fixed; bottom: 25px; right: 25px; background: #000; color: #fff; padding: 14px 24px; border-radius: 40px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; box-shadow: 0 8px 25px rgba(0,0,0,0.25); z-index: 999; transition: all 0.3s; }
+    .floating-fab:hover { transform: translateY(-3px); background: #333; }
+
+    @media (max-width: 960px) {
+        .workspace-split { grid-template-columns: 1fr; }
+        .appsheet-host { position: static; }
+        .appsheet-frame-wrapper { height: 600px; }
+        .path-container { grid-template-columns: 1fr; }
+        .split { grid-template-columns: 1fr; }
+        .relation-grid { flex-direction: column; }
+        .relation-arrow { transform: rotate(90deg); margin: 5px auto; }
+
+        .mobile-view-toggle { display: flex; }
+        .guide-panel.mobile-hidden, .appsheet-host.mobile-hidden { display: none !important; }
+    }
+    @media (max-width: 650px) {
+        .shell { width: calc(100% - 24px); }
+        .floating-fab { display: none; }
+        .mapping-stage { flex-direction: column; gap: 15px; }
+        .controls { flex-direction: column; }
+    }
+
+    /* Live AppSheet onboarding — accessible, single authoritative application */
+    .appsheet-topbar .status-indicator{color:#333}
+    .appsheet-topbar .status-indicator::before{background:#888}
+    .auth-banner-notice{background:#f7f7f7;color:#333}
+    .auth-banner-notice a{color:#111!important}
+    .action-cta-box{background:#f5f5f5;border:1px solid #dedede;border-left:3px solid #222;border-radius:0;color:#333}
+    .action-cta-box strong{color:#111}
+    .appsheet-live-note{margin:0;padding:12px 18px;border-bottom:1px solid #e3e3e3;background:#fff;font-size:11px;color:#555;line-height:1.55}
+    .appsheet-live-note strong{color:#111}
+    .app-guide-strip{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;padding:13px 18px;border-bottom:1px solid #ddd;background:#f8f8f8}
+    .app-guide-strip small{display:block;font-weight:700;font-size:9px;letter-spacing:.12em;color:#777;text-transform:uppercase}
+    .app-guide-strip strong{font-size:12px;text-transform:uppercase}
+    .app-guide-strip p{margin:3px 0 0;font-size:11px;color:#555;line-height:1.45}
+    .app-guide-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+    .app-guide-actions button{padding:9px 11px;min-height:38px;letter-spacing:0}
+    .app-guide-actions button:disabled{opacity:.35}
+    .app-guide-actions .app-back-guide{display:none}
+    .appsheet-frame-wrapper{height:700px}
+    .onboarding-state{padding:12px 18px;background:#fff;border-top:1px solid #eee;font-size:11px;color:#555}
+    .onboarding-state a{color:#111;font-weight:700;text-underline-offset:3px}
+    .onboarding-state button{margin-top:10px;min-height:40px}
+    .proof-inline-actions{display:flex;gap:8px;flex-wrap:wrap;margin:11px 0 0}
+    .proof-inline-actions button,.proof-inline-actions a{font-size:10px;line-height:1.3;text-decoration:none;letter-spacing:0;padding:10px 14px;background:#fff;border:1px solid #111;color:#111;display:inline-flex;align-items:center;justify-content:center}
+    .proof-inline-actions button:hover,.proof-inline-actions a:hover{background:#111;color:#fff}
+    .section-operate{border-top:1px solid #ddd;background:#f8f8f8;margin:0 0 0;padding:32px 0 50px}
+    .operate-panel{border:1px solid #222;background:#fff;padding:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+    .operate-panel p{margin:7px 0 0;color:#555;font-size:12px;max-width:650px}
+    .operate-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .operate-actions a,.operate-actions button{min-height:48px;padding:14px 17px;font-size:10px;letter-spacing:0;white-space:nowrap}
+    .operate-actions .btn-solid{color:white}
+    .mapping-stage{gap:15px}
+    .field-list{overscroll-behavior:contain}
+    @media(max-width:960px){
+       .appsheet-host{scroll-margin-top:95px}
+       .appsheet-frame-wrapper{height:650px}
+       .app-guide-actions .app-back-guide{display:inline-block}
+       .operate-panel{grid-template-columns:1fr}
+    }
+    @media(max-width:650px){
+       .masthead-inner{flex-wrap:wrap;gap:9px;padding:12px 0}
+       .header-nav{gap:13px;width:100%;overflow-x:auto;padding-bottom:5px}
+       .header-nav a{white-space:nowrap;font-size:9px}
+       .section-title h2{font-size:23px}
+       .appsheet-frame-wrapper{height:65vh;min-height:470px;max-height:760px}
+       .app-guide-strip{padding:11px 13px;display:block}
+       .app-guide-actions{margin-top:10px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+       .app-guide-actions button{font-size:10px;padding:8px 4px;min-width:0}
+       .guide-instructions{padding:16px}
+       .guide-step-btn{padding:13px 14px}
+       .operate-actions{display:grid;grid-template-columns:1fr}
+       .operate-actions a,.operate-actions button{width:100%;white-space:normal}
+       .mapping-stage{padding:20px 12px;flex-direction:column}
+       .app-dest-ui,.excel-ui{width:100%;max-width:280px}
+       .controls{padding:12px}
+    }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+    <div class="shell masthead-inner">
+        <a href="#" class="brand-link">
+            <span class="identity"><strong>HENRIS <em>Gallery</em></strong><span>Guía Operativa & AppSheet Real</span></span>
+        </a>
+        <nav class="header-nav">
+            <a href="#circuito">01 · Estructura</a>
+            <a href="#aprender">02 · Recorrido Guiado</a>
+            <a href="#mapeo">03 · Mapeo</a>
+             <a href="#operar">04 · Operar</a>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener">Abrir App ↗</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+<!-- Path selector -->
+<section class="hero-path">
+    <div class="shell path-container">
+        <div class="path-card active">
+            <div>
+                <span>CAMINO 1 · APRENDIZAJE INTEGRADO</span>
+                <h3>Aprender a usar la aplicación</h3>
+                <p>Seguí cuatro pasos de trabajo mientras utilizás la AppSheet original. No es un simulador.</p>
+            </div>
+            <a href="#circuito" class="btn-solid" style="text-align:center; padding: 12px 20px;">Ver guía con AppSheet ↓</a>
+        </div>
+        <div class="path-card">
+            <div>
+                <span>CAMINO 2 · OPERACIÓN DIRECTA</span>
+                <h3>Entrar a trabajar inmediatamente</h3>
+                <p>Abrí la AppSheet original en una pestaña independiente, sin pasar por la guía. El acceso todavía requiere revisión de seguridad.</p>
+            </div>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="btn-outline" style="text-align:center; padding: 12px 20px;">Abrir AppSheet en pantalla completa ↗</a>
+        </div>
+    </div>
+</section>
+
+<!-- Section 01: Circuito de Datos -->
+<section id="circuito" class="shell section-title">
+    <small>01 DE 04 · ORGANIZACIÓN</small>
+    <h2>01 · Organización de la información</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 8px;">Un cliente agrupa sus pedidos; cada pedido administra sus obras e ítems independientes y sus respectivos cobros o señas.</p>
+</section>
+
+<div class="shell relation-grid">
+    <div class="relation-card"><span class="relation-num">01</span><strong>Clientes</strong><span>Datos de clientes</span></div>
+    <span class="relation-arrow">→</span>
+    <div class="relation-card relation-main"><span class="relation-num">02</span><strong>Pedidos</strong><span>Tabla central</span></div>
+    <span class="relation-arrow">→</span>
+    <div class="relation-branches">
+        <div class="relation-card" style="padding: 12px;"><span class="relation-num">03</span><strong>Obras / Ítems</strong><span>Registros Pedido_Items</span></div>
+        <div class="relation-card" style="padding: 12px;"><span class="relation-num">04</span><strong>Pagos</strong><span>Registros Pagos</span></div>
+    </div>
+</div>
+
+<!-- Section 02: Aprender / Recorrido Guiado -->
+<section id="aprender" class="shell section-title">
+    <small>02 DE 04 · GUÍA SOBRE APPSHEET</small>
+    <h2>02 · Recorrido guiado de gestión comercial</h2>
+    <p style="color: var(--brand-gray); max-width: 650px; margin-top: 8px;">Elegí Crear pedido, Agregar obras, Registrar pago o Consultar saldo. Podés abrir la AppSheet original en otra pestaña o intentar verla integrada; la guía no controla sus datos. Su acceso todavía requiere revisión de seguridad.</p>
+</section>
+
+<div class="shell mobile-view-toggle">
+    <button type="button" id="toggle-mobile-guide" class="btn-solid" onclick="switchMobileTab('guide')">Guía · Instrucciones</button>
+    <button type="button" id="toggle-mobile-app" class="btn-outline" onclick="switchMobileTab('app')">AppSheet · Trabajar</button>
+</div>
+
+<div class="shell workspace-split">
+    <!-- Panel Izquierdo: Guía -->
+    <div class="guide-panel" id="guide-panel-container">
+        <div class="guide-header">
+            <h3>Paso a paso comercial</h3>
+            <p>Tocá una etapa para ver qué hacer en AppSheet</p>
+        </div>
+
+        <div class="guide-steps-list">
+            <button type="button" class="guide-step-btn active" id="gstep-1" onclick="selectGuideStep(1)">
+                <span class="step-tag">Paso 1 de 4</span>
+                <span class="step-title">1. Crear Pedido</span>
+                <p class="step-desc">Apertura del registro comercial, selección del cliente y definición de la moneda.</p>
+            </button>
+            <button type="button" class="guide-step-btn" id="gstep-2" onclick="selectGuideStep(2)">
+                <span class="step-tag">Paso 2 de 4</span>
+                <span class="step-title">2. Agregar Obras</span>
+                <p class="step-desc">Carga de ítems, tipo de trabajo, dimensiones, terminaciones y precio.</p>
+            </button>
+            <button type="button" class="guide-step-btn" id="gstep-3" onclick="selectGuideStep(3)">
+                <span class="step-tag">Paso 3 de 4</span>
+                <span class="step-title">3. Registrar un Pago</span>
+                <p class="step-desc">Ingreso de seña o cobro parcial con medio de pago y receptor.</p>
+            </button>
+            <button type="button" class="guide-step-btn" id="gstep-4" onclick="selectGuideStep(4)">
+                <span class="step-tag">Paso 4 de 4</span>
+                <span class="step-title">4. Consultar Saldo</span>
+                <p class="step-desc">Verificación del Total, Pagado, Saldo pendiente y estado de cobro.</p>
+            </button>
+        </div>
+
+        <div class="guide-instructions" id="guide-instructions-content">
+            <!-- Dynamic instructions -->
+        </div>
+
+        <div class="guide-nav-bar">
+            <button type="button" id="btn-prev-step" onclick="navigateStep(-1)">← Anterior</button>
+            <span id="step-counter">1 / 4</span>
+            <button type="button" id="btn-next-step" class="btn-solid" onclick="navigateStep(1)">Siguiente →</button>
+        </div>
+
+
+    </div>
+
+    <!-- Panel Derecho: AppSheet Live Host -->
+    <div class="appsheet-host" id="appsheet-host-container">
+        <div class="appsheet-topbar">
+             <span class="status-indicator">AppSheet original · Seguridad pendiente de revisión</span>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" style="font-size: 9px; font-weight: 700; text-decoration: underline; color: var(--brand-black);">Ampliar ventana ↗</a>
+        </div>
+        <div class="auth-banner-notice">
+            <p><strong>Acceso en revisión:</strong> AppSheet todavía no exige inicio de sesión. No compartas esta guía como acceso operativo hasta configurar y probar las cuentas autorizadas.</p>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" style="font-size:9px; font-weight:700; color:#111;">Abrir AppSheet ↗</a>
+        </div>
+        <p class="appsheet-live-note"><strong>Una sola aplicación de datos.</strong> Esta guía no registra nada: las altas, modificaciones y cobros ocurren en AppSheet. El acceso autenticado de Mati y Marine aún no fue verificado.</p>
+        <div class="app-guide-strip" aria-live="polite">
+            <div><small id="live-guide-counter">Guía · Paso 1 de 4</small><strong id="live-guide-title">Crear pedido</strong><p id="live-guide-hint">Entrá en Pedidos para comenzar.</p></div>
+            <div class="app-guide-actions">
+                <button type="button" id="app-back-guide" class="app-back-guide" onclick="switchMobileTab('guide')">Ver guía</button>
+                <button type="button" id="app-prev-guide" onclick="navigateStep(-1)">← Anterior</button>
+                <button type="button" id="app-next-guide" onclick="navigateStep(1)">Siguiente →</button>
+            </div>
+        </div>
+        <div class="onboarding-state" id="embedded-app-prompt">
+            <strong>Recomendado: abrir AppSheet en pantalla completa.</strong> La vista integrada puede fallar por restricciones del navegador o de acceso; no reemplaza una prueba en iPhone Safari.<br>
+            <button type="button" id="load-embedded-app" onclick="loadEmbeddedApp()">Intentar abrir dentro de esta guía</button>
+        </div>
+        <div class="appsheet-frame-wrapper" id="embedded-app-wrapper" hidden>
+            <iframe id="live-appsheet-frame" data-src="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" title="AppSheet de Henris Gallery: acceso y permisos pendientes de verificación" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="fullscreen; camera"></iframe>
+        </div>
+        <div class="onboarding-state">Si AppSheet no abre dentro de esta página, <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer">abrila directamente</a>. En móviles es preferible usar la pestaña independiente.</div>
+    </div>
+</div>
+
+<!-- Section 03: Mapeo de Campos -->
+<section id="mapeo" class="shell section-title">
+    <small>03 DE 04 · EXCEL HISTÓRICO → APPSHEET</small>
+    <h2>03 · Diccionario y mapeo de 66 campos</h2>
+    <p style="color: var(--brand-gray); max-width: 600px; margin-top: 8px;">Explorá cómo se corresponde cada columna del Excel histórico con las tablas y campos del nuevo modelo técnico.</p>
+</section>
+
+<div class="shell workspace">
+    <div class="workspace-head">
+        <strong>Estructura técnica de datos</strong>
+        <span>Excel Histórico → AppSheet</span>
+    </div>
+
+    <nav id="tabs" class="tabs" aria-label="Seleccionar tabla"></nav>
+
+    <div class="controls">
+        <div class="input-wrap">
+            <input type="search" id="search" placeholder="Buscar campo, columna o regla..." autocomplete="off">
+        </div>
+        <select id="statusFilter">
+            <option value="todos">Todos los orígenes</option>
+            <option value="directo">Origen directo</option>
+            <option value="transformado">Adaptar / separar</option>
+            <option value="calculado">Calculado</option>
+            <option value="nuevo">Campo nuevo</option>
+            <option value="revisar">Validación pdte.</option>
+        </select>
+    </div>
+
+    <div class="split">
+        <div class="side">
+            <div class="side-head">
+                <span>Campo técnico</span>
+                <span id="field-count">0 / 66</span>
+            </div>
+            <div class="field-list" id="field-list">
+                <!-- JS Fill -->
+            </div>
+        </div>
+
+        <div class="detail" id="detail-view">
+            <div class="mapping-stage">
+                <div class="excel-ui">
+                    <div class="excel-header-grid">
+                        <div>Col</div>
+                        <div>Encabezado Histórico</div>
+                    </div>
+                    <div id="excel-rows"></div>
+                </div>
+
+                <div style="font-size: 20px; color: var(--brand-gray);">→</div>
+
+                <div class="app-dest-ui">
+                    <div class="app-dest-head" id="app-screen-title">Detalle</div>
+                    <div class="app-dest-body">
+                        <div class="app-dest-field">
+                            <span>Campo en el Modelo</span>
+                            <strong id="app-field-name" style="font-size:12px; font-weight:600;">...</strong>
+                        </div>
+                        <div class="app-dest-field" style="background:#f9f9f9; border-color:transparent;">
+                            <span>Estado Técnico</span>
+                            <strong id="app-field-status" style="font-size:10px;">...</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="proof-panel" aria-live="polite">
+                <div class="proof-eyebrow">CÓMO UBICAR ESTE CAMPO EN APPSHEET</div>
+                <h3 id="proof-title">Seleccioná un campo</h3>
+                <div id="proof-content"><p style="font-size: 11px; color: #777;">La guía te indica dónde buscarlo en la aplicación real. No es una representación de una pantalla.</p></div>
+            </section>
+            <div class="rule-box">
+                <strong>Regla documental de transformación</strong>
+                <p id="detail-rule">Seleccioná un ítem del menú izquierdo para analizar su origen.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section id="operar" class="section-operate" aria-labelledby="operate-title">
+  <div class="shell">
+    <div class="section-title"><small>04 DE 04 · USO DIARIO</small><h2 id="operate-title">04 · Trabajar en Henris Gallery</h2></div>
+    <div class="operate-panel">
+      <div><strong>Pedidos, obras y pagos en una sola aplicación</strong><p>La AppSheet real se encuentra en la sección 02. Podés volver a ella sin perder el recorrido, o abrirla en pantalla completa. No se creó una segunda base de datos ni otro formulario.</p></div>
+      <div class="operate-actions">
+        <button type="button" class="btn-solid" id="open-embedded-app" onclick="openEmbeddedApp()">Ver opción integrada ↑</button>
+        <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" class="btn-outline" target="_blank" rel="noopener noreferrer">Abrir AppSheet completa ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="padding: 40px 0; text-align:center; font-size: 10px; text-transform: uppercase; color: var(--brand-gray); border-top: 1px solid var(--brand-border);">
+    <span>Henris Gallery · Guía Operativa Integrada & AppSheet V4</span>
+</footer>
+</main>
+
+<a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="floating-fab">
+  Abrir App ↗
+</a>
+
+<script id="mapping-source" type="application/json">
+{"sections":[{"table":"Pedidos","count":19,"items":[{"field":"Pedido_ID","origin":[],"status":"nuevo","rule":"Identificador técnico propio del sistema; nunca sustituye el número histórico."},{"field":"Numero_Pedido_Origen","origin":[{"column":"A","header":"i"}],"status":"directo","rule":"Conservar «i» como referencia histórica; no usar como clave técnica."},{"field":"Fecha_Pedido","origin":[{"column":"B","header":"MES PEDIDO"},{"column":"C","header":"CARPETA"}],"status":"revisar","rule":"El mes y la carpeta no garantizan una fecha completa; nuevas cargas usan fecha del pedido."},{"field":"Periodo","origin":[{"column":"B","header":"MES PEDIDO"}],"status":"transformado","rule":"Conservar el mes histórico; en nuevos pedidos se deriva de Fecha_Pedido."},{"field":"Carpeta_Produccion","origin":[{"column":"C","header":"CARPETA"}],"status":"directo","rule":"Conservar texto o fecha tal como venga de «CARPETA»."},{"field":"Cliente_ID","origin":[{"column":"AH","header":"CLIENTE"}],"status":"nuevo","rule":"Referencia técnica a Clientes. Usar CLIENTE para vincular, sin deduplicar solo por nombre."},{"field":"Canal_Origen","origin":[{"column":"AM","header":"VENTA"}],"status":"transformado","rule":"Normalizar valores: IG→Instagram, WAP→WhatsApp, WEB→Web, LOCAL→Local."},{"field":"Campaña_ID","origin":[],"status":"nuevo","rule":"Referencia opcional de campañas; no tiene una columna de origen en el Excel histórico."},{"field":"Numero_Pedido_Web","origin":[{"column":"AN","header":"NUMERO DE PEDIDO WEB"}],"status":"directo","rule":"Referencia externa opcional; no reemplaza Pedido_ID."},{"field":"Moneda_Venta","origin":[{"column":"P","header":"Monedad"}],"status":"directo","rule":"Conservar PESOS / USD; el encabezado histórico dice «Monedad»."},{"field":"Total_Pedido","origin":[{"column":"O","header":"PRECIO CUADRO"}],"status":"calculado","rule":"Suma de los precios de cada ítem; «PRECIO CUADRO» es importe por obra, no total de pedido."},{"field":"Total_Pagado","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"calculado","rule":"Suma de pagos efectivamente confirmados del pedido: seña y pagos posteriores."},{"field":"Saldo_Pendiente","origin":[{"column":"Y","header":"PAGO PENDIENTE"}],"status":"calculado","rule":"Total_Pedido − Total_Pagado; «PAGO PENDIENTE» sirve para contrastar, no para copiar."},{"field":"Estado_Cobro","origin":[{"column":"S","header":"SENA PAGADA?"},{"column":"W","header":"PAGADO FINAL"}],"status":"calculado","rule":"Derivar de pagos y saldo; las marcas históricas solo sirven como referencia."},{"field":"Fecha_Entrega_Prevista","origin":[{"column":"Z","header":"FECHA TENTATIVA DE ENTREGA"}],"status":"directo","rule":"Fecha tentativa o comprometida; no confundir con entrega real."},{"field":"Fecha_Entrega_Real","origin":[{"column":"AA","header":"FECHA ENTREGA"}],"status":"directo","rule":"Fecha real de entrega al cliente."},{"field":"Estado_Pedido","origin":[],"status":"nuevo","rule":"Estado operativo de la app; no se deduce de pago ni de la columna CUADRO."},{"field":"Estado_Facturacion","origin":[{"column":"AL","header":"Facturado TOTAL"}],"status":"transformado","rule":"Adaptar Facturado TOTAL a los estados de facturación, distinguiendo cobrado de facturado."},{"field":"Comentarios","origin":[],"status":"nuevo","rule":"Observaciones propias del pedido. Las de «ENTREGAS COMENTARIOS» corresponden al ítem."}]},{"table":"Pedido_Items","count":26,"items":[{"field":"Pedido_Item_ID","origin":[],"status":"nuevo","rule":"Clave técnica por obra/trabajo dentro del pedido."},{"field":"Pedido_ID","origin":[{"column":"A","header":"i"}],"status":"transformado","rule":"Vincular al pedido generado con la referencia «i»; no copiar el texto como clave."},{"field":"Obra_ID","origin":[{"column":"D","header":"#ARt"}],"status":"revisar","rule":"Vincular al catálogo solo cuando #ARt identifique una obra existente y verificable."},{"field":"Codigo_Art","origin":[{"column":"D","header":"#ARt"}],"status":"directo","rule":"Conservar código comercial original de la obra o ítem."},{"field":"Descripcion","origin":[{"column":"E","header":"DESCRIPCION"}],"status":"directo","rule":"Conservar descripción completa del trabajo u obra."},{"field":"Medidas","origin":[{"column":"F","header":"MEDIDAS"}],"status":"directo","rule":"Texto original de MEDIDAS, conservado como legado sin perder anotaciones."},{"field":"Borde_Adicional","origin":[{"column":"G","header":"Borde para agregar"}],"status":"directo","rule":"Borde blanco de la lámina impresa; no confundir con passe-partout."},{"field":"Passe_Partout","origin":[{"column":"H","header":"PASSE-PARTOUT"}],"status":"directo","rule":"Passe-partout propiamente dicho, separado del borde blanco."},{"field":"Terminacion_Cuadro","origin":[{"column":"I","header":"CUADRO"}],"status":"revisar","rule":"CUADRO contiene terminaciones y a veces estados; separar antes de cargar."},{"field":"Precio_Item","origin":[{"column":"O","header":"PRECIO CUADRO"}],"status":"directo","rule":"Importe de una obra/trabajo individual; Matías lo confirmó."},{"field":"Comentarios_Produccion","origin":[{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"directo","rule":"Comentarios de fabricación y entrega asociados al ítem."},{"field":"Estado_Produccion","origin":[{"column":"I","header":"CUADRO"}],"status":"revisar","rule":"CUADRO puede contener estados, pero necesita criterio antes de normalizar."},{"field":"Estado_Entrega_Local","origin":[{"column":"K","header":"ENTREGADO AL LOCAL?"}],"status":"transformado","rule":"Normalizar la situación de entrega al local, independiente del cobro."},{"field":"Fecha_Entrega_Proveedor","origin":[{"column":"L","header":"FECHA ENTREGA DE LUIS"}],"status":"directo","rule":"Fecha en que Luis/proveedor entrega el trabajo."},{"field":"Produccion_Pagada","origin":[{"column":"M","header":"SE PAGO"}],"status":"transformado","rule":"«SE PAGO» corresponde al pago de producción, no al cobro del cliente."},{"field":"Costo_Produccion_ID","origin":[],"status":"nuevo","rule":"Referencia a Costos; el histórico no aporta esta clave técnica."},{"field":"Tipo_Trabajo","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Clasificar si es obra Henris, enmarcado u otro trabajo según el detalle; validar casos ambiguos."},{"field":"Objeto_A_Enmarcar","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Identificar lámina, camiseta, foto u otro objeto solamente cuando está documentado."},{"field":"Medida_Ancho","origin":[{"column":"F","header":"MEDIDAS"}],"status":"transformado","rule":"Extraer el ancho solo cuando la medida es inequívoca; caso dudoso → REVISAR."},{"field":"Medida_Alto","origin":[{"column":"F","header":"MEDIDAS"}],"status":"transformado","rule":"Extraer el alto solo cuando la medida es inequívoca; caso dudoso → REVISAR."},{"field":"Unidad_Medida","origin":[{"column":"F","header":"MEDIDAS"}],"status":"revisar","rule":"En históricos no asumir centímetros cuando el texto no lo confirma."},{"field":"Medida_Corresponde_A","origin":[{"column":"F","header":"MEDIDAS"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"revisar","rule":"Matías debe confirmar lámina, cuadro terminado u otro para cada caso ambiguo."},{"field":"Medida_Estandar_Referencia","origin":[],"status":"nuevo","rule":"Referencia comercial opcional; no sustituye las dimensiones reales."},{"field":"Es_Personalizado","origin":[{"column":"E","header":"DESCRIPCION"},{"column":"F","header":"MEDIDAS"},{"column":"G","header":"Borde para agregar"},{"column":"H","header":"PASSE-PARTOUT"},{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"transformado","rule":"Se define con la regla de personalización cuando hay evidencia de medida, material, objeto o terminación especial."},{"field":"Observaciones_Especiales","origin":[{"column":"J","header":"ENTREGAS COMENTARIOS"}],"status":"transformado","rule":"Separar excepciones de los comentarios generales; conservar texto sin inventar."},{"field":"Estado_Revision","origin":[],"status":"nuevo","rule":"Estado de control OK / REVISAR generado durante normalización."}]},{"table":"Pagos","count":14,"items":[{"field":"Pago_ID","origin":[],"status":"nuevo","rule":"Clave técnica individual por cobro; seña y pago final son filas distintas."},{"field":"Pedido_ID","origin":[{"column":"A","header":"i"}],"status":"transformado","rule":"Vínculo al mismo pedido de origen; un pago no pertenece a una obra específica."},{"field":"Tipo_Pago","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"transformado","rule":"Distinguir Seña de Pago final/segundo pago según la columna histórica."},{"field":"Fecha_Pago","origin":[{"column":"T","header":"FECHA PAGO SENA"},{"column":"X","header":"FECHA PAGO FINAL"}],"status":"directo","rule":"Fecha de la seña o del segundo pago, según el cobro correspondiente."},{"field":"Importe","origin":[{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"}],"status":"directo","rule":"Importe de la seña o de otro pago; cada cobro se transforma en su propia fila."},{"field":"Moneda","origin":[{"column":"P","header":"Monedad"}],"status":"revisar","rule":"Moneda histórica del pedido como referencia; validar si un cobro se realizó en otra moneda."},{"field":"Cotizacion_USD","origin":[{"column":"AF","header":"cotización dolar"}],"status":"directo","rule":"Cotización histórica cuando corresponda conversión; revisar la fecha aplicable."},{"field":"Importe_En_Moneda_Pedido","origin":[{"column":"P","header":"Monedad"},{"column":"Q","header":"SEÑA"},{"column":"U","header":"SEGUNDA PARTE PAGO"},{"column":"AF","header":"cotización dolar"}],"status":"calculado","rule":"Convertir el importe de cada pago usando su moneda y cotización validada."},{"field":"Medio_Pago","origin":[{"column":"N","header":"PAGO"}],"status":"revisar","rule":"«PAGO» puede contener medios mixtos, por ejemplo 50% transferencia / 50% efectivo."},{"field":"Recibido_Por","origin":[{"column":"R","header":"QUIEN LA RECIBIO?"},{"column":"V","header":"QUIEN LA RECIBIO?"}],"status":"directo","rule":"Mantener separado receptor de seña y receptor de segundo pago."},{"field":"Estado_Pago","origin":[{"column":"S","header":"SENA PAGADA?"},{"column":"W","header":"PAGADO FINAL"}],"status":"transformado","rule":"Normalizar confirmación de seña/final; conciliar inconsistencias antes de contar como cobro."},{"field":"Facturado","origin":[{"column":"AK","header":"Facturado SENA"}],"status":"transformado","rule":"Facturado SENA corresponde a la seña; el total facturado se controla aparte."},{"field":"Conciliado_Contabilidad","origin":[{"column":"AB","header":"CONTABILIDAD SENA"},{"column":"AC","header":"CONTABILIDAD OTRA PARTELPAGO"}],"status":"transformado","rule":"Usar columna contable específica del cobro; no crear otro pago."},{"field":"Observaciones","origin":[],"status":"nuevo","rule":"Comentarios de cada cobro en la aplicación; sin columna histórica exclusiva."}]},{"table":"Clientes","count":7,"items":[{"field":"Cliente_ID","origin":[],"status":"nuevo","rule":"Clave técnica generada para vincular pedidos; no deduplicar solamente por nombre."},{"field":"Nombre","origin":[{"column":"AH","header":"CLIENTE"}],"status":"directo","rule":"Nombre original, conservar con revisión de duplicados."},{"field":"DNI_CUIL","origin":[{"column":"AG","header":"datos cleinte DNI o CUIL"}],"status":"directo","rule":"Conservar como texto, sin usarlo como Key técnica."},{"field":"Telefono","origin":[{"column":"AI","header":"CONTACTO"}],"status":"directo","rule":"CONTACTO: conservar caracteres, prefijos y ceros; no tratarlo como número."},{"field":"Email","origin":[{"column":"AJ","header":"MAIL"}],"status":"directo","rule":"MAIL del Excel histórico; dato opcional."},{"field":"Notas","origin":[],"status":"nuevo","rule":"Notas del cliente en la app; no tomar automáticamente comentarios de producción."},{"field":"Fecha_Alta","origin":[],"status":"nuevo","rule":"Fecha de alta en el sistema nuevo, no inventar una fecha histórica."}]}]}
+</script>
+<script>
+const guideStepsData = [
+    {
+        step: 1,
+        title: "1. Crear Pedido",
+        tag: "Paso 1 de 4 · Apertura comercial",
+        instructions: [
+            "En AppSheet, abrí el menú disponible y seleccioná Pedidos.",
+            "Buscá la acción de alta (+ o «Nuevo pedido»). Si no está disponible con tu usuario, no se puede continuar la carga.",
+            "Completá los campos de cabecera, seleccioná el cliente y la moneda de venta que permita la app y guardá."
+        ],
+        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> Abrí <strong>Pedidos</strong> y verificá que aparezca la opción para crear un pedido. Si no aparece, contactá al administrador.",
+
+    },
+    {
+        step: 2,
+        title: "2. Agregar Obras",
+        tag: "Paso 2 de 4 · Carga de ítems",
+        instructions: [
+            "Dentro del pedido, buscá la lista de obras o ítems relacionados y elegí «Agregar», si está disponible.",
+            "Elegí el tipo de trabajo disponible para la obra.",
+            "Completá descripción, medidas, unidad y precio según los campos disponibles; verificá antes de guardar."
+        ],
+        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> En el detalle del pedido, buscá la sección de ítems y tocá <strong>Agregar</strong>.",
+
+    },
+    {
+        step: 3,
+        title: "3. Registrar un Pago",
+        tag: "Paso 3 de 4 · Gestión de cobranza",
+        instructions: [
+            "En el pedido correspondiente, abrí la lista de pagos relacionados y seleccioná la acción de agregar, si está habilitada.",
+            "Seleccioná el tipo de pago disponible, el importe y la moneda.",
+            "Completá medio de pago, receptor y estado según las opciones reales, sin registrar como confirmado algo que todavía no fue recibido."
+        ],
+        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> Abrí <strong>Pagos relacionados</strong> dentro del pedido y elegí la acción de agregar un pago.",
+
+    },
+    {
+        step: 4,
+        title: "4. Consultar el Saldo",
+        tag: "Paso 4 de 4 · Conciliación comercial",
+        instructions: [
+            "Guardá el pago y sincronizá la aplicación antes de verificar los importes.",
+            "Revisá los campos consolidados: Total Pedido, Total Pagado y Saldo Pendiente.",
+            "Comprobá si el estado corresponde a Pendiente, Parcial o Cobrado de acuerdo con los importes efectivamente confirmados."
+        ],
+        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> Volvé al detalle del pedido, sincronizá y contrastá <strong>Total − Pagado = Saldo</strong> en la moneda del pedido.",
+
+    }
+];
+
+let currentGuideStep = 1;
+
+function renderGuideStep(stepNum) {
+    currentGuideStep = stepNum;
+    const data = guideStepsData.find(d => d.step === stepNum);
+    if (!data) return;
+
+    // Update Step buttons
+    document.querySelectorAll('.guide-step-btn').forEach((btn, idx) => {
+        const isAct = (idx + 1) === stepNum;
+        btn.classList.toggle('active', isAct);
+        btn.setAttribute('aria-pressed', String(isAct));
+    });
+
+    // Instructions
+    const instBox = document.getElementById('guide-instructions-content');
+    if (instBox) {
+        instBox.innerHTML = `<h4>Instrucciones de uso:</h4>` +
+            data.instructions.map((inst, i) => `
+                <div class="instruction-item">
+                    <span class="instruction-num">${i+1}</span>
+                    <span>${inst}</span>
+                </div>
+            `).join('') +
+            `<div class="action-cta-box">${data.actionCta}</div>`;
+    }
+
+    // Update the real AppSheet pane instruction. Its iframe remains unchanged.
+    const shortHints = {
+        1: 'Buscá Pedidos y la acción para crear un pedido.',
+        2: 'Dentro del pedido, agregá cada obra y completá medidas y precio.',
+        3: 'En Pagos relacionados, registrá un cobro efectivamente recibido.',
+        4: 'Sincronizá y comprobá Total, Pagado y Saldo.'
+    };
+    document.getElementById('live-guide-counter').textContent = `Guía · Paso ${stepNum} de 4`;
+    document.getElementById('live-guide-title').textContent = data.title;
+    document.getElementById('live-guide-hint').textContent = shortHints[stepNum];
+    const livePrev = document.getElementById('app-prev-guide');
+    if (livePrev) livePrev.disabled = stepNum === 1;
+    const liveNext = document.getElementById('app-next-guide');
+    if (liveNext) liveNext.textContent = stepNum === 4 ? 'Reiniciar ↺' : 'Siguiente →';
+    // Counter
+    const counterEl = document.getElementById('step-counter');
+    if (counterEl) counterEl.textContent = `${stepNum} / 4`;
+
+    const prevBtn = document.getElementById('btn-prev-step');
+    if (prevBtn) prevBtn.disabled = stepNum === 1;
+
+    const nextBtn = document.getElementById('btn-next-step');
+    if (nextBtn) nextBtn.textContent = stepNum === 4 ? 'Reiniciar ↺' : 'Siguiente →';
+
+}
+
+function navigateStep(delta) {
+    let next = currentGuideStep + delta;
+    if (next > 4) next = 1;
+    if (next < 1) next = 4;
+    renderGuideStep(next);
+}
+
+function selectGuideStep(s) {
+    renderGuideStep(s);
+}
+
+function switchMobileTab(tab) {
+    const guide = document.getElementById('guide-panel-container');
+    const app = document.getElementById('appsheet-host-container');
+    const btnGuide = document.getElementById('toggle-mobile-guide');
+    const btnApp = document.getElementById('toggle-mobile-app');
+
+    if (tab === 'guide') {
+        guide.classList.remove('mobile-hidden');
+        app.classList.add('mobile-hidden');
+        btnGuide.className = 'btn-solid';
+        btnApp.className = 'btn-outline';
+    } else {
+        guide.classList.add('mobile-hidden');
+        app.classList.remove('mobile-hidden');
+        btnGuide.className = 'btn-outline';
+        btnApp.className = 'btn-solid';
+    }
+}
+
+function openEmbeddedApp(){
+    // Don't instantiate AppSheet until the user explicitly requests the embedded view.
+    if(window.matchMedia('(max-width: 960px)').matches) switchMobileTab('app');
+    document.getElementById('appsheet-host-container')?.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('load-embedded-app')?.focus();
+}
+
+function loadEmbeddedApp(){
+    const frame = document.getElementById('live-appsheet-frame');
+    const wrapper = document.getElementById('embedded-app-wrapper');
+    if (!frame || !wrapper || frame.src) return;
+    wrapper.hidden = false;
+    frame.src = frame.dataset.src;
+    document.getElementById('embedded-app-prompt').hidden = true;
+}
+
+// Mapping Section logic
+(() => {
+    const mappingSourceEl = document.getElementById("mapping-source");
+    if (!mappingSourceEl) return;
+
+    const src = JSON.parse(mappingSourceEl.textContent);
+    const sections = src.sections;
+    const labels = { Pedidos: "Pedidos", Pedido_Items: "Obras", Pagos: "Pagos", Clientes: "Clientes", todos: "Todas las tablas" };
+    const statuses = { directo: "Origen directo", transformado: "Adaptar / separar", calculado: "Calculado", nuevo: "Campo nuevo", revisar: "Requiere validación" };
+    const allFields = sections.flatMap(sec => sec.items.map(item => ({...item, table: sec.table})));
+
+    let currentTable = "todos";
+    let selectedField = allFields.find(x => x.field === 'Medidas' && x.table === 'Pedido_Items') || allFields[0];
+    let filteredData = [];
+
+    const tabsContainer = document.getElementById('tabs');
+    const listContainer = document.getElementById('field-list');
+    const searchInput = document.getElementById('search');
+    const statusSelect = document.getElementById('statusFilter');
+    const countDisplay = document.getElementById('field-count');
+
+    const norm = t => String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+
+    function renderTabs() {
+        if (!tabsContainer) return;
+        tabsContainer.innerHTML = '';
+        [{table: "todos", count: allFields.length}, ...sections].forEach(sec => {
+            let btn = document.createElement('button');
+            btn.className = 'tab';
+            btn.setAttribute('aria-pressed', currentTable === sec.table);
+            btn.innerHTML = `${labels[sec.table]} <em>${sec.count || sec.items.length}</em>`;
+            btn.onclick = () => { currentTable = sec.table; renderTabs(); applyFilters(); };
+            tabsContainer.appendChild(btn);
+        });
+    }
+
+    function renderDetail(item) {
+        const screenTitle = document.getElementById('app-screen-title');
+        const fieldName = document.getElementById('app-field-name');
+        const fieldStatus = document.getElementById('app-field-status');
+        const detailRule = document.getElementById('detail-rule');
+        const proofTitle = document.getElementById('proof-title');
+        const proofContent = document.getElementById('proof-content');
+        const excelRows = document.getElementById('excel-rows');
+
+        if (!item) {
+            if (screenTitle) screenTitle.textContent = 'Sin Selección';
+            if (fieldName) fieldName.textContent = '—';
+            if (fieldStatus) fieldStatus.textContent = '—';
+            if (detailRule) detailRule.textContent = 'No hay ningún campo seleccionado o la búsqueda actual no arrojó resultados.';
+            if (proofTitle) proofTitle.textContent = 'Sin resultados';
+
+            if (proofContent) {
+                proofContent.innerHTML = '<p style="font-size: 11px; color: #777;">Ajustá los filtros o la búsqueda para seleccionar un campo.</p>';
+            }
+            if (excelRows) {
+                excelRows.innerHTML = `<div class="excel-row-grid"><div class="cell-index">-</div><div style="font-weight:600; text-transform:uppercase; color: var(--brand-gray);">Sin Origen</div></div>`;
+            }
+            return;
+        }
+
+        if (screenTitle) screenTitle.textContent = labels[item.table] || item.table || 'Detalle';
+        if (fieldName) fieldName.textContent = (item.field || '').replace(/_/g, ' ');
+        if (fieldStatus) fieldStatus.textContent = statuses[item.status] || item.status || '—';
+        if (detailRule) detailRule.textContent = item.rule || 'Sin regla especificada.';
+
+        const stepForField = {
+            Cliente_ID:1, Moneda_Venta:1, Fecha_Pedido:1, Pedido_ID:1, Canal_Origen:1,
+            Tipo_Trabajo:2, Obra_ID:2, Medidas:2, Medida_Ancho:2, Medida_Alto:2, Unidad_Medida:2,
+            Precio_Item:2, Descripcion:2, Terminacion_Cuadro:2, Borde_Adicional:2, Passe_Partout:2,
+            Pago_ID:3, Tipo_Pago:3, Fecha_Pago:3, Importe:3, Moneda:3, Medio_Pago:3,
+            Recibido_Por:3, Estado_Pago:3, Importe_En_Moneda_Pedido:3,
+            Total_Pedido:4, Total_Pagado:4, Saldo_Pendiente:4, Estado_Cobro:4
+        };
+        const destStep=stepForField[item.field];
+        if (proofTitle) proofTitle.textContent = (item.field || '').replace(/_/g,' ');
+        if (proofContent) {
+            proofContent.replaceChildren();
+            const msg=document.createElement('p');
+            msg.style.cssText='font-size:12px;color:#555;line-height:1.55';
+            msg.textContent=destStep
+                ? `Relacionado con el paso ${destStep} de la guía. Revisá en AppSheet dónde aparece este campo para tu usuario y pedido.`
+                : 'Campo documentado en el diccionario técnico. Su visualización o edición en AppSheet no fue verificada.';
+            proofContent.appendChild(msg);
+            const actions=document.createElement('div');actions.className='proof-inline-actions';
+            if(destStep){
+                const btn=document.createElement('button');btn.type='button';btn.textContent=`Ir al paso ${destStep} de la guía →`;
+                btn.addEventListener('click',()=>{
+                    renderGuideStep(destStep);
+                    if(window.matchMedia('(max-width: 960px)').matches) switchMobileTab('guide');
+                    document.getElementById('aprender').scrollIntoView({behavior:'smooth',block:'start'});
+                });
+                actions.appendChild(btn);
+            }
+            const link=document.createElement('a');
+            link.href='https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4';
+            link.target='_blank';link.rel='noopener noreferrer';link.textContent='Abrir AppSheet ↗';
+            actions.appendChild(link);proofContent.appendChild(actions);
+        }
+
+        if (excelRows) {
+            excelRows.innerHTML = '';
+            if (!item.origin || item.origin.length === 0) {
+                excelRows.innerHTML = `<div class="excel-row-grid"><div class="cell-index">-</div><div style="font-weight:600; text-transform:uppercase; color: var(--brand-gray);">Campo Nuevo</div></div>`;
+            } else {
+                item.origin.forEach(orig => {
+                    excelRows.innerHTML += `<div class="excel-row-grid"><div class="cell-index">${orig.column}</div><div style="font-weight:600; text-transform:uppercase;">${orig.header}</div></div>`;
+                });
+            }
+        }
+    }
+
+    function applyFilters() {
+        const q = norm(searchInput ? searchInput.value : '');
+        const st = statusSelect ? statusSelect.value : 'todos';
+        filteredData = allFields.filter(x =>
+            (currentTable === "todos" || x.table === currentTable) &&
+            (st === "todos" || x.status === st) &&
+            (!q || norm([x.field, x.table, x.rule, statuses[x.status], ...(x.origin || []).map(y => y.column + " " + y.header)].join(" ")).includes(q))
+        );
+
+        if (!filteredData.includes(selectedField)) {
+            selectedField = filteredData[0] || null;
+        }
+
+        if (countDisplay) countDisplay.textContent = `${filteredData.length} / 66`;
+        if (listContainer) listContainer.innerHTML = '';
+
+        if(!filteredData.length) {
+            if (listContainer) listContainer.innerHTML = `<p style="padding:15px; font-size:11px; color:#777;">Sin resultados para el filtro seleccionado.</p>`;
+            renderDetail(null);
+            return;
+        }
+
+        filteredData.forEach(item => {
+            let btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'field';
+            if (item === selectedField) btn.setAttribute('aria-pressed', 'true');
+            btn.innerHTML = `<div><span class="field-name">${(item.field || '').replace(/_/g, ' ')}</span><span class="field-status">${labels[item.table]} · ${statuses[item.status]}</span></div><span style="font-size: 14px;">→</span>`;
+            btn.onclick = () => {
+                selectedField = item;
+                document.querySelectorAll('.field').forEach(el => el.setAttribute('aria-pressed', 'false'));
+                btn.setAttribute('aria-pressed', 'true');
+                renderDetail(item);
+            };
+            if (listContainer) listContainer.appendChild(btn);
+        });
+
+        renderDetail(selectedField);
+    }
+
+    if (searchInput) searchInput.addEventListener('input', applyFilters);
+    if (statusSelect) statusSelect.addEventListener('change', applyFilters);
+
+    renderTabs();
+    applyFilters();
+})();
+
+// Init Step 1
+renderGuideStep(1);
+if(window.matchMedia('(max-width: 960px)').matches) switchMobileTab('guide');
+</script>
+
+
+</body>
+</html>
