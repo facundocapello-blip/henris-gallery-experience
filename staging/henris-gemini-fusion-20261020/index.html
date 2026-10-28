@@ -604,7 +604,21 @@ realDialog.addEventListener('click',(ev)=>{if(ev.target===realDialog)realDialog.
     }
 
     function renderDetail(item) {
-        if (!item) return;
+        if (!item) {
+            document.getElementById('app-screen-title').textContent = 'Sin resultados';
+            document.getElementById('app-field-name').textContent = '—';
+            document.getElementById('app-field-status').textContent = '—';
+            document.getElementById('detail-rule').textContent = 'Ajustá la búsqueda o los filtros para seleccionar un campo.';
+            document.getElementById('proof-title').textContent = 'Sin resultados';
+            const proof = document.getElementById('proof-content');
+            proof.replaceChildren();
+            const message = document.createElement('p');
+            message.textContent = 'No hay capturas asociadas a esta búsqueda.';
+            proof.appendChild(message);
+            document.getElementById('excel-rows').replaceChildren();
+            document.getElementById('detail-view').classList.remove('reveal');
+            return;
+        }
         document.getElementById('app-screen-title').textContent = labels[item.table];
         document.getElementById('app-field-name').textContent = item.field.replace(/_/g, ' ');
         document.getElementById('app-field-status').textContent = statuses[item.status];
@@ -688,6 +702,12 @@ realDialog.addEventListener('click',(ev)=>{if(ev.target===realDialog)realDialog.
         
         countDisplay.textContent = `${filteredData.length} / 66`;
         listContainer.innerHTML = '';
+        if (filteredData.length === 0) {
+            const empty = document.createElement('p');
+            empty.className = 'proof-pending';
+            empty.textContent = 'No se encontraron campos. Modificá la búsqueda o los filtros.';
+            listContainer.appendChild(empty);
+        }
         
         filteredData.forEach(item => {
             let btn = document.createElement('button');
