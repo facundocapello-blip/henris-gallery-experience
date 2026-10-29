@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="#ffffff">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="description" content="Guía interactiva operativa y consola de gestión AppSheet de Henris Gallery para Matías y Marine.">
     <title>Henris Gallery | Guía Operativa & AppSheet Real</title>
     <style>
@@ -12,7 +13,7 @@
     :root {
         --brand-black: #000000;
         --brand-white: #ffffff;
-        --brand-gray: #777777;
+        --brand-gray: #595959;
         --brand-light-gray: #f4f4f4;
         --brand-border: #e0e0e0;
         --app-green: #3A5F48;
@@ -264,71 +265,108 @@
        .app-dest-ui,.excel-ui{width:100%;max-width:280px}
        .controls{padding:12px}
     }
+
+    /* --- Revisión: accesibilidad y móvil --- */
+    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip-link{position:absolute;left:-999px;top:0}
+    .skip-link:focus{left:10px;top:10px;z-index:100;background:#000;color:#fff;padding:10px 14px}
+    :focus-visible{outline:2px solid #000;outline-offset:2px}
+    .guide-step-btn.active:focus-visible,.field[aria-pressed=true]:focus-visible,.btn-solid:focus-visible{outline-color:#fff;box-shadow:0 0 0 4px #000}
+    .path-card h2{font-size:18px;margin:8px 0 6px;font-weight:600;text-transform:uppercase}
+    .app-dest-field span,.proof-eyebrow{color:#595959}
+    .access-admin-note{width:min(1200px,calc(100% - 40px));margin:12px auto;padding:10px 14px;border:1px dashed #555;background:#fffbe6;font-size:12px}
+    .btn-block{padding:12px 16px;min-height:44px;margin:10px 8px 0 0;display:inline-flex;align-items:center;text-decoration:none;font-size:11px;font-weight:600}
+    .header-nav a{padding:10px 2px}
+    .nav-app{text-decoration:underline!important}
+    .admin-details{width:min(1200px,calc(100% - 40px));margin:30px auto 50px;border:1px solid #000}
+    .admin-details>summary{padding:16px 20px;font-weight:700;font-size:12px;background:#f4f4f4;cursor:pointer}
+    .admin-details .shell{width:auto;margin-left:20px;margin-right:20px}
+    .admin-details .workspace{margin-bottom:30px}
+    #detail-view{scroll-margin-top:130px}
+    .floating-fab{bottom:calc(25px + env(safe-area-inset-bottom,0px))}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+    @media (max-width:650px){
+        html{scroll-padding-top:130px}
+        .appsheet-host{scroll-margin-top:130px}
+        body{font-size:14px}
+        button,.btn-solid,.btn-outline{min-height:44px;font-size:11px}
+        .guide-steps-list{display:grid;grid-template-columns:1fr 1fr}
+        .guide-step-btn{border-right:1px solid var(--brand-border)}
+        .step-desc{display:none}
+        .instruction-item,.rule-box p{font-size:14px}
+        .appsheet-live-note,.onboarding-state,.auth-banner-notice,.app-guide-strip p,.step-tag,.field-status{font-size:12px}
+        .input-wrap input{font-size:16px}
+        .tabs{flex-wrap:wrap;overflow-x:visible;padding:0 12px}
+        .admin-details,.access-admin-note{width:calc(100% - 24px)}
+        .admin-details .shell{margin-left:12px;margin-right:12px}
+    }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#aprender">Saltar a la guía</a>
 
 <header class="masthead">
     <div class="shell masthead-inner">
         <a href="#" class="brand-link">
             <span class="identity"><strong>HENRIS <em>Gallery</em></strong><span>Guía Operativa & AppSheet Real</span></span>
         </a>
-        <nav class="header-nav">
-            <a href="#circuito">01 · Estructura</a>
-            <a href="#aprender">02 · Recorrido Guiado</a>
-            <a href="#mapeo">03 · Mapeo</a>
-             <a href="#operar">04 · Operar</a>
-            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener">Abrir App ↗</a>
+        <nav class="header-nav" aria-label="Principal">
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="nav-app">Abrir app <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+            <a href="#aprender">Pasos</a>
+            <a href="#circuito">Organización</a>
+            <a href="#admin-details" onclick="document.getElementById('admin-details').open=true">Administrador</a>
         </nav>
     </div>
 </header>
 
 <main>
+<h1 class="sr-only">Henris Gallery: guía de uso de la AppSheet para Matías y Marine</h1>
+<p class="access-admin-note" role="note"><strong>Pendiente (administrador):</strong> habilitar y probar las cuentas de Mati y Marine antes de compartir esta guía. Borrá este aviso cuando esté verificado.</p>
 <!-- Path selector -->
 <section class="hero-path">
     <div class="shell path-container">
         <div class="path-card active">
             <div>
                 <span>CAMINO 1 · APRENDIZAJE INTEGRADO</span>
-                <h3>Aprender a usar la aplicación</h3>
+                <h2>Aprender a usar la aplicación</h2>
                 <p>Seguí cuatro pasos de trabajo mientras utilizás la AppSheet original. No es un simulador.</p>
             </div>
-            <a href="#circuito" class="btn-solid" style="text-align:center; padding: 12px 20px;">Ver guía con AppSheet ↓</a>
+            <a href="#aprender" class="btn-solid" style="text-align:center; padding: 12px 20px;">Ver los pasos de la guía ↓</a>
         </div>
         <div class="path-card">
             <div>
                 <span>CAMINO 2 · OPERACIÓN DIRECTA</span>
-                <h3>Entrar a trabajar inmediatamente</h3>
-                <p>Abrí la AppSheet original en una pestaña independiente, sin pasar por la guía. Ahora exige cuenta Google; falta habilitar y probar a Mati y Marine.</p>
+                <h2>Entrar a trabajar ahora</h2>
+                <p>Abrí la AppSheet en una pestaña aparte y trabajá directamente. Entrá con tu cuenta Google autorizada.</p>
             </div>
-            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="btn-outline" style="text-align:center; padding: 12px 20px;">Abrir AppSheet en pantalla completa ↗</a>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="btn-outline" style="text-align:center; padding: 12px 20px;">Abrir AppSheet en pestaña nueva <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
         </div>
     </div>
 </section>
 
 <!-- Section 01: Circuito de Datos -->
 <section id="circuito" class="shell section-title">
-    <small>01 DE 04 · ORGANIZACIÓN</small>
-    <h2>01 · Organización de la información</h2>
+    <small>ORGANIZACIÓN</small>
+    <h2>Organización de la información</h2>
     <p style="color: var(--brand-gray); max-width: 600px; margin-top: 8px;">Un cliente agrupa sus pedidos; cada pedido administra sus obras e ítems independientes y sus respectivos cobros o señas.</p>
 </section>
 
 <div class="shell relation-grid">
     <div class="relation-card"><span class="relation-num">01</span><strong>Clientes</strong><span>Datos de clientes</span></div>
-    <span class="relation-arrow">→</span>
+    <span class="relation-arrow" aria-hidden="true">→</span>
     <div class="relation-card relation-main"><span class="relation-num">02</span><strong>Pedidos</strong><span>Tabla central</span></div>
-    <span class="relation-arrow">→</span>
+    <span class="relation-arrow" aria-hidden="true">→</span>
     <div class="relation-branches">
-        <div class="relation-card" style="padding: 12px;"><span class="relation-num">03</span><strong>Obras / Ítems</strong><span>Registros Pedido_Items</span></div>
-        <div class="relation-card" style="padding: 12px;"><span class="relation-num">04</span><strong>Pagos</strong><span>Registros Pagos</span></div>
+        <div class="relation-card" style="padding: 12px;"><span class="relation-num">03</span><strong>Obras / Ítems</strong><span>Obras del pedido</span></div>
+        <div class="relation-card" style="padding: 12px;"><span class="relation-num">04</span><strong>Pagos</strong><span>Pagos del pedido</span></div>
     </div>
 </div>
 
 <!-- Section 02: Aprender / Recorrido Guiado -->
 <section id="aprender" class="shell section-title">
-    <small>02 DE 04 · GUÍA SOBRE APPSHEET</small>
-    <h2>02 · Recorrido guiado de gestión comercial</h2>
-    <p style="color: var(--brand-gray); max-width: 650px; margin-top: 8px;">Elegí Crear pedido, Agregar obras, Registrar pago o Consultar saldo. Podés abrir la AppSheet original en otra pestaña o intentar verla integrada; la guía no controla sus datos. El acceso de Mati y Marine aún no se probó.</p>
+    <small>GUÍA SOBRE APPSHEET</small>
+    <h2>Recorrido guiado: cuatro pasos</h2>
+    <p style="color: var(--brand-gray); max-width: 650px; margin-top: 8px;">Elegí Crear pedido, Agregar obras, Registrar pago o Consultar saldo. Podés abrir la AppSheet original en otra pestaña o intentar verla integrada; la guía no controla sus datos.</p>
 </section>
 
 <div class="shell mobile-view-toggle">
@@ -367,7 +405,7 @@
             </button>
         </div>
 
-        <div class="guide-instructions" id="guide-instructions-content">
+        <div class="guide-instructions" id="guide-instructions-content" aria-live="polite">
             <!-- Dynamic instructions -->
         </div>
 
@@ -384,13 +422,13 @@
     <div class="appsheet-host" id="appsheet-host-container">
         <div class="appsheet-topbar">
              <span class="status-indicator">AppSheet original · Inicio de sesión requerido</span>
-            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" style="font-size: 9px; font-weight: 700; text-decoration: underline; color: var(--brand-black);">Ampliar ventana ↗</a>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" style="font-size: 9px; font-weight: 700; text-decoration: underline; color: var(--brand-black);">Ampliar ventana <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
         </div>
         <div class="auth-banner-notice">
-            <p><strong>Acceso restringido:</strong> AppSheet exige iniciar sesión con Google y no acepta a todas las cuentas. Todavía falta agregar y probar a Mati y Marine; no compartas esta guía como acceso operativo hasta entonces.</p>
-            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" style="font-size:9px; font-weight:700; color:#111;">Abrir AppSheet ↗</a>
+            <p><strong>Acceso con cuenta Google autorizada.</strong> Entrá con el mail que te habilitaron. Si no tenés acceso, pasale ese mail a quien administra Henris Gallery para que te agregue.</p>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" style="font-size:9px; font-weight:700; color:#111;">Abrir AppSheet <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
         </div>
-        <p class="appsheet-live-note"><strong>Una sola aplicación de datos.</strong> Esta guía no registra nada: las altas, modificaciones y cobros ocurren en AppSheet. El acceso autenticado de Mati y Marine aún no fue verificado.</p>
+        <p class="appsheet-live-note"><strong>Una sola aplicación de datos.</strong> Esta guía no registra nada: las altas, modificaciones y cobros ocurren en AppSheet.</p>
         <div class="app-guide-strip" aria-live="polite">
             <div><small id="live-guide-counter">Guía · Paso 1 de 4</small><strong id="live-guide-title">Crear pedido</strong><p id="live-guide-hint">Entrá en Pedidos para comenzar.</p></div>
             <div class="app-guide-actions">
@@ -400,9 +438,10 @@
             </div>
         </div>
         <div class="onboarding-state" id="embedded-app-prompt">
-            <strong>Recomendado: abrir AppSheet en pantalla completa.</strong> La vista integrada puede fallar por restricciones del navegador o de acceso; no reemplaza una prueba en iPhone Safari.<br>
-            <button type="button" id="load-embedded-app" onclick="loadEmbeddedApp()">Intentar abrir dentro de esta guía</button>
+            <strong>Recomendado: abrí la AppSheet en una pestaña aparte.</strong> La vista dentro de esta página puede no funcionar en todos los navegadores o cuentas.<br>
+            <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="btn-solid btn-block">Abrir en pestaña nueva <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a> <button type="button" id="load-embedded-app" onclick="loadEmbeddedApp()">Probar dentro de esta guía (opcional)</button>
         </div>
+        <div class="onboarding-state" id="frame-fallback" hidden>¿Pantalla en blanco o error? <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer">Abrila en una pestaña nueva <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a></div>
         <div class="appsheet-frame-wrapper" id="embedded-app-wrapper" hidden>
             <iframe id="live-appsheet-frame" data-src="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" title="AppSheet de Henris Gallery: se requiere cuenta Google autorizada" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="fullscreen; camera"></iframe>
         </div>
@@ -410,10 +449,10 @@
     </div>
 </div>
 
-<!-- Section 03: Mapeo de Campos -->
+<details id="admin-details" class="admin-details"><summary>Para el administrador: diccionario y mapeo Excel → AppSheet (66 campos)</summary>
 <section id="mapeo" class="shell section-title">
-    <small>03 DE 04 · EXCEL HISTÓRICO → APPSHEET</small>
-    <h2>03 · Diccionario y mapeo de 66 campos</h2>
+    <small>EXCEL HISTÓRICO → APPSHEET</small>
+    <h2>Diccionario y mapeo de 66 campos</h2>
     <p style="color: var(--brand-gray); max-width: 600px; margin-top: 8px;">Explorá cómo se corresponde cada columna del Excel histórico con las tablas y campos del nuevo modelo técnico.</p>
 </section>
 
@@ -427,15 +466,15 @@
 
     <div class="controls">
         <div class="input-wrap">
-            <input type="search" id="search" placeholder="Buscar campo, columna o regla..." autocomplete="off">
+            <input type="search" id="search" aria-label="Buscar campo, columna o regla" placeholder="Buscar campo, columna o regla..." autocomplete="off">
         </div>
-        <select id="statusFilter">
+        <select id="statusFilter" aria-label="Filtrar por origen">
             <option value="todos">Todos los orígenes</option>
             <option value="directo">Origen directo</option>
             <option value="transformado">Adaptar / separar</option>
             <option value="calculado">Calculado</option>
             <option value="nuevo">Campo nuevo</option>
-            <option value="revisar">Validación pdte.</option>
+            <option value="revisar">A validar</option>
         </select>
     </div>
 
@@ -460,7 +499,7 @@
                     <div id="excel-rows"></div>
                 </div>
 
-                <div style="font-size: 20px; color: var(--brand-gray);">→</div>
+                <div style="font-size: 20px; color: var(--brand-gray);" aria-hidden="true">→</div>
 
                 <div class="app-dest-ui">
                     <div class="app-dest-head" id="app-screen-title">Detalle</div>
@@ -470,7 +509,7 @@
                             <strong id="app-field-name" style="font-size:12px; font-weight:600;">...</strong>
                         </div>
                         <div class="app-dest-field" style="background:#f9f9f9; border-color:transparent;">
-                            <span>Estado Técnico</span>
+                            <span>Estado del campo</span>
                             <strong id="app-field-status" style="font-size:10px;">...</strong>
                         </div>
                     </div>
@@ -492,14 +531,15 @@
 
 
 
+</details>
 <section id="operar" class="section-operate" aria-labelledby="operate-title">
   <div class="shell">
-    <div class="section-title"><small>04 DE 04 · USO DIARIO</small><h2 id="operate-title">04 · Trabajar en Henris Gallery</h2></div>
+    <div class="section-title"><small>USO DIARIO</small><h2 id="operate-title">Trabajar en Henris Gallery</h2></div>
     <div class="operate-panel">
       <div><strong>Pedidos, obras y pagos en una sola aplicación</strong><p>La AppSheet real se encuentra en la sección 02. Podés volver a ella sin perder el recorrido, o abrirla en pantalla completa. No se creó una segunda base de datos ni otro formulario.</p></div>
       <div class="operate-actions">
         <button type="button" class="btn-solid" id="open-embedded-app" onclick="openEmbeddedApp()">Ver opción integrada ↑</button>
-        <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" class="btn-outline" target="_blank" rel="noopener noreferrer">Abrir AppSheet completa ↗</a>
+        <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" class="btn-outline" target="_blank" rel="noopener noreferrer">Abrir AppSheet completa <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
       </div>
     </div>
   </div>
@@ -528,7 +568,7 @@ const guideStepsData = [
             "Buscá la acción de alta (+ o «Nuevo pedido»). Si no está disponible con tu usuario, no se puede continuar la carga.",
             "Completá los campos de cabecera, seleccioná el cliente y la moneda de venta que permita la app y guardá."
         ],
-        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> Abrí <strong>Pedidos</strong> y verificá que aparezca la opción para crear un pedido. Si no aparece, contactá al administrador.",
+        actionCta: "<span aria-hidden=\"true\">👆</span> <strong>Acción manual en AppSheet:</strong> Abrí <strong>Pedidos</strong> y verificá que aparezca la opción para crear un pedido. Si no aparece, contactá al administrador.",
 
     },
     {
@@ -540,7 +580,7 @@ const guideStepsData = [
             "Elegí el tipo de trabajo disponible para la obra.",
             "Completá descripción, medidas, unidad y precio según los campos disponibles; verificá antes de guardar."
         ],
-        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> En el detalle del pedido, buscá la sección de ítems y tocá <strong>Agregar</strong>.",
+        actionCta: "<span aria-hidden=\"true\">👆</span> <strong>Acción manual en AppSheet:</strong> En el detalle del pedido, buscá la sección de ítems y tocá <strong>Agregar</strong>.",
 
     },
     {
@@ -550,9 +590,9 @@ const guideStepsData = [
         instructions: [
             "En el pedido correspondiente, abrí la lista de pagos relacionados y seleccioná la acción de agregar, si está habilitada.",
             "Seleccioná el tipo de pago disponible, el importe y la moneda.",
-            "Completá medio de pago, receptor y estado según las opciones reales, sin registrar como confirmado algo que todavía no fue recibido."
+            "Completá medio de pago, receptor y estado según las opciones reales, sin registrar como confirmado algo que todavía no fue recibido. Guardá y sincronizá si la app lo ofrece."
         ],
-        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> Abrí <strong>Pagos relacionados</strong> dentro del pedido y elegí la acción de agregar un pago.",
+        actionCta: "<span aria-hidden=\"true\">👆</span> <strong>Acción manual en AppSheet:</strong> Abrí <strong>Pagos relacionados</strong> dentro del pedido y elegí la acción de agregar un pago.",
 
     },
     {
@@ -560,11 +600,11 @@ const guideStepsData = [
         title: "4. Consultar el Saldo",
         tag: "Paso 4 de 4 · Conciliación comercial",
         instructions: [
-            "Guardá el pago y sincronizá la aplicación antes de verificar los importes.",
+            "Volvé al detalle del pedido y comprobá que los datos estén actualizados (sincronizá si la app lo ofrece).",
             "Revisá los campos consolidados: Total Pedido, Total Pagado y Saldo Pendiente.",
             "Comprobá si el estado corresponde a Pendiente, Parcial o Cobrado de acuerdo con los importes efectivamente confirmados."
         ],
-        actionCta: "👆 <strong>Acción manual en AppSheet:</strong> Volvé al detalle del pedido, sincronizá y contrastá <strong>Total − Pagado = Saldo</strong> en la moneda del pedido.",
+        actionCta: "<span aria-hidden=\"true\">👆</span> <strong>Acción manual en AppSheet:</strong> Volvé al detalle del pedido, sincronizá y contrastá <strong>Total − Pagado = Saldo</strong> en la moneda del pedido.",
 
     }
 ];
@@ -609,7 +649,7 @@ function renderGuideStep(stepNum) {
     const livePrev = document.getElementById('app-prev-guide');
     if (livePrev) livePrev.disabled = stepNum === 1;
     const liveNext = document.getElementById('app-next-guide');
-    if (liveNext) liveNext.textContent = stepNum === 4 ? 'Reiniciar ↺' : 'Siguiente →';
+    if (liveNext) liveNext.textContent = stepNum === 4 ? 'Volver al paso 1 ↺' : 'Siguiente →';
     // Counter
     const counterEl = document.getElementById('step-counter');
     if (counterEl) counterEl.textContent = `${stepNum} / 4`;
@@ -618,7 +658,7 @@ function renderGuideStep(stepNum) {
     if (prevBtn) prevBtn.disabled = stepNum === 1;
 
     const nextBtn = document.getElementById('btn-next-step');
-    if (nextBtn) nextBtn.textContent = stepNum === 4 ? 'Reiniciar ↺' : 'Siguiente →';
+    if (nextBtn) nextBtn.textContent = stepNum === 4 ? 'Volver al paso 1 ↺' : 'Siguiente →';
 
 }
 
@@ -663,7 +703,7 @@ function loadEmbeddedApp(){
     const frame = document.getElementById('live-appsheet-frame');
     const wrapper = document.getElementById('embedded-app-wrapper');
     if (!frame || !wrapper || frame.src) return;
-    wrapper.hidden = false;
+    wrapper.hidden = false; const fb = document.getElementById('frame-fallback'); if (fb) fb.hidden = false;
     frame.src = frame.dataset.src;
     document.getElementById('embedded-app-prompt').hidden = true;
 }
@@ -809,7 +849,7 @@ function loadEmbeddedApp(){
             if (item === selectedField) btn.setAttribute('aria-pressed', 'true');
             btn.innerHTML = `<div><span class="field-name">${(item.field || '').replace(/_/g, ' ')}</span><span class="field-status">${labels[item.table]} · ${statuses[item.status]}</span></div><span style="font-size: 14px;">→</span>`;
             btn.onclick = () => {
-                selectedField = item;
+                selectedField = item; if (window.matchMedia('(max-width: 960px)').matches) setTimeout(() => document.getElementById('detail-view').scrollIntoView({behavior:'smooth',block:'start'}), 0);
                 document.querySelectorAll('.field').forEach(el => el.setAttribute('aria-pressed', 'false'));
                 btn.setAttribute('aria-pressed', 'true');
                 renderDetail(item);
@@ -833,5 +873,18 @@ if(window.matchMedia('(max-width: 960px)').matches) switchMobileTab('guide');
 </script>
 
 
+<script>
+// Estado accesible de los botones de modo móvil
+(function(){
+  const orig = window.switchMobileTab;
+  window.switchMobileTab = function(t){
+    orig(t);
+    const g = document.getElementById('toggle-mobile-guide'), a = document.getElementById('toggle-mobile-app');
+    if (g) g.setAttribute('aria-pressed', String(t === 'guide'));
+    if (a) a.setAttribute('aria-pressed', String(t !== 'guide'));
+  };
+  window.switchMobileTab('guide');
+})();
+</script>
 </body>
 </html>

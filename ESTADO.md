@@ -7,7 +7,7 @@ Actualizado: 2026-10-28
 - AppSheet: ID `3300a579-5a49-4738-98f5-19979e4952e4`, definición `1.000044`, aún Prototype; Google sign-in obligatorio y «Allow all signed-in users» apagado. El propietario entró tras el cambio; no se probaron cuentas de terceros.
 
 ## Abierto
-- La guía adjunta quedó como candidata local en `staging/guia-operativa-candidata/index.html`, fuera del workflow de Pages: hay que decidir si reemplazar la web publicada, luego probar antes de autorizar su publicación.
+- La revisión de Claude quedó como candidata local en `staging/guia-operativa-candidata/index.html`, fuera del workflow de Pages: corregidos enlace de Pasos y texto de acceso sin marcadores. Probada en Chromium (buscador, navegación, iframe opcional), no en iPhone; no publicar todavía.
 - Pedir los correos Google exactos de Mati y Marine, agregarlos como usuarios y probar que ambos pueden entrar; la lista de compartidos figura en 0 usuarios (más el propietario).
 - Probar con esos usuarios y iPhone Safari físico el alta de pedido, dos ítems, dos pagos, sync, saldo y reintento; no crear pruebas en datos reales sin entorno seguro.
 - Conciliar la rama local `main` con `origin/main` (`357aa2d`): ramas divergentes; no hacer push ciego ni perder el registro QA local.
@@ -18,3 +18,4 @@ Actualizado: 2026-10-28
 - `0 / 66` dejaba el detalle previo visible; la versión remota corregida vive en el commit fuente `dddcb2c`, no en el commit local `1c2c2f7`.
 - GitHub Pages puede servir caché vieja; usar query `?v=...` y verificar el deploy, no equiparar push con publicación.
 - La guía adjunta decía «privada» antes de exigir login; la candidata local fue corregida, su iframe se abre solo bajo pedido y no prueba Safari físico ni acceso de Mati/Marine.
+- `noindex` en la candidata no sustituye control de acceso; el aviso «Pendiente (administrador)» se conserva hasta probar ambas cuentas.
