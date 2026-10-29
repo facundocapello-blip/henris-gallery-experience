@@ -1,9 +1,9 @@
 # Henris Gallery — estado
-Actualizado: 2026-10-28
+Actualizado: 2026-10-29
 
 ## Publicado
 - Web: https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-gemini-fusion-20261020/ — HTTP 200; búsqueda sin resultados muestra «Sin resultados» y `0 / 66`; consola sin errores en Chromium.
-- Rama remota `main`: merge `95dc8f4` subido; Pages run `40799106219` terminó en **success**. La versión visible sigue fijada al HTML `dddcb2c` (contenido en vivo idéntico); la guía de Claude quedó en el repo, no publicada.
+- Rama `main` sincronizada con `origin/main`; último commit que disparó el deploy: `f8ecf3f`. Pages run `40799670835` terminó en **success**. La versión visible sigue fijada al HTML `dddcb2c` (contenido en vivo idéntico); la guía de Claude quedó en el repo, no publicada.
 - AppSheet: ID `3300a579-5a49-4738-98f5-19979e4952e4`, definición `1.000044`, aún Prototype; Google sign-in obligatorio y «Allow all signed-in users» apagado. El propietario entró tras el cambio; no se probaron cuentas de terceros.
 
 ## Abierto
