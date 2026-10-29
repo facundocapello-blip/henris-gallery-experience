@@ -1,6 +1,6 @@
 'use strict';
 const steps = [
-  {title:'Crear un pedido', description:'En Henris APP, iniciá un pedido y completá los datos que la aplicación te solicite.', result:'El pedido queda registrado para agregar sus trabajos.', note:'La pantalla de alta no está verificada para esta guía. Si no encontrás cómo crear el pedido, consultá al administrador.', shots:[]},
+  {title:'Crear un pedido', description:'En Henris APP, iniciá un pedido, completá los datos que te solicite y guardá.', result:'El pedido queda registrado para agregar sus trabajos.', note:'Referencia del 28/10/2026: el formulario mostraba moneda, cliente y fecha. La versión actual puede variar; si no encontrás cómo crear el pedido, consultá al administrador.', shots:[['assets/nuevo-pedido.webp','Formulario Nuevo pedido de AppSheet, captura del 28/10/2026']]},
   {title:'Agregar una obra', description:'Dentro del pedido, agregá el trabajo y completá los datos disponibles, como tipo y medidas.', result:'La obra queda asociada al pedido.', note:'Las pantallas son referencias de momentos distintos; pueden verse diferentes en tu cuenta.', shots:[['assets/tipo-trabajo.webp','Selector de tipo de trabajo en AppSheet'],['assets/medidas.webp','Campos de ancho, alto y unidad en AppSheet']]},
   {title:'Registrar un pago', description:'En el pedido, agregá el pago y revisá importe, medio y estado antes de guardar.', result:'El pago queda asociado al pedido. Sincronizá si la aplicación lo solicita.', note:'No marques como recibido un pago que todavía no cobraste.', shots:[['assets/pago.webp','Formulario de pago de referencia en AppSheet']]},
   {title:'Consultar el saldo', description:'Volvé al pedido y revisá el total, lo pagado y el saldo pendiente.', result:'Podés ver cuánto falta cobrar después de sincronizar.', note:'Los importes de las capturas son de referencia y pueden pertenecer a pedidos distintos.', shots:[['assets/saldo.webp','Total, pagado y saldo en una pantalla de referencia de AppSheet']]}
@@ -28,7 +28,7 @@ function showStep(index) {
     button.type = 'button'; button.className = 'shot'; button.setAttribute('aria-label', `Ampliar captura: ${alt}`);
     const image = document.createElement('img'); image.src = src; image.alt = alt;
     const label = document.createElement('span'); label.className = 'shot-label'; label.setAttribute('aria-hidden', 'true');
-    label.textContent = src.includes('tipo-trabajo') ? 'Tipo de trabajo' : src.includes('medidas') ? 'Medidas' : src.includes('pago') ? 'Datos del pago' : 'Saldo pendiente';
+    label.textContent = src.includes('nuevo-pedido') ? 'Nuevo pedido · 28/10/2026' : src.includes('tipo-trabajo') ? 'Tipo de trabajo' : src.includes('medidas') ? 'Medidas' : src.includes('pago') ? 'Datos del pago' : 'Saldo pendiente';
     button.append(image, label); button.addEventListener('click', () => openImage(button, src, alt)); $('shots').append(button);
   });
   $('visual-caption').textContent = step.shots.length ? 'Capturas de referencia · tocá para ampliar. Pueden ser de distintos pedidos.' : 'Guía de referencia · la operación real ocurre en AppSheet.';
@@ -49,3 +49,4 @@ function renderMotion() { document.documentElement.classList.toggle('motion-off'
 $('motion-toggle').addEventListener('click', () => { motionPaused = !motionPaused; renderMotion(); });
 if (reduce.addEventListener) reduce.addEventListener('change', event => { if (event.matches) { motionPaused = true; renderMotion(); } });
 renderMotion();
+showStep(0);
