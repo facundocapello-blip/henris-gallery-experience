@@ -260,6 +260,11 @@ jobs:
         run: |
           mkdir -p _site/staging/henris-gemini-fusion-20261020
           cp _gemini_fusion_candidate/staging/henris-gemini-fusion-20261020/index.html _site/staging/henris-gemini-fusion-20261020/index.html
+      - name: Include isolated visual guide trial
+        run: |
+          node --check staging/guia-visual-prueba-20261029/app.js
+          mkdir -p _site/staging/guia-visual-prueba-20261029
+          cp -R staging/guia-visual-prueba-20261029/. _site/staging/guia-visual-prueba-20261029/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
