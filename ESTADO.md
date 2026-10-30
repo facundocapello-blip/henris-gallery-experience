@@ -20,6 +20,7 @@ Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 - Quedan sin aplicar del relevamiento: renombrar «Saltar parte» a algo más claro si se prueba con dueñas, y revisar el paso «Del Excel a la app» con datos reales de su planilla.
 - Marine: falta su correo (lo maneja Facundo) y definir si carga o solo consulta.
 - Guion de demo y corte de 18 s: publicados y verificados. El MP4 ya está generado (`henris-demo.mp4`, 13 s) y publicado; no hace falta grabar pantalla. Matías tiene usuario, Marine no. Falta que Facundo lo mande.
+- Edición del crudo: `tools/edit-ad.mjs` (recorte, acelerado, subtítulos ASS de la marca, placa final, 1080×1920) + `staging/henris-ad-20261031/plan-ejemplo.json`. Probado con el MP4 de la réplica como entrada: salida 720×1280, 9,5 s, sin errores. Falta el crudo real del celular.
 - Sin verificar: Safari/iPhone real, VoiceOver y `prefers-reduced-motion` con la preferencia del sistema.
 - Capturas de la guía (28/10): comparadas por texto, no por imagen. Esa guía decía «moneda, cliente y fecha»; el formulario vigente pide además entrega prevista y el tipo de trabajo. La guía nueva (31/10) ya lo refleja; las capturas de pantalla siguen sin tomar.
 - La copia `3300a579` sigue existiendo: archivar cuando Facundo lo decida.
