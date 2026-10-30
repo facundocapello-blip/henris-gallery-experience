@@ -20,6 +20,7 @@
         cliente: "Estudio Méndez",
         moneda: "USD",
         fecha: "28/10/2026",
+        entrega: "05/11/2026",
         obras: [
           { desc: "Retrato familiar", ancho: 60, alto: 80, unidad: "cm", precio: 850, terminacion: "Marco negro" }
         ],
@@ -33,6 +34,12 @@
   const pagado = (p) => p.pagos.reduce((a, x) => a + Number(x.importe || 0), 0);
   const saldo = (p) => total(p) - pagado(p);
   const pedidoById = (id) => db.pedidos.find((p) => p.id === id);
+  // dd/mm/aaaa, como se escribe en la planilla (el input date da aaaa-mm-dd)
+  const fechaCorta = (iso) => {
+    if (!iso) return "";
+    const d = new Date(iso + "T00:00:00");
+    return isNaN(d.getTime()) ? "" : d.toLocaleDateString("es-AR");
+  };
 
   /* --------------------------------------------------------------- estado */
   const state = {
@@ -98,7 +105,7 @@
       ? p.obras.map((o) => `
         <div class="rp-line">
           <span>${esc(o.desc)}</span>
-          <span>${o.ancho}×${o.alto} ${esc(o.unidad)} · ${esc(o.terminacion || "sin terminación")}</span>
+          <span>${o.tipo ? esc(o.tipo) + " · " : ""}${o.ancho}×${o.alto} ${esc(o.unidad)} · ${esc(o.terminacion || "sin terminación")}</span>
           <strong>${money(o.precio, p.moneda)}</strong>
         </div>`).join("")
       : `<p class="rp-empty">Todavía no hay obras en este pedido.</p>`;
@@ -116,7 +123,7 @@
       <div class="rp-head" data-tour="detalle-pedido">
         <div>
           <p class="rp-title">${esc(p.id)} · ${esc(p.cliente)}</p>
-          <p class="rp-sub">Pedido del ${esc(p.fecha)} · moneda ${esc(p.moneda)}</p>
+          <p class="rp-sub">Pedido del ${esc(p.fecha)}${p.entrega ? ` · entrega ${esc(p.entrega)}` : ""} · moneda ${esc(p.moneda)}</p>
         </div>
         <div class="rp-actions">
           <button type="button" class="btn" data-act="ir-obra" data-tour="btn-agregar-obra">Agregar obra</button>
@@ -170,7 +177,7 @@
     return `
       <div class="rp-breadcrumb"><button type="button" data-act="volver">← Pedidos</button><span>Nuevo pedido</span></div>
       <div class="rp-head"><div><p class="rp-title">Nuevo pedido</p>
-        <p class="rp-sub">Solo tres datos. Las obras y los pagos se agregan después.</p></div></div>
+        <p class="rp-sub">Los cuatro datos que te pide la app real: cliente, fecha, moneda y entrega. Las obras y los pagos van después.</p></div></div>
       <div class="rp-add">
         <div class="rp-field">
           <label for="f-cliente">Cliente</label>
@@ -180,6 +187,11 @@
           <small>Es la columna CLIENTE de tu planilla.</small><span class="err" role="alert"></span>
         </div>
         <div class="rp-field">
+          <label for="f-fecha">Fecha del pedido</label>
+          <input id="f-fecha" type="date" data-field="fecha" data-tour="campo-fecha">
+          <small>El día que tomaste el pedido. Se escribe día/mes/año.</small><span class="err" role="alert"></span>
+        </div>
+        <div class="rp-field">
           <label for="f-moneda">Moneda del pedido</label>
           <select id="f-moneda" data-field="moneda" data-tour="campo-moneda">
             <option value="">Elegí la moneda…</option>
@@ -187,6 +199,11 @@
             <option value="ARS">Pesos (ARS)</option>
           </select>
           <small>Se define una vez por pedido y no cambia después.</small><span class="err" role="alert"></span>
+        </div>
+        <div class="rp-field">
+          <label for="f-entrega">Entrega prevista</label>
+          <input id="f-entrega" type="date" data-field="entrega" data-tour="campo-entrega">
+          <small>La fecha que le prometiste al cliente. La app real no deja guardar sin ella.</small><span class="err" role="alert"></span>
         </div>
         <div class="rp-actions">
           <button type="button" class="btn btn-solid" data-act="guardar-pedido" data-tour="btn-guardar">Guardar pedido</button>
@@ -205,6 +222,18 @@
       <div class="rp-head"><div><p class="rp-title">Nueva obra</p>
         <p class="rp-sub">Una obra es un ítem del pedido: lo que se va a producir y cuánto sale.</p></div></div>
       <div class="rp-add">
+        <div class="rp-field">
+          <label for="f-tipo">Tipo de trabajo</label>
+          <select id="f-tipo" data-field="tipo" data-tour="campo-tipo">
+            <option value="">Elegí el tipo…</option>
+            <option value="Obra Henris">Obra propia de Henris</option>
+            <option value="Enmarcado de lámina del cliente">Enmarcado de lámina del cliente</option>
+            <option value="Enmarcado de objeto">Enmarcado de objeto</option>
+            <option value="Reenmarcado">Reenmarcado</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <small>Es lo primero que pide la app real, y es obligatorio.</small><span class="err" role="alert"></span>
+        </div>
         <div class="rp-field">
           <label for="f-desc">Qué se hace</label>
           <input id="f-desc" type="text" data-field="desc" data-tour="campo-desc" placeholder="Ej.: Retrato familiar" autocomplete="off">
@@ -359,13 +388,14 @@
 
   function savePedido() {
     const v = (f) => $(`[data-field="${f}"]`)?.value || "";
-    const missing = [!v("cliente") && "cliente", !v("moneda") && "moneda"].filter(Boolean);
+    const missing = ["cliente", "fecha", "moneda", "entrega"].filter((f) => !v(f));
     if (missing.length) return invalid(missing, "Completá este dato para guardar.");
     const p = {
       id: "P-" + db.nextId++,
       cliente: v("cliente"),
       moneda: v("moneda"),
-      fecha: new Date().toLocaleDateString("es-AR"),
+      fecha: fechaCorta(v("fecha")),
+      entrega: fechaCorta(v("entrega")),
       obras: [],
       pagos: []
     };
@@ -381,10 +411,11 @@
   function saveObra() {
     const p = pedidoById(state.activeId);
     const v = (f) => $(`[data-field="${f}"]`)?.value || "";
-    const missing = ["desc", "ancho", "alto", "unidad", "precio"].filter((f) => !v(f));
+    const missing = ["tipo", "desc", "ancho", "alto", "unidad", "precio"].filter((f) => !v(f));
     if (!p) return;
     if (missing.length) return invalid(missing, "Completá este dato para guardar.");
     p.obras.push({
+      tipo: v("tipo"),
       desc: v("desc"), ancho: v("ancho"), alto: v("alto"),
       unidad: v("unidad"), precio: Number(v("precio")), terminacion: "Sin definir"
     });
@@ -483,7 +514,7 @@
 
   const MODULES = [
     { id: 0, name: "Qué es esto", target: "40 s" },
-    { id: 1, name: "Crear un pedido", target: "90 s" },
+    { id: 1, name: "Crear un pedido", target: "2 min" },
     { id: 2, name: "Qué es una obra", target: "60 s" },
     { id: 3, name: "Medidas y precio", target: "2 min" },
     { id: 4, name: "Registrar un pago", target: "2 min" },
@@ -508,9 +539,17 @@
       text: "Es la columna CLIENTE de tu planilla. Empezá a escribir y elegí de la lista.",
       practice: { field: "cliente", ok: (v) => !!v, hint: "Elegí un cliente de la lista." },
       setup: ensureFormPedido },
+    { m: 1, anchor: '[data-tour="campo-fecha"]', title: "Fecha del pedido",
+      text: "El día que lo tomaste. En la app real es obligatoria: sin fecha no guarda.",
+      practice: { field: "fecha", ok: (v) => !!v, hint: "Poné la fecha del pedido." },
+      setup: ensureFormPedido },
     { m: 1, anchor: '[data-tour="campo-moneda"]', title: "Fijá la moneda",
       text: "Pesos o dólares. Queda para todo el pedido.",
       practice: { field: "moneda", ok: (v) => !!v, hint: "Elegí una moneda." },
+      setup: ensureFormPedido },
+    { m: 1, anchor: '[data-tour="campo-entrega"]', title: "Entrega prevista",
+      text: "La fecha que le prometiste al cliente. También es obligatoria en la app real.",
+      practice: { field: "entrega", ok: (v) => !!v, hint: "Poné la fecha de entrega." },
       setup: ensureFormPedido },
     { m: 1, anchor: '[data-tour="btn-guardar"]', title: "Guardá el pedido",
       text: "Queda creado y vacío: las obras se agregan después. En la práctica se guarda solo en esta pantalla.", setup: ensureFormPedido },
@@ -523,6 +562,10 @@
 
     { m: 3, anchor: '[data-tour="btn-agregar-obra"]', title: "Agregá la obra",
       text: "Abre el formulario de la obra.", advanceOn: true },
+    { m: 3, anchor: '[data-tour="campo-tipo"]', title: "Tipo de trabajo",
+      text: "Obra propia, enmarcado de una lámina del cliente, reenmarcado. Es el primer dato de la app real.",
+      practice: { field: "tipo", ok: (v) => !!v, hint: "Elegí el tipo de trabajo." },
+      setup: ensureFormObra },
     { m: 3, anchor: '[data-tour="campo-desc"]', title: "Qué se hace",
       text: "El nombre de la obra. Corto y claro.",
       practice: { field: "desc", ok: (v) => v.trim().length >= 3, hint: "Escribí al menos 3 letras." },
