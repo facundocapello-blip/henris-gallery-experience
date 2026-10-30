@@ -112,6 +112,13 @@ li{margin-bottom:6px}
   <h2>Para el corte de demo</h2>
   <p>Ya está grabado, no hay que grabar nada: <a href="../henris-ad-20261031/henris-demo.mp4" download><b>descargar el video (MP4, 13 s)</b></a>. Se adjunta en WhatsApp como archivo y se ve sin sonido.</p>
   <p>La versión interactiva está en <a href="../henris-ad-20261031/">henris-ad-20261031</a>, por si alguien quiere verla en el navegador. Se puede volver a generar con <code>node tools/record-ad.mjs</code>.</p>
+
+  <h2>Si grabás la app real con el celular</h2>
+  <p><b>1. Grabar.</b> iPhone: Centro de control → botón de grabar pantalla. Android: panel de notificaciones → «Grabadora de pantalla». Grabá de corrido, sin cortar, aunque haya esperas: las esperas se sacan después.</p>
+  <p><b>2. Qué hacer en la grabación.</b> Nuevo pedido → cliente, fecha, moneda, entrega → guardar → sumar la obra → registrar la seña → volver al pedido y dejar que aparezcan Total, Pagado y Saldo. No hace falta hablar ni explicar nada.</p>
+  <p><b>3. Editar.</b> Con el archivo en la carpeta del proyecto:</p>
+  <pre><code>node tools/edit-ad.mjs crudo.mp4 demo-final.mp4 staging/henris-ad-20261031/plan-ejemplo.json</code></pre>
+  <p>El script recorta, acelera las esperas, pone los textos, agrega la placa final y exporta vertical 1080×1920. Los tiempos del plan (<code>segments</code> y <code>captions</code>) se ajustan mirando el crudo: <code>node tools/edit-ad.mjs crudo.mp4 --info</code> muestra duración y tamaño.</p>
 </main>
 </body>
 </html>
