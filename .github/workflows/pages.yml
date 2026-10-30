@@ -282,6 +282,14 @@ jobs:
           test -f staging/onboarding-20261031/chuleta.html
           mkdir -p _site/staging/onboarding-20261031
           cp staging/onboarding-20261031/index.html staging/onboarding-20261031/tour.css staging/onboarding-20261031/tour.js staging/onboarding-20261031/chuleta.html _site/staging/onboarding-20261031/
+      # Corte de demo y guion: rutas propias, no reemplazan nada publicado.
+      - name: Include demo cut and demo script in their own paths
+        run: |
+          test -f staging/henris-ad-20261031/index.html
+          test -f staging/demo-20261031/index.html
+          mkdir -p _site/staging/henris-ad-20261031 _site/staging/demo-20261031
+          cp staging/henris-ad-20261031/index.html _site/staging/henris-ad-20261031/index.html
+          cp staging/demo-20261031/index.html _site/staging/demo-20261031/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
