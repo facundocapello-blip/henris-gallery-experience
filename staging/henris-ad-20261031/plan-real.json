@@ -1,0 +1,12 @@
+{
+  "size": [720, 1480],
+  "segments": [ { "start": 0, "end": 13, "speed": 1 } ],
+  "captions": [
+    { "text": "Cargás el pedido", "from": 0.2, "to": 3.8 },
+    { "text": "La obra ya está adentro", "from": 4.1, "to": 7.4 },
+    { "text": "Registrás la seña", "from": 7.7, "to": 10.2 },
+    { "text": "El saldo se calcula solo", "from": 10.5, "to": 12.9 }
+  ],
+  "brand": "HENRIS Gallery",
+  "endcard": { "text": "HENRIS Gallery", "sub": "pedido · obra · seña · saldo", "seconds": 2 }
+}
