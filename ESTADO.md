@@ -35,4 +35,5 @@ Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 - El corte de demo cuenta los importes con `requestAnimationFrame`: si la pestaña o la ventana no están visibles, los números quedan a mitad de camino. Grabar y mirar con la ventana al frente.
 - La app real no se puede manejar con clics simulados: los botones Guardar y los campos de fecha de AppSheet no responden a `dispatchEvent`, y la validación marca «This entry is required». Para grabar la app real hay que operarla a mano (o con el mouse real), no por script.
 - La lista de Pedidos y el panel lateral muestran nombres de clientes reales: cualquier video de la app real hay que recortarlo a la zona del formulario.
+- En Pedidos, el «+» solo aparece si se entra desde el menú ☰ (barra lateral). Entrando por el botón de abajo se abre una vista sin alta de pedido. Para la demo y para la guía, ir siempre por el menú.
 - El navegador del entorno perdió la sesión al reiniciarse el server: hay que rehacer el login de AppSheet. Imágenes lazy en `data:` dan `naturalWidth 0` hasta scrollear; no están rotas.
