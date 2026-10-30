@@ -7,6 +7,7 @@ Actualizado: 2026-10-30 (verificado con git, gh y Chromium)
 - Onboarding guiado: https://facundocapello-blip.github.io/henris-gallery-experience/staging/onboarding-20261031/ — HTTP 200 en `index.html`, `tour.css`, `tour.js` y `chuleta.html`, los cuatro idénticos al local (SHA256 `dcd850de…`, `b185b135…`, `f8084646…`, `ba430305…`). Consola limpia; un H1; sin desborde a 320 px (`scrollWidth` 305); recorrido arranca, avanza y cierra; Lighthouse 100 accesibilidad, 100 buenas prácticas, 100 SEO. Fuente `75a464f`, run `41001296148` success; `noindex`.
 - AppSheet `3300a579-5a49-4738-98f5-19979e4952e4`, definición `1.000044`, Prototype; login Google obligatorio; 0 compartidos además del propietario.
 ## Abierto
+- **Alta de Mati y Marine**: checklist listo en `docs/ALTA-MATI-MARINE-20261030.md`. Faltan los dos correos Google y definir si cargan o solo consultan. Sin correos no hay prueba de punta a punta.
 - Sin commitear: nada del onboarding; `75a464f` es `origin/main`.
 - Sin verificar todavía: `prefers-reduced-motion` con la preferencia real del sistema (reglas CSS y ramas JS revisadas, no emuladas), Safari físico, VoiceOver y el recorrido completo con teclado en dispositivo real. Las capturas no se pudieron tomar: la ventana del entorno no compone frames.
 - Respaldo previo solo en `%TEMP%\opencode\henris-respaldo-20261029-…`; temporal, no permanente.
