@@ -8,7 +8,7 @@ Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 - `/staging/guia-operativa-candidata/` — HTTP 200, consola limpia, un H1, iframe de AppSheet con carga diferida.
 - `/staging/guia-visual-prueba-20261029/` — HTTP 200, consola limpia.
 - `/staging/henris-gemini-fusion-20261020/` — HTTP 200; snapshot congelado `dddcb2c` con el link repuntado en el deploy por `sed`.
-- `/staging/henris-ad-20261031/` — corte de demo de 13 s (pedido → obra → pago → saldo) con la pantalla dentro de un celular. HTTP 200, 0 mensajes de consola, un H1, sin desborde horizontal. Sin audio, pausable. El MP4 `henris-demo.mp4` (1280×720, 30 fps, 186 KB) se genera con `node tools/record-ad.mjs` (Chrome headless + ffmpeg) y se sirve desde la misma ruta: HTTP 200, `video/mp4`, SHA-256 idéntico al local.
+- `/staging/henris-ad-20261031/` — tres cortes publicados: `henris-presentacion.mp4` (21 s, 1080×1920, arranca con el clip del Excel y sigue con la app dentro de un celular), `henris-demo-real.mp4` (15 s, app real a pantalla completa) y `henris-demo.mp4` (13 s, maqueta). El MP4 de la maqueta se genera con `node tools/record-ad.mjs` (Chrome headless + ffmpeg). La presentación se arma en `publicitario.html` y se graba igual, con `record-ad.mjs <url> <salida> 1080 1920 22000`.
 - `/staging/demo-20261031/` — guion de 4 minutos para Matías y Marine (qué abrir, qué decir, qué no tocar). HTTP 200, SHA-256 idéntico al local, consola limpia, un H1.
 - App `7f05d824` (`HENRIS-982559713`), def. `1.000409`, Prototype; usuarios `facu.capello@hotmail.com` y `maticgpt@gmail.com`. Las cuatro webs apuntan ahí (0 referencias a `3300a579`).
 
