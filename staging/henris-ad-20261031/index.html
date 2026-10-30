@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Henris Gallery · corte de 18 s (demo)</title>
+<title>Henris Gallery · corte de demo</title>
 <meta name="description" content="Corte de 18 segundos para grabar: pedido, obra, seña y saldo dentro de un celular. Datos inventados, sin audio.">
 <style>
 :root{
@@ -219,7 +219,7 @@ body{margin:0;font:16px/1.5 var(--sans);color:var(--white);background:var(--blac
 
   <div class="foot">
     <span>Sin audio · se graba tal cual</span>
-    <span>henris gallery · 18 s</span>
+    <span>henris gallery · demo</span>
   </div>
 </main>
 
@@ -301,7 +301,7 @@ body{margin:0;font:16px/1.5 var(--sans);color:var(--white);background:var(--blac
       el.estado.textContent = "Nuevo";
     }],
     [6200, () => cap(3)],
-    [8800, () => cap(4)],
+    [9200, () => cap(4)],
     [11800, reiniciar]
   ];
 
@@ -331,7 +331,7 @@ body{margin:0;font:16px/1.5 var(--sans);color:var(--white);background:var(--blac
     if (!reduce) {
       const id = setInterval(() => {
         if (pausado) return;
-        const k = Math.min(1, (performance.now() - inicio) / 11800);
+        const k = Math.min(1, (performance.now() - inicio) / 12200);
         el.prog.style.width = (k * 100).toFixed(1) + "%";
         if (k >= 1) clearInterval(id);
       }, 100);
