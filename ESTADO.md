@@ -2,7 +2,7 @@
 Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 
 ## Publicado
-- Base https://facundocapello-blip.github.io/henris-gallery-experience/ — rama `main`, HEAD `973380b` (= origin/main, deploy run success), árbol limpio.
+- Base https://facundocapello-blip.github.io/henris-gallery-experience/ — rama `main`, HEAD `6b988db` (= origin/main, deploy run success), árbol limpio.
 - `/staging/onboarding-20261031/` — HTTP 200 (index, `chuleta.html`, `tour.js`, `tour.css`), verificado en vivo: «Parte 1 de 7», 0 mensajes de consola, un H1, sin desborde horizontal. Lighthouse local: accesibilidad, buenas prácticas y SEO 1.0.
 - Práctica guiada probada en vivo: crear pedido (con los cuatro datos que exige la app real: cliente, fecha, moneda y entrega) → obra (con tipo de trabajo) → pago; total 850, pagado 300, saldo 550. Escribir en un campo ya no avanza solo ni muestra error rojo.
 - `/staging/guia-operativa-candidata/` — HTTP 200, consola limpia, un H1, iframe de AppSheet con carga diferida.
@@ -18,7 +18,7 @@ Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 - Quedan sin aplicar del relevamiento: renombrar «Saltar parte» a algo más claro si se prueba con dueñas, y revisar el paso «Del Excel a la app» con datos reales de su planilla.
 - Marine: falta su correo (lo maneja Facundo) y definir si carga o solo consulta.
 - Sin verificar: Safari/iPhone real, VoiceOver y `prefers-reduced-motion` con la preferencia del sistema.
-- Capturas de la guía (28/10) sin comparar contra el formulario vigente de `7f05d824`.
+- Capturas de la guía (28/10): comparadas por texto, no por imagen. Esa guía decía «moneda, cliente y fecha»; el formulario vigente pide además entrega prevista y el tipo de trabajo. La guía nueva (31/10) ya lo refleja; las capturas de pantalla siguen sin tomar.
 - La copia `3300a579` sigue existiendo: archivar cuando Facundo lo decida.
 
 ## Trampas
