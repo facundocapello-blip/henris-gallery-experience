@@ -4,113 +4,87 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Henris Gallery · presentación 21 s</title>
-<meta name="description" content="Presentación de 21 segundos: del Excel a la app, con el pedido, la obra, la seña y el saldo dentro de un celular.">
+<title>Henris Gallery · presentación</title>
+<meta name="description" content="Presentación: del Excel a la app, con el pedido, la obra, la seña y el saldo dentro de un celular.">
 <style>
-:root{
-  --ink:#060607; --white:#fff; --muted:#8b8b90; --line:#1e1e22;
-  --green:#3A5F48; --sans:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-}
+:root{ --white:#fff; --muted:#8b8b90; --sans:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif; }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--ink);overflow:hidden}
+html,body{margin:0;background:#060607;overflow:hidden}
 body{width:1080px;height:1920px;-webkit-font-smoothing:antialiased}
-.stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 50% 30%,#101013 0%,#060607 62%)}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 34%,#101013 0%,#060607 62%)}
 
-/* marca fija arriba */
-.mark{position:absolute;top:96px;left:0;right:0;text-align:center;z-index:6;
-  font:600 22px/1 var(--sans);letter-spacing:.42em;text-transform:uppercase;color:#d9d9de;opacity:.0}
-.mark.on{opacity:1;transition:opacity .8s ease}
+.mark{position:absolute;top:92px;left:0;right:0;text-align:center;z-index:6;
+  font:600 22px/1 var(--sans);letter-spacing:.42em;text-transform:uppercase;color:#d9d9de;
+  opacity:0;transition:opacity .9s ease}
+.mark.on{opacity:.9}
 
-/* escenas */
-.scene{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;display:grid;place-items:center}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;display:grid;place-items:center;pointer-events:none}
 .scene.on{opacity:1}
 
-/* 1 · título */
-.title{text-align:center;padding:0 90px}
-.title h1{margin:0;font:700 96px/1.02 var(--sans);letter-spacing:-.035em;color:var(--white)}
-.title h1 span{display:block;font-weight:300;font-size:44px;letter-spacing:.34em;text-transform:uppercase;
-  color:#9a9aa2;margin-top:34px}
-.title p{margin:52px auto 0;max-width:760px;font:400 34px/1.4 var(--sans);color:#b9b9c0}
-.rule{width:96px;height:1px;background:#3a3a42;margin:56px auto 0}
-
-/* 2 · video 3d a sangre */
+/* clip del Excel a sangre */
 .bleed{position:absolute;inset:0;overflow:hidden}
-.bleed video{width:1080px;height:1920px;object-fit:cover;display:block;animation:ken 9s ease-out forwards}
-@keyframes ken{from{transform:scale(1)}to{transform:scale(1.07)}}
+.bleed video{width:1080px;height:1920px;object-fit:cover;display:block;animation:ken 8.2s ease-out forwards}
+@keyframes ken{from{transform:scale(1)}to{transform:scale(1.06)}}
 .bleed::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(6,6,7,.86) 0%,rgba(6,6,7,.12) 26%,rgba(6,6,7,.12) 58%,rgba(6,6,7,.92) 100%)}
+  background:linear-gradient(180deg,rgba(6,6,7,.82) 0%,rgba(6,6,7,.10) 24%,rgba(6,6,7,.10) 52%,rgba(6,6,7,.94) 100%)}
 
-/* 3 · celular */
+/* celular: la pantalla tiene EXACTAMENTE la proporción de la captura (720x1480 = 0.4865) */
 .phonewrap{position:absolute;inset:0;display:grid;place-items:center}
-.glow{position:absolute;width:900px;height:900px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.14),rgba(255,255,255,0) 62%);filter:blur(6px)}
-.phone{position:relative;width:486px;height:1000px;border-radius:62px;background:#151517;animation:flota 6s ease-in-out infinite alternate;
-  padding:12px;box-shadow:0 60px 140px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.16);
-  transform:translateY(-30px)}
-@keyframes flota{from{transform:translateY(-30px)}to{transform:translateY(-46px)}}
-.phone::before{content:"";position:absolute;left:50%;top:22px;transform:translateX(-50%);
-  width:118px;height:15px;border-radius:10px;background:#08080a;z-index:3}
-.phone::after{content:"";position:absolute;inset:12px;border-radius:50px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none;z-index:3}
-.phone .screen{width:100%;height:100%;border-radius:50px;overflow:hidden;background:#fff}
-.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.glow{position:absolute;width:920px;height:920px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.13),rgba(255,255,255,0) 62%)}
+.phone{position:relative;width:490px;height:1007px;border-radius:58px;background:#101012;
+  padding:10px;box-shadow:0 50px 120px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.16);
+  animation:flota 6s ease-in-out infinite alternate}
+@keyframes flota{from{transform:translateY(-18px)}to{transform:translateY(-34px)}}
+.screen{width:470px;height:966px;border-radius:49px;overflow:hidden;background:#fff;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.09)}
+.screen video{width:470px;height:966px;object-fit:fill;display:block}
 
-/* textos sobre las escenas */
-.cap{position:absolute;left:0;right:0;bottom:190px;text-align:center;padding:0 80px;z-index:5}
+/* textos */
+.cap{position:absolute;left:0;right:0;bottom:172px;text-align:center;padding:0 80px;z-index:5}
 .cap p{margin:0;font:600 62px/1.1 var(--sans);letter-spacing:-.025em;color:var(--white);
-  text-shadow:0 8px 40px rgba(0,0,0,.8)}
-.cap small{display:block;margin-top:24px;font:600 24px/1.3 var(--sans);letter-spacing:.2em;
+  text-shadow:0 8px 40px rgba(0,0,0,.85)}
+.cap small{display:block;margin-top:22px;font:600 24px/1.3 var(--sans);letter-spacing:.2em;
   text-transform:uppercase;color:#9a9aa2}
 
-/* 4 · cierre */
 .end{text-align:center}
 .end h2{margin:0;font:700 84px/1 var(--sans);letter-spacing:-.03em;color:#fff}
-.end p{margin:34px 0 0;font:400 30px/1.5 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8b8b90}
+.end p{margin:34px 0 0;font:300 28px/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#8b8b90}
+.rule{width:88px;height:1px;background:#3a3a42;margin:40px auto 0}
 
-/* barra de progreso fina */
 .prog{position:absolute;left:0;bottom:0;height:4px;width:100%;background:#141416;z-index:9}
-.prog i{display:block;height:100%;width:0;background:#fff;opacity:.5}
-
-@media (prefers-reduced-motion:reduce){
-  .scene,.mark{transition:none!important}
-}
+.prog i{display:block;height:100%;width:0;background:#fff;opacity:.45}
 </style>
 </head>
 <body>
 <main class="stage">
   <div class="mark" id="mark">Henris Gallery</div>
 
-  <!-- 1 -->
+  <!-- clip del Excel, arranca solo -->
   <section class="scene on" id="s1">
-    <div class="title">
-      <h1>Tu planilla,<br>ahora es una app.<span>Henris Gallery</span></h1>
-      <div class="rule"></div>
-      <p>Pedidos, obras, señas y saldo. Sin fórmulas.</p>
-    </div>
-  </section>
-
-  <!-- 2 -->
-  <section class="scene" id="s2">
     <div class="bleed">
       <video id="v3d" src="intro-3d.mp4" muted playsinline preload="auto"></video>
     </div>
-    <div class="cap"><p id="cap2">Del Excel al pedido.</p><small>sin copiar y pegar</small></div>
+    <div class="cap"><p>Del Excel al pedido.</p><small id="sub1">sin copiar y pegar</small></div>
   </section>
 
-  <!-- 3 -->
-  <section class="scene" id="s3">
+  <!-- la app dentro del celular -->
+  <section class="scene" id="s2">
     <div class="phonewrap">
       <div class="glow"></div>
       <div class="phone">
         <div class="screen"><video id="vapp" src="app-limpio.mp4" muted playsinline preload="auto"></video></div>
       </div>
     </div>
-    <div class="cap"><p id="cap3">Cargás el pedido</p><small id="sub3">cliente · fecha · entrega</small></div>
+    <div class="cap"><p id="cap2">Cargás el pedido</p><small id="sub2">cliente · fecha · entrega</small></div>
   </section>
 
-  <!-- 4 -->
-  <section class="scene" id="s4">
+  <!-- cierre -->
+  <section class="scene" id="s3">
     <div class="end">
       <h2>Henris Gallery</h2>
+      <div class="rule"></div>
       <p>pedido · obra · seña · saldo</p>
     </div>
   </section>
@@ -122,56 +96,59 @@ body{width:1080px;height:1920px;-webkit-font-smoothing:antialiased}
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
-  const escenas = ["s1","s2","s3","s4"].map(id => document.getElementById(id));
-  const marcas = { s2: 0, s3: 0, s4: 0 };
+  const s1 = $("#s1"), s2 = $("#s2"), s3 = $("#s3");
   const v3d = $("#v3d"), vapp = $("#vapp");
+  const RITMO = 1.25;              // la app, un poco más rápido
+  const COLA = 900;                // pausa antes del cierre
+  const CIERRE = 2000;             // duración del cierre
 
-  function ver(i) {
-    escenas.forEach((e, k) => e.classList.toggle("on", k === i));
-    $("#mark").classList.toggle("on", i >= 1);
-  }
-
-  const captions = [
-    { t: 0.0,  main: "Cargás el pedido",      sub: "cliente · fecha · entrega" },
-    { t: 3.5,  main: "La obra ya está adentro", sub: "medida y precio" },
-    { t: 6.3,  main: "Registrás la seña",     sub: "lo que ya entró" },
-    { t: 8.5,  main: "El saldo sale solo",    sub: "sin restar a mano" }
+  const textos = [
+    { t: 0.0,  main: "Cargás el pedido",       sub: "cliente · fecha · entrega" },
+    { t: 4.2,  main: "La obra ya está adentro", sub: "medida y precio" },
+    { t: 7.6,  main: "Registrás la seña",      sub: "lo que ya entró" },
+    { t: 10.2, main: "El saldo sale solo",     sub: "sin restar a mano" }
   ];
   let iCap = -1;
+  const arranque = performance.now();
 
-  const plan = [
-    [0,     () => { ver(0); }],
-    [2400,  () => { ver(1); v3d.currentTime = 0; v3d.play().catch(()=>{}); }],
-    [9000,  () => { ver(2); vapp.currentTime = 0; vapp.playbackRate = 1.25; vapp.play().catch(()=>{}); iCap = -1; }],
-    [19500, () => { ver(3); }]
-  ];
-
-  plan.forEach(([ms, fn]) => setTimeout(fn, ms));
-
-  // textos sincronizados con el video de la app
-  const t0 = performance.now();
-  const INICIO_APP = 9000, FIN = 22000;
-  function tick() {
-    const ahora = performance.now() - t0;
-    if (ahora >= INICIO_APP && ahora < INICIO_APP + 10400) {
-      const rel = (ahora - INICIO_APP) / 1000;
-      let idx = 0;
-      captions.forEach((c, k) => { if (rel >= c.t) idx = k; });
-      if (idx !== iCap) {
-        iCap = idx;
-        $("#cap3").textContent = captions[idx].main;
-        $("#sub3").textContent = captions[idx].sub;
-      }
-    }
-    $("#bar").style.width = Math.min(100, (ahora / FIN) * 100).toFixed(1) + "%";
-    if (ahora < FIN + 500) requestAnimationFrame(tick);
+  function ver(scene) {
+    [s1, s2, s3].forEach((s, k) => s.classList.toggle("on", s === scene));
   }
-  requestAnimationFrame(tick);
 
-  // si la página se abre a mano, se puede reiniciar con la barra espaciadora
-  document.addEventListener("keydown", (e) => {
-    if (e.key === " ") { e.preventDefault(); location.reload(); }
+  setTimeout(() => $("#mark").classList.add("on"), 8300);
+  ver(s1);
+  v3d.play().catch(() => {});
+
+  // tiempos fijos: el clip del Excel entero y después la app
+  const T_APP = 8100, T_CIERRE = 19500;
+  setTimeout(() => {
+    ver(s2);
+    vapp.currentTime = 0;
+    vapp.playbackRate = RITMO;
+    vapp.play().catch(() => {});
+  }, T_APP);
+  setTimeout(() => ver(s3), T_CIERRE);
+
+  // textos sincronizados con el propio video, no con el reloj
+  vapp.addEventListener("timeupdate", () => {
+    const t = vapp.currentTime;
+    let idx = 0;
+    textos.forEach((c, k) => { if (t >= c.t) idx = k; });
+    if (idx !== iCap) {
+      iCap = idx;
+      $("#cap2").textContent = textos[idx].main;
+      $("#sub2").textContent = textos[idx].sub;
+    }
+    if (t >= 12.6) vapp.pause();   // se queda en el cuadro del saldo
   });
+
+  // barra de progreso
+  const total = 21500;
+  (function tick() {
+    const t = performance.now() - arranque;
+    $("#bar").style.width = Math.min(100, (t / total) * 100).toFixed(1) + "%";
+    if (t < total + 400) requestAnimationFrame(tick);
+  })();
 })();
 </script>
 </body>
