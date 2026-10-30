@@ -8,7 +8,10 @@ import { join } from "node:path";
 
 const URL_CORTE = process.argv[2] || "http://localhost:8791/staging/henris-ad-20261031/?loop=0";
 const SALIDA = process.argv[3] || "staging/henris-ad-20261031/henris-demo.mp4";
-const ANCHO = 1280, ALTO = 720, FPS = 30, DURACION_MS = 14200;
+const ANCHO = Number(process.argv[4] || 1280);
+const ALTO = Number(process.argv[5] || 720);
+const FPS = 30;
+const DURACION_MS = Number(process.argv[6] || 13200);
 
 const CHROME = [
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -32,6 +35,7 @@ const chrome = spawn(CHROME, [
   "--no-default-browser-check",
   "--disable-extensions",
   "--mute-audio",
+  "--autoplay-policy=no-user-gesture-required",
   "about:blank"
 ], { stdio: "ignore" });
 
@@ -110,7 +114,7 @@ if (cuadros.length < 10) throw new Error("Muy pocos cuadros: " + cuadros.length)
 
 // Reconstruye la secuencia a 30 fps: para cada instante, el ultimo cuadro pintado.
 const t0 = cuadros[0].t;
-const total = Math.max(1, Math.round(((cuadros.at(-1).t - t0) * 1000) / (1000 / FPS))) + 45; // +1,5 s de cierre quieto
+const total = Math.max(1, Math.round(((cuadros.at(-1).t - t0) * 1000) / (1000 / FPS))) + 20; // medio segundo de cierre
 const seq = join(frames, "seq");
 mkdirSync(seq, { recursive: true });
 let j = 0;
