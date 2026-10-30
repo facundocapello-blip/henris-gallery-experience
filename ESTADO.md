@@ -32,4 +32,6 @@ Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 - El globo del tour necesita un `requestAnimationFrame` para pintarse: en una pestaña de fondo queda con el texto vacío hasta que se enfoca. Al verificar, enfocar la pestaña.
 - Los totales de la app real (Total/Pagado/Saldo) se recalculan con unos segundos de atraso: no es un error de carga.
 - El corte de demo cuenta los importes con `requestAnimationFrame`: si la pestaña o la ventana no están visibles, los números quedan a mitad de camino. Grabar y mirar con la ventana al frente.
+- La app real no se puede manejar con clics simulados: los botones Guardar y los campos de fecha de AppSheet no responden a `dispatchEvent`, y la validación marca «This entry is required». Para grabar la app real hay que operarla a mano (o con el mouse real), no por script.
+- La lista de Pedidos y el panel lateral muestran nombres de clientes reales: cualquier video de la app real hay que recortarlo a la zona del formulario.
 - El navegador del entorno perdió la sesión al reiniciarse el server: hay que rehacer el login de AppSheet. Imágenes lazy en `data:` dan `naturalWidth 0` hasta scrollear; no están rotas.
