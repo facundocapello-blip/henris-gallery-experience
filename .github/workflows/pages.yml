@@ -265,6 +265,12 @@ jobs:
           node --check staging/guia-visual-prueba-20261029/app.js
           mkdir -p _site/staging/guia-visual-prueba-20261029
           cp -R staging/guia-visual-prueba-20261029/. _site/staging/guia-visual-prueba-20261029/
+      # Candidata editorial: ruta propia, no reemplaza nada publicado.
+      - name: Include editorial guide candidate in its own path
+        run: |
+          test -f staging/guia-operativa-candidata/index.html
+          mkdir -p _site/staging/guia-operativa-candidata
+          cp staging/guia-operativa-candidata/index.html _site/staging/guia-operativa-candidata/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site

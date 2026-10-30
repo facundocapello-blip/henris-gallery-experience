@@ -8,23 +8,21 @@
     <meta name="description" content="Guía interactiva operativa y consola de gestión AppSheet de Henris Gallery para Matías y Marine.">
     <title>Henris Gallery | Guía Operativa & AppSheet Real</title>
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
-
     :root {
-        --brand-black: #000000;
+        --brand-black: #1d1d1f;
         --brand-white: #ffffff;
         --brand-gray: #595959;
-        --brand-light-gray: #f4f4f4;
-        --brand-border: #e0e0e0;
+        --brand-light-gray: #f5f5f7;
+        --brand-border: #e5e5e5;
         --app-green: #3A5F48;
         --app-bg: #F0F2F1;
         --app-text: #333333;
-        --sans: 'Montserrat', sans-serif;
+        --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-    body { margin: 0; min-width: 320px; font-size: 13px; line-height: 1.6; color: var(--brand-black); background: var(--brand-white); font-family: var(--sans); letter-spacing: 0.02em; }
+    body { margin: 0; min-width: 320px; font-size: 15px; line-height: 1.55; color: var(--brand-black); background: var(--brand-white); font-family: var(--sans); letter-spacing: 0; }
 
     button, input, select { font: inherit; border-radius: 0; outline: none; }
     button { cursor: pointer; border: 1px solid var(--brand-black); background: transparent; color: var(--brand-black); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px; font-weight: 600; padding: 10px 15px; transition: all 0.3s ease; }
@@ -300,6 +298,60 @@
         .admin-details,.access-admin-note{width:calc(100% - 24px)}
         .admin-details .shell{margin-left:12px;margin-right:12px}
     }
+
+    /* Adaptación editorial inspirada en Apple: sistema nativo, superficies claras y aire. */
+    button{font-size:12px;letter-spacing:0;text-transform:none;border-radius:9999px;min-height:44px}
+    .btn-solid,.btn-outline{border-radius:9999px}
+    .hero-path{background:var(--brand-light-gray);border-bottom:0;padding:32px 0}
+    .path-container{gap:16px}
+    .path-card{border:1px solid var(--brand-border);border-radius:12px;padding:24px;gap:20px}
+    .path-card.active{border-color:#d2d2d7;background:#fff;box-shadow:none}
+    .path-card h2{font-size:clamp(20px,2.2vw,24px);line-height:1.2;letter-spacing:-.025em;text-transform:none}
+    .path-card p{font-size:15px;line-height:1.5;color:#4b4b4d}
+    .section-title{margin:56px 0 22px}
+    .section-title h2{font-size:clamp(27px,3.2vw,34px);line-height:1.16;letter-spacing:-.025em;font-weight:600;text-transform:none}
+    .section-title small{letter-spacing:.12em}
+    .relation-card{border-color:var(--brand-border);border-radius:12px;background:#fff;padding:22px 18px}
+    .relation-main{background:var(--brand-black);border-color:var(--brand-black)}
+    .guide-panel,.appsheet-host,.workspace{border:1px solid var(--brand-border);border-radius:12px;box-shadow:none;overflow:hidden}
+    .guide-header,.workspace-head,.side-head{background:var(--brand-light-gray)}
+    .admin-details{border-color:var(--brand-border);border-radius:12px;overflow:hidden}
+    .admin-details>summary{background:var(--brand-light-gray)}
+    @media(max-width:650px){
+        body{font-size:16px}
+        .hero-path{padding:20px 0}
+        .path-card{padding:20px;border-radius:10px}
+        .path-card p{font-size:15px}
+        .section-title{margin:44px 0 18px}
+        .relation-card{padding:18px 14px}
+    }
+    .access-admin-note{border:0;border-left:2px solid #999;background:transparent;color:#4b4b4d;padding:8px 14px;font-size:13px}
+    .gallery-hero{background:var(--brand-light-gray);padding:clamp(44px,7vw,88px) 0 56px}
+    .gallery-hero-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr);gap:clamp(28px,6vw,72px);align-items:center}
+    .gallery-eyebrow,.workflow-caption{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--brand-gray);text-transform:uppercase}
+    .gallery-title{max-width:700px;margin:18px 0 16px;font-size:clamp(44px,7vw,76px);line-height:.98;letter-spacing:-.055em;font-weight:600}
+    .gallery-lead{max-width:570px;margin:0;color:#4b4b4d;font-size:18px;line-height:1.5}
+    .gallery-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+    .gallery-actions a{min-height:48px;padding:13px 22px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px}
+    .workflow-visual{background:var(--brand-black);color:#fff;padding:28px 30px}
+    .workflow-caption{color:#b8b8bb}
+    .workflow-list{list-style:none;padding:10px 0 0;margin:12px 0 0}
+    .workflow-list li{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding:15px 0;border-top:1px solid #454548;font-size:18px;font-weight:500}
+    .workflow-list li span:first-child{font-size:11px;color:#b8b8bb;font-variant-numeric:tabular-nums}
+    .workflow-list li span:last-child{color:#b8b8bb;font-size:16px}
+    .path-intro{margin:34px auto 16px}
+    .path-intro h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.02em}
+    .path-intro p{margin:5px 0 0;color:var(--brand-gray);font-size:14px}
+    .hero-path{padding:0 0 30px;background:#fff}
+    @media(max-width:760px){
+        .gallery-hero{padding:40px 0 36px}
+        .gallery-hero-layout{grid-template-columns:1fr;gap:30px}
+        .gallery-title{font-size:clamp(42px,11vw,64px);max-width:520px}
+        .gallery-lead{font-size:17px}
+        .workflow-visual{padding:22px 24px}
+        .workflow-list li{padding:12px 0;font-size:17px}
+        .path-intro{margin-top:28px}
+    }
 </style>
 </head>
 <body>
@@ -320,9 +372,34 @@
 </header>
 
 <main>
-<h1 class="sr-only">Henris Gallery: guía de uso de la AppSheet para Matías y Marine</h1>
-<p class="access-admin-note" role="note"><strong>Pendiente (administrador):</strong> habilitar y probar las cuentas de Mati y Marine antes de compartir esta guía. Borrá este aviso cuando esté verificado.</p>
+<p class="access-admin-note" role="note"><strong>Acceso Google:</strong> falta agregar y probar las cuentas de Mati y Marine antes de compartir la guía.</p>
+<section class="gallery-hero" aria-labelledby="gallery-title">
+    <div class="shell gallery-hero-layout">
+        <div class="gallery-hero-copy">
+            <span class="gallery-eyebrow">Guía de uso · Henris Gallery</span>
+            <h1 id="gallery-title" class="gallery-title">Del pedido al saldo.</h1>
+            <p class="gallery-lead">Creá pedidos, agregá obras, registrá pagos parciales y consultá el saldo en la AppSheet.</p>
+            <div class="gallery-actions">
+                <a href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer" class="btn-solid">Abrir AppSheet ↗</a>
+                <a href="#aprender" class="btn-outline">Ver los cuatro pasos ↓</a>
+            </div>
+        </div>
+        <div class="workflow-visual">
+            <span class="workflow-caption">Un pedido · cuatro momentos</span>
+            <ol class="workflow-list">
+                <li><span>01</span>Pedido<span aria-hidden="true">↘</span></li>
+                <li><span>02</span>Obras<span aria-hidden="true">↘</span></li>
+                <li><span>03</span>Pagos<span aria-hidden="true">↘</span></li>
+                <li><span>04</span>Saldo<span aria-hidden="true">✓</span></li>
+            </ol>
+        </div>
+    </div>
+</section>
 <!-- Path selector -->
+<section class="shell path-intro" aria-labelledby="path-title">
+    <h2 id="path-title">Elegí cómo empezar</h2>
+    <p>Podés entrar directamente o seguir la guía mientras trabajás.</p>
+</section>
 <section class="hero-path">
     <div class="shell path-container">
         <div class="path-card active">
