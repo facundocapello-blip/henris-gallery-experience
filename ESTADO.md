@@ -2,38 +2,24 @@
 Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 
 ## Publicado
-- Base https://facundocapello-blip.github.io/henris-gallery-experience/ — rama `main`, HEAD `528d7c0` (= origin/main, deploy run success), árbol limpio.
-- `/staging/onboarding-20261031/` — HTTP 200 (index, `chuleta.html`, `tour.js`, `tour.css`), verificado en vivo: «Parte 1 de 7», 0 mensajes de consola, un H1, sin desborde horizontal. Lighthouse local: accesibilidad, buenas prácticas y SEO 1.0.
-- Práctica guiada probada en vivo: crear pedido (con los cuatro datos que exige la app real: cliente, fecha, moneda y entrega) → obra (con tipo de trabajo) → pago; total 850, pagado 300, saldo 550. Escribir en un campo ya no avanza solo ni muestra error rojo.
-- `/staging/guia-operativa-candidata/` — HTTP 200, consola limpia, un H1, iframe de AppSheet con carga diferida.
-- `/staging/guia-visual-prueba-20261029/` — HTTP 200, consola limpia.
-- `/staging/henris-gemini-fusion-20261020/` — HTTP 200; snapshot congelado `dddcb2c` con el link repuntado en el deploy por `sed`.
-- `/staging/henris-ad-20261031/` — tres cortes publicados: `henris-presentacion.mp4` (21 s, 1080×1920, arranca con el clip del Excel y sigue con la app dentro de un celular), `henris-demo-real.mp4` (15 s, app real a pantalla completa) y `henris-demo.mp4` (13 s, maqueta). El MP4 de la maqueta se genera con `node tools/record-ad.mjs` (Chrome headless + ffmpeg). La presentación se arma en `publicitario.html` y se graba igual, con `record-ad.mjs <url> <salida> 1080 1920 22000`.
-- `/staging/demo-20261031/` — guion de 4 minutos para Matías y Marine (qué abrir, qué decir, qué no tocar). HTTP 200, SHA-256 idéntico al local, consola limpia, un H1.
-- App `7f05d824` (`HENRIS-982559713`), def. `1.000409`, Prototype; usuarios `facu.capello@hotmail.com` y `maticgpt@gmail.com`. Las cuatro webs apuntan ahí (0 referencias a `3300a579`).
+- Base https://facundocapello-blip.github.io/henris-gallery-experience/ — rama `main`, HEAD `6a59adf` (= origin/main), árbol limpio.
+- Contenido online = `472ec03`; `6a59adf` (tabla del guion sin desborde en móvil) todavía sin deployar: 3 runs en cola desde 17:36, ninguno en progreso.
+- `/staging/henris-ad-20261031/` — 200. `henris-presentacion.mp4` (21 s, 1080×1920, 2,19 MB) con SHA-256 idéntico al local, `henris-demo-real.mp4` (15 s, app real) y `henris-demo.mp4` (13 s, maqueta).
+- `/staging/demo-20261031/` — 200, guion de 4 min + los tres videos; online todavía con el desborde que corrige `6a59adf`.
+- `/staging/onboarding-20261031/` — 200, práctica en 7 partes, un H1, consola limpia; `/staging/guia-operativa-candidata/` y `/staging/guia-visual-prueba-20261029/` — 200.
+- App `7f05d824` (`HENRIS-982559713`, def. `1.000409`, Prototype), usuarios `facu.capello@hotmail.com` y `maticgpt@gmail.com`.
 
 ## Abierto
-- Prueba funcional de la app: **hecha el 30/10** en `7f05d824` con datos de prueba y borrada (ver `docs/QA-APP-20261030.md` §9). Pedido `PED-67b96ed4` → obra 1.200 → seña 500 USD → saldo 700, `Parcial`; hojas con los conteos originales (Pedidos 23, Pagos 38, Pedido_Items 37).
-- Fricciones detectadas en la app real: totales que tardan segundos en refrescar; borrado en ícono sin texto y confirmación en inglés; `Comentarios` del pedido no guardado (a revisar a mano).
-- Usabilidad del onboarding: aplicados auto-avance solo en desplegables, sin error rojo al escribir, ancla `tab-pagos-detalle` (antes el globo apuntaba a la barra de arriba), el pedido creado ya no salta al de ejemplo, «siete partes» en vez de «seis módulos», «Abrir la app real», textos ≥14 px y barra de secciones que ya no se corta en móvil.
-- Fidelidad con la app real: la práctica ahora pide fecha de pedido, entrega prevista y tipo de trabajo, que son obligatorios en `Pedidos Form` y `Pedido Items Form`. Antes enseñaba dos campos y la dueña se chocaba con tres requeridos.
-- Quedan sin aplicar del relevamiento: renombrar «Saltar parte» a algo más claro si se prueba con dueñas, y revisar el paso «Del Excel a la app» con datos reales de su planilla.
-- Marine: falta su correo (lo maneja Facundo) y definir si carga o solo consulta.
-- Guion de demo y corte de 18 s: publicados y verificados. El MP4 ya está generado (`henris-demo.mp4`, 13 s) y publicado; no hace falta grabar pantalla. Matías tiene usuario, Marine no. Falta que Facundo lo mande.
-- Edición del crudo: `tools/edit-ad.mjs` (recorte, acelerado, subtítulos ASS de la marca, placa final, 1080×1920) + `staging/henris-ad-20261031/plan-ejemplo.json`. Probado con el MP4 de la réplica como entrada: salida 720×1280, 9,5 s, sin errores. Falta el crudo real del celular.
-- Sin verificar: Safari/iPhone real, VoiceOver y `prefers-reduced-motion` con la preferencia del sistema.
-- Capturas de la guía (28/10): comparadas por texto, no por imagen. Esa guía decía «moneda, cliente y fecha»; el formulario vigente pide además entrega prevista y el tipo de trabajo. La guía nueva (31/10) ya lo refleja; las capturas de pantalla siguen sin tomar.
-- La copia `3300a579` sigue existiendo: archivar cuando Facundo lo decida.
+- Reintentar el deploy de `6a59adf` y verificar el SHA de la página del guion.
+- Borrar los datos de prueba: cliente «Casa Vidal», 1 pedido, 1 ítem, 1 pago (hoy Clientes 16, Pedidos 24, Pedido_Items 38, Pagos 39; antes 15/23/37/38).
+- El «+» de Pedidos solo aparece entrando por el menú ☰; el botón de abajo abre una vista sin alta. Requiere permiso de Facundo.
+- Marine sin usuario (el correo lo maneja Facundo). Sin verificar: Safari/iPhone real, VoiceOver y `prefers-reduced-motion` del sistema.
+- `Comentarios` del pedido no se guardó (revisar a mano); capturas de la guía sin tomar; archivar la copia `3300a579`.
 
 ## Trampas
-- Dos apps «Henris Gallery»: la buena es `7f05d824`; `3300a579` es la copia `STAGINGE2E` (0 usuarios, alta de pedido rota).
-- En `3300a579`, «+ Nuevo pedido» va a `Pedidos_Form`, que no abre; «Editar» cae en el formulario de `Inicio_Schema`. El panel del dashboard ya se había quitado en `1.000041`.
-- Datos de la app buena en dos archivos: Pedidos/Pagos/Clientes en «Base de Datos Marketing y Ventas»; Obras en «Base AppSheet».
-- Pages cachea: verificar run y URL con `?v=`. `noindex` no es control de acceso.
-- El globo del tour necesita un `requestAnimationFrame` para pintarse: en una pestaña de fondo queda con el texto vacío hasta que se enfoca. Al verificar, enfocar la pestaña.
-- Los totales de la app real (Total/Pagado/Saldo) se recalculan con unos segundos de atraso: no es un error de carga.
-- El corte de demo cuenta los importes con `requestAnimationFrame`: si la pestaña o la ventana no están visibles, los números quedan a mitad de camino. Grabar y mirar con la ventana al frente.
-- La app real no se puede manejar con clics simulados: los botones Guardar y los campos de fecha de AppSheet no responden a `dispatchEvent`, y la validación marca «This entry is required». Para grabar la app real hay que operarla a mano (o con el mouse real), no por script.
-- La lista de Pedidos y el panel lateral muestran nombres de clientes reales: cualquier video de la app real hay que recortarlo a la zona del formulario.
-- En Pedidos, el «+» solo aparece si se entra desde el menú ☰ (barra lateral). Entrando por el botón de abajo se abre una vista sin alta de pedido. Para la demo y para la guía, ir siempre por el menú.
-- El navegador del entorno perdió la sesión al reiniciarse el server: hay que rehacer el login de AppSheet. Imágenes lazy en `data:` dan `naturalWidth 0` hasta scrollear; no están rotas.
+- Dos apps homónimas: la buena es `7f05d824`; `3300a579` (STAGINGE2E, 0 usuarios) tiene el alta de pedido rota.
+- Datos en dos archivos: Pedidos/Pagos/Clientes/Pedido_Items en «Base de Datos Marketing y Ventas»; Obras en «Base AppSheet».
+- Pages cachea y la cola de Actions se traba: verificar el contenido por SHA, no por «deploy success».
+- AppSheet no acepta clics simulados (Guardar y fechas no responden a `dispatchEvent`): la app real se opera a mano.
+- La lista de Pedidos y el panel lateral muestran clientes reales: recortar todo video de la app.
+- Los totales tardan segundos en recalcular; no es error. El globo del tour necesita `requestAnimationFrame`: enfocar la pestaña. `noindex` no es control de acceso.
