@@ -4,11 +4,11 @@ Actualizado: 2026-10-30 (verificado con git, gh y Chromium)
 - Web: https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-gemini-fusion-20261020/ — HTTP 200, consola sin errores. Contenido fijo al HTML `dddcb2c`.
 - Guía visual: https://facundocapello-blip.github.io/henris-gallery-experience/staging/guia-visual-prueba-20261029/ — HTTP 200, consola limpia, HTML idéntico al local. Fuente `d865bab`.
 - Candidata editorial: https://facundocapello-blip.github.io/henris-gallery-experience/staging/guia-operativa-candidata/ — HTTP 200, consola limpia, HTML idéntico al local (SHA256 `dab59f5e…`), un H1, sin desborde a 985 px, iframe de AppSheet sin cargar hasta pedirlo. Lighthouse 100 en accesibilidad, buenas prácticas y SEO. Fuente `fdece1d`, run `40997706004` success; `noindex`.
+- Onboarding guiado: https://facundocapello-blip.github.io/henris-gallery-experience/staging/onboarding-20261031/ — HTTP 200 en `index.html`, `tour.css`, `tour.js` y `chuleta.html`, los cuatro idénticos al local (SHA256 `dcd850de…`, `b185b135…`, `f8084646…`, `ba430305…`). Consola limpia; un H1; sin desborde a 320 px (`scrollWidth` 305); recorrido arranca, avanza y cierra; Lighthouse 100 accesibilidad, 100 buenas prácticas, 100 SEO. Fuente `75a464f`, run `41001296148` success; `noindex`.
 - AppSheet `3300a579-5a49-4738-98f5-19979e4952e4`, definición `1.000044`, Prototype; login Google obligatorio; 0 compartidos además del propietario.
 ## Abierto
-- **Sin publicar**: onboarding nuevo en `staging/onboarding-20261031/` (`index.html`, `tour.css`, `tour.js`, `chuleta.html`) y el paso nuevo en `.github/workflows/pages.yml`. Verificado en local (ver `PROJECT_STATUS.md`); falta commit, push y verificación en la URL.
-- Sin commitear: `ESTADO.md`, `PROJECT_STATUS.md`, `docs/PROPUESTA-ONBOARDING-20261030.md`, `staging/onboarding-20261031/`, `.github/workflows/pages.yml` y la copia `staging/guia-operativa-candidata/index - copia.html`, idéntica a la publicada.
-- Sin pushear: nada; `cf1920c` es `origin/main`.
+- Sin commitear: nada del onboarding; `75a464f` es `origin/main`.
+- Sin verificar todavía: `prefers-reduced-motion` con la preferencia real del sistema (reglas CSS y ramas JS revisadas, no emuladas), Safari físico, VoiceOver y el recorrido completo con teclado en dispositivo real. Las capturas no se pudieron tomar: la ventana del entorno no compone frames.
 - Respaldo previo solo en `%TEMP%\opencode\henris-respaldo-20261029-…`; temporal, no permanente.
 - Pedir los correos Google de Mati y Marine, agregarlos y probar acceso; después alta de pedido, 2 ítems, 2 pagos, sync y saldo con iPhone Safari físico.
 - Antes de reemplazar la web publicada con la candidata: QA de acceso, Safari/VoiceOver y snapshot `dddcb2c` preservado. La candidata solo se probó en Chromium (985 y 616 px).
