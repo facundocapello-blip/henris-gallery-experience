@@ -19,8 +19,8 @@ p{margin:0 0 12px}
 a{color:var(--black)}
 .box{border:1px solid var(--border);background:var(--soft);padding:14px 16px;margin:0 0 16px}
 .box > b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;color:var(--gray)}
-table{width:100%;border-collapse:collapse;font-size:15px}
-th,td{text-align:left;vertical-align:top;padding:12px 10px;border-bottom:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:15px;table-layout:fixed}
+th,td{text-align:left;vertical-align:top;padding:12px 10px;border-bottom:1px solid var(--border);overflow-wrap:anywhere}
 th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);font-weight:700}
 td:first-child{width:74px;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
 td:nth-child(2){width:38%}
@@ -30,6 +30,17 @@ li{margin-bottom:6px}
 .no{border-left:3px solid #b3261e;padding-left:14px}
 .no b{color:#b3261e}
 .ok{border-left:3px solid var(--green);padding-left:14px}
+pre{margin:0 0 14px;padding:12px 14px;background:var(--soft);border:1px solid var(--border);
+  white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.5}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.95em}
+@media (max-width:700px){
+  table,tbody,tr,td{display:block;width:auto}
+  thead{display:none}
+  tr{border-bottom:1px solid var(--border);padding:12px 0}
+  td{border:0;padding:2px 0;width:auto!important}
+  td:first-child{font-size:12px;letter-spacing:.08em;color:var(--gray)}
+  td:nth-child(2){font-weight:600;margin-bottom:4px}
+}
 @media print{
   body{font-size:12px}
   .shell{padding:0}
