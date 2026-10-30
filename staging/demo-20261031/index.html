@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Henris Gallery · guion de demo (4 min)</title>
+<style>
+:root{--black:#111;--gray:#555;--border:#e5e5e5;--soft:#f7f7f7;--green:#3A5F48;
+  --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--focus:#0b57d0}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 var(--sans);color:var(--black);background:#fff;-webkit-font-smoothing:antialiased}
+.shell{max-width:860px;margin:0 auto;padding:32px 22px 64px}
+h1{font-size:clamp(26px,4vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px}
+h2{font-size:19px;letter-spacing:-.01em;margin:36px 0 10px}
+p{margin:0 0 12px}
+.lead{color:var(--gray);margin-bottom:24px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+a{color:var(--black)}
+.box{border:1px solid var(--border);background:var(--soft);padding:14px 16px;margin:0 0 16px}
+.box > b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;color:var(--gray)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:12px 10px;border-bottom:1px solid var(--border)}
+th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);font-weight:700}
+td:first-child{width:74px;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+td:nth-child(2){width:38%}
+td em{font-style:normal;color:#111;background:#fff3c4;padding:1px 3px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin-bottom:6px}
+.no{border-left:3px solid #b3261e;padding-left:14px}
+.no b{color:#b3261e}
+.ok{border-left:3px solid var(--green);padding-left:14px}
+@media print{
+  body{font-size:12px}
+  .shell{padding:0}
+  h2{margin-top:18px}
+  .no,.ok,.box{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <h1>Guion para mostrar la app<br>Matías y Marine · 4 minutos</h1>
+  <p class="lead">Una sola idea: <b>es la planilla de siempre, pero se ve como una app y los números se calculan solos</b>. Todo lo demás es repetición.</p>
+
+  <div class="box">
+    <b>Antes de empezar (1 minuto)</b>
+    <p>Abrir el link directo a la app, no el inicio de AppSheet:<br>
+    <a href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener">appsheet.com/start/7f05d824…</a></p>
+    <p>Entrar con <b>facu.capello@hotmail.com</b>. Matías con <b>maticgpt@gmail.com</b>. <b>Marine todavía no tiene usuario</b>: mirá desde la pantalla, no intentes entrar con su correo.</p>
+    <p>Tené a mano un pedido puntual ya cargado (buscarlo en la lupa por el nombre del cliente). No hace falta nada más.</p>
+  </div>
+
+  <h2>Los cuatro minutos</h2>
+  <table>
+    <thead><tr><th>Tiempo</th><th>Qué abrir</th><th>Qué decir</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>0:00</td>
+        <td>Pantalla de Inicio.</td>
+        <td>«Esto es tu planilla, pero en vez de buscar la fila, entrás y ves el pedido. No se carga nada dos veces: lo que subís queda en la misma planilla de Google.»</td>
+      </tr>
+      <tr>
+        <td>0:40</td>
+        <td><b>Pedidos</b>, buscar un pedido por cliente en la lupa. Nunca la lista completa.</td>
+        <td>«Un pedido es el cliente y su fecha de entrega. Adentro están las obras y los pagos, en el mismo lugar.»</td>
+      </tr>
+      <tr>
+        <td>1:30</td>
+        <td>Dentro del pedido: sección de obras. Tocar una obra.</td>
+        <td>«Cada obra tiene medida, tipo de trabajo y precio. Si suben dos obras, se suman solas. Esto es la columna “importe” del Excel, pero sin fórmula.»</td>
+      </tr>
+      <tr>
+        <td>2:15</td>
+        <td>Sección de pagos → un pago cargado (la seña).</td>
+        <td>«Cuando entra la seña, la cargás acá. No hay que tocar el total a mano.»</td>
+      </tr>
+      <tr>
+        <td>3:00</td>
+        <td>Volver al pedido y <em>esperar 5 segundos</em> mirando Total, Pagado y Saldo.</td>
+        <td>«Total, pagado y saldo. El saldo es la cuenta que hoy hacés en la calculadora. Tarda unos segundos en recalcular: no está roto, está pensando.»</td>
+      </tr>
+      <tr>
+        <td>3:40</td>
+        <td>Cerrar sin guardar nada.</td>
+        <td>«Se puede usar desde el celular, en el taller. Hoy la planilla sigue siendo la misma de siempre: la app es la puerta de entrada, no otra base de datos.»</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Qué no tocar en la demo</h2>
+  <ul class="no">
+    <li><b>No borrar nada.</b> La confirmación está en inglés («Are you sure? No / Delete») y asusta.</li>
+    <li><b>No abrir la lista completa de Pedidos</b>: tiene filas de prueba con fechas de 2099 y una con saldo −500.000.</li>
+    <li><b>No recorrer el menú</b> (12 secciones, varias a medio hacer): quedarse en Inicio, Pedidos, Obras y Pagos.</li>
+    <li><b>No cargar datos de clientes reales</b> si la pantalla se comparte o se graba.</li>
+    <li><b>No explicar «Syncing…» ni «Pull to sync»</b>: son textos en inglés de la plataforma y se van solos.</li>
+    <li><b>No prometer</b> facturación, stock ni depósito: la app no lo hace.</li>
+  </ul>
+
+  <h2>Si preguntan</h2>
+  <div class="ok">
+    <ul>
+      <li><b>«¿Y mi Excel?»</b> — Sigue siendo el mismo archivo. La app lee y escribe ahí.</li>
+      <li><b>«¿Cuántos pueden entrar?»</b> — Hoy dos usuarios: Facundo y Matías. Sumar a Marine es un permiso, se hace en un minuto.</li>
+      <li><b>«¿Y si me equivoco?»</b> — Se corrige en el mismo pedido; no hay que rehacer la planilla.</li>
+      <li><b>«¿Funciona sin internet?»</b> — No. Necesita conexión, como Google Sheets.</li>
+      <li><b>«¿Cuánto sale?»</b> — No responder precios en la demo si no está definido.</li>
+    </ul>
+  </div>
+
+  <h2>Para grabar el corte de 18 s</h2>
+  <p>Está en <a href="../henris-ad-20261031/">henris-ad-20261031</a>: se abre, se graba la pantalla 18 segundos y queda el video. Sin audio, sin datos reales, y se puede repetir con <b>?loop=0</b> para que se quede quieto en el último cuadro.</p>
+</main>
+</body>
+</html>
