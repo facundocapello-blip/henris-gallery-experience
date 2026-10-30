@@ -1,5 +1,13 @@
 # Estado de Henris Gallery Experience
 
+## Links de las guías repuntados a la app real · 2026-10-30
+
+- Revisión de la app en AppSheet (solo lectura) y hallazgo: hay dos apps «Henris Gallery». La que linkeaban todas las guías, `3300a579` (`HenrisGallery·STAGINGE2E`), tiene 0 usuarios y no deja cargar pedidos. La que se usa es `7f05d824` (`HENRIS`, definición `1.000409`), con `maticgpt@gmail.com` y `facu.capello@hotmail.com` adentro.
+- Cambiado `appsheet.com/start/3300a579…` → `.../start/7f05d824…` en `staging/onboarding-20261031/index.html`, `staging/guia-operativa-candidata/index.html` (12 ocurrencias, incluido el `data-src` del iframe), `staging/guia-visual-prueba-20261029/index.html` y `staging/henris-gemini-fusion-20261020/index.html`.
+- La demo de Gemini se publica desde el snapshot congelado `dddcb2c`, así que además se agregó un `sed` en `pages.yml` que repunta el link al copiar, para no tocar el snapshot.
+- Diagnóstico completo y evidencia en `docs/QA-APP-20261030.md`; checklist de alta actualizado en `docs/ALTA-MATI-MARINE-20261030.md` (falta solo el correo de Marine).
+- No se modificó ninguna app, hoja ni usuario en AppSheet.
+
 ## Onboarding guiado publicado en ruta propia · 2026-10-30
 
 - Nueva carpeta `staging/onboarding-20261031/` con `index.html`, `tour.css`, `tour.js` y `chuleta.html`. Vanilla, sin dependencias ni build. No toca la candidata editorial ni la presentación publicadas.

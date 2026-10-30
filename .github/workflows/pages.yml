@@ -260,6 +260,9 @@ jobs:
         run: |
           mkdir -p _site/staging/henris-gemini-fusion-20261020
           cp _gemini_fusion_candidate/staging/henris-gemini-fusion-20261020/index.html _site/staging/henris-gemini-fusion-20261020/index.html
+          # El snapshot está congelado en dddcb2c y linkea a la app de staging (sin usuarios).
+          # Se repunta al publicar para que la demo no mande a la app equivocada.
+          sed -i 's/3300a579-5a49-4738-98f5-19979e4952e4/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b/g' _site/staging/henris-gemini-fusion-20261020/index.html
       - name: Include isolated visual guide trial
         run: |
           node --check staging/guia-visual-prueba-20261029/app.js

@@ -1,6 +1,7 @@
 # Alta de Mati y Marine en la app — checklist
 
-Fecha: 2026-10-30 · App: `3300a579-5a49-4738-98f5-19979e4952e4` · Definición: `1.000044` · Estado: **Prototype**
+Fecha: 2026-10-30 · App: `7f05d824-ccdc-4dc7-ad55-8a43f7739d0b` · Definición: `1.000409` · Estado: **Prototype**
+(app interna `HENRIS-982559713`; es la que Mati ya usa. La copia `3300a579` no sirve: ver `docs/QA-APP-20261030.md`.)
 
 Esto es lo que falta para que el onboarding deje de ser una promesa y pase a ser una prueba real.
 Ningún paso de acá modifica datos de clientes: se prueba con un pedido de ejemplo y se borra.
@@ -11,20 +12,21 @@ Ningún paso de acá modifica datos de clientes: se prueba con un pedido de ejem
 
 | Dato | Para qué |
 |---|---|
-| Correo Google de Mati | Compartir la app; el login es obligatorio |
-| Correo Google de Marine | Idem |
+| Correo Google de Mati | Ya está adentro como `maticgpt@gmail.com`; confirmar que es el que va a usar |
+| Correo Google de Marine | Único acceso que falta |
 | ¿Las dos van a **cargar** o una solo **consulta**? | Define el rol: usuario o solo lectura |
 | ¿Quién más va a usarla este mes? | El plan gratuito de prototipo permite hasta 10 usuarios activos, contando al dueño |
 
-Sin los dos correos no hay nada que probar: la app hoy tiene **0 usuarios** además del propietario.
+Hoy la app tiene 2 usuarios: el propietario (`facu.capello@hotmail.com`) y Mati (`maticgpt@gmail.com`), las dos ya entraron.
+Falta solo Marine. Y el link de las guías ya apunta a esta app, no a la copia de prueba.
 
 ---
 
 ## 1. Antes de compartir (5 controles, 10 minutos)
 
-1. **Entorno correcto.** Abrir la app en el editor y confirmar a qué hoja escribe. La trampa conocida:
-   «Henris Gallery» no distingue entorno y el interno se llama `HenrisGallery·STAGINGE2E-982559713`.
-   Si la app apunta a STAGING, no se comparte: primero se corrige.
+1. **Entorno correcto.** La app buena es `7f05d824` (interna `HENRIS-982559713`). No confundirla con
+   `3300a579` (`HenrisGallery·STAGINGE2E-982559713`), que es una copia de prueba con 0 usuarios y el
+   alta de pedido rota. Detalle: `docs/QA-APP-20261030.md`.
 2. **Formulario vigente.** Comparar el alta de pedido con las capturas del 28/10 que usa la guía.
    Si cambió un campo, la guía miente y hay que actualizarla antes de mandarla.
 3. **Permisos de tabla.** Confirmar que Obras y Pagos no permiten borrar registros desde la app.
