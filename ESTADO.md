@@ -10,7 +10,9 @@ Actualizado: 2026-10-30 (verificado con git, gh, curl y Chromium)
 - App `7f05d824` (`HENRIS-982559713`), def. `1.000409`, Prototype; usuarios `facu.capello@hotmail.com` y `maticgpt@gmail.com`. Las cuatro webs apuntan ahí (0 referencias a `3300a579`).
 
 ## Abierto
-- Prueba funcional de la app (pedido → obra → pago → saldo → reabrir): **no hecha**. Se perdió la sesión del navegador antes de cargar el formulario; hay que entrar con la cuenta del dueño y borrar el registro `PRUEBA`.
+- Prueba funcional de la app: **hecha el 30/10** en `7f05d824` con datos de prueba y borrada (ver `docs/QA-APP-20261030.md` §9). Pedido `PED-67b96ed4` → obra 1.200 → seña 500 USD → saldo 700, `Parcial`; hojas con los conteos originales (Pedidos 23, Pagos 38, Pedido_Items 37).
+- Fricciones detectadas en la app real: totales que tardan segundos en refrescar; borrado en ícono sin texto y confirmación en inglés; `Comentarios` del pedido no guardado (a revisar a mano).
+- Usabilidad del onboarding: 15 hallazgos priorizados (auto-avance del tour mientras se escribe, ancla `tab-pagos` duplicada, salto a otro pedido, «seis» vs siete, jerga, aviso rojo prematuro, «Abrir la app» sin aclarar cuál, textos <14 px, barra de secciones cortada en móvil). Sin aplicar todavía.
 - Marine: falta su correo (lo maneja Facundo) y definir si carga o solo consulta.
 - Sin verificar: Safari/iPhone real, VoiceOver y `prefers-reduced-motion` con la preferencia del sistema.
 - Capturas de la guía (28/10) sin comparar contra el formulario vigente de `7f05d824`.

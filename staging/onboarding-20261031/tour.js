@@ -38,11 +38,23 @@
   const state = {
     view: "pedidos",          // pedidos | obras | pagos | clientes | detalle | form-pedido | form-obra | form-pago
     activeId: db.pedidos[0].id,
+    creadoId: null,           // pedido creado en esta práctica, para no saltar al de ejemplo
     detalleTab: "obras",
     draft: {},
     lastSaved: null
   };
   const body = $("#ws-body");
+
+  /* La práctica arranca siempre con el mismo pedido de ejemplo. */
+  const BASE = JSON.parse(JSON.stringify({ pedidos: db.pedidos, nextId: db.nextId }));
+  function resetPractice() {
+    db.pedidos = JSON.parse(JSON.stringify(BASE.pedidos));
+    db.nextId = BASE.nextId;
+    state.creadoId = null;
+    state.activeId = db.pedidos[0].id;
+    state.detalleTab = "obras";
+    state.lastSaved = null;
+  }
 
   /* --------------------------------------------------------------- vistas */
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
@@ -113,7 +125,7 @@
       </div>
       <div class="rp-tabs" role="tablist" aria-label="Detalle del pedido">
         <button type="button" class="rp-tab" role="tab" data-act="tab" data-tab="obras" aria-selected="${state.detalleTab === "obras"}" data-tour="tab-obras-detalle">Obras (${p.obras.length})</button>
-        <button type="button" class="rp-tab" role="tab" data-act="tab" data-tab="pagos" aria-selected="${state.detalleTab === "pagos"}" data-tour="tab-pagos">Pagos (${p.pagos.length})</button>
+        <button type="button" class="rp-tab" role="tab" data-act="tab" data-tab="pagos" aria-selected="${state.detalleTab === "pagos"}" data-tour="tab-pagos-detalle">Pagos (${p.pagos.length})</button>
       </div>
       <div class="rp-panel">${state.detalleTab === "obras"
         ? `<div class="rp-list" data-tour="lista-obras">${obras}</div>`
@@ -359,7 +371,9 @@
     };
     db.pedidos.unshift(p);
     state.activeId = p.id;
+    state.creadoId = p.id;
     state.detalleTab = "obras";
+    state.draft = {};
     showSaved();
     if (tour.running) tour.next(900); else setTimeout(() => go("detalle"), 550);
   }
@@ -499,13 +513,13 @@
       practice: { field: "moneda", ok: (v) => !!v, hint: "Elegí una moneda." },
       setup: ensureFormPedido },
     { m: 1, anchor: '[data-tour="btn-guardar"]', title: "Guardá el pedido",
-      text: "Queda creado y vacío. Las obras entran después.", setup: ensureFormPedido },
+      text: "Queda creado y vacío: las obras se agregan después. En la práctica se guarda solo en esta pantalla.", setup: ensureFormPedido },
 
-    { m: 2, anchor: '[data-tour="detalle-pedido"]', title: "Abrí el pedido",
-      text: "Cada pedido tiene su propia lista de obras y de pagos.",
-      setup: () => { state.activeId = (db.pedidos.find((x) => x.obras.length) || db.pedidos[0]).id; state.detalleTab = "obras"; go("detalle"); } },
-    { m: 2, anchor: '[data-tour="lista-obras"]', title: "Una obra es una línea",
-      text: "En tu planilla era una fila. Acá es parte del pedido y suma al total.", motion: "A4" },
+    { m: 2, anchor: '[data-tour="detalle-pedido"]', title: "El pedido tiene su ficha",
+      text: "Adentro están sus obras y sus cobros. Nada se mezcla con los demás pedidos.",
+      setup: () => { state.activeId = state.creadoId || (db.pedidos.find((x) => x.obras.length) || db.pedidos[0]).id; state.detalleTab = "obras"; go("detalle"); } },
+    { m: 2, anchor: '[data-tour="lista-obras"]', title: "Cada obra es una línea",
+      text: "Una pieza, su medida y su precio. La app las suma y saca el total del pedido.", motion: "A4" },
 
     { m: 3, anchor: '[data-tour="btn-agregar-obra"]', title: "Agregá la obra",
       text: "Abre el formulario de la obra.", advanceOn: true },
@@ -530,10 +544,10 @@
       practice: { field: "precio", ok: (v) => Number(v) > 0, hint: "Poné el precio de la obra." },
       setup: ensureFormObra },
     { m: 3, anchor: '[data-tour="btn-guardar"]', title: "Guardá la obra",
-      text: "El total del pedido se actualiza solo.", setup: ensureFormObra },
+      text: "El total del pedido se actualiza solo: no hay fórmula que arrastrar.", setup: ensureFormObra },
 
-    { m: 4, anchor: '[data-tour="tab-pagos"]', title: "Los cobros van aparte",
-      text: "En Pagos registrás lo que ya entró. Una seña, un pago parcial o el total.", advanceOn: true,
+    { m: 4, anchor: '[data-tour="tab-pagos-detalle"]', title: "Los cobros van aparte",
+      text: "Cada cobro se registra acá, con su fecha y su medio. Uno por vez, como en la planilla.", advanceOn: true,
       setup: () => { state.detalleTab = "pagos"; go("detalle"); } },
     { m: 4, anchor: '[data-tour="btn-agregar-pago"]', title: "Registrá el cobro",
       text: "Abre el formulario del pago.", advanceOn: true },
@@ -546,7 +560,7 @@
       practice: { field: "medio", ok: (v) => !!v, hint: "Elegí el medio de pago." },
       setup: ensureFormPago },
     { m: 4, anchor: '[data-tour="btn-guardar"]', title: "Guardá el pago",
-      text: "El saldo baja al instante. Nadie tiene que restar a mano.", setup: ensureFormPago },
+      text: "El saldo se recalcula solo. En la app real, dale unos segundos o tocá Sync para ver el número nuevo.", setup: ensureFormPago },
 
     { m: 5, anchor: '[data-tour="total"]', title: "Total: lo que suma el pedido",
       text: "Es la suma de las obras. Viene de la app, no de una fórmula tuya.", motion: "A3",
@@ -558,10 +572,10 @@
     { m: 6, anchor: "#morph", title: "Tu Excel no se tira",
       text: "La planilla vieja queda como archivo. Lo que cambia es dónde se carga de acá en adelante.",
       motion: "A2", setup: () => document.getElementById("morph")?.scrollIntoView({ block: "center" }) },
-    { m: 6, anchor: "#morph", title: "Columna es campo, fila es registro",
-      text: "Cada columna que ya usabas tiene su campo con nombre. Cada fila pasa a ser un registro con historia." },
+    { m: 6, anchor: "#morph", title: "Cada columna es un campo",
+      text: "Cada columna que ya usabas tiene su campo con nombre. Cada fila pasa a ser un pedido con sus obras y sus pagos." },
     { m: 6, anchor: null, title: "Listo para empezar",
-      text: "Abrí la app con tu cuenta autorizada. Y si te trabás, la chuleta tiene los cuatro pasos en una carilla." }
+      text: "Abrí la app real con tu cuenta autorizada. Si algo no coincide con esta práctica, la chuleta tiene los cuatro pasos en una carilla." }
   ];
 
   const layer = document.createElement("div");
@@ -577,7 +591,7 @@
       <div class="tp-actions">
         <button type="button" class="btn" id="tp-prev">← Anterior</button>
         <button type="button" class="btn btn-solid tp-next" id="tp-next">Siguiente →</button>
-        <button type="button" class="tp-ghost" id="tp-skip">Saltar módulo</button>
+        <button type="button" class="tp-ghost" id="tp-skip">Saltar parte</button>
         <button type="button" class="tp-ghost" id="tp-exit">Salir</button>
       </div>
     </div>`;
@@ -640,8 +654,8 @@
     finish() {
       this.exit();
       save({ done: true, index: 0 });
-      live.textContent = "Recorrido terminado.";
-      announceBanner("Terminaste el recorrido. La chuleta tiene los cuatro pasos para consultar.", "chuleta");
+      live.textContent = "Práctica terminada.";
+      announceBanner("Terminaste la práctica. La chuleta tiene los cuatro pasos para consultar.", "chuleta");
     },
     exit() {
       this.running = false;
@@ -661,7 +675,7 @@
     },
     paint(step) {
       const mod = MODULES[step.m];
-      elMeta.textContent = `Módulo ${step.m + 1} de ${MODULES.length} · ${mod.name} · ${mod.target}`;
+      elMeta.textContent = `Parte ${step.m + 1} de ${MODULES.length} · ${mod.name}`;
       elStep.textContent = `Paso ${this.index + 1} de ${STEPS.length}`;
       elTitle.textContent = step.title;
       elText.textContent = step.text;
@@ -766,34 +780,39 @@
 
   /* ---------------------------------------------------------- práctica */
   let practiceEl = null;
-  let practiceHandler = null;
+  let practiceHandlers = [];
   function cleanupPractice() {
-    if (practiceEl && practiceHandler) {
-      practiceEl.removeEventListener("input", practiceHandler);
-      practiceEl.removeEventListener("change", practiceHandler);
-    }
-    practiceEl = null; practiceHandler = null;
+    if (practiceEl) practiceHandlers.forEach(([type, fn]) => practiceEl.removeEventListener(type, fn));
+    practiceEl = null; practiceHandlers = [];
   }
 
   function bindPractice(step, engine) {
     const el = $(`[data-field="${step.practice.field}"]`);
     if (!el) return;
     practiceEl = el;
-    const check = () => {
+    const isSelect = el.tagName === "SELECT";
+    const errBox = el.closest(".rp-field")?.querySelector(".err");
+
+    /* `committed` = la persona ya terminó (eligió, salió del campo).
+       Recién ahí se marca lo que falta; mientras escribe solo se muestra la consigna. */
+    const check = (committed) => {
       const ok = step.practice.ok(el.value);
-      const err = el.closest(".rp-field")?.querySelector(".err");
-      if (err) err.textContent = ok ? "" : (el.value ? step.practice.hint : "");
+      if (errBox) errBox.textContent = !ok && committed && el.value.trim() !== "" ? step.practice.hint : "";
       btnNext.disabled = !ok;
       elHint.textContent = ok ? "" : step.practice.hint;
       if (ok && el.dataset.done !== "1") {
         el.dataset.done = "1";
-        setTimeout(() => { if (engine.running && STEPS[engine.index] === step) engine.next(); }, 450);
+        // Auto-avance solo con desplegables: elegir es un acto terminado, escribir no.
+        if (isSelect) setTimeout(() => { if (engine.running && STEPS[engine.index] === step) engine.next(); }, 800);
       }
     };
-    practiceHandler = check;
-    el.addEventListener("input", check);
-    el.addEventListener("change", check);
-    check();
+
+    const onInput = () => check(false);
+    const onChange = () => check(true);
+    const onBlur = () => check(true);
+    practiceHandlers = [["input", onInput], ["change", onChange], ["blur", onBlur]];
+    practiceHandlers.forEach(([type, fn]) => el.addEventListener(type, fn));
+    check(false);
     el.focus({ preventScroll: true });
   }
 
@@ -848,6 +867,7 @@
     $$(sel).forEach((b) => b.addEventListener("click", () => {
       try { localStorage.removeItem(KEY); } catch (_) {}
       const restart = $("#restart-tour"); if (restart) restart.hidden = false;
+      resetPractice();
       document.getElementById("practica")?.scrollIntoView({ block: "start" });
       setTimeout(() => tour.start(0), 260);
     }));
@@ -856,7 +876,7 @@
 
   const saved = load();
   if (!saved.done && typeof saved.index === "number" && saved.index > 0) {
-    announceBanner(`Quedaste en el paso ${saved.index + 1} del recorrido.`, "seguir");
+    announceBanner(`Quedaste en el paso ${saved.index + 1} de la práctica.`, "seguir");
   }
 
   render();

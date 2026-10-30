@@ -96,12 +96,15 @@ a{color:var(--black)}
 .safe svg{flex:none}
 
 .workspace{margin-top:28px;display:grid;grid-template-columns:1fr;gap:0;background:#fff;border:1px solid var(--border);overflow:hidden}
-.ws-top{display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border);background:#fafafa;overflow-x:auto}
+.ws-top{display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border);background:#fafafa;flex-wrap:wrap}
 .ws-top .ws-name{padding:12px 8px;font:700 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gray);white-space:nowrap}
 .ws-tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:12px 14px;min-height:44px;font:600 14px var(--sans);color:#666;cursor:pointer;white-space:nowrap}
 .ws-tab[aria-selected="true"]{color:var(--black);border-color:var(--black)}
 .ws-body{padding:20px;min-height:330px}
-
+@media (max-width:600px){
+  .ws-top .ws-name{display:none}
+  .ws-tab{padding:12px 10px;flex:1 1 auto;text-align:center}
+}
 /* réplica: listas */
 .rp-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .rp-title{font:600 18px var(--sans)}
@@ -196,9 +199,9 @@ a{color:var(--black)}
         <p class="hero-lead">Cargá el pedido una vez. La app suma las obras, descuenta los pagos y te muestra cuánto falta cobrar. Sin fórmulas que arrastrar.</p>
         <div class="hero-actions">
           <button type="button" class="btn btn-solid" id="start-tour">Practicar con datos de ejemplo</button>
-          <a class="btn" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener noreferrer">Abrir la app<span aria-hidden="true"> ↗</span></a>
+          <a class="btn" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener noreferrer">Abrir la app real<span aria-hidden="true"> ↗</span></a>
         </div>
-        <p class="hero-note">La práctica usa datos inventados: no se guarda nada en tu información real.</p>
+        <p class="hero-note">La práctica usa datos inventados: no se guarda nada en tu información real. «Abrir la app real» te lleva a la app de todos los días y pide tu cuenta.</p>
       </div>
       <svg class="flow" id="flow" viewBox="0 0 420 300" role="img" aria-label="Recorrido de un pedido: pedido, obras, pagos y saldo">
         <path class="flow-track" d="M60 60 H210 Q240 60 240 120 V150 Q240 210 270 210 H360"/>
@@ -234,7 +237,7 @@ a{color:var(--black)}
       </div>
 
       <h3 class="morph-title">La misma fila, otro formato</h3>
-      <p class="sub">Esto es lo único que cambia: una fila de tu planilla pasa a ser un registro con nombre y apellido.</p>
+      <p class="sub">Esto es lo único que cambia: una fila de tu planilla pasa a ser un pedido con cliente, obra, medida, precio y seña, cada dato en su campo.</p>
       <div class="morph" id="morph">
         <div class="morph-col">
           <h4>Tu fila de Excel</h4>
@@ -254,7 +257,7 @@ a{color:var(--black)}
         </div>
         <div class="morph-arrow" aria-hidden="true">→</div>
         <div class="morph-col">
-          <h4>El registro en la app</h4>
+          <h4>El pedido en la app</h4>
           <div class="morph-fields">
             <div class="morph-field"><span>Cliente</span><b>Estudio Méndez</b></div>
             <div class="morph-field"><span>Obra</span><b>Retrato familiar · 60×80 cm</b></div>
@@ -272,14 +275,14 @@ a{color:var(--black)}
       <div class="practice-head">
         <div>
           <h2>Practicá en la app, con datos inventados</h2>
-          <p class="sub">Seis módulos cortos. Podés salir cuando quieras y seguir después: la guía recuerda dónde quedaste.</p>
+          <p class="sub">Siete partes cortas, de menos de dos minutos cada una. Podés salir cuando quieras y retomar donde quedaste.</p>
           <p class="safe">
             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#3A5F48" stroke-width="1.6"/><path d="M4.6 8.2l2.2 2.2 4.4-4.6" fill="none" stroke="#3A5F48" stroke-width="1.8" stroke-linecap="round"/></svg>
             Datos de ejemplo. No se guarda nada en la app real.
           </p>
         </div>
         <div class="tour-cta">
-          <button type="button" class="btn btn-solid" id="start-tour-2">Empezar el recorrido</button>
+          <button type="button" class="btn btn-solid" id="start-tour-2">Empezar la práctica</button>
           <button type="button" class="btn" id="restart-tour" hidden>Reiniciar</button>
         </div>
       </div>
