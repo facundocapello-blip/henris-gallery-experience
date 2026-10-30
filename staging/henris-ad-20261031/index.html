@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Henris Gallery · corte de 18 s (demo)</title>
+<meta name="description" content="Corte de 18 segundos para grabar: pedido, obra, seña y saldo dentro de un celular. Datos inventados, sin audio.">
+<style>
+:root{
+  --black:#111; --white:#fff; --gray:#6b6b6b; --border:#e5e5e5; --soft:#f7f7f7;
+  --green:#3A5F48; --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --focus:#0b57d0;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font:16px/1.5 var(--sans);color:var(--white);background:var(--black);
+  display:grid;place-items:center;overflow:hidden;-webkit-font-smoothing:antialiased}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+
+.stage{width:100%;max-width:880px;padding:22px 20px 14px;display:grid;gap:14px;justify-items:center}
+
+.bar{width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  border-bottom:1px solid #2a2a2a;padding-bottom:10px}
+.logo{font:700 15px/1 var(--sans);letter-spacing:-.01em}
+.logo em{font-style:normal;font-weight:400}
+.bar span{font:700 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8c8c8c}
+
+.reel{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:34px;align-items:center;width:100%}
+@media (max-width:720px){ .reel{grid-template-columns:1fr;gap:18px;justify-items:center} }
+
+.captions{position:relative;min-height:120px;width:100%}
+.cap{position:absolute;inset:0;margin:0;font-size:clamp(22px,3.2vw,32px);line-height:1.18;font-weight:600;
+  letter-spacing:-.02em;opacity:0;transform:translateY(8px);
+  transition:opacity .18s ease .16s,transform .45s ease .16s}
+.cap:not(.on){transition:opacity .1s ease 0s,transform .1s ease 0s}
+.cap.on{opacity:1;transform:none}
+.cap small{display:block;margin-top:11px;font:700 10.5px/1.3 var(--sans);letter-spacing:.14em;
+  text-transform:uppercase;color:#8c8c8c}
+
+/* ---------- celular ---------- */
+.device{position:relative;width:268px;height:498px;border-radius:34px;background:#1c1c1c;
+  padding:9px;box-shadow:0 26px 60px rgba(0,0,0,.6),inset 0 0 0 1px #333}
+.device::after{content:"";position:absolute;left:50%;top:15px;transform:translateX(-50%);
+  width:64px;height:7px;border-radius:6px;background:#0a0a0a;z-index:3}
+.screen{position:relative;height:100%;border-radius:26px;overflow:hidden;background:var(--white);
+  color:var(--black);display:flex;flex-direction:column}
+
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:6px 14px 2px;
+  font:600 9px/1 var(--sans);color:#111}
+.statusbar .sig{display:flex;gap:3px;align-items:center}
+.statusbar .sig i{display:block;width:2px;background:#111;border-radius:1px}
+.statusbar .bat{width:16px;height:8px;border:1px solid #111;border-radius:2px;position:relative}
+.statusbar .bat::after{content:"";position:absolute;inset:1px;width:9px;background:#111}
+
+.appbar{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:6px 12px 7px;border-bottom:1px solid var(--border)}
+.appbar b{font:700 11px/1 var(--sans);letter-spacing:-.01em}
+.appbar b em{font-style:normal;font-weight:400}
+.appbar .tools{display:flex;gap:8px;align-items:center}
+.appbar .tools i{display:block;width:11px;height:11px;border:1.2px solid #777;border-radius:50%}
+.appbar .tools i.sq{border-radius:2px}
+
+.screen-body{flex:1;display:flex;flex-direction:column;padding:10px 12px 12px;min-height:0}
+
+/* ---------- escena: formulario ---------- */
+.scene{flex:1;display:flex;flex-direction:column;min-height:0;transition:opacity .3s ease}
+.scene[hidden]{display:none}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:2px 0 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.sheet-head span{font:600 9px/1 var(--sans);letter-spacing:.02em;color:#555}
+.sheet-head b{font:600 10px/1 var(--sans);color:#111}
+.sheet-head .save{font:700 9px/1 var(--sans);letter-spacing:.04em;color:#fff;background:#111;padding:5px 8px;border-radius:2px;
+  transition:transform .16s ease,background .16s ease}
+.sheet-head .save.press{transform:scale(.94);background:#333}
+
+.row{display:flex;flex-direction:column;gap:2px;padding:6px 0;border-bottom:1px solid #f0f0f0}
+.row label{font:700 7.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#8a8a8a}
+.row .value{font:600 11px/1.3 var(--sans);color:#c6c6c6;min-height:14px;transition:color .2s}
+.row .value.on{color:#111}
+.row .value.typing::after{content:"";display:inline-block;width:1px;height:10px;background:#111;
+  margin-left:1px;vertical-align:-1px;animation:caret .7s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+
+.seg{display:flex;border:1px solid #111;border-radius:2px;overflow:hidden;width:104px;margin-top:2px}
+.seg span{flex:1;text-align:center;font:700 8px/1 var(--sans);letter-spacing:.06em;padding:5px 0;color:#111}
+.seg span.on{background:#111;color:#fff}
+
+/* ---------- escena: detalle ---------- */
+.dclient{display:flex;align-items:baseline;justify-content:space-between;gap:6px;margin-bottom:8px}
+.dclient b{font:600 13px/1.1 var(--sans)}
+.chip{font:700 8px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid #cfcfcf;color:#555;padding:3px 5px;border-radius:2px}
+.chip.blue{border-color:#b9c6d8;color:#3c5a7a;background:#f3f6fa}
+
+.big{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:8px 0 9px;border-bottom:1px solid var(--border)}
+.big div{display:grid;gap:2px}
+.big small{font:700 7px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.big b{font:600 12px/1 var(--sans);font-variant-numeric:tabular-nums}
+.big .saldo b{color:var(--green)}
+.big .saldo.hit b{animation:hit .9s ease}
+@keyframes hit{0%{transform:none}30%{transform:scale(1.12)}100%{transform:none}}
+
+.cobro{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f0f0}
+.cobro small{font:700 7px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.cobro span{font:600 9px/1 var(--sans);color:#555}
+
+.sect{margin-top:9px}
+.sect h3{margin:0 0 4px;font:700 7.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#8a8a8a}
+.item{display:flex;justify-content:space-between;align-items:baseline;gap:6px;border:1px solid var(--border);
+  border-radius:2px;padding:6px 7px;background:#fff;opacity:0;transform:translateY(5px);
+  transition:opacity .3s ease,transform .3s ease}
+.item.on{opacity:1;transform:none}
+.item b{font:600 9.5px/1.2 var(--sans)}
+.item span{display:block;font:400 8px/1.3 var(--sans);color:#777}
+.item em{font-style:normal;font:600 9.5px/1 var(--sans);font-variant-numeric:tabular-nums}
+.item em.pos{color:var(--green)}
+.empty{font:400 8.5px/1.3 var(--sans);color:#aaa;padding:6px 0}
+
+.foot{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;
+  border-top:1px solid #2a2a2a;padding-top:9px}
+.foot span{font:600 10px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#8c8c8c}
+.prog{position:fixed;left:0;right:0;bottom:0;height:3px;background:#2a2a2a}
+.prog i{display:block;height:100%;width:0;background:#fff;transition:width .2s linear}
+.pause{position:fixed;right:14px;bottom:16px;font:600 10.5px/1 var(--sans);letter-spacing:.08em;
+  text-transform:uppercase;color:#bbb;background:none;border:1px solid #333;padding:8px 10px;cursor:pointer;
+  opacity:0;transition:opacity .3s ease}
+.pause.show{opacity:1}
+.pause:hover,.pause:focus-visible{opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  .cap,.item,.scene,.row .value,.big .saldo.hit b{transition:none!important;animation:none!important}
+  .row .value.typing::after{display:none}
+}
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1 class="sr">Corte de 18 segundos: cómo se carga un pedido en Henris Gallery</h1>
+
+  <div class="bar">
+    <div class="logo">HENRIS <em>Gallery</em></div>
+    <span>demo · datos inventados</span>
+  </div>
+
+  <div class="reel">
+    <div class="captions" aria-hidden="true">
+      <p class="cap on" data-cap="0">Cargás el pedido<small>01 · cliente, fecha, moneda y entrega</small></p>
+      <p class="cap" data-cap="1">Sumás la obra<small>02 · medida y precio de esa pieza</small></p>
+      <p class="cap" data-cap="2">Registrás la seña<small>03 · lo que ya entró</small></p>
+      <p class="cap" data-cap="3">El saldo se calcula solo<small>04 · sin fórmulas, sin restar a mano</small></p>
+      <p class="cap" data-cap="4">Pedido, obra, pago y saldo.<small>Henris Gallery</small></p>
+    </div>
+
+    <div class="device" role="img" aria-label="Celular mostrando la app: pedido de Estudio Méndez, total 850 dólares, pagado 300, pendiente 550.">
+      <div class="screen">
+        <div class="statusbar">
+          <span>9:41</span>
+          <span class="sig">
+            <i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i>
+            <span style="width:6px"></span><span class="bat"></span>
+          </span>
+        </div>
+
+        <div class="appbar">
+          <b>HENRIS <em>Gallery</em></b>
+          <span class="tools"><i></i><i class="sq"></i></span>
+        </div>
+
+        <div class="screen-body">
+          <!-- 1 · formulario -->
+          <div class="scene" id="sceneForm">
+            <div class="sheet-head">
+              <span>Cancelar</span>
+              <b>Pedidos Form</b>
+              <span class="save" id="save">Guardar</span>
+            </div>
+            <div class="row"><label>Cliente</label><div class="value" id="v-cli">—</div></div>
+            <div class="row"><label>Fecha</label><div class="value" id="v-fec">—</div></div>
+            <div class="row"><label>Moneda</label>
+              <div class="seg"><span id="seg-ars">PESOS</span><span id="seg-usd">USD</span></div>
+            </div>
+            <div class="row"><label>Entrega prevista</label><div class="value" id="v-ent">—</div></div>
+          </div>
+
+          <!-- 2 · detalle -->
+          <div class="scene" id="sceneDetail" hidden>
+            <div class="dclient"><b>Estudio Méndez</b><span class="chip" id="estado">Nuevo</span></div>
+            <div class="big">
+              <div><small>Total</small><b id="t-total">USD 0</b></div>
+              <div><small>Pagado</small><b id="t-pagado">USD 0</b></div>
+              <div class="saldo" id="saldoBox"><small>Pendiente</small><b id="t-saldo">USD 0</b></div>
+            </div>
+            <div class="cobro"><small>Estado cobro</small><span id="cobro">Pendiente</span></div>
+
+            <div class="sect">
+              <h3>Obra <span id="n-obra">0</span></h3>
+              <div class="item" id="l-obra">
+                <div><b>Retrato familiar</b><span>60×80 cm · Lámina</span></div>
+                <em>850,00</em>
+              </div>
+              <p class="empty" id="e-obra">Sin obras todavía.</p>
+            </div>
+
+            <div class="sect">
+              <h3>Pagos relacionados <span id="n-pago">0</span></h3>
+              <div class="item" id="l-pago">
+                <div><b>Seña</b><span>30/10/2026 · USD</span></div>
+                <em class="pos">500,00</em>
+              </div>
+              <p class="empty" id="e-pago">Sin pagos todavía.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>Sin audio · se graba tal cual</span>
+    <span>henris gallery · 18 s</span>
+  </div>
+</main>
+
+<div class="prog" aria-hidden="true"><i id="prog"></i></div>
+<button type="button" class="pause" id="pause">Pausa</button>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const soloUna = new URLSearchParams(location.search).get("loop") === "0";
+
+  const el = {
+    cli: $("#v-cli"), fec: $("#v-fec"), ent: $("#v-ent"),
+    segUsd: $("#seg-usd"), segArs: $("#seg-ars"),
+    save: $("#save"), form: $("#sceneForm"), detail: $("#sceneDetail"),
+    obra: $("#l-obra"), pago: $("#l-pago"), eObra: $("#e-obra"), ePago: $("#e-pago"),
+    nObra: $("#n-obra"), nPago: $("#n-pago"),
+    total: $("#t-total"), pagado: $("#t-pagado"), saldo: $("#t-saldo"),
+    saldoBox: $("#saldoBox"), cobro: $("#cobro"), estado: $("#estado"),
+    caps: Array.from(document.querySelectorAll(".cap")), prog: $("#prog")
+  };
+
+  const dinero = (n) => "USD " + n.toLocaleString("es-AR");
+  const miles = (n) => n.toLocaleString("es-AR", { minimumFractionDigits: 2 });
+
+  function escribir(node, texto) {
+    node.textContent = "";
+    node.classList.add("on", "typing");
+    let i = 0;
+    const paso = () => {
+      node.textContent = texto.slice(0, ++i);
+      if (i < texto.length) setTimeout(paso, 24);
+      else node.classList.remove("typing");
+    };
+    paso();
+  }
+
+  function cap(i) { el.caps.forEach((c, k) => c.classList.toggle("on", k === i)); }
+
+  function contar(node, desde, hasta) {
+    if (reduce) { node.textContent = dinero(hasta); return; }
+    const t0 = performance.now(), dur = 700;
+    (function paso(now) {
+      const k = Math.min(1, (now - t0) / dur);
+      const v = Math.round(desde + (hasta - desde) * (1 - Math.pow(1 - k, 3)));
+      node.textContent = dinero(v);
+      if (k < 1) requestAnimationFrame(paso);
+    })(t0);
+  }
+
+  const plan = [
+    [0,    () => cap(0)],
+    [300,  () => escribir(el.cli, "Estudio Méndez")],
+    [950,  () => escribir(el.fec, "30/10/2026")],
+    [1550, () => escribir(el.ent, "6/11/2026")],
+    [2100, () => {
+      el.segArs.classList.remove("on"); el.segUsd.classList.add("on");
+      el.segUsd.animate ? el.segUsd.animate([{ transform: "scale(.92)" }, { transform: "scale(1)" }], { duration: 260 }) : null;
+    }],
+    [2700, () => el.save.classList.add("press")],
+    [2950, () => {
+      el.save.classList.remove("press");
+      el.form.hidden = true; el.detail.hidden = false;
+      el.ePago.hidden = true; el.eObra.hidden = true;
+      el.obra.classList.add("on");
+      el.nObra.textContent = "1";
+      contar(el.total, 0, 850);
+    }],
+    [3250, () => cap(1)],
+    [4300, () => cap(2)],
+    [4550, () => { el.pago.classList.add("on"); el.nPago.textContent = "1"; }],
+    [4950, () => {
+      contar(el.pagado, 0, 500);
+      contar(el.saldo, 850, 350);
+      el.saldoBox.classList.add("hit");
+      el.cobro.textContent = "Parcial";
+      el.estado.textContent = "Nuevo";
+    }],
+    [6200, () => cap(3)],
+    [8800, () => cap(4)],
+    [11800, reiniciar]
+  ];
+
+  let timers = [];
+  let pausado = false;
+  let inicio = 0;
+
+  const limpiar = () => { timers.forEach(clearTimeout); timers = []; };
+
+  function estadoInicial() {
+    [el.cli, el.fec, el.ent].forEach(n => { n.textContent = "—"; n.classList.remove("on", "typing"); });
+    el.segUsd.classList.remove("on"); el.segArs.classList.add("on");
+    el.form.hidden = false; el.detail.hidden = true;
+    el.obra.classList.remove("on"); el.pago.classList.remove("on");
+    el.eObra.hidden = false; el.ePago.hidden = false;
+    el.nObra.textContent = "0"; el.nPago.textContent = "0";
+    el.total.textContent = dinero(0); el.pagado.textContent = dinero(0); el.saldo.textContent = dinero(0);
+    el.saldoBox.classList.remove("hit");
+    el.cobro.textContent = "Pendiente";
+    el.prog.style.width = "0%";
+  }
+
+  function arrancar() {
+    limpiar(); estadoInicial();
+    inicio = performance.now();
+    plan.forEach(([ms, fn]) => timers.push(setTimeout(() => { if (!pausado) fn(); }, ms)));
+    if (!reduce) {
+      const id = setInterval(() => {
+        if (pausado) return;
+        const k = Math.min(1, (performance.now() - inicio) / 11800);
+        el.prog.style.width = (k * 100).toFixed(1) + "%";
+        if (k >= 1) clearInterval(id);
+      }, 100);
+      timers.push(id);
+    }
+  }
+
+  function reiniciar() {
+    if (soloUna) { el.prog.style.width = "100%"; return; }
+    arrancar();
+  }
+
+  if (reduce) {
+    el.cli.textContent = "Estudio Méndez"; el.fec.textContent = "30/10/2026"; el.ent.textContent = "6/11/2026";
+    [el.cli, el.fec, el.ent].forEach(n => n.classList.add("on"));
+    el.segArs.classList.remove("on"); el.segUsd.classList.add("on");
+    el.form.hidden = true; el.detail.hidden = false;
+    el.eObra.hidden = true; el.ePago.hidden = true;
+    el.obra.classList.add("on"); el.pago.classList.add("on");
+    el.nObra.textContent = "1"; el.nPago.textContent = "1";
+    el.total.textContent = dinero(850); el.pagado.textContent = dinero(500); el.saldo.textContent = dinero(350);
+    el.cobro.textContent = "Parcial";
+    el.prog.style.width = "100%";
+    cap(4);
+  } else {
+    arrancar();
+  }
+
+  // que entre completo en pantallas bajas (celular apaisado, ventana chica)
+  const stage = document.querySelector(".stage");
+  function encajar() {
+    stage.style.transform = "none";
+    const alto = stage.getBoundingClientRect().height;
+    const k = Math.min(1, (window.innerHeight - 8) / alto);
+    stage.style.transform = k < 1 ? "scale(" + k.toFixed(3) + ")" : "none";
+  }
+  window.addEventListener("resize", encajar);
+  encajar();
+
+  function alternar() {    if (reduce) return;
+    pausado = !pausado;
+    $("#pause").textContent = pausado ? "Reiniciar" : "Pausa";
+    $("#pause").classList.add("show");
+    clearTimeout(window.__ocultar);
+    window.__ocultar = setTimeout(() => $("#pause").classList.remove("show"), 2500);
+    if (!pausado) arrancar();
+  }
+  document.addEventListener("click", (e) => { if (!e.target.closest("a")) alternar(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === " " || e.key === "Enter") { e.preventDefault(); alternar(); }
+  });
+})();
+</script>
+</body>
+</html>
