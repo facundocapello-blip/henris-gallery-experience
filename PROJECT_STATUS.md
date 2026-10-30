@@ -7,6 +7,7 @@
 - La demo de Gemini se publica desde el snapshot congelado `dddcb2c`, así que además se agregó un `sed` en `pages.yml` que repunta el link al copiar, para no tocar el snapshot.
 - Diagnóstico completo y evidencia en `docs/QA-APP-20261030.md`; checklist de alta actualizado en `docs/ALTA-MATI-MARINE-20261030.md` (falta solo el correo de Marine).
 - No se modificó ninguna app, hoja ni usuario en AppSheet.
+- Publicado y verificado en vivo (commit `b2d174c`, run `41006204196` success): las cuatro rutas responden HTTP 200 y ya no queda ninguna referencia a `3300a579` — onboarding 1, candidata 12, guía visual 2, demo de Gemini 3 referencias a `7f05d824`. En local, las cuatro cargan con un solo H1 y consola limpia. El link de la app abre el login de AppSheet, como corresponde.
 
 ## Onboarding guiado publicado en ruta propia · 2026-10-30
 
