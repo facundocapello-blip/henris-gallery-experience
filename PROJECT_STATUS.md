@@ -1,5 +1,14 @@
 # Estado de Henris Gallery Experience
 
+## Onboarding guiado en ruta nueva (sin publicar) · 2026-10-30
+
+- Nueva carpeta `staging/onboarding-20261031/` con `index.html`, `tour.css`, `tour.js` y `chuleta.html`. Vanilla, sin dependencias ni build. No toca la candidata editorial ni la presentación publicadas.
+- Contenido: hero con una sola salida, comparación Excel→app, réplica de la app (Pedidos, Obras, Pagos, Clientes) con datos ficticios en memoria, recorrido de 26 pasos en 7 módulos, ecuación Total − Pagado = Saldo y chuleta imprimible de cuatro pasos.
+- La app real no se toca: el recorrido corre sobre la réplica, sin red y sin escrituras. Esta página no carga el iframe de AppSheet.
+- Verificado localmente en Chromium (ventana de 1000 px y marcos de 320, 650 y 1440 px): los 26 pasos con clics reales —alta de pedido, obra y pago—, totales y saldo correctos (2.050 − 800 = 1.250), foco en el campo de práctica, sin desborde horizontal y consola sin errores. Lighthouse 100 accesibilidad, 100 buenas prácticas y 100 SEO en `index.html` y en `chuleta.html`.
+- Sin verificar: `prefers-reduced-motion` con emulación real del sistema (reglas CSS y ramas JS revisadas, no probadas), Safari físico y VoiceOver. La ventana de este entorno no compone frames: el scroll y las animaciones se probaron con `requestAnimationFrame` sustituido y no se pudieron tomar capturas.
+- Pendiente: commit y push. `.github/workflows/pages.yml` ya incluye el paso que copia los cuatro archivos a `_site/staging/onboarding-20261031/`.
+
 ## Candidata editorial publicada en ruta propia · 2026-10-30
 
 - Nuevo paso en `.github/workflows/pages.yml`: copia solo `staging/guia-operativa-candidata/index.html` a `_site/staging/guia-operativa-candidata/`. No reemplaza la presentación ni la guía ya publicadas.

@@ -271,6 +271,14 @@ jobs:
           test -f staging/guia-operativa-candidata/index.html
           mkdir -p _site/staging/guia-operativa-candidata
           cp staging/guia-operativa-candidata/index.html _site/staging/guia-operativa-candidata/index.html
+      # Onboarding nuevo: ruta propia; la candidata anterior queda como rollback.
+      - name: Include guided onboarding in its own path
+        run: |
+          node --check staging/onboarding-20261031/tour.js
+          test -f staging/onboarding-20261031/index.html
+          test -f staging/onboarding-20261031/chuleta.html
+          mkdir -p _site/staging/onboarding-20261031
+          cp staging/onboarding-20261031/index.html staging/onboarding-20261031/tour.css staging/onboarding-20261031/tour.js staging/onboarding-20261031/chuleta.html _site/staging/onboarding-20261031/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site

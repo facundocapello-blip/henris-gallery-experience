@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Henris Gallery · chuleta de cuatro pasos</title>
+<meta name="description" content="Los cuatro pasos diarios de Henris Gallery en una carilla: crear pedido, agregar obra, registrar pago y mirar el saldo.">
+<style>
+:root{--black:#111;--white:#fff;--gray:#555;--border:#e5e5e5;--green:#3A5F48;--sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#f0f0f0;font:16px/1.55 var(--sans);color:var(--black);-webkit-font-smoothing:antialiased}
+.sheet{background:#fff;width:210mm;min-height:297mm;margin:24px auto;padding:18mm 16mm;box-shadow:0 10px 30px rgba(0,0,0,.14)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--black);padding-bottom:10px}
+.top strong{font:700 18px/1 var(--sans);letter-spacing:-.01em}
+.top strong em{font-style:normal;font-weight:400}
+.top span{font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
+h1{font-size:30px;line-height:1.15;letter-spacing:-.02em;margin:26px 0 6px;font-weight:600}
+.lead{color:var(--gray);font-size:15px;margin:0 0 22px;max-width:58ch}
+ol{list-style:none;margin:0;padding:0;counter-reset:s}
+ol li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);counter-increment:s}
+ol li::before{
+  content:counter(s);grid-row:1/span 2;width:44px;height:44px;border:1px solid var(--black);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font:700 16px/1 var(--sans)
+}
+ol h2{font-size:18px;margin:0;font-weight:600;line-height:1.3}
+ol p{margin:4px 0 0;font-size:14.5px;color:#333}
+ol .where{font-size:13px;color:var(--gray);margin-top:4px}
+ol .where b{color:var(--black);font-weight:600}
+.glossary{margin-top:26px;border:1px solid var(--border);padding:16px 18px;background:#fafafa}
+.glossary h3{font-size:14px;margin:0 0 10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+.glossary dl{display:grid;grid-template-columns:auto 1fr;gap:7px 18px;margin:0;font-size:14px}
+.glossary dt{font-weight:600}
+.glossary dd{margin:0;color:#333}
+.foot{margin-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--gray);border-top:1px solid var(--border);padding-top:10px}
+.foot a{color:var(--black)}
+.noprint{margin:0 auto 8px;width:210mm;padding:0 16mm;font-size:13px;color:#666}
+@media (max-width:760px){
+  .sheet{width:100%;min-height:0;margin:0;padding:24px 18px;box-shadow:none}
+  .noprint{width:100%;padding:12px 18px}
+  h1{font-size:25px}
+}
+@media print{
+  body{background:#fff}
+  .sheet{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}
+  .noprint{display:none}
+  ol li{break-inside:avoid}
+  a{text-decoration:none;color:inherit}
+  @page{size:A4;margin:16mm}
+}
+</style>
+</head>
+<body>
+<p class="noprint"><a href="index.html">← Volver a la guía</a> · Esta hoja está pensada para imprimir en A4.</p>
+<main class="sheet">
+  <div class="top">
+    <strong>HENRIS <em>Gallery</em></strong>
+    <span>Chuleta de uso</span>
+  </div>
+
+  <h1>Cuatro pasos, todos los días</h1>
+  <p class="lead">Un pedido entra una vez. Después se le agregan obras y se registran los cobros. El saldo lo calcula la app.</p>
+
+  <ol>
+    <li>
+      <h2>Crear el pedido</h2>
+      <p>Cliente y moneda. Nada más. El pedido queda vacío hasta que le sumes obras.</p>
+      <p class="where">Dónde: <b>Pedidos → Nuevo pedido</b></p>
+    </li>
+    <li>
+      <h2>Agregar la obra</h2>
+      <p>Qué se hace, ancho, alto, unidad y precio de esa pieza. Una obra por línea.</p>
+      <p class="where">Dónde: <b>abrir el pedido → Agregar obra</b></p>
+    </li>
+    <li>
+      <h2>Registrar el pago</h2>
+      <p>Solo plata que ya entró: importe, medio y fecha. Seña o pago parcial, da igual.</p>
+      <p class="where">Dónde: <b>abrir el pedido → Registrar pago</b></p>
+    </li>
+    <li>
+      <h2>Mirar el saldo</h2>
+      <p>Total menos pagado. Si el saldo da cero, el pedido está cobrado. No hay que restar a mano.</p>
+      <p class="where">Dónde: <b>abajo del pedido, en las tres cifras</b></p>
+    </li>
+  </ol>
+
+  <div class="glossary">
+    <h3>Si venís de Excel</h3>
+    <dl>
+      <dt>Columna</dt><dd>Campo con nombre. Se completa una vez y no se pisa.</dd>
+      <dt>Fila</dt><dd>Registro: un pedido, una obra o un pago.</dd>
+      <dt>Hoja</dt><dd>Tabla. Clientes, Pedidos, Obras y Pagos están conectadas entre sí.</dd>
+      <dt>Fórmula</dt><dd>Ya no hace falta: la app suma y resta sola.</dd>
+      <dt>Tu planilla vieja</dt><dd>Queda como archivo de consulta. No se borra.</dd>
+    </dl>
+  </div>
+
+  <div class="foot">
+    <span>La app pide una cuenta Google autorizada.</span>
+    <span>Guía completa: <a href="index.html">index.html</a></span>
+  </div>
+</main>
+</body>
+</html>

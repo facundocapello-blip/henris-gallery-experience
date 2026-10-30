@@ -1,0 +1,146 @@
+/* Recorrido guiado, réplica y motion · Henris Gallery
+   Todo transform/opacity o stroke-dashoffset. Sin audio. */
+
+/* ---------- barra de progreso ---------- */
+.tour-bar{
+  position:fixed;left:0;right:0;top:0;height:3px;background:transparent;z-index:80;pointer-events:none;
+}
+.tour-bar span{display:block;height:100%;width:0;background:var(--black);transition:width .35s ease}
+
+/* ---------- capa del recorrido ---------- */
+.tour-layer{position:fixed;inset:0;z-index:60;pointer-events:none}
+.tour-layer[hidden]{display:none}
+
+.tour-ring{
+  position:fixed;pointer-events:none;border:2px solid var(--black);border-radius:6px;
+  box-shadow:0 0 0 9999px rgba(17,17,17,.46);
+  transition:top .22s ease,left .22s ease,width .22s ease,height .22s ease;
+}
+.tour-ring::after{
+  content:"";position:absolute;inset:-6px;border:1px solid rgba(255,255,255,.55);border-radius:10px;
+}
+.tour-ring.pulse{animation:tourPulse 1.2s ease-in-out 2}
+@keyframes tourPulse{
+  0%,100%{box-shadow:0 0 0 9999px rgba(17,17,17,.46),0 0 0 0 rgba(255,255,255,.0)}
+  50%{box-shadow:0 0 0 9999px rgba(17,17,17,.46),0 0 0 8px rgba(255,255,255,.35)}
+}
+
+.tour-pop{
+  position:fixed;pointer-events:auto;width:min(360px,calc(100vw - 32px));
+  background:#fff;border:1px solid var(--black);box-shadow:0 18px 48px rgba(0,0,0,.28);
+  padding:18px 18px 14px;z-index:70;
+}
+.tour-pop .tp-meta{
+  display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  font:700 10.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gray);
+}
+.tour-pop h3{font-size:19px;font-weight:600;margin-top:8px;line-height:1.2}
+.tour-pop p{margin-top:8px;font-size:14.5px;line-height:1.5;color:#333}
+.tour-pop .tp-hint{margin-top:10px;font-size:13px;color:#a11;font-weight:600;min-height:18px}
+.tour-pop .tp-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.tour-pop .tp-actions .btn{min-height:40px;padding:10px 14px;font-size:11.5px}
+.tour-pop .tp-ghost{
+  appearance:none;background:none;border:0;padding:8px 4px;min-height:36px;cursor:pointer;
+  font:600 12px var(--sans);letter-spacing:.04em;text-decoration:underline;color:#555;
+}
+.tour-pop .tp-ghost:hover{color:var(--black)}
+.tour-pop .tp-next[disabled]{opacity:.4;cursor:not-allowed}
+.tour-pop .tp-step{font-variant-numeric:tabular-nums}
+
+/* banner de retomar */
+.tour-restore{
+  position:fixed;left:16px;right:16px;bottom:16px;z-index:75;display:flex;gap:12px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;background:var(--black);color:#fff;padding:12px 14px;
+  border:1px solid var(--black);box-shadow:0 12px 30px rgba(0,0,0,.3);font-size:14px;
+}
+.tour-restore button{
+  appearance:none;background:#fff;color:var(--black);border:0;padding:9px 14px;min-height:38px;
+  font:700 11.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+}
+.tour-restore .dismiss{background:transparent;color:#fff;text-decoration:underline;padding:9px 6px}
+
+/* ---------- réplica: detalles ---------- */
+.ws-body{position:relative}
+.rp-breadcrumb{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--gray);margin-bottom:14px}
+.rp-breadcrumb button{appearance:none;background:none;border:0;padding:4px 0;font:600 13px var(--sans);text-decoration:underline;cursor:pointer;color:#333;min-height:32px}
+.rp-tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);margin:16px 0 0;flex-wrap:wrap}
+.rp-tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:10px 4px;margin-right:16px;min-height:42px;font:600 14px var(--sans);color:#666;cursor:pointer}
+.rp-tab[aria-selected="true"]{color:var(--black);border-color:var(--black)}
+.rp-panel{padding-top:8px}
+.rp-stagger>*{animation:rpIn .35s both}
+.rp-stagger>*:nth-child(1){animation-delay:.02s}
+.rp-stagger>*:nth-child(2){animation-delay:.08s}
+.rp-stagger>*:nth-child(3){animation-delay:.14s}
+.rp-stagger>*:nth-child(4){animation-delay:.2s}
+.rp-stagger>*:nth-child(5){animation-delay:.26s}
+.rp-stagger>*:nth-child(6){animation-delay:.32s}
+@keyframes rpIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.rp-save-check{display:none;align-items:center;gap:8px;font:600 13.5px var(--sans);color:var(--green);margin-top:10px}
+.rp-save-check.on{display:inline-flex}
+.rp-save-check svg{flex:none}
+.rp-save-check path{stroke-dasharray:24;stroke-dashoffset:24}
+.rp-save-check.on path{animation:drawCheck .5s ease forwards}
+@keyframes drawCheck{to{stroke-dashoffset:0}}
+
+.rp-figure{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center;padding:14px;border:1px solid var(--border);background:#fff}
+.rp-figure .thumb{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#f0f0f0,#dcdcdc);border:1px solid #ddd}
+.rp-figure dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px}
+.rp-figure dt{color:var(--gray)}
+.rp-figure dd{margin:0;font-weight:600}
+
+/* ---------- motion: fila Excel → registro (A2) ---------- */
+.morph-title{margin-top:44px;font-size:20px;font-weight:600}
+.morph-note{margin-top:10px;font-size:12.5px;color:var(--gray);line-height:1.45}
+.morph{display:grid;grid-template-columns:1fr 44px 1fr;gap:10px;align-items:center;margin-top:18px}
+.morph-col{border:1px solid var(--border);background:#fff;padding:12px}
+.morph-col h4{font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.morph-row{display:flex;gap:0;border:1px solid #ddd;font-size:12.5px;overflow:hidden}
+.morph-cell{flex:1;padding:7px 8px;border-right:1px solid #eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.morph-cell:last-child{border-right:0}
+.morph-cell.head{background:#f2f2f2;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.morph-fields{display:grid;gap:6px}
+.morph-field{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee;padding:6px 2px;font-size:13px}
+.morph-field span{color:var(--gray)}
+.morph-field b{font-weight:600}
+.morph-fields .morph-field{opacity:0;transform:translateY(8px)}
+.morph.run .morph-fields .morph-field{animation:morphIn .45s ease forwards}
+.morph.run .morph-fields .morph-field:nth-child(1){animation-delay:.5s}
+.morph.run .morph-fields .morph-field:nth-child(2){animation-delay:.85s}
+.morph.run .morph-fields .morph-field:nth-child(3){animation-delay:1.2s}
+.morph.run .morph-fields .morph-field:nth-child(4){animation-delay:1.55s}
+@keyframes morphIn{to{opacity:1;transform:none}}
+.morph-arrow{text-align:center;font-size:20px;color:#bbb}
+
+/* ---------- motion: cuenta del saldo (A3) ---------- */
+.equation{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px;font-variant-numeric:tabular-nums}
+.equation span.chip{padding:10px 14px;border:1px solid var(--border);background:#fff;font:600 15px var(--sans)}
+.equation span.op{font-size:16px;color:#888}
+.equation span.result{border-color:var(--green);color:var(--green);font-weight:700}
+.equation.run span.chip{animation:eqIn .4s ease both}
+.equation.run span.chip:nth-child(1){animation-delay:.05s}
+.equation.run span.chip:nth-child(3){animation-delay:.45s}
+.equation.run span.chip:nth-child(5){animation-delay:.85s}
+.equation.run span.op{animation:fadeIn .3s ease both}
+.equation.run span.op:nth-child(2){animation-delay:.35s}
+.equation.run span.op:nth-child(4){animation-delay:.75s}
+@keyframes eqIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+@media (max-width:640px){
+  .morph{grid-template-columns:1fr}
+  .morph-arrow{transform:rotate(90deg)}
+  .rp-figure{grid-template-columns:1fr}
+  .rp-figure .thumb{max-width:160px}
+  .tour-pop{padding:16px}
+}
+
+/* movimiento reducido: nada se mueve, todo queda en su estado final */
+@media (prefers-reduced-motion:reduce){
+  .tour-ring{transition:none}
+  .tour-ring.pulse{animation:none}
+  .rp-stagger>*{animation:none!important}
+  .rp-save-check path{stroke-dashoffset:0}
+  .morph-fields .morph-field{opacity:1;transform:none;animation:none!important}
+  .tour-bar span{transition:none}
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Henris Gallery · guía de uso</title>
+<meta name="description" content="Aprendé a usar Henris Gallery: cargá un pedido, sumá obras y registrá pagos. Con datos de ejemplo, sin tocar tu información real.">
+<style>
+:root{
+  --black:#111; --white:#fff; --gray:#555; --border:#e5e5e5; --soft:#f5f5f7;
+  --green:#3A5F48; --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --focus:#0b57d0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;font:16px/1.6 var(--sans);color:var(--black);background:var(--white);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;line-height:1.15;letter-spacing:-0.02em}
+p{margin:0}
+a{color:var(--black)}
+.shell{width:100%;max-width:1120px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--black);color:#fff;padding:12px 18px;z-index:100}
+.skip:focus{left:12px;top:12px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 22px;border:1px solid var(--black);background:transparent;color:var(--black);font:600 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:var(--black);color:#fff}
+.btn-solid{background:var(--black);color:#fff}
+.btn-solid:hover{background:#333}
+.eyebrow{font:700 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
+
+/* masthead */
+.masthead{border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);z-index:40}
+.masthead-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.brand{text-decoration:none;display:flex;flex-direction:column;gap:2px}
+.brand strong{font:700 17px/1 var(--sans);letter-spacing:-.01em}
+.brand em{font-style:normal;font-weight:400;letter-spacing:.02em}
+.brand span{font:600 10.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.masthead nav{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.masthead nav a{font:600 13px/1 var(--sans);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;border-bottom:1px solid transparent}
+.masthead nav a:hover{border-color:var(--black)}
+
+/* hero */
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--border)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(32px,4.6vw,54px);font-weight:600;max-width:15ch}
+.hero-lead{margin-top:18px;font-size:18px;color:#333;max-width:46ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-note{margin-top:16px;font-size:13.5px;color:var(--gray);max-width:44ch}
+
+/* flujo SVG */
+.flow{width:100%;height:auto;max-width:420px;margin-left:auto;display:block}
+.flow-track{fill:none;stroke:#d8d8d8;stroke-width:2}
+.flow-fill{fill:none;stroke:var(--black);stroke-width:2;stroke-dasharray:420;stroke-dashoffset:420}
+.flow-node{fill:#fff;stroke:#c9c9c9}
+.flow-node.on{fill:var(--black);stroke:var(--black)}
+.flow-label{font:600 12px var(--sans);fill:#777;letter-spacing:.06em}
+.flow-label.on{fill:var(--black)}
+.flow-num{font:700 11px var(--sans);fill:#999}
+.flow-num.on{fill:#fff}
+.flow.run .flow-fill{animation:draw 2.4s .2s ease forwards}
+.flow.run .n1{animation:pop .3s 1.4s forwards}
+.flow.run .n2{animation:pop .3s 2.0s forwards}
+.flow.run .n3{animation:pop .3s 2.6s forwards}
+.flow.run .n4{animation:pop .3s 3.2s forwards}
+.flow.run .l1{animation:fade .3s 1.4s forwards}
+.flow.run .l2{animation:fade .3s 2.0s forwards}
+.flow.run .l3{animation:fade .3s 2.6s forwards}
+.flow.run .l4{animation:fade .3s 3.2s forwards}
+.flow.run .f1{animation:popnum .3s 1.4s forwards}
+.flow.run .f2{animation:popnum .3s 2.0s forwards}
+.flow.run .f3{animation:popnum .3s 2.6s forwards}
+.flow.run .f4{animation:popnum .3s 3.2s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{to{fill:#111;stroke:#111}}
+@keyframes fade{to{fill:#111}}
+@keyframes popnum{to{fill:#fff}}
+
+/* comparación */
+.compare{padding:52px 0;border-bottom:1px solid var(--border)}
+.compare h2{font-size:clamp(24px,3vw,32px);font-weight:600;max-width:22ch;margin-bottom:8px}
+.compare p.sub{color:var(--gray);max-width:52ch;font-size:15px}
+.compare-grid{margin-top:32px;display:grid;gap:0;border-top:1px solid var(--border)}
+.compare-row{display:grid;grid-template-columns:1fr 40px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--border);align-items:center}
+.compare-old{font-size:15px;color:#666}
+.compare-old b{display:block;font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#6a6a6a;margin-bottom:4px}
+.compare-arrow{color:#bbb;text-align:center;font-size:18px}
+.compare-new b{display:block;font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
+.compare-new span{font-size:16px}
+
+/* recorrido */
+.practice{padding:56px 0;background:var(--soft);border-bottom:1px solid var(--border)}
+.practice-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.practice h2{font-size:clamp(24px,3vw,34px);font-weight:600}
+.practice .sub{color:var(--gray);font-size:15px;margin-top:8px;max-width:56ch}
+.safe{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 12px;background:#fff;border:1px solid var(--border);font-size:13.5px;font-weight:600}
+.safe svg{flex:none}
+
+.workspace{margin-top:28px;display:grid;grid-template-columns:1fr;gap:0;background:#fff;border:1px solid var(--border);overflow:hidden}
+.ws-top{display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border);background:#fafafa;overflow-x:auto}
+.ws-top .ws-name{padding:12px 8px;font:700 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gray);white-space:nowrap}
+.ws-tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:12px 14px;min-height:44px;font:600 14px var(--sans);color:#666;cursor:pointer;white-space:nowrap}
+.ws-tab[aria-selected="true"]{color:var(--black);border-color:var(--black)}
+.ws-body{padding:20px;min-height:330px}
+
+/* réplica: listas */
+.rp-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.rp-title{font:600 18px var(--sans)}
+.rp-sub{font-size:13.5px;color:var(--gray)}
+.rp-list{display:grid;gap:10px}
+.rp-card{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:center;padding:14px 16px;border:1px solid var(--border);background:#fff;text-align:left;width:100%;font:inherit;cursor:pointer}
+.rp-card:hover{border-color:#aaa}
+.rp-card .c1{font-weight:600;font-size:15.5px}
+.rp-card .c2{font-size:13.5px;color:var(--gray)}
+.rp-card .c3{text-align:right;font-variant-numeric:tabular-nums}
+.rp-card .c3 b{display:block;font-size:16px}
+.rp-card .c3 span{font-size:12.5px;color:var(--gray)}
+.rp-empty{padding:28px;text-align:center;color:var(--gray);border:1px dashed var(--border);font-size:14px}
+.rp-add{display:grid;gap:14px;max-width:520px}
+.rp-field{display:grid;gap:6px}
+.rp-field label{font:600 13px var(--sans);letter-spacing:.02em}
+.rp-field small{font-size:12.5px;color:var(--gray)}
+.rp-field input,.rp-field select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #bbb;background:#fff;font:15px var(--sans);color:var(--black)}
+.rp-field input:focus,.rp-field select:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--focus)}
+.rp-field .err{font-size:12.5px;color:#a11;min-height:16px}
+.rp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rp-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.rp-total{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;padding:16px;background:var(--soft);border:1px solid var(--border)}
+.rp-total div small{display:block;font:700 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+.rp-total div strong{font-size:20px;font-variant-numeric:tabular-nums}
+.rp-total .saldo strong{color:var(--green)}
+.rp-line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.rp-line:last-child{border-bottom:0}
+.rp-check{display:inline-flex;align-items:center;gap:6px;color:var(--green);font-weight:600;font-size:13px}
+
+/* chuleta + admin */
+.after{padding:56px 0;border-bottom:1px solid var(--border)}
+.after-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.after-card{border:1px solid var(--border);padding:24px}
+.after-card h3{font-size:20px;font-weight:600;margin-bottom:8px}
+.after-card p{font-size:14.5px;color:var(--gray);margin-bottom:18px}
+
+/* pie */
+.foot{padding:32px 0;font-size:13px;color:var(--gray)}
+.foot-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:32px}
+  .flow{margin:0 auto}
+  .compare-row{grid-template-columns:1fr;gap:6px;padding:16px 0}
+  .compare-arrow{display:none}
+  .after-grid{grid-template-columns:1fr}
+  .rp-row{grid-template-columns:1fr}
+  .rp-total{grid-template-columns:1fr;gap:8px}
+  .masthead nav{gap:14px}
+}
+@media (max-width:520px){
+  .shell{padding:0 16px}
+  .hero{padding:36px 0 28px}
+  .masthead-inner{min-height:56px}
+  .brand span{display:none}
+  .masthead nav a{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation-duration:.001s!important;animation-delay:0s!important}
+  .flow.run .flow-fill{stroke-dashoffset:0}
+  .flow .flow-node,.flow .flow-label{fill:#111;stroke:#111}
+  .flow .flow-num{fill:#fff}
+}
+</style>
+<link rel="stylesheet" href="tour.css">
+</head>
+<body>
+<a class="skip" href="#practica">Saltar a la práctica</a>
+
+<header class="masthead">
+  <div class="shell masthead-inner">
+    <a class="brand" href="#top">
+      <strong>HENRIS <em>Gallery</em></strong>
+      <span>Guía de uso</span>
+    </a>
+    <nav aria-label="Principal">
+      <a href="#practica">Practicar</a>
+      <a href="chuleta.html">Chuleta</a>
+      <a href="#administrar">Administrar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <span class="eyebrow">Guía de uso · Henris Gallery</span>
+        <h1>Del pedido al saldo, sin salir de una pantalla.</h1>
+        <p class="hero-lead">Cargá el pedido una vez. La app suma las obras, descuenta los pagos y te muestra cuánto falta cobrar. Sin fórmulas que arrastrar.</p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-solid" id="start-tour">Practicar con datos de ejemplo</button>
+          <a class="btn" href="https://www.appsheet.com/start/3300a579-5a49-4738-98f5-19979e4952e4" target="_blank" rel="noopener noreferrer">Abrir la app<span aria-hidden="true"> ↗</span></a>
+        </div>
+        <p class="hero-note">La práctica usa datos inventados: no se guarda nada en tu información real.</p>
+      </div>
+      <svg class="flow" id="flow" viewBox="0 0 420 300" role="img" aria-label="Recorrido de un pedido: pedido, obras, pagos y saldo">
+        <path class="flow-track" d="M60 60 H210 Q240 60 240 120 V150 Q240 210 270 210 H360"/>
+        <path class="flow-fill" id="flow-fill" d="M60 60 H210 Q240 60 240 120 V150 Q240 210 270 210 H360"/>
+        <g><circle class="flow-node n1" cx="60" cy="60" r="17"/><text class="flow-num f1" x="60" y="64" text-anchor="middle">01</text><text class="flow-label l1" x="60" y="34" text-anchor="middle">Pedido</text></g>
+        <g><circle class="flow-node n2" cx="240" cy="120" r="17"/><text class="flow-num f2" x="240" y="124" text-anchor="middle">02</text><text class="flow-label l2" x="240" y="94" text-anchor="middle">Obras</text></g>
+        <g><circle class="flow-node n3" cx="240" cy="210" r="17"/><text class="flow-num f3" x="240" y="214" text-anchor="middle">03</text><text class="flow-label l3" x="240" y="244" text-anchor="middle">Pagos</text></g>
+        <g><circle class="flow-node n4" cx="360" cy="210" r="17"/><text class="flow-num f4" x="360" y="214" text-anchor="middle">04</text><text class="flow-label l4" x="360" y="244" text-anchor="middle">Saldo</text></g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="compare">
+    <div class="shell">
+      <h2>Lo que ya hacés, ahora en un solo lugar</h2>
+      <p class="sub">Si venías trabajando en una planilla, no perdés nada: cambia dónde se guarda, no la lógica del negocio.</p>
+      <div class="compare-grid">
+        <div class="compare-row">
+          <div class="compare-old"><b>En tu planilla</b>Una columna por dato: cliente, medidas, precio, seña.</div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><b>En la app</b><span>Cada dato es un campo con nombre. Se completa una vez y no se pisa.</span></div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-old"><b>En tu planilla</b>Una hoja para pedidos, otra para cobros, otra para clientes.</div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><b>En la app</b><span>Cuatro tablas conectadas: Clientes, Pedidos, Obras y Pagos.</span></div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-old"><b>En tu planilla</b>El total y el saldo los calculabas con fórmulas.</div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><b>En la app</b><span>La app suma las obras, resta los pagos y muestra el saldo sola.</span></div>
+        </div>
+      </div>
+
+      <h3 class="morph-title">La misma fila, otro formato</h3>
+      <p class="sub">Esto es lo único que cambia: una fila de tu planilla pasa a ser un registro con nombre y apellido.</p>
+      <div class="morph" id="morph">
+        <div class="morph-col">
+          <h4>Tu fila de Excel</h4>
+          <div class="morph-row">
+            <div class="morph-cell head">CLIENTE</div>
+            <div class="morph-cell head">MEDIDAS</div>
+            <div class="morph-cell head">PRECIO</div>
+            <div class="morph-cell head">SEÑA</div>
+          </div>
+          <div class="morph-row">
+            <div class="morph-cell">Méndez</div>
+            <div class="morph-cell">60x80</div>
+            <div class="morph-cell">850</div>
+            <div class="morph-cell">300</div>
+          </div>
+          <p class="morph-note">Todo apretado en una línea, sin decir qué es cada número.</p>
+        </div>
+        <div class="morph-arrow" aria-hidden="true">→</div>
+        <div class="morph-col">
+          <h4>El registro en la app</h4>
+          <div class="morph-fields">
+            <div class="morph-field"><span>Cliente</span><b>Estudio Méndez</b></div>
+            <div class="morph-field"><span>Obra</span><b>Retrato familiar · 60×80 cm</b></div>
+            <div class="morph-field"><span>Precio</span><b>USD 850</b></div>
+            <div class="morph-field"><span>Seña cobrada</span><b>USD 300</b></div>
+          </div>
+          <p class="morph-note">Mismos datos, cada uno en su campo. Y el saldo se calcula solo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="practice" id="practica">
+    <div class="shell">
+      <div class="practice-head">
+        <div>
+          <h2>Practicá en la app, con datos inventados</h2>
+          <p class="sub">Seis módulos cortos. Podés salir cuando quieras y seguir después: la guía recuerda dónde quedaste.</p>
+          <p class="safe">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#3A5F48" stroke-width="1.6"/><path d="M4.6 8.2l2.2 2.2 4.4-4.6" fill="none" stroke="#3A5F48" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Datos de ejemplo. No se guarda nada en la app real.
+          </p>
+        </div>
+        <div class="tour-cta">
+          <button type="button" class="btn btn-solid" id="start-tour-2">Empezar el recorrido</button>
+          <button type="button" class="btn" id="restart-tour" hidden>Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <div class="ws-top" aria-hidden="false">
+          <span class="ws-name">Henris Gallery</span>
+          <div role="tablist" aria-label="Secciones de la app" id="ws-tabs">
+            <button type="button" class="ws-tab" role="tab" aria-selected="true" data-view="pedidos" data-tour="tab-pedidos">Pedidos</button>
+            <button type="button" class="ws-tab" role="tab" aria-selected="false" data-view="obras" data-tour="tab-obras">Obras</button>
+            <button type="button" class="ws-tab" role="tab" aria-selected="false" data-view="pagos" data-tour="tab-pagos">Pagos</button>
+            <button type="button" class="ws-tab" role="tab" aria-selected="false" data-view="clientes" data-tour="tab-clientes">Clientes</button>
+          </div>
+        </div>
+        <div class="ws-body" id="ws-body" role="tabpanel" aria-label="Contenido de la sección"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="after">
+    <div class="shell after-grid">
+      <div class="after-card">
+        <h3>Chuleta de cuatro pasos</h3>
+        <p>Una carilla para imprimir y tener al lado. Un verbo por paso, sin explicaciones de sistema.</p>
+        <a class="btn" href="chuleta.html">Abrir la chuleta</a>
+      </div>
+      <div class="after-card" id="administrar">
+        <h3>Para quien administra</h3>
+        <p>El mapeo de los 66 campos del Excel histórico al modelo nuevo vive en la guía técnica. Es documentación, no una tarea del día.</p>
+        <a class="btn" href="../guia-operativa-candidata/#mapeo">Ver el mapeo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot-inner">
+    <span>Henris Gallery · guía de uso</span>
+    <span>El acceso a la app requiere una cuenta Google autorizada.</span>
+  </div>
+</footer>
+
+<script src="tour.js"></script>
+</body>
+</html>

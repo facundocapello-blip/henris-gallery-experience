@@ -6,8 +6,9 @@ Actualizado: 2026-10-30 (verificado con git, gh y Chromium)
 - Candidata editorial: https://facundocapello-blip.github.io/henris-gallery-experience/staging/guia-operativa-candidata/ — HTTP 200, consola limpia, HTML idéntico al local (SHA256 `dab59f5e…`), un H1, sin desborde a 985 px, iframe de AppSheet sin cargar hasta pedirlo. Lighthouse 100 en accesibilidad, buenas prácticas y SEO. Fuente `fdece1d`, run `40997706004` success; `noindex`.
 - AppSheet `3300a579-5a49-4738-98f5-19979e4952e4`, definición `1.000044`, Prototype; login Google obligatorio; 0 compartidos además del propietario.
 ## Abierto
-- Sin commitear: `ESTADO.md` y `PROJECT_STATUS.md` (esta actualización) y la copia `staging/guia-operativa-candidata/index - copia.html`, idéntica a la publicada.
-- Sin pushear: nada; `fdece1d` es `origin/main`. La rama local `main` quedó atrás (solo desactualizada).
+- **Sin publicar**: onboarding nuevo en `staging/onboarding-20261031/` (`index.html`, `tour.css`, `tour.js`, `chuleta.html`) y el paso nuevo en `.github/workflows/pages.yml`. Verificado en local (ver `PROJECT_STATUS.md`); falta commit, push y verificación en la URL.
+- Sin commitear: `ESTADO.md`, `PROJECT_STATUS.md`, `docs/PROPUESTA-ONBOARDING-20261030.md`, `staging/onboarding-20261031/`, `.github/workflows/pages.yml` y la copia `staging/guia-operativa-candidata/index - copia.html`, idéntica a la publicada.
+- Sin pushear: nada; `cf1920c` es `origin/main`.
 - Respaldo previo solo en `%TEMP%\opencode\henris-respaldo-20261029-…`; temporal, no permanente.
 - Pedir los correos Google de Mati y Marine, agregarlos y probar acceso; después alta de pedido, 2 ítems, 2 pagos, sync y saldo con iPhone Safari físico.
 - Antes de reemplazar la web publicada con la candidata: QA de acceso, Safari/VoiceOver y snapshot `dddcb2c` preservado. La candidata solo se probó en Chromium (985 y 616 px).
