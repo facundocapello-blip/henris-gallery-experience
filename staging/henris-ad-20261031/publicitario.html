@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Henris Gallery · presentación 21 s</title>
+<meta name="description" content="Presentación de 21 segundos: del Excel a la app, con el pedido, la obra, la seña y el saldo dentro de un celular.">
+<style>
+:root{
+  --ink:#060607; --white:#fff; --muted:#8b8b90; --line:#1e1e22;
+  --green:#3A5F48; --sans:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);overflow:hidden}
+body{width:1080px;height:1920px;-webkit-font-smoothing:antialiased}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 50% 30%,#101013 0%,#060607 62%)}
+
+/* marca fija arriba */
+.mark{position:absolute;top:96px;left:0;right:0;text-align:center;z-index:6;
+  font:600 22px/1 var(--sans);letter-spacing:.42em;text-transform:uppercase;color:#d9d9de;opacity:.0}
+.mark.on{opacity:1;transition:opacity .8s ease}
+
+/* escenas */
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;display:grid;place-items:center}
+.scene.on{opacity:1}
+
+/* 1 · título */
+.title{text-align:center;padding:0 90px}
+.title h1{margin:0;font:700 96px/1.02 var(--sans);letter-spacing:-.035em;color:var(--white)}
+.title h1 span{display:block;font-weight:300;font-size:44px;letter-spacing:.34em;text-transform:uppercase;
+  color:#9a9aa2;margin-top:34px}
+.title p{margin:52px auto 0;max-width:760px;font:400 34px/1.4 var(--sans);color:#b9b9c0}
+.rule{width:96px;height:1px;background:#3a3a42;margin:56px auto 0}
+
+/* 2 · video 3d a sangre */
+.bleed{position:absolute;inset:0;overflow:hidden}
+.bleed video{width:1080px;height:1920px;object-fit:cover;display:block;animation:ken 9s ease-out forwards}
+@keyframes ken{from{transform:scale(1)}to{transform:scale(1.07)}}
+.bleed::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,6,7,.86) 0%,rgba(6,6,7,.12) 26%,rgba(6,6,7,.12) 58%,rgba(6,6,7,.92) 100%)}
+
+/* 3 · celular */
+.phonewrap{position:absolute;inset:0;display:grid;place-items:center}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.14),rgba(255,255,255,0) 62%);filter:blur(6px)}
+.phone{position:relative;width:486px;height:1000px;border-radius:62px;background:#151517;animation:flota 6s ease-in-out infinite alternate;
+  padding:12px;box-shadow:0 60px 140px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.16);
+  transform:translateY(-30px)}
+@keyframes flota{from{transform:translateY(-30px)}to{transform:translateY(-46px)}}
+.phone::before{content:"";position:absolute;left:50%;top:22px;transform:translateX(-50%);
+  width:118px;height:15px;border-radius:10px;background:#08080a;z-index:3}
+.phone::after{content:"";position:absolute;inset:12px;border-radius:50px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none;z-index:3}
+.phone .screen{width:100%;height:100%;border-radius:50px;overflow:hidden;background:#fff}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+
+/* textos sobre las escenas */
+.cap{position:absolute;left:0;right:0;bottom:190px;text-align:center;padding:0 80px;z-index:5}
+.cap p{margin:0;font:600 62px/1.1 var(--sans);letter-spacing:-.025em;color:var(--white);
+  text-shadow:0 8px 40px rgba(0,0,0,.8)}
+.cap small{display:block;margin-top:24px;font:600 24px/1.3 var(--sans);letter-spacing:.2em;
+  text-transform:uppercase;color:#9a9aa2}
+
+/* 4 · cierre */
+.end{text-align:center}
+.end h2{margin:0;font:700 84px/1 var(--sans);letter-spacing:-.03em;color:#fff}
+.end p{margin:34px 0 0;font:400 30px/1.5 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8b8b90}
+
+/* barra de progreso fina */
+.prog{position:absolute;left:0;bottom:0;height:4px;width:100%;background:#141416;z-index:9}
+.prog i{display:block;height:100%;width:0;background:#fff;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .scene,.mark{transition:none!important}
+}
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="mark" id="mark">Henris Gallery</div>
+
+  <!-- 1 -->
+  <section class="scene on" id="s1">
+    <div class="title">
+      <h1>Tu planilla,<br>ahora es una app.<span>Henris Gallery</span></h1>
+      <div class="rule"></div>
+      <p>Pedidos, obras, señas y saldo. Sin fórmulas.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="scene" id="s2">
+    <div class="bleed">
+      <video id="v3d" src="intro-3d.mp4" muted playsinline preload="auto"></video>
+    </div>
+    <div class="cap"><p id="cap2">Del Excel al pedido.</p><small>sin copiar y pegar</small></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="scene" id="s3">
+    <div class="phonewrap">
+      <div class="glow"></div>
+      <div class="phone">
+        <div class="screen"><video id="vapp" src="app-limpio.mp4" muted playsinline preload="auto"></video></div>
+      </div>
+    </div>
+    <div class="cap"><p id="cap3">Cargás el pedido</p><small id="sub3">cliente · fecha · entrega</small></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="scene" id="s4">
+    <div class="end">
+      <h2>Henris Gallery</h2>
+      <p>pedido · obra · seña · saldo</p>
+    </div>
+  </section>
+
+  <div class="prog"><i id="bar"></i></div>
+</main>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const escenas = ["s1","s2","s3","s4"].map(id => document.getElementById(id));
+  const marcas = { s2: 0, s3: 0, s4: 0 };
+  const v3d = $("#v3d"), vapp = $("#vapp");
+
+  function ver(i) {
+    escenas.forEach((e, k) => e.classList.toggle("on", k === i));
+    $("#mark").classList.toggle("on", i >= 1);
+  }
+
+  const captions = [
+    { t: 0.0,  main: "Cargás el pedido",      sub: "cliente · fecha · entrega" },
+    { t: 3.5,  main: "La obra ya está adentro", sub: "medida y precio" },
+    { t: 6.3,  main: "Registrás la seña",     sub: "lo que ya entró" },
+    { t: 8.5,  main: "El saldo sale solo",    sub: "sin restar a mano" }
+  ];
+  let iCap = -1;
+
+  const plan = [
+    [0,     () => { ver(0); }],
+    [2400,  () => { ver(1); v3d.currentTime = 0; v3d.play().catch(()=>{}); }],
+    [9000,  () => { ver(2); vapp.currentTime = 0; vapp.playbackRate = 1.25; vapp.play().catch(()=>{}); iCap = -1; }],
+    [19500, () => { ver(3); }]
+  ];
+
+  plan.forEach(([ms, fn]) => setTimeout(fn, ms));
+
+  // textos sincronizados con el video de la app
+  const t0 = performance.now();
+  const INICIO_APP = 9000, FIN = 22000;
+  function tick() {
+    const ahora = performance.now() - t0;
+    if (ahora >= INICIO_APP && ahora < INICIO_APP + 10400) {
+      const rel = (ahora - INICIO_APP) / 1000;
+      let idx = 0;
+      captions.forEach((c, k) => { if (rel >= c.t) idx = k; });
+      if (idx !== iCap) {
+        iCap = idx;
+        $("#cap3").textContent = captions[idx].main;
+        $("#sub3").textContent = captions[idx].sub;
+      }
+    }
+    $("#bar").style.width = Math.min(100, (ahora / FIN) * 100).toFixed(1) + "%";
+    if (ahora < FIN + 500) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // si la página se abre a mano, se puede reiniciar con la barra espaciadora
+  document.addEventListener("keydown", (e) => {
+    if (e.key === " ") { e.preventDefault(); location.reload(); }
+  });
+})();
+</script>
+</body>
+</html>

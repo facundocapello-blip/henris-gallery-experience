@@ -288,9 +288,10 @@ jobs:
           test -f staging/henris-ad-20261031/index.html
           test -f staging/henris-ad-20261031/henris-demo.mp4
           test -f staging/henris-ad-20261031/henris-demo-real.mp4
+          test -f staging/henris-ad-20261031/henris-presentacion.mp4
           test -f staging/demo-20261031/index.html
           mkdir -p _site/staging/henris-ad-20261031 _site/staging/demo-20261031
-          cp staging/henris-ad-20261031/index.html staging/henris-ad-20261031/henris-demo.mp4 staging/henris-ad-20261031/henris-demo-real.mp4 _site/staging/henris-ad-20261031/
+          cp staging/henris-ad-20261031/index.html staging/henris-ad-20261031/henris-demo.mp4 staging/henris-ad-20261031/henris-demo-real.mp4 staging/henris-ad-20261031/henris-presentacion.mp4 _site/staging/henris-ad-20261031/
           cp staging/demo-20261031/index.html _site/staging/demo-20261031/index.html
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
