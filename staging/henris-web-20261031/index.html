@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Henris Gallery · pedidos, obras y pagos en una sola app</title>
+<meta name="description" content="La planilla de siempre, ahora como app: cargás el pedido una vez y las obras, los pagos y el saldo se calculan solos.">
+<style>
+:root{--ink:#12140f;--gray:#5b5f56;--border:#e4e2da;--soft:#f7f6f1;--green:#3A5F48;--sand:#c8bda6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font:17px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+.narrow{max-width:64ch}
+a{color:var(--green)}
+h1,h2,h3{letter-spacing:-.02em;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,50px);margin-bottom:18px}
+h2{font-size:clamp(22px,3vw,30px);margin-bottom:12px}
+h3{font-size:17px;margin-bottom:4px}
+p{margin:0 0 14px;max-width:64ch}
+.sub{color:var(--gray);font-size:clamp(17px,2vw,20px);margin-bottom:26px}
+header{border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:5}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.brand{font-weight:700;letter-spacing:-.01em;font-size:16px}
+.brand span{color:var(--gray);font-weight:400}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;text-decoration:none;
+  padding:12px 20px;border-radius:8px;font-weight:600;font-size:16px;border:1px solid var(--green);line-height:1}
+.btn:hover{background:#2f4f3c}
+.btn.small{padding:9px 15px;font-size:15px}
+section{padding:52px 0;border-bottom:1px solid var(--border)}
+section:last-of-type{border-bottom:0}
+.hero{padding:56px 0 44px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.hint{margin-top:12px;font-size:14px;color:var(--gray);max-width:none}
+
+/* video */
+.shot{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:40px;align-items:center}
+.video{margin:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#000}
+.video video{display:block;width:100%;height:auto;max-height:560px;background:#000}
+.video figcaption{padding:10px 14px;font-size:13px;color:var(--gray);background:var(--soft)}
+
+/* pasos */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:26px;align-items:start}
+.step img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:10px;background:var(--soft)}
+.step b{display:block;font-size:11px;letter-spacing:.14em;color:var(--gray);margin:14px 0 4px}
+.step p{font-size:14.5px;margin:0;max-width:none;color:var(--gray)}
+
+.list{list-style:none;padding:0;margin:0;display:grid;gap:14px;max-width:64ch}
+.list li{padding-left:24px;position:relative}
+.list li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--sand)}
+.cta{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:34px 30px;text-align:center}
+.cta p{margin-left:auto;margin-right:auto}
+.cta .btn{margin-top:10px}
+footer{padding:26px 0 46px;color:var(--gray);font-size:13.5px}
+footer p{max-width:none}
+@media (max-width:820px){
+  body{font-size:16px}
+  section{padding:38px 0}
+  .hero{padding:38px 0 30px}
+  .shot{grid-template-columns:1fr;gap:24px;justify-items:center;text-align:left}
+  .shot .video{width:100%;max-width:300px}
+  .steps{grid-template-columns:1fr;gap:30px;max-width:320px;margin-left:auto;margin-right:auto}
+  .cta{padding:26px 20px}
+}
+@media (max-width:520px){.brand span{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="brand">Henris Gallery <span>· sistema de pedidos</span></div>
+    <a class="btn small" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener">Abrir la app</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Pedidos · obras · pagos</p>
+      <h1>La planilla de siempre,<br>pero ahora se ve como una app</h1>
+      <p class="sub narrow">Cargás el pedido una vez y las obras, los pagos y el saldo se acomodan solos. Sin copiar filas, sin fórmulas, sin dos versiones del mismo dato.</p>
+      <a class="btn" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener">Abrir la app →</a>
+      <p class="hint">Funciona en el celular y en la compu. Entrás con tu correo de Google.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap shot">
+      <figure class="video">
+        <video controls playsinline preload="metadata" poster="img/poster.png" aria-label="Demostración de la app: pedido, obra y pago">
+          <source src="../henris-ad-20261031/henris-demo-real.mp4" type="video/mp4">
+          Tu navegador no reproduce el video. <a href="../henris-ad-20261031/henris-demo-real.mp4">Descargalo acá</a>.
+        </video>
+        <figcaption>15 segundos de la app real.</figcaption>
+      </figure>
+      <div>
+        <h2>Mirá el recorrido completo</h2>
+        <p>Se carga el pedido, se le agrega la obra y se registra la seña. En el mismo lugar queda el total, lo pagado y lo que falta cobrar.</p>
+        <p>Es la app en el celular, con un pedido de ejemplo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Tres pantallas, todo el circuito</h2>
+      <p class="sub narrow">Siempre en el mismo orden. No hay planillas paralelas ni cuentas aparte.</p>
+      <div class="steps">
+        <div class="step">
+          <img src="img/paso-pedido.png" alt="Formulario de pedido: cliente, fecha, origen, moneda y entrega prevista" loading="lazy">
+          <b>01</b><h3>El pedido</h3>
+          <p>Cliente, fecha de entrega y moneda. Nada más.</p>
+        </div>
+        <div class="step">
+          <img src="img/paso-obra.png" alt="Detalle del pedido con total, pagado, pendiente y la obra cargada" loading="lazy">
+          <b>02</b><h3>La obra</h3>
+          <p>Cada cuadro con su medida, su precio y su tipo de trabajo, colgando del pedido.</p>
+        </div>
+        <div class="step">
+          <img src="img/paso-pago.png" alt="Formulario de pago: tipo, fecha, importe, moneda y medio de pago" loading="lazy">
+          <b>03</b><h3>El pago</h3>
+          <p>La seña y cada pago parcial quedan registrados con su medio de pago.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Qué cambia en el día a día</h2>
+      <ul class="list">
+        <li><b>Un dato, un lugar.</b> El pedido se carga una vez y las obras y los pagos cuelgan de él.</li>
+        <li><b>El saldo no se calcula a mano.</b> Total, pagado y pendiente salen del mismo registro.</li>
+        <li><b>Sigue siendo tu planilla de Google.</b> Los datos no se mudan: la app los lee y los escribe ahí.</li>
+        <li><b>Se usa desde el celular.</b> En el taller, en el local o en una entrega.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta">
+        <h2>Probalo con un pedido que ya tengas</h2>
+        <p class="narrow">Entrá con tu correo, buscá un cliente y mirá cómo se arma el pedido con sus obras y sus pagos.</p>
+        <a class="btn" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener">Abrir la app →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Demostración con datos de ejemplo. La app real requiere un correo autorizado.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -293,6 +293,17 @@ jobs:
           mkdir -p _site/staging/henris-ad-20261031 _site/staging/demo-20261031
           cp staging/henris-ad-20261031/index.html staging/henris-ad-20261031/henris-demo.mp4 staging/henris-ad-20261031/henris-demo-real.mp4 staging/henris-ad-20261031/henris-presentacion.mp4 _site/staging/henris-ad-20261031/
           cp staging/demo-20261031/index.html _site/staging/demo-20261031/index.html
+      # Página única: video inline + app real. No reemplaza nada publicado.
+      - name: Include single page with inline demo video
+        run: |
+          test -f staging/henris-web-20261031/index.html
+          test -f staging/henris-web-20261031/img/poster.png
+          test -f staging/henris-web-20261031/img/paso-pedido.png
+          test -f staging/henris-web-20261031/img/paso-obra.png
+          test -f staging/henris-web-20261031/img/paso-pago.png
+          mkdir -p _site/staging/henris-web-20261031/img
+          cp staging/henris-web-20261031/index.html _site/staging/henris-web-20261031/index.html
+          cp staging/henris-web-20261031/img/*.png _site/staging/henris-web-20261031/img/
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload site
