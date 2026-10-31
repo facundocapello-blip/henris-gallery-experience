@@ -1,5 +1,5 @@
 # Henris Gallery — estado
-Actualizado: 2026-10-31 06:10 (verificado con git, gh, curl, consola del navegador y editor de AppSheet)
+Actualizado: 2026-10-31 12:19 (hora de Buenos Aires; verificado con git, gh, curl, consola del navegador, Outlook y editor de AppSheet)
 
 ## Publicado
 - Página: https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-web-20261031/ — 200, 6.146 bytes, SHA-256 igual al local, consola sin errores, video de 15 s inline cargando (readyState 4). Presentación en negro: frase grande, celular con el video real adentro y el recorrido en 4 pasos (pedido → obra → pago → saldo) + CTA «Abrir la app».
@@ -9,7 +9,8 @@ Actualizado: 2026-10-31 06:10 (verificado con git, gh, curl, consola del navegad
 - 31/10 (guardado en el editor y verificado tras recargar): `Pagos.Facturado` y `Pagos.Conciliado_Contabilidad` tienen INITIAL VALUE `"NO"`, para que la planilla tenga SI/NO desde el alta.
 
 ## Abierto
-- Mandar la app al Duque: falta su mail para agregarlo en Share → *Use app* (sin eso no entra) y enviar el mail ya redactado.
+- Mandar la app al Duque: el mail **ya se envió** el 31/10 12:07 a `facundocapello@gmail.com` (verificado en Enviados de Outlook, asunto «Henris Gallery - pasos a seguir (31/10)», 1.949 caracteres). Falta lo único indispensable: su mail para agregarlo en Share → *Use app*, porque con el sign-in restringido hoy no entra.
+- Los pasos accionables están en `docs/PROXIMOS-PASOS.md` y el texto para el Duque en `docs/MAIL-DUQUE.md`; ambos copiados a Drive.
 - Datos de prueba del cliente «Casa Vidal» (1 pedido, 1 ítem, 1 pago; hoy Clientes 16, Pedidos 24, Pedido_Items 38, Pagos 39) sin borrar, por decisión de Facundo.
 - Marine sin usuario. Sin probar en Safari/iPhone real ni con VoiceOver.
 - La vista `PIloto_Historico` (sobre `STG_Pedidos_Piloto`) se miró pero no se contaron sus filas ni se validó el import completo.
