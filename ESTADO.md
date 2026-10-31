@@ -13,13 +13,15 @@ Actualizado: 2026-10-31 05:35 (verificado con git, gh, curl, DOM renderizado y c
 ## Abierto
 - Borrar los datos de prueba: cliente «Casa Vidal», 1 pedido, 1 ítem, 1 pago (hoy Clientes 16, Pedidos 24, Pedido_Items 38, Pagos 39; antes 15/23/37/38). El 30/10 Facundo decidió dejarlo como está por ahora; se hace a mano porque AppSheet no acepta clics simulados.
 - Marine sin usuario (el correo lo maneja Facundo). Sin verificar: Safari/iPhone real, VoiceOver y `prefers-reduced-motion` del sistema.
-- `Comentarios` del pedido no se guardó (revisar a mano); capturas de la guía sin tomar; archivar la copia `3300a579`.
+- `Comentarios` del pedido: **no era un error**. La columna existe (LongText), está en `Pedidos_Form`, es editable y sin fórmula; el QA del 30/10 dio vacío porque AppSheet ignora el tipeo simulado. Capturas de la guía sin tomar; archivar la copia `3300a579`.
 
 ## Trampas
 - Dos apps homónimas: la buena es `7f05d824`; `3300a579` (STAGINGE2E, 0 usuarios) tiene el alta de pedido rota.
 - Datos en dos archivos: Pedidos/Pagos/Clientes/Pedido_Items en «Base de Datos Marketing y Ventas»; Obras en «Base AppSheet».
 - Pages cachea y la cola de Actions se traba: verificar el contenido por SHA, no por «deploy success».
 - El «+» de Pedidos (resuelto 30/10 en def. `1.000410`): la barra inferior abría `Pedidos_Panel`, un dashboard, y los dashboards no muestran el botón de alta. Se intercambiaron posiciones: `Pedidos_Panel` quedó en el menú ☰ y la vista `Pedidos` (lista con Add) en la barra. Verificado en la app real de escritorio y en el preview móvil: el botón de abajo abre la lista y el «+» está.
+- 31/10 (guardado en el editor, verificado tras recargar): en `Pagos`, las columnas `Facturado` y `Conciliado_Contabilidad` (Enum, opcionales) quedaban siempre vacías. Se les puso INITIAL VALUE `"NO"` para que la planilla tenga SI/NO desde el alta. No se automatizó el «SI»: marcar como facturado o conciliado es un acto contable aparte.
+- Para editar desde OpenCode: la ventana de la app tiene que estar al frente (si no, ni tipear ni capturar). Los inputs de la grilla de columnas son `readOnly`; se editan abriendo el lápiz → panel y, para fórmulas, el asistente CodeMirror acepta texto con `document.execCommand('insertText')` sobre `.cm-content` (las comillas no entran por teclado).
 - El editor de AppSheet pide sesión de Google: el navegador de OpenCode arranca sin sesión, hay que loguearse en esa pestaña (la sesión de Chrome no sirve). Entrar a la app buena por `/template/AppDef?appName=HENRIS-982559713&appId=7f05d824-…`; la lista `home/apps` es virtualizada y los iconos no identifican la app.
 - AppSheet no acepta clics simulados (Guardar y fechas no responden a `dispatchEvent`): la app real se opera a mano.
 - La lista de Pedidos y el panel lateral muestran clientes reales: recortar todo video de la app.
