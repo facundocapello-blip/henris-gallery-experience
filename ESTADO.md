@@ -9,11 +9,12 @@ Actualizado: 2026-10-31 12:19 (hora de Buenos Aires; verificado con git, gh, cur
 - 31/10 (guardado en el editor y verificado tras recargar): `Pagos.Facturado` y `Pagos.Conciliado_Contabilidad` tienen INITIAL VALUE `"NO"`, para que la planilla tenga SI/NO desde el alta.
 
 ## Abierto
-- Mandar la app al Duque: el mail **ya se envió** el 31/10 12:07 a `facundocapello@gmail.com` (verificado en Enviados de Outlook, asunto «Henris Gallery - pasos a seguir (31/10)», 1.949 caracteres). Falta lo único indispensable: su mail para agregarlo en Share → *Use app*, porque con el sign-in restringido hoy no entra.
+- Mail con los pasos: enviado el 31/10 12:07 a `facundocapello@gmail.com` (verificado en Enviados de Outlook, asunto «Henris Gallery - pasos a seguir (31/10)», 1.949 caracteres).
 - Los pasos accionables están en `docs/PROXIMOS-PASOS.md` y el texto para el Duque en `docs/MAIL-DUQUE.md`; ambos copiados a Drive.
 - Datos de prueba del cliente «Casa Vidal» (1 pedido, 1 ítem, 1 pago; hoy Clientes 16, Pedidos 24, Pedido_Items 38, Pagos 39) sin borrar, por decisión de Facundo.
 - Marine sin usuario. Sin probar en Safari/iPhone real ni con VoiceOver.
 - La vista `PIloto_Historico` (sobre `STG_Pedidos_Piloto`) se miró pero no se contaron sus filas ni se validó el import completo.
+- Auditoría de aceptación 31/10 (`docs/AUDITORIA-MATIAS-20261031.md`): la app real no se pudo operar sin sesión de Google (302 al login). Tres bloqueos antes de entregar a un tercero: no hay campo Cantidad, no está probada una vista consolidada de deudores y la réplica del onboarding acepta sobrepagos (saldo negativo).
 
 ## Trampas
 - Dos apps homónimas: la buena es `7f05d824`; `3300a579` (STAGINGE2E, 0 usuarios) tiene rota el alta de pedido.

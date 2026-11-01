@@ -11,13 +11,12 @@ Actualizado: 2026-10-31. Estado de partida: `main` = `origin/main` en `f85a25a`,
 
 ## Pasos, en orden
 
-1. **Agregar al Duque.** En el editor de AppSheet → botón *share* → *Add users* → su mail de Google → rol **Use app** → *Done* → **SAVE**. La app tiene el sign-in restringido: sin este paso entra y le dice que no tiene acceso.
-2. **Mandarle el mail.** Texto ya redactado en esta carpeta (`MAIL-DUQUE.md`). Primero el link de la página (abre sin login), después el link de la app.
-3. **Probar en un iPhone real**, en Safari, y pasar VoiceOver. Nunca se hizo y es lo único que puede fallar en vivo.
-4. **Decidir si la página sale del círculo.** Si va a gente de afuera, tapar en el video el cliente «Casa Vidal» y el nombre del pago antes de compartirla.
-5. **Borrar los datos de prueba**: cliente «Casa Vidal», 1 pedido, 1 ítem y 1 pago (hoy Clientes 16, Pedidos 24, Pedido_Items 38, Pagos 39). A mano: AppSheet no acepta clics simulados.
-6. **Usuario de Marine** cuando esté su mail.
-7. **Revisar la vista «Histórico · revisión»** (`PIloto_Historico`, sobre `STG_Pedidos_Piloto`): contar filas y confirmar que el import del Excel está completo.
+1. **Mandarle el mail al Duque.** Texto en `docs/MAIL-DUQUE.md`. Primero el link de la página (abre sin login), después el link de la app.
+2. **Probar en un iPhone real**, en Safari, y pasar VoiceOver. Nunca se hizo y es lo único que puede fallar en vivo.
+3. **Decidir si la página sale del círculo.** Si va a gente de afuera, tapar en el video el cliente «Casa Vidal» y el nombre del pago antes de compartirla.
+4. **Borrar los datos de prueba**: cliente «Casa Vidal», 1 pedido, 1 ítem y 1 pago (hoy Clientes 16, Pedidos 24, Pedido_Items 38, Pagos 39). A mano: AppSheet no acepta clics simulados.
+5. **Usuario de Marine** cuando esté su mail.
+6. **Revisar la vista «Histórico · revisión»** (`PIloto_Historico`, sobre `STG_Pedidos_Piloto`): contar filas y confirmar que el import del Excel está completo.
 
 ## Lo que ya está cerrado
 
