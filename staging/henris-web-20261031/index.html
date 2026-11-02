@@ -27,7 +27,7 @@ a{color:inherit}
 .logo em{font-style:normal;font-weight:400}
 .bar span{font:700 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
 
-.reel{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:44px;align-items:center;width:100%}
+.reel{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:44px;align-items:center;width:100%}
 @media (max-width:760px),(max-height:520px) and (max-width:1024px){ .reel{grid-template-columns:1fr;gap:22px;justify-items:center} }
 
 .say{margin:0 0 18px;font-size:clamp(24px,3.4vw,34px);line-height:1.16;font-weight:600;letter-spacing:-.02em}
@@ -38,20 +38,37 @@ a{color:inherit}
   transition:border-color .16s ease,background .16s ease}
 .cta:hover{border-color:#9a9a9a;background:#1b1b1b}
 
-.flow{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:7px;max-width:40ch}
+.flow{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:7px;max-width:40ch}
 .flow li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:baseline;
-  font:400 13.5px/1.45 var(--sans);color:#b5b5b5}
-.flow b{font:700 9.5px/1.45 var(--sans);letter-spacing:.12em;color:var(--gray)}
+  font:400 13.5px/1.45 var(--sans);color:#b5b5b5;transition:color .2s ease,opacity .2s ease}
+.flow b{font:700 9.5px/1.45 var(--sans);letter-spacing:.12em;color:var(--gray);transition:color .2s ease}
 .flow em{font-style:normal;font-weight:600;color:#fff}
+/* mientras corre el video, el paso que se está viendo queda iluminado */
+.flow.vivo li{opacity:.4}
+.flow.vivo li.on{opacity:1;color:#fff}
+.flow.vivo li.on b{color:#fff}
 
 /* celular */
-.device{position:relative;width:300px;border-radius:34px;background:#1c1c1c;padding:9px;
+.device{position:relative;width:320px;border-radius:34px;background:#1c1c1c;padding:9px;
   box-shadow:0 26px 60px rgba(0,0,0,.6),inset 0 0 0 1px #333}
 .device::after{content:"";position:absolute;left:50%;top:14px;transform:translateX(-50%);
   width:56px;height:6px;border-radius:6px;background:rgba(0,0,0,.55);z-index:3;opacity:0}
 .screen{position:relative;border-radius:26px;overflow:hidden;background:#000;aspect-ratio:720/1480;
   display:block;width:100%;padding:0;border:0;cursor:pointer}
 .screen video{display:block;width:100%;height:100%;object-fit:cover;background:#000}
+
+/* portada: el video no arranca solo */
+.cover{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;
+  background:linear-gradient(180deg,rgba(17,17,17,.78),rgba(17,17,17,.9));transition:opacity .25s ease}
+.cover .play{width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.55);
+  display:grid;place-items:center;transition:border-color .16s ease,transform .16s ease}
+.cover .play::after{content:"";width:0;height:0;margin-left:5px;
+  border-left:17px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}
+.cover .txt{font:700 10.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#fff;
+  text-align:center;max-width:19ch}
+.device:hover .cover .play{border-color:#fff;transform:scale(1.06)}
+.device.seen .cover{opacity:0;visibility:hidden}
+.device:focus-visible .cover .play,.device:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 
 .foot{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;
   border-top:1px solid var(--line);padding-top:9px}
@@ -61,7 +78,7 @@ a{color:inherit}
 @media (max-width:760px),(max-height:520px) and (max-width:1024px){
   html,body{height:auto;display:block;overflow:visible}
   .stage{padding:16px 16px 22px;gap:14px;transform:none!important;max-width:none}
-  .device{width:min(76vw,290px)}
+  .device{width:min(84vw,320px)}
   .say{margin-bottom:12px}
   .reel{justify-items:start}
   .foot{flex-direction:column;gap:4px}
@@ -78,25 +95,29 @@ a{color:inherit}
   <div class="reel">
     <div>
       <h2 class="say">Cargás el pedido una vez.<small>obra, seña y saldo se acomodan solos</small></h2>
-      <p style="margin:0 0 18px;color:var(--gray);font-size:14.5px;max-width:34ch">
-        Es la app real, grabada en el celular. Siempre el mismo recorrido:
+      <p style="margin:0 0 14px;color:var(--gray);font-size:14.5px;max-width:38ch">
+        Son 15 segundos, sin audio. Tocá el celular para verlos y mirá cómo cambia el saldo:
       </p>
-      <ol class="flow">
-        <li><b aria-hidden="true">01</b><span><em>Pedido</em> — cliente, fecha y moneda</span></li>
-        <li><b aria-hidden="true">02</b><span><em>Obra</em> — medida, precio y tipo de trabajo</span></li>
-        <li><b aria-hidden="true">03</b><span><em>Pago</em> — la seña y cada parcial</span></li>
-        <li><b aria-hidden="true">04</b><span><em>Saldo</em> — total menos pagado, se calcula solo</span></li>
+      <ol class="flow" id="flow">
+        <li data-t="0"><b aria-hidden="true">01</b><span><em>Pedido</em> — cliente, fecha y moneda</span></li>
+        <li data-t="4.37"><b aria-hidden="true">02</b><span><em>Obra</em> — medida, precio y tipo de trabajo</span></li>
+        <li data-t="7.47"><b aria-hidden="true">03</b><span><em>Pago</em> — la seña y cada parcial</span></li>
+        <li data-t="10.53"><b aria-hidden="true">04</b><span><em>Saldo</em> — total menos pagado, se calcula solo</span></li>
       </ol>
       <a class="cta" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener"
          aria-label="Abrir la app (abre en una pestaña nueva)">Abrir la app <span aria-hidden="true">→</span></a>
     </div>
 
     <button class="device" id="phone" type="button" aria-pressed="false"
-            aria-label="Reproducir o pausar la demostración" aria-describedby="video-desc">
+            aria-label="Ver la demostración, 15 segundos" aria-describedby="video-desc">
       <span class="screen">
-        <video id="video" muted loop playsinline preload="auto" poster="img/poster.png">
+        <video id="video" muted loop playsinline preload="metadata" poster="img/poster.png">
           <source src="../henris-ad-20261031/henris-demo-real.mp4" type="video/mp4">
         </video>
+        <span class="cover" aria-hidden="true">
+          <span class="play"></span>
+          <span class="txt">Ver los<br>15 segundos</span>
+        </span>
       </span>
     </button>
     <p id="video-desc" class="sr">Demostración de la app: se carga el pedido, se agrega la obra y se registra la seña.</p>
@@ -114,20 +135,30 @@ a{color:inherit}
   "use strict";
   const video = document.getElementById("video");
   const btn = document.getElementById("phone");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (!reduce) {
-    const p = video.play();
-    if (p && p.catch) p.catch(() => { /* el navegador bloqueó el autoplay: se toca el celular */ });
-  }
+  const flow = document.getElementById("flow");
+  const pasos = Array.from(flow.querySelectorAll("li"));
 
   btn.addEventListener("click", () => {
+    btn.classList.add("seen");
     if (video.paused) video.play(); else video.pause();
   });
 
-  const sinc = () => btn.setAttribute("aria-pressed", String(!video.paused));
+  // el paso que se está viendo queda iluminado
+  function marcar() {
+    const t = video.currentTime;
+    let i = 0;
+    pasos.forEach((p, k) => { if (t >= Number(p.dataset.t)) i = k; });
+    pasos.forEach((p, k) => p.classList.toggle("on", k === i && t < 13));
+  }
+  function sinc() {
+    const sonando = !video.paused;
+    btn.setAttribute("aria-pressed", String(sonando));
+    flow.classList.toggle("vivo", sonando);
+    if (sonando) marcar(); else pasos.forEach((p) => p.classList.remove("on"));
+  }
   video.addEventListener("play", sinc);
   video.addEventListener("pause", sinc);
+  video.addEventListener("timeupdate", () => { if (!video.paused) marcar(); });
   video.addEventListener("error", () => {
     const fb = document.getElementById("video-fb");
     fb.hidden = false; fb.classList.remove("sr");
