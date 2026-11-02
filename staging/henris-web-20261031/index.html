@@ -8,11 +8,9 @@
 <style>
 :root{
   --black:#111;--white:#fff;--gray:#8c8c8c;--line:#2a2a2a;--green:#3A5F48;
-  --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--focus:#4c8dff;
+  --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--focus:#0b57d0;
 }
 *{box-sizing:border-box}
-.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-  clip-path:inset(50%);white-space:nowrap;border:0}
 html,body{height:100%}
 body{margin:0;font:16px/1.5 var(--sans);color:var(--white);background:var(--black);
   display:grid;place-items:center;overflow:hidden;-webkit-font-smoothing:antialiased}
@@ -23,7 +21,7 @@ a{color:inherit}
 
 .bar{width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:16px;
   border-bottom:1px solid var(--line);padding-bottom:10px}
-.logo{font:700 15px/1 var(--sans);letter-spacing:-.01em;margin:0}
+.logo{font:700 15px/1 var(--sans);letter-spacing:-.01em}
 .logo em{font-style:normal;font-weight:400}
 .bar span{font:700 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
 
@@ -31,22 +29,11 @@ a{color:inherit}
 @media (max-width:760px),(max-height:520px) and (max-width:1024px){ .reel{grid-template-columns:1fr;gap:22px;justify-items:center} }
 
 .say{margin:0 0 18px;font-size:clamp(24px,3.4vw,34px);line-height:1.16;font-weight:600;letter-spacing:-.02em}
-.say small{display:block;margin-top:14px;font:700 10.5px/1.35 var(--sans);letter-spacing:.14em;
-  text-transform:uppercase;color:var(--gray)}
+.say small{display:block;margin-top:14px;font:700 10.5px/1.35 var(--sans);letter-spacing:.14em; text-transform:uppercase;color:var(--gray)}
 .cta{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font:600 13px/1 var(--sans);
   letter-spacing:.06em;text-transform:uppercase;border:1px solid #6a6a6a;padding:16px 18px;border-radius:2px;
   transition:border-color .16s ease,background .16s ease}
 .cta:hover{border-color:#9a9a9a;background:#1b1b1b}
-
-.flow{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:7px;max-width:40ch}
-.flow li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:baseline;
-  font:400 13.5px/1.45 var(--sans);color:#b5b5b5;transition:color .2s ease,opacity .2s ease}
-.flow b{font:700 9.5px/1.45 var(--sans);letter-spacing:.12em;color:var(--gray);transition:color .2s ease}
-.flow em{font-style:normal;font-weight:600;color:#fff}
-/* mientras corre el video, el paso que se está viendo queda iluminado */
-.flow.vivo li{opacity:.4}
-.flow.vivo li.on{opacity:1;color:#fff}
-.flow.vivo li.on b{color:#fff}
 
 /* celular */
 .device{position:relative;width:320px;border-radius:34px;background:#1c1c1c;padding:9px;
@@ -70,19 +57,26 @@ a{color:inherit}
 .device.seen .cover{opacity:0;visibility:hidden}
 .device:focus-visible .cover .play,.device:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 
-.foot{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;
-  border-top:1px solid var(--line);padding-top:9px}
-.foot span{font:600 10px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+/* mientras corre el video, el paso que se está viendo queda iluminado */
+.flow{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:7px;max-width:40ch}
+.flow li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:baseline;
+  font:400 13.5px/1.45 var(--sans);color:#b5b5b5;transition:color .2s ease,opacity .2s ease}
+.flow b{font:700 9.5px/1.45 var(--sans);letter-spacing:.12em;color:var(--gray);transition:color .2s ease}
+.flow em{font-style:normal;font-weight:600;color:#fff}
+.flow.vivo li{opacity:.4}
+.flow.vivo li.on{opacity:1;color:#fff}
+.flow.vivo li.on b{color:#fff}
 
-/* apilado: vertical siempre, también con el teléfono de costado */
-@media (max-width:760px),(max-height:520px) and (max-width:1024px){
-  html,body{height:auto;display:block;overflow:visible}
-  .stage{padding:16px 16px 22px;gap:14px;transform:none!important;max-width:none}
-  .device{width:min(84vw,320px)}
-  .say{margin-bottom:12px}
-  .reel{justify-items:start}
-  .foot{flex-direction:column;gap:4px}
-}
+/* aviso en el CTA de que abre en pestaña nueva */
+.cta-newtab::after{content:" (abre en una pestaña nueva)";font:400 9px/1 var(--sans);letter-spacing:.1em;color:#fff;margin-left:4px}
+
+/* celular */
+@media (max-width:760px){ html,body{height:auto;display:block;overflow:visible} }
+@media (max-width:760px){ .stage{padding:16px 16px 22px;gap:14px;transform:none!important;max-width:none} }
+@media (max-width:760px){ .device{width:min(76vw,320px)} }
+@media (max-width:760px){ .say{margin-bottom:12px} }
+@media (max-width:760px){ .reel{justify-items:start} }
+@media (max-width:760px){ .foot{flex-direction:column;gap:4px} }
 </style>
 </head>
 <body>
@@ -94,7 +88,6 @@ a{color:inherit}
 
   <div class="reel">
     <div>
-      <h2 class="say">Cargás el pedido una vez.<small>obra, seña y saldo se acomodan solos</small></h2>
       <p style="margin:0 0 14px;color:var(--gray);font-size:14.5px;max-width:38ch">
         Son 15 segundos, sin audio. Tocá el celular para verlos y mirá cómo cambia el saldo:
       </p>
@@ -104,8 +97,7 @@ a{color:inherit}
         <li data-t="7.47"><b aria-hidden="true">03</b><span><em>Pago</em> — la seña y cada parcial</span></li>
         <li data-t="10.53"><b aria-hidden="true">04</b><span><em>Saldo</em> — total menos pagado, se calcula solo</span></li>
       </ol>
-      <a class="cta" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener"
-         aria-label="Abrir la app (abre en una pestaña nueva)">Abrir la app <span aria-hidden="true">→</span></a>
+      <a class="cta cta-newtab" href="https://www.appsheet.com/start/7f05d824-ccdc-4dc7-ad55-8a43f7739d0b" target="_blank" rel="noopener">Abrir la app →</a>
     </div>
 
     <button class="device" id="phone" type="button" aria-pressed="false"
@@ -120,8 +112,6 @@ a{color:inherit}
         </span>
       </span>
     </button>
-    <p id="video-desc" class="sr">Demostración de la app: se carga el pedido, se agrega la obra y se registra la seña.</p>
-    <p id="video-fb" class="sr" hidden>No se pudo cargar el video. El recorrido es pedido, obra, pago y saldo.</p>
   </div>
 
   <div class="foot">
@@ -137,48 +127,38 @@ a{color:inherit}
   const btn = document.getElementById("phone");
   const flow = document.getElementById("flow");
   const pasos = Array.from(flow.querySelectorAll("li"));
+  let iluminando = false;
 
   btn.addEventListener("click", () => {
     btn.classList.add("seen");
     if (video.paused) video.play(); else video.pause();
   });
 
-  // el paso que se está viendo queda iluminado
+  // el paso que se está viendo queda iluminado, solo DESPUÉS de 1s de video
   function marcar() {
+    if (iluminando) return;
+    if (video.currentTime < 0.5) return;
+    iluminando = true;
     const t = video.currentTime;
     let i = 0;
     pasos.forEach((p, k) => { if (t >= Number(p.dataset.t)) i = k; });
-    pasos.forEach((p, k) => p.classList.toggle("on", k === i && t < 13));
+    pasos.forEach((p) => p.classList.remove("on"));
+    if (i >= 0 && i < pasos.length) pasos[i].classList.add("on");
   }
   function sinc() {
     const sonando = !video.paused;
     btn.setAttribute("aria-pressed", String(sonando));
     flow.classList.toggle("vivo", sonando);
-    if (sonando) marcar(); else pasos.forEach((p) => p.classList.remove("on"));
+    if (sonando) {
+      setTimeout(() => { if (!iluminando) marcar(); }, 800);
+    } else {
+      pasos.forEach((p) => p.classList.remove("on"));
+    }
   }
   video.addEventListener("play", sinc);
   video.addEventListener("pause", sinc);
-  video.addEventListener("timeupdate", () => { if (!video.paused) marcar(); });
-  video.addEventListener("error", () => {
-    const fb = document.getElementById("video-fb");
-    fb.hidden = false; fb.classList.remove("sr");
-    btn.hidden = true;
-  });
-  sinc();
-
-  // encajar en pantallas bajas sin cortar
-  const stage = document.querySelector(".stage");
-  const apilado = matchMedia("(max-width:760px),(max-height:520px) and (max-width:1024px)");
-  function encajar() {
-    if (apilado.matches) { stage.style.transform = "none"; return; }
-    stage.style.transform = "none";
-    const alto = stage.getBoundingClientRect().height;
-    const k = Math.min(1, (window.innerHeight - 8) / alto);
-    stage.style.transform = k < 1 ? "scale(" + k.toFixed(3) + ")" : "none";
-  }
-  window.addEventListener("resize", encajar);
-  encajar();
-})();
+  video.addEventListener("timeupdate", () => { if (!video.paused && !iluminando) { const t=video.currentTime; if (t>=0.5) { iluminando=true; marcar(); } });
+});
 </script>
 </body>
 </html>
