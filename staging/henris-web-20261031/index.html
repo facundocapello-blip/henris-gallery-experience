@@ -127,38 +127,36 @@ a{color:inherit}
   const btn = document.getElementById("phone");
   const flow = document.getElementById("flow");
   const pasos = Array.from(flow.querySelectorAll("li"));
-  let iluminando = false;
 
   btn.addEventListener("click", () => {
     btn.classList.add("seen");
     if (video.paused) video.play(); else video.pause();
   });
 
-  // el paso que se está viendo queda iluminado, solo DESPUÉS de 1s de video
+  // el paso que se está viendo queda iluminado recién a partir de 1s de video,
+  // sincronizado con los cortes reales; desde los 13s (placa final) no se ilumina ninguno
   function marcar() {
-    if (iluminando) return;
-    if (video.currentTime < 0.5) return;
-    iluminando = true;
     const t = video.currentTime;
+    pasos.forEach((p) => p.classList.remove("on"));
+    if (t < 1 || t >= 13) return;
     let i = 0;
     pasos.forEach((p, k) => { if (t >= Number(p.dataset.t)) i = k; });
-    pasos.forEach((p) => p.classList.remove("on"));
-    if (i >= 0 && i < pasos.length) pasos[i].classList.add("on");
+    pasos[i].classList.add("on");
   }
   function sinc() {
     const sonando = !video.paused;
     btn.setAttribute("aria-pressed", String(sonando));
     flow.classList.toggle("vivo", sonando);
     if (sonando) {
-      setTimeout(() => { if (!iluminando) marcar(); }, 800);
+      marcar();
     } else {
       pasos.forEach((p) => p.classList.remove("on"));
     }
   }
   video.addEventListener("play", sinc);
   video.addEventListener("pause", sinc);
-  video.addEventListener("timeupdate", () => { if (!video.paused && !iluminando) { const t=video.currentTime; if (t>=0.5) { iluminando=true; marcar(); } });
-});
+  video.addEventListener("timeupdate", () => { if (!video.paused) marcar(); });
+})();
 </script>
 </body>
 </html>
