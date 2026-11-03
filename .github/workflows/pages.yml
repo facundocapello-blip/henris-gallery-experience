@@ -282,6 +282,8 @@ jobs:
           test -f staging/onboarding-20261031/chuleta.html
           mkdir -p _site/staging/onboarding-20261031
           cp staging/onboarding-20261031/index.html staging/onboarding-20261031/tour.css staging/onboarding-20261031/tour.js staging/onboarding-20261031/chuleta.html _site/staging/onboarding-20261031/
+          # La guía pasa a ser la entrada de /staging/. El resto de las rutas no se toca.
+          cp staging/onboarding-20261031/index.html staging/onboarding-20261031/tour.css staging/onboarding-20261031/tour.js staging/onboarding-20261031/chuleta.html _site/staging/
       # Corte de demo y guion: rutas propias, no reemplazan nada publicado.
       - name: Include demo cut and demo script in their own paths
         run: |
