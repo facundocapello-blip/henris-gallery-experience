@@ -1,5 +1,25 @@
 # Estado de Henris Gallery Experience
 
+## Presentación con capturas de celular · 2026-11-05
+
+- AppSheet `7f05d824`: nombres visibles de formularios configurados como «Nuevo pedido», «Agregar obra», «Registrar pago» y «Nuevo cliente», guardados en versión `1.000413` (anterior `1.000412`). Tras recargar, «Nuevo pedido» se observó en la app y «Nuevo cliente» en el editor; los otros dos no se probaron en la app.
+- Guía visual local: cuatro capturas recibidas, recortadas para quitar nombres y datos personales, dentro de un marco de celular. En la imagen de saldo los importes fueron reemplazados por cifras ficticias y la guía lo indica; en pago se ocultó una selección.
+- Verificación local: cuatro pasos cambian de imagen, recursos responden 200, consola sin errores en la página, iframe de 386 px sin desborde y ampliación abierta por JavaScript; `npm test` aprobó 4 pruebas. Playwright no está instalado; no se ejecutó la prueba e2e y no se verificaron capturas de pantalla del resultado ni Safari real.
+- No se publicó la guía. No se cambiaron datos ni cálculos de AppSheet; descripción de cotización y campos obligatorios siguen pendientes.
+
+## AppSheet: textos del sistema · 2026-11-05
+
+- En la app `7f05d824`, versión anterior `1.000411`, se tradujeron diez textos de sistema: Guardar, Cancelar, Ver, Agregar, Listo, Buscar, Nuevo, Editar, Eliminar y Sincronizar. Guardado como `1.000412`; los diez valores persistieron tras recargar el editor.
+- En la app, tras recargar, se observaron «Sincronizar» y «Agregar»; al abrir un formulario en blanco se observaron «Guardar» y «Cancelar». No se guardaron pedidos ni pagos.
+- Las capturas recibidas muestran títulos de formularios en inglés y etiquetas confusas; siguen pendientes. `Cotizacion_USD` tiene condiciones de mostrar y requerir cuando la moneda del pago difiere de la del pedido; no se cambiaron esas condiciones ni su descripción.
+- Las capturas incluyen datos personales y de clientes: no agregarlas al repositorio ni publicarlas sin anonimizar.
+
+## Guía visual: capturas más grandes · 2026-11-05
+
+- Cambio local en `staging/guia-visual-prueba-20261029/`: la captura única ocupa el ancho disponible y el texto inferior puede ajustarse; se conservan las capturas y su ampliación.
+- En Chromium local: captura de 394 px en ventana de 1000 px; en un iframe de 386 px, captura de 297 px, sin desbordamiento horizontal, ampliación y paso siguiente activados por JavaScript. No se probó Safari real ni interacción física.
+- `npm test`: 4 pruebas aprobadas. La nueva prueba `tests/guia-visual.spec.js` no se pudo ejecutar: Playwright no está instalado. No se publicó el cambio.
+
 ## Links de las guías repuntados a la app real · 2026-10-30
 
 - Revisión de la app en AppSheet (solo lectura) y hallazgo: hay dos apps «Henris Gallery». La que linkeaban todas las guías, `3300a579` (`HenrisGallery·STAGINGE2E`), tiene 0 usuarios y no deja cargar pedidos. La que se usa es `7f05d824` (`HENRIS`, definición `1.000409`), con `maticgpt@gmail.com` y `facu.capello@hotmail.com` adentro.

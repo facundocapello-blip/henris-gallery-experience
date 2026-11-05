@@ -10,9 +10,12 @@ Actualizado: 2026-11-03 (verificado con git, curl y Chrome/CDP)
 - App AppSheet `7f05d824` (`HENRIS-982559713`): sign-in con Google, 2 usuarios (facu edita, maticgpt usa); barra inferior arreglada el 30/10; `Pagos.Facturado` y `Pagos.Conciliado_Contabilidad` con INITIAL VALUE `"NO"` desde el 31/10.
 
 ## Abierto
+- AppSheet `7f05d824`: versión `1.000413`; botones principales y cuatro títulos de formularios traducidos, comprobados parcialmente. Pendiente revisar descripciones; ver `PROJECT_STATUS.md`.
+- Guía visual: capturas anonimizadas en marco de celular, solo local; pruebas de navegador Playwright pendientes porque no está instalado. Ver `PROJECT_STATUS.md`.
 - Sin probar en Safari/iPhone real ni con VoiceOver (la accesibilidad se midió con Chrome headless).
 - Marine sin usuario. Datos de prueba de «Casa Vidal» sin borrar (decisión de Facundo).
-- `PIloto_Historico` sin contar filas ni validar el import. Auditoría 31/10: falta campo Cantidad, no hay vista consolidada de deudores y el onboarding acepta sobrepagos.
+- Histórico: Facundo decidió dejarlo incompleto para la prueba con su amigo; no hace falta completar el import. Vista `PIloto_Historico`: 58 pedidos observados; 11 números identificables del Excel no aparecen en esa vista (no se determinó el motivo). No se modificaron datos.
+- Auditoría 31/10: falta campo Cantidad, no hay vista consolidada de deudores y el onboarding acepta sobrepagos.
 - Mail con pasos enviado el 31/10 12:07; texto en `docs/PROXIMOS-PASOS.md` y `docs/MAIL-DUQUE.md`.
 
 ## Trampas

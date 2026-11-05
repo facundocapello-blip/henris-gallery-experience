@@ -1,9 +1,9 @@
 'use strict';
 const steps = [
-  {title:'Crear un pedido', description:'En Henris APP, iniciá un pedido, completá los datos que te solicite y guardá.', result:'El pedido queda registrado para agregar sus trabajos.', note:'Referencia del 28/10/2026: el formulario mostraba moneda, cliente y fecha. La versión actual puede variar; si no encontrás cómo crear el pedido, consultá al administrador.', shots:[['assets/nuevo-pedido.webp','Formulario Nuevo pedido de AppSheet, captura del 28/10/2026']]},
-  {title:'Agregar una obra', description:'Dentro del pedido, agregá el trabajo y completá los datos disponibles, como tipo y medidas.', result:'La obra queda asociada al pedido.', note:'Las pantallas son referencias de momentos distintos; pueden verse diferentes en tu cuenta.', shots:[['assets/tipo-trabajo.webp','Selector de tipo de trabajo en AppSheet'],['assets/medidas.webp','Campos de ancho, alto y unidad en AppSheet']]},
-  {title:'Registrar un pago', description:'En el pedido, agregá el pago y revisá importe, medio y estado antes de guardar.', result:'El pago queda asociado al pedido. Sincronizá si la aplicación lo solicita.', note:'No marques como recibido un pago que todavía no cobraste.', shots:[['assets/pago.webp','Formulario de pago de referencia en AppSheet']]},
-  {title:'Consultar el saldo', description:'Volvé al pedido y revisá el total, lo pagado y el saldo pendiente.', result:'Podés ver cuánto falta cobrar después de sincronizar.', note:'Los importes de las capturas son de referencia y pueden pertenecer a pedidos distintos.', shots:[['assets/saldo.webp','Total, pagado y saldo en una pantalla de referencia de AppSheet']]}
+  {title:'Crear un pedido', description:'En Henris APP, iniciá un pedido, completá los datos que te solicite y guardá.', result:'El pedido queda registrado para agregar sus trabajos.', note:'Captura de referencia del 05/11/2026; la pantalla actual puede variar.', shots:[['assets/guia-cel-pedido.webp','Formulario de pedido, captura de referencia sin datos personales']]},
+  {title:'Agregar una obra', description:'Dentro del pedido, agregá el trabajo y completá los datos disponibles, como tipo y medidas.', result:'La obra queda asociada al pedido.', note:'Completá los campos que te pida la app. Una fila representa una obra.', shots:[['assets/guia-cel-obra.webp','Formulario de obra, captura de referencia sin datos personales']]},
+  {title:'Registrar un pago', description:'En el pedido, agregá el pago y revisá importe, medio y estado antes de guardar.', result:'El pago queda asociado al pedido. Sincronizá si la aplicación lo solicita.', note:'No marques como recibido un pago que todavía no cobraste.', shots:[['assets/guia-cel-pago.webp','Formulario de pago, captura de referencia con selección ocultada']]},
+  {title:'Consultar el saldo', description:'Volvé al pedido y revisá el total, lo pagado y el saldo pendiente.', result:'Podés ver cuánto falta cobrar después de sincronizar.', note:'Los importes de esta imagen fueron reemplazados por cifras de ejemplo.', shots:[['assets/guia-cel-saldo.webp','Total, pagado y saldo con cifras de ejemplo']]}
 ];
 const $ = id => document.getElementById(id);
 let current = 0;
@@ -25,13 +25,13 @@ function showStep(index) {
   $('shots').replaceChildren();
   step.shots.forEach(([src, alt]) => {
     const button = document.createElement('button');
-    button.type = 'button'; button.className = 'shot'; button.setAttribute('aria-label', `Ampliar captura: ${alt}`);
+    button.type = 'button'; button.className = 'shot phone-capture'; button.setAttribute('aria-label', `Ampliar captura: ${alt}`);
     const image = document.createElement('img'); image.src = src; image.alt = alt;
     const label = document.createElement('span'); label.className = 'shot-label'; label.setAttribute('aria-hidden', 'true');
-    label.textContent = src.includes('nuevo-pedido') ? 'Nuevo pedido · 28/10/2026' : src.includes('tipo-trabajo') ? 'Tipo de trabajo' : src.includes('medidas') ? 'Medidas' : src.includes('pago') ? 'Datos del pago' : 'Saldo pendiente';
+    label.textContent = ['Pedido', 'Obra', 'Pago', 'Saldo · cifras de ejemplo'][current];
     button.append(image, label); button.addEventListener('click', () => openImage(button, src, alt)); $('shots').append(button);
   });
-  $('visual-caption').textContent = step.shots.length ? 'Capturas de referencia · tocá para ampliar. Pueden ser de distintos pedidos.' : 'Guía de referencia · la operación real ocurre en AppSheet.';
+  $('visual-caption').textContent = step.shots.length ? 'Captura de referencia · tocá para ampliar.' : 'Guía de referencia · la operación real ocurre en AppSheet.';
   const panel = $('tutorial'); panel.classList.remove('animate-step'); void panel.offsetWidth; panel.classList.add('animate-step');
 }
 function openImage(button, src, alt) {
