@@ -1,11 +1,19 @@
 # Estado de Henris Gallery Experience
 
+## Capturas completas en la guía · 2026-11-06
+
+- Cambio local sin publicar: se reemplazó la referencia a las capturas recortadas por cuatro pantallas completas con íconos reales, títulos y botones editados al español. Se ocultan datos personales y detalles del pedido; saldo y cliente son ficticios. Las imágenes se identifican como editadas.
+- La captura del primer paso se revisó en Edge headless; en iframe de 386 px no hubo desborde y la ampliación abrió mediante clic programático. Las cuatro imágenes tienen proporción 738 × 1600 y carecen de EXIF. No se probó Safari real.
+- `npm test`: 4 pruebas aprobadas; Playwright no está instalado y la prueba e2e no se pudo ejecutar. El detector de diseño informó siete advertencias preexistentes; no se modificaron las secciones fuera de alcance.
+
 ## Presentación con capturas de celular · 2026-11-05
+
+- Publicada en https://facundocapello-blip.github.io/henris-gallery-experience/staging/guia-visual-prueba-20261029/ con commit `b01bf87`. HTML, JS, CSS y cuatro imágenes responden 200 y coinciden con el local (SHA-256, texto con saltos normalizados). En navegador, cuatro pasos y ampliación responden a clics programáticos; consola sin errores. Workflow `42124328212` seguía en curso al verificar.
 
 - AppSheet `7f05d824`: nombres visibles de formularios configurados como «Nuevo pedido», «Agregar obra», «Registrar pago» y «Nuevo cliente», guardados en versión `1.000413` (anterior `1.000412`). Tras recargar, «Nuevo pedido» se observó en la app y «Nuevo cliente» en el editor; los otros dos no se probaron en la app.
 - Guía visual local: cuatro capturas recibidas, recortadas para quitar nombres y datos personales, dentro de un marco de celular. En la imagen de saldo los importes fueron reemplazados por cifras ficticias y la guía lo indica; en pago se ocultó una selección.
 - Verificación local: cuatro pasos cambian de imagen, recursos responden 200, consola sin errores en la página, iframe de 386 px sin desborde y ampliación abierta por JavaScript; `npm test` aprobó 4 pruebas. Playwright no está instalado; no se ejecutó la prueba e2e y no se verificaron capturas de pantalla del resultado ni Safari real.
-- No se publicó la guía. No se cambiaron datos ni cálculos de AppSheet; descripción de cotización y campos obligatorios siguen pendientes.
+- Antes del push la guía era solo local. No se cambiaron datos ni cálculos de AppSheet; descripción de cotización y campos obligatorios siguen pendientes.
 
 ## AppSheet: textos del sistema · 2026-11-05
 

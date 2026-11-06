@@ -1,9 +1,9 @@
 'use strict';
 const steps = [
-  {title:'Crear un pedido', description:'En Henris APP, iniciá un pedido, completá los datos que te solicite y guardá.', result:'El pedido queda registrado para agregar sus trabajos.', note:'Captura de referencia del 05/11/2026; la pantalla actual puede variar.', shots:[['assets/guia-cel-pedido.webp','Formulario de pedido, captura de referencia sin datos personales']]},
-  {title:'Agregar una obra', description:'Dentro del pedido, agregá el trabajo y completá los datos disponibles, como tipo y medidas.', result:'La obra queda asociada al pedido.', note:'Completá los campos que te pida la app. Una fila representa una obra.', shots:[['assets/guia-cel-obra.webp','Formulario de obra, captura de referencia sin datos personales']]},
-  {title:'Registrar un pago', description:'En el pedido, agregá el pago y revisá importe, medio y estado antes de guardar.', result:'El pago queda asociado al pedido. Sincronizá si la aplicación lo solicita.', note:'No marques como recibido un pago que todavía no cobraste.', shots:[['assets/guia-cel-pago.webp','Formulario de pago, captura de referencia con selección ocultada']]},
-  {title:'Consultar el saldo', description:'Volvé al pedido y revisá el total, lo pagado y el saldo pendiente.', result:'Podés ver cuánto falta cobrar después de sincronizar.', note:'Los importes de esta imagen fueron reemplazados por cifras de ejemplo.', shots:[['assets/guia-cel-saldo.webp','Total, pagado y saldo con cifras de ejemplo']]}
+  {title:'Crear un pedido', description:'En Henris APP, iniciá un pedido, completá los datos que te solicite y guardá.', result:'El pedido queda registrado para agregar sus trabajos.', note:'Captura de referencia del 05/11/2026; la pantalla actual puede variar.', shots:[['assets/guia-completa-pedido.webp','Pantalla de pedido con los íconos de la app']]},
+  {title:'Agregar una obra', description:'Dentro del pedido, agregá el trabajo y completá los datos disponibles, como tipo y medidas.', result:'La obra queda asociada al pedido.', note:'Completá los campos que te pida la app. Una fila representa una obra.', shots:[['assets/guia-completa-obra.webp','Pantalla de obra con los íconos de la app']]},
+  {title:'Registrar un pago', description:'En el pedido, agregá el pago y revisá importe, medio y estado antes de guardar.', result:'El pago queda asociado al pedido. Sincronizá si la aplicación lo solicita.', note:'No marques como recibido un pago que todavía no cobraste.', shots:[['assets/guia-completa-pago.webp','Pantalla de pago con los íconos de la app']]},
+  {title:'Consultar el saldo', description:'Volvé al pedido y revisá el total, lo pagado y el saldo pendiente.', result:'Podés ver cuánto falta cobrar después de sincronizar.', note:'Los importes de esta imagen fueron reemplazados por cifras de ejemplo.', shots:[['assets/guia-completa-saldo.webp','Pantalla de saldo con navegación y cifras de ejemplo']]}
 ];
 const $ = id => document.getElementById(id);
 let current = 0;
@@ -31,7 +31,7 @@ function showStep(index) {
     label.textContent = ['Pedido', 'Obra', 'Pago', 'Saldo · cifras de ejemplo'][current];
     button.append(image, label); button.addEventListener('click', () => openImage(button, src, alt)); $('shots').append(button);
   });
-  $('visual-caption').textContent = step.shots.length ? 'Captura de referencia · tocá para ampliar.' : 'Guía de referencia · la operación real ocurre en AppSheet.';
+  $('visual-caption').textContent = step.shots.length ? 'Captura editada de referencia · tocá para ampliar.' : 'Guía de referencia · la operación real ocurre en AppSheet.';
   const panel = $('tutorial'); panel.classList.remove('animate-step'); void panel.offsetWidth; panel.classList.add('animate-step');
 }
 function openImage(button, src, alt) {

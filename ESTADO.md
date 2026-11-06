@@ -1,26 +1,24 @@
 # ESTADO — HENRIS GALLERY
 
-Actualizado: 2026-11-03 (verificado con git, curl y Chrome/CDP)
+Actualizado: 2026-11-06 (Git y comprobaciones locales).
 
 ## Publicado
-- Entrada: https://facundocapello-blip.github.io/henris-gallery-experience/staging/ — la **guía de uso** (200, 0 errores de consola). Botones: practicar con datos de ejemplo, abrir la app real, «Ver los 15 segundos», chuleta y mapeo. `main` = `origin/main` en `0ac315d`.
-- Demo del video: `…/staging/henris-web-20261031/` — 200, **7.880 bytes**, SHA-256 `c1e2063a…` igual al local, 0 errores. Ya no es la entrada: se llega desde la guía.
-- **Arreglado el 02/11**: el script era un IIFE `(() => { … })` **sin invocar** (`})` en vez de `})();`), más un `}` faltante en la línea 160. Por eso desde `7002664` no corría nada: play muerto y pasos sin iluminar. Ahora play arranca y los pasos se encienden a 1,2 s (Pedido), 5 s (Obra), 8 s (Pago), 11 s (Saldo) y **nada desde los 13 s** (placa final). Verificado en vivo.
-- Resto del sitio 200: `henris-ad-20261031`, `demo-20261031` (archivado), `onboarding-20261031`, `guia-visual-prueba-20261029`, `mapeo-v1`, `mapeo-campos-pedidos`.
-- App AppSheet `7f05d824` (`HENRIS-982559713`): sign-in con Google, 2 usuarios (facu edita, maticgpt usa); barra inferior arreglada el 30/10; `Pagos.Facturado` y `Pagos.Conciliado_Contabilidad` con INITIAL VALUE `"NO"` desde el 31/10.
+- [Guía visual](https://facundocapello-blip.github.io/henris-gallery-experience/staging/guia-visual-prueba-20261029/): versión visible «Henris Gallery · Guía visual», capturas anonimizadas en celular; `main` en `b01bf87`. HTTP 200, consola sin errores; archivos clave idénticos al repo. Workflow `42124328212`: success.
+- [Entrada](https://facundocapello-blip.github.io/henris-gallery-experience/staging/): «Henris Gallery · guía de uso», 200 y consola sin errores; enlaza práctica, app, video, chuleta y mapeo. La guía visual tiene URL propia.
+- AppSheet `7f05d824` (`HENRIS-982559713`), versión `1.000413`: botones y cuatro títulos traducidos, verificados parcialmente; acceso Google, dos usuarios según registro previo. `Facturado` y `Conciliado_Contabilidad` tienen inicial `NO` según revisión 31/10.
+- Demo video `staging/henris-web-20261031/` y demás rutas registradas en `PROJECT_STATUS.md`; video y pasos se verificaron el 02/11. Mail al Duque enviado el 31/10; textos en `docs/PROXIMOS-PASOS.md` y `docs/MAIL-DUQUE.md`.
 
 ## Abierto
-- AppSheet `7f05d824`: versión `1.000413`; botones principales y cuatro títulos de formularios traducidos, comprobados parcialmente. Pendiente revisar descripciones; ver `PROJECT_STATUS.md`.
-- Guía visual: capturas anonimizadas en marco de celular, solo local; pruebas de navegador Playwright pendientes porque no está instalado. Ver `PROJECT_STATUS.md`.
-- Sin probar en Safari/iPhone real ni con VoiceOver (la accesibilidad se midió con Chrome headless).
-- Marine sin usuario. Datos de prueba de «Casa Vidal» sin borrar (decisión de Facundo).
-- Histórico: Facundo decidió dejarlo incompleto para la prueba con su amigo; no hace falta completar el import. Vista `PIloto_Historico`: 58 pedidos observados; 11 números identificables del Excel no aparecen en esa vista (no se determinó el motivo). No se modificaron datos.
-- Auditoría 31/10: falta campo Cantidad, no hay vista consolidada de deudores y el onboarding acepta sobrepagos.
-- Mail con pasos enviado el 31/10 12:07; texto en `docs/PROXIMOS-PASOS.md` y `docs/MAIL-DUQUE.md`.
+- Pedir a su amigo que pruebe la guía visual y la app; necesita cuenta Google autorizada. Revisar títulos restantes y descripción de cotización sin alterar cálculos.
+- Probar Safari/iPhone real y VoiceOver; Playwright local no está instalado. La guía publicada se probó con clics programáticos, no con un iPhone físico.
+- Marine sin usuario; datos de prueba de «Casa Vidal» se conservan por decisión de Facundo.
+- Histórico parcial aceptado para la prueba: 58 pedidos en la vista; 11 números del Excel no aparecían, causa no investigada. No completar ni borrar por ahora.
+- Auditoría 31/10: falta cantidad, vista consolidada de deudores y el onboarding acepta sobrepagos. Revisar antes de uso operativo.
+- Cambio local sin publicar: capturas completas con íconos en la guía, editadas para privacidad; probar Playwright cuando esté disponible y pedir autorización antes del push. Ver `PROJECT_STATUS.md`.
+- `ESTADO.md`, `PROJECT_STATUS.md`, la guía, la prueba y cuatro imágenes tienen cambios locales sin commit; no se hizo push de esta iteración.
 
 ## Trampas
-- Dos apps homónimas: la buena es `7f05d824`; `3300a579` tiene rota el alta de pedido.
-- Pages cachea: verificar por SHA-256 del HTML, nunca por «deploy success».
-- Un `<script>` roto deja la página sin interacción y **el HTTP sigue en 200**, sin error visible salvo en consola. Un `})` en vez de `})();` no lanza excepción: define una función y no la ejecuta.
-- AppSheet ignora clics y tipeo simulados: el QA de `Comentarios` fue falso positivo.
-- La lista de Pedidos y el video muestran clientes reales: recortar antes de publicar afuera.
+- Dos apps homónimas: usar `7f05d824`; `3300a579` tiene rota el alta de pedido.
+- Pages cachea: contrastar SHA-256; HTTP 200 no garantiza interacción. El video tuvo un IIFE sin invocar y una llave faltante; se corrigió el 02/11.
+- AppSheet puede ignorar clics y tipeo simulados: el QA anterior de `Comentarios` fue falso positivo.
+- La lista de pedidos, el video y algunas capturas originales muestran datos reales o personales; no publicar sin anonimizar. La guía nueva usa capturas recortadas y saldo ficticio.

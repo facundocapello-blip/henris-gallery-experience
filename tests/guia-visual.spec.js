@@ -31,5 +31,10 @@ test('cada paso muestra una captura dentro de un celular', async ({ page }) => {
     const frame = page.locator('#shots .phone-capture');
     await expect(frame).toHaveCount(1);
     await expect(frame.locator('img')).toBeVisible();
+    const screenshotRatio = await frame.locator('img').evaluate(async image => {
+      await image.decode();
+      return image.naturalHeight / image.naturalWidth;
+    });
+    expect(screenshotRatio).toBeGreaterThan(2);
   }
 });
