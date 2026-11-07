@@ -1,8 +1,16 @@
 # Estado de Henris Gallery Experience
 
+## Propuesta Gemini revisada · 2026-11-06
+
+- ZIP recibido, revisado y conservado; versión corregida aislada en `preview/henris-propuesta-gemini-20261106/index.html`, sin modificar la guía publicada ni AppSheet.
+- Cambios: acceso a app `7f05d824` habilitado, capturas más grandes, nota duplicada quitada y desborde a 320 px corregido. Las cuatro imágenes embebidas coinciden con las capturas anonimizadas existentes.
+- Verificado en Chromium mediante clics programáticos: acceso dirige a la URL correcta sin abrirla durante la prueba, ampliación abre/cierra, 320/390/768/1280 px simulados sin desborde; consola sin errores. JS sintácticamente válido y `npm test` 4/4. Playwright no instalado; sin Safari/iPhone real ni VoiceOver.
+- Solo local, sin commit ni publicación. Se agregó `tests/propuesta-gemini.spec.js`, que no pudo ejecutarse por falta de Playwright. Referencia de diseño: `awesome-design-md/references/design-md/apple/DESIGN.md`, adaptando jerarquía y espacio, sin copiar marca.
+
 ## Capturas completas en la guía · 2026-11-06
 
-- Cambio local sin publicar: se reemplazó la referencia a las capturas recortadas por cuatro pantallas completas con íconos reales, títulos y botones editados al español. Se ocultan datos personales y detalles del pedido; saldo y cliente son ficticios. Las imágenes se identifican como editadas.
+- Publicada con commit `5be2d2e`: cuatro pantallas completas con íconos reales, títulos y botones editados al español. Se ocultan datos personales y detalles del pedido; saldo y cliente son ficticios. Las imágenes se identifican como editadas.
+- Verificado en vivo: HTML, JS, CSS y cuatro imágenes 200 e idénticos al repo, cuatro pasos y ampliación con clics programáticos, consola sin errores; workflow `42276941215` success. Rollback al commit `b01bf87`.
 - La captura del primer paso se revisó en Edge headless; en iframe de 386 px no hubo desborde y la ampliación abrió mediante clic programático. Las cuatro imágenes tienen proporción 738 × 1600 y carecen de EXIF. No se probó Safari real.
 - `npm test`: 4 pruebas aprobadas; Playwright no está instalado y la prueba e2e no se pudo ejecutar. El detector de diseño informó siete advertencias preexistentes; no se modificaron las secciones fuera de alcance.
 
