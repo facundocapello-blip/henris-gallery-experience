@@ -3,6 +3,7 @@
 Actualizado: 2026-11-09 (candidata narrativa revisada, pendiente de publicar).
 
 ## Publicado
+- [Presentación narrativa](https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-narrativa-20261109/): `106b9b1`, HTTP 200, HTML idéntico al repo (SHA-256 `e73520e5…`), cinco escenas y ficha $100/$40/$60 verificadas en navegador, consola sin errores; workflow `42575466605` exitoso. La guía de cuatro pasos y la propuesta del 6/11 siguen respondiendo 200.
 - [Propuesta Gemini con prueba de 5 minutos](https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-propuesta-gemini-20261106/): `6b785b5`, HTTP 200, HTML igual al repo, bloque y botón presentes en navegador, consola sin errores; workflow `42375113646` exitoso. Rollback: `03d8dfc`.
 - [Guía visual](https://facundocapello-blip.github.io/henris-gallery-experience/staging/guia-visual-prueba-20261029/): «Henris Gallery · Guía visual», capturas editadas con íconos; `main` en `03d8dfc`. HTTP 200, consola sin errores y HTML idéntico al repo. Workflow `42324890542`: success.
 - [Entrada](https://facundocapello-blip.github.io/henris-gallery-experience/staging/): «Henris Gallery · guía de uso», 200 y consola sin errores; enlaza práctica, app, video, chuleta y mapeo. La guía visual tiene URL propia.
@@ -17,8 +18,8 @@ Actualizado: 2026-11-09 (candidata narrativa revisada, pendiente de publicar).
 - Histórico parcial aceptado para la prueba: 58 pedidos en la vista; 11 números del Excel no aparecían, causa no investigada. No completar ni borrar por ahora.
 - Auditoría 31/10: falta cantidad, vista consolidada de deudores y el onboarding acepta sobrepagos. Revisar antes de uso operativo.
 - Comparar la propuesta Gemini con la guía anterior; Playwright local no está instalado.
-- Candidata narrativa del 9/11 en `preview/henris-narrativa-20261109/`: HTML único de 273.658 bytes, cinco momentos y ficha acumulativa $100/$40/$60, enlace a `7f05d824`, sin errores de consola. Falta autorización para publicar en `/staging/henris-narrativa-20261109/`; la guía de cuatro pasos y la propuesta del 6/11 no se tocan.
-- `ESTADO.md` y `PROJECT_STATUS.md` tienen actualización local sin commit; código y prueba de la propuesta están subidos. La narrativa tampoco está commiteada.
+- Candidata narrativa del 9/11 publicada en `/staging/henris-narrativa-20261109/`: HTML único de 273.658 bytes, cinco momentos y ficha acumulativa $100/$40/$60, enlace a `7f05d824`, sin errores de consola. Queda pendiente la devolución del amigo; Safari/iPhone real y lector de pantalla sin probar.
+- `ESTADO.md` y `PROJECT_STATUS.md` se actualizan con cada iteración; el código de la propuesta y de la narrativa está subido.
 
 ## Trampas
 - Dos apps homónimas: usar `7f05d824`; `3300a579` tiene rota el alta de pedido.

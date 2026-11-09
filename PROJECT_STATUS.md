@@ -122,5 +122,6 @@ Actualizado: 2026-10-15. Registro inicial, no auditoría funcional completa.
 - Recorrido verificado en Chromium: cinco escenas, la ficha acumula total $100, pago $40 y saldo $60; flechas ← y →; consola sin errores. A 386 px no hay desborde horizontal; la línea de tiempo se desplaza dentro de su contenedor.
 - Accesibilidad declarada y comprobada en el documento: skip link, `:focus-visible` con contorno de 2.5 px, `prefers-reduced-motion` y botón manual para desactivar animaciones. Queda pendiente lector de pantalla y Safari/iPhone real.
 - Único cambio sobre la entrega original: token de texto atenuado `#787067` → `#6F675E` (daba 4.06:1 sobre `#EFEAE1`) y placeholder sin opacidad. No se tocó copy ni comportamiento.
-- Prueba `node --test tests/narrativa-20261109.test.js`: 1/1. Paso de workflow agregado, aún sin ejecutar.
-- Sin publicar: falta autorización. Rollback previsto: borrar carpeta y paso de workflow.
+- Prueba `node --test tests/narrativa-20261109.test.js`: 1/1. Paso de workflow agregado y ejecutado en `42575466605`.
+- Publicada en `106b9b1`: HTTP 200, HTML idéntico al repo (SHA-256 `e73520e5d65e6cb44fd9eb259f0371f231d167a25cd317158d5960f46c968d0a`), clic en «Sumar el enmarcado» lleva a la escena 2 con la ficha en $100, enlace a la app correcto y consola sin errores. Guía del 29/10, propuesta del 6/11 y entrada de `/staging/` siguen en 200.
+- Rollback: borrar carpeta y paso de workflow.
