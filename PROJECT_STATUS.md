@@ -2,10 +2,11 @@
 
 ## Propuesta Gemini revisada · 2026-11-06
 
+- Publicada por separado en https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-propuesta-gemini-20261106/ con commit `03d8dfc`. La propuesta y la guía anterior responden HTTP 200, tienen HTML idéntico al repo y consola sin errores. Botón a la app comprobado con clic programático; workflow `42324890542` success.
 - ZIP recibido, revisado y conservado; versión corregida aislada en `preview/henris-propuesta-gemini-20261106/index.html`, sin modificar la guía publicada ni AppSheet.
 - Cambios: acceso a app `7f05d824` habilitado, capturas más grandes, nota duplicada quitada y desborde a 320 px corregido. Las cuatro imágenes embebidas coinciden con las capturas anonimizadas existentes.
 - Verificado en Chromium mediante clics programáticos: acceso dirige a la URL correcta sin abrirla durante la prueba, ampliación abre/cierra, 320/390/768/1280 px simulados sin desborde; consola sin errores. JS sintácticamente válido y `npm test` 4/4. Playwright no instalado; sin Safari/iPhone real ni VoiceOver.
-- Solo local, sin commit ni publicación. Se agregó `tests/propuesta-gemini.spec.js`, que no pudo ejecutarse por falta de Playwright. Referencia de diseño: `awesome-design-md/references/design-md/apple/DESIGN.md`, adaptando jerarquía y espacio, sin copiar marca.
+- Antes del push fue solo local. Se agregó `tests/propuesta-gemini.spec.js`, que no pudo ejecutarse por falta de Playwright. Referencia de diseño: `awesome-design-md/references/design-md/apple/DESIGN.md`, adaptando jerarquía y espacio, sin copiar marca.
 
 ## Capturas completas en la guía · 2026-11-06
 
@@ -108,3 +109,18 @@ Actualizado: 2026-10-15. Registro inicial, no auditoría funcional completa.
 - Propuesta implementada en `preview/muestra-mapeo-v3/index.html`, destino público previsto `/muestra-mapeo-v3/`.
 - No toca producción, STAGING, Google Sheets, ni demo principal; las rutas anteriores permanecen disponibles.
 - Incorporado chequeo de navegador automatizado post-deploy. Los resultados reales dependen del run de Actions; Safari iPhone físico pendiente.
+# Prueba breve — 2026-11-07
+
+- Se agregó una consigna de pedido de prueba → obra → pago → saldo y devolución a Facundo, con aviso de datos reales y las advertencias existentes. No se modificó AppSheet.
+- Publicada en `6b785b5`: workflow `42375113646` exitoso; HTTP 200, HTML idéntico al repo, bloque y botón visibles en navegador y consola sin errores. La guía anterior responde HTTP 200. Rollback de la propuesta: `03d8dfc`.
+- Prueba local de contenido `node --test tests/prueba-cinco-minutos.test.js`: 1/1; `npm test`: 4/4. Pendiente revisión móvil real.
+
+# Presentación narrativa — 2026-11-09
+
+- Origen: `henris-gallery-narrative-presentation.zip` (React 19 + Vite 7 + Tailwind 4, `vite-plugin-singlefile`). Se compiló fuera del repo con Node 24 y se guardó solo el `index.html` resultante en `preview/henris-narrativa-20261109/`.
+- Build: un único archivo de 273.658 bytes, sin `<script src>` ni hojas externas; la única URL externa es la app `7f05d824`. La app homónima `3300a579` no aparece.
+- Recorrido verificado en Chromium: cinco escenas, la ficha acumula total $100, pago $40 y saldo $60; flechas ← y →; consola sin errores. A 386 px no hay desborde horizontal; la línea de tiempo se desplaza dentro de su contenedor.
+- Accesibilidad declarada y comprobada en el documento: skip link, `:focus-visible` con contorno de 2.5 px, `prefers-reduced-motion` y botón manual para desactivar animaciones. Queda pendiente lector de pantalla y Safari/iPhone real.
+- Único cambio sobre la entrega original: token de texto atenuado `#787067` → `#6F675E` (daba 4.06:1 sobre `#EFEAE1`) y placeholder sin opacidad. No se tocó copy ni comportamiento.
+- Prueba `node --test tests/narrativa-20261109.test.js`: 1/1. Paso de workflow agregado, aún sin ejecutar.
+- Sin publicar: falta autorización. Rollback previsto: borrar carpeta y paso de workflow.

@@ -273,6 +273,14 @@ jobs:
           test -f preview/henris-propuesta-gemini-20261106/index.html
           mkdir -p _site/staging/henris-propuesta-gemini-20261106
           cp preview/henris-propuesta-gemini-20261106/index.html _site/staging/henris-propuesta-gemini-20261106/index.html
+      # Narrativa 9/11: ruta propia; la guía de cuatro pasos sigue en pie como rollback.
+      - name: Include narrative presentation in its own path
+        run: |
+          test -f preview/henris-narrativa-20261109/index.html
+          node --test tests/narrativa-20261109.test.js
+          mkdir -p _site/staging/henris-narrativa-20261109
+          cp preview/henris-narrativa-20261109/index.html _site/staging/henris-narrativa-20261109/index.html
+          cp preview/henris-narrativa-20261109/README.md _site/staging/henris-narrativa-20261109/README.md
       # Candidata editorial: ruta propia, no reemplaza nada publicado.
       - name: Include editorial guide candidate in its own path
         run: |
