@@ -1,6 +1,6 @@
 # ESTADO — HENRIS GALLERY
 
-Actualizado: 2026-11-09 (candidata narrativa revisada, pendiente de publicar).
+Actualizado: 2026-11-12 (candidata narrativa revisada del 9/11; cambios del 12/11 fuera del repo, ver «Abierto»).
 
 ## Publicado
 - [Presentación narrativa](https://facundocapello-blip.github.io/henris-gallery-experience/staging/henris-narrativa-20261109/): `106b9b1`, HTTP 200, HTML idéntico al repo (SHA-256 `e73520e5…`), cinco escenas y ficha $100/$40/$60 verificadas en navegador, consola sin errores; workflow `42575466605` exitoso. La guía de cuatro pasos y la propuesta del 6/11 siguen respondiendo 200.
@@ -20,6 +20,7 @@ Actualizado: 2026-11-09 (candidata narrativa revisada, pendiente de publicar).
 - Comparar la propuesta Gemini con la guía anterior; Playwright local no está instalado.
 - Candidata narrativa del 9/11 publicada en `/staging/henris-narrativa-20261109/`: HTML único de 273.658 bytes, cinco momentos y ficha acumulativa $100/$40/$60, enlace a `7f05d824`, sin errores de consola. Queda pendiente la devolución del amigo; Safari/iPhone real y lector de pantalla sin probar.
 - `ESTADO.md` y `PROJECT_STATUS.md` se actualizan con cada iteración; el código de la propuesta y de la narrativa está subido.
+- 12/11, fuera del repo: AppSheet `7f05d824` con títulos de formulario «Pedido», «Obra» y «Pago», y bloque «Informe de ejemplo» (solo textos, sin cálculos; verificado tras recargar). Presentación «Tu semana con Henris» v8.1 publicada como artifact de Claude. Especificación del resumen semanal de Análisis en el proyecto de Claude, pendiente de confirmar. Dos cambios sin commitear en la PC: sin verificar desde esta sesión.
 
 ## Trampas
 - Dos apps homónimas: usar `7f05d824`; `3300a579` tiene rota el alta de pedido.
